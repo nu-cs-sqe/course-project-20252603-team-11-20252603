@@ -1,0 +1,1 @@
+This folder should include the system design. It can be in the form of design diagrams or a textual description of what classes the system shall have and their relationships.

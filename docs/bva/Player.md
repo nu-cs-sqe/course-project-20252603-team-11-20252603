@@ -1,6 +1,6 @@
 # Player - BVA Analysis 
 
 ### Method under test: `Player(String name)`
-- **TC1: null name** ( :x: or :white_check_mark: )
+- **TC1: null name** ( :x: )
     - **State of the system**: No player created yet
     - **Expected output**: IllegalArgumentException thrown

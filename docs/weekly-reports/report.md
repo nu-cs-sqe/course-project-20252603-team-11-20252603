@@ -1,7 +1,6 @@
 # Week 3 (04/13/2026-04/19/2026)
 **Planning and Progress Tracking**:
 1. [done] Jefferson Wu: Step up repo (No PR)
-2. [90% done] Brock Brown: Complete `game-rules.md` (https://github.com/nu-cs-sqe/cs380-sqe-20252603-course-project-20252603-course-project/pull/38)
 
 # Week 4 (04/20/2026-04/26/2026)
 **Planning and Progress Tracking**:

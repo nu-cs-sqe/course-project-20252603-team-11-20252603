@@ -20,6 +20,7 @@ public class Territory {
         if (amount >= this.troopCount) {
             throw new IllegalArgumentException("Territories must have at least 1 troop");
         }
+        this.troopCount -= amount;
     }
 
     public int getTroopCount() {

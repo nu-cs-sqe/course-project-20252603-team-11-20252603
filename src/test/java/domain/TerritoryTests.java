@@ -79,4 +79,15 @@ public class TerritoryTests {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    public void removeTroops_FiveTroops_removeFourTroops_success() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory(p1, 5);
+
+        int input = 4;
+        t1.removeTroops(input);
+
+        assertEquals(1, t1.getTroopCount());
+    }
+
 }

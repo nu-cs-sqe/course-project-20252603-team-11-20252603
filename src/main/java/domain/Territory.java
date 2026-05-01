@@ -17,7 +17,7 @@ public class Territory {
     }
 
     public void removeTroops(int amount) {
-        if (amount == this.troopCount) {
+        if (amount >= this.troopCount) {
             throw new IllegalArgumentException("Territories must have at least 1 troop");
         }
     }

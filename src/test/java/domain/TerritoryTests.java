@@ -64,5 +64,19 @@ public class TerritoryTests {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    public void removeTroops_oneTroop_removeTwoTroop_fail() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory(p1, 1);
+
+        int input = 2;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            t1.removeTroops(input);
+        });
+
+        String expectedMessage = "Territories must have at least 1 troop";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
 
 }

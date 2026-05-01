@@ -104,5 +104,17 @@ public class TerritoryTests {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    public void conquer_P2ConquersP1_movesOneTroops_success() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory(p1, 5);
+
+        t1.conquer(p2, 1);
+
+        int expectedTroops = 1;
+        assertEquals(p2, t1.getOwner());
+        assertEquals(expectedTroops, t1.getTroopCount());
+    }
 
 }

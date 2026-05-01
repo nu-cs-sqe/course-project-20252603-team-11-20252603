@@ -39,6 +39,8 @@ public class Territory {
         if (troopsMovedIn == 0) {
             throw new IllegalArgumentException("Conquered Territories must have at least 1 troop");
         }
+        this.owner = newOwner;
+        this.troopCount = troopsMovedIn;
     }
 
 }

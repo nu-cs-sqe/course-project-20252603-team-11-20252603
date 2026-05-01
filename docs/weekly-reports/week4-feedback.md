@@ -35,7 +35,7 @@ Status:
 ### Planning & Progress Evaluation
 | # | Item                                                                                                                                                         |  Status   | Reviewer Notes      | Source Instructions or Resources                                                  |
 |---|--------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------:|---------------------|-----------------------------------------------------------------------------------|
-| 7 | The team documents every week’s planning and progress evaluation professionally. (needed for Letter Grade B)                                                 |   ✅        |   Love the detailed planning and management going on. You all should be proud of yourselves!                  | Week 4 Wednesday Lecture (Lecture 08), Project grading rubrics                    |
+| 7 | The team documents every week’s planning and progress evaluation professionally. (needed for Letter Grade B)                                                 |   ⚠️        |   Love the detailed planning and management going on. You all should be proud of yourselves! Only thing that I have to suggets is that I'm missing Task 4 from Week 4 Guidance                  | Week 4 Wednesday Lecture (Lecture 08), Project grading rubrics                    |
 
 ### Progress & Collaboration
 Well done! Keep up the good work

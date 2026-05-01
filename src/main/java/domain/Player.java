@@ -25,4 +25,8 @@ public class Player {
     public List<IRiskCard> getCards() { return Collections.unmodifiableList(cards); }
     public int getAvailableTroops() { return availableTroops; }
     public int getTerritoryCount() { return territories.size(); }
+
+    public void addTerritory(ITerritory territory) {
+        throw new IllegalArgumentException("Territory cannot be null.");
+    }
 }

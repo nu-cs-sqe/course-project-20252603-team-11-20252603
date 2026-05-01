@@ -24,4 +24,10 @@ public class PlayerTests {
         assertEquals(0, player.getAvailableTroops());
         assertEquals(0, player.getTerritoryCount());
     }
+
+    @Test
+    public void addTerritory_nullTerritory_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        assertThrows(IllegalArgumentException.class, () -> player.addTerritory(null));
+    }
 }

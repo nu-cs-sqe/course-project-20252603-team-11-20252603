@@ -35,4 +35,10 @@ public class Territory {
         return this.owner;
     }
 
+    public void conquer(Player newOwner, int troopsMovedIn) {
+        if (troopsMovedIn == 0) {
+            throw new IllegalArgumentException("Conquered Territories must have at least 1 troop");
+        }
+    }
+
 }

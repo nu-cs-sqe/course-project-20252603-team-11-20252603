@@ -13,6 +13,11 @@ public class Territory {
         if (amount <= 0) {
             throw new IllegalArgumentException("Input must be non-negative integer");
         }
+        this.troopCount += amount;
+    }
+
+    public int getTroopCount() {
+        return this.troopCount;
     }
 
 }

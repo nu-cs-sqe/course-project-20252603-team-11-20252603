@@ -22,5 +22,19 @@ public class TerritoryTests {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    public void addTroops_zeroTroops_fail(){
+        Player p1  = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory(p1, 5);
+
+        int input = 0;
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            t1.addTroops(input);
+        });
+
+        String expectedMessage = "Input must be non-negative integer";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
 
 }

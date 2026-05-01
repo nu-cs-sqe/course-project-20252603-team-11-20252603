@@ -10,7 +10,7 @@ public class Territory {
     }
 
     public void addTroops(int amount) {
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("Input must be non-negative integer");
         }
     }

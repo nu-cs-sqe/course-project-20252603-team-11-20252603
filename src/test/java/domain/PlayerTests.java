@@ -87,4 +87,20 @@ public class PlayerTests {
         Player player = new Player("Alice");
         assertThrows(IllegalArgumentException.class, () -> player.removeTerritory(null));
     }
+
+    @Test
+    public void removeTerritory_singleItemList_listBecomesEmpty() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+
+        player.addTerritory(t1);
+        player.removeTerritory(t1);
+
+        assertEquals(0, player.getTerritoryCount());
+        assertFalse(player.getTerritories().contains(t1));
+
+        EasyMock.verify(t1);
+    }
 }

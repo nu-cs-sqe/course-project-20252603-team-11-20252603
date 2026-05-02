@@ -29,7 +29,7 @@
 - **TC 7: input is null** ( :white_check_mark: )
   - **State of system**: Player created, Player.territories can be in any state
   - **Expected output**: IllegalArgumentException thrown
-- **TC 8: remove only one element, list becomes empty** ( :x: )
+- **TC 8: remove only one element, list becomes empty** ( :white_check_mark: )
   - **State of the system**: Player.territories has exactly [T1]
   - **Expected output**: No explicit output, Player.territories.size() == 0
 - **TC 9: remove one of many territories** ( :x: )

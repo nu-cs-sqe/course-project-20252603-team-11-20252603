@@ -34,6 +34,9 @@ public class Player {
     }
 
     public void removeTerritory(ITerritory territory) {
-        throw new IllegalArgumentException("Territory cannot be null.");
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory cannot be null.");
+        }
+        territories.remove(territory);
     }
 }

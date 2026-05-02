@@ -347,6 +347,23 @@ public class GameTests {
     }
 
     @Test
+    public void chooseFirstPlayer_twoPlayers_resultOne_upperBoundChosen() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        Random random = EasyMock.createMock(Random.class);
+        EasyMock.expect(random.nextInt(2)).andReturn(1);
+        replayAll(players, map);
+        EasyMock.replay(random);
+
+        Game game = new Game(players, map, new ArrayList<>(), random);
+        game.chooseFirstPlayer();
+
+        assertEquals(1, game.getCurrentPlayerIndex());
+        verifyAll(players, map);
+        EasyMock.verify(random);
+    }
+
+    @Test
     public void constructor_validPlayersAndMap_mapStoredCorrectly() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

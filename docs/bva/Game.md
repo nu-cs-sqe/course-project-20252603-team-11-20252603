@@ -31,7 +31,7 @@
 - **TC8: null map** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
-- **TC9: valid non-null map**
+- **TC9: valid non-null map** ( :white_check_mark: )
   - **State of the system**: No game created yet (valid players list provided)
   - **Expected output**: Game constructed; map stored
 

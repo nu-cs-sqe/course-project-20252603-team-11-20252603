@@ -47,6 +47,12 @@ public class GameTests {
         territory.addTroops(1);
     }
 
+    private void expectIdentityShuffle(Random random, int size) {
+        for (int i = size; i > 1; i--) {
+            EasyMock.expect(random.nextInt(i)).andReturn(i - 1);
+        }
+    }
+
     private List<IRiskCard> makeCards(int count) {
         List<IRiskCard> cards = new ArrayList<>();
         for (int i = 0; i < count; i++) {
@@ -142,20 +148,20 @@ public class GameTests {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);
         ITerritory territory = EasyMock.createMock(ITerritory.class);
+        Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(List.of(territory));
         players.get(0).addTerritory(territory);
-        territory.setOwner(players.get(0));
-        territory.addTroops(1);
+        expectTerritoryAssignment(territory, players.get(0));
 
         replayAll(players, map);
-        EasyMock.replay(territory);
+        EasyMock.replay(territory, random);
 
-        Game game = new Game(players, map, new ArrayList<>(), new Random());
+        Game game = new Game(players, map, new ArrayList<>(), random);
         game.assignTerritories();
 
         verifyAll(players, map);
-        EasyMock.verify(territory);
+        EasyMock.verify(territory, random);
     }
 
     @Test
@@ -163,8 +169,10 @@ public class GameTests {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);
         List<ITerritory> territories = makeTerritories(4);
+        Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
+        expectIdentityShuffle(random, 4);
         players.get(0).addTerritory(territories.get(0));
         players.get(0).addTerritory(territories.get(2));
         players.get(1).addTerritory(territories.get(1));
@@ -176,12 +184,14 @@ public class GameTests {
 
         replayAll(players, map);
         territories.forEach(EasyMock::replay);
+        EasyMock.replay(random);
 
-        Game game = new Game(players, map, new ArrayList<>(), new Random());
+        Game game = new Game(players, map, new ArrayList<>(), random);
         game.assignTerritories();
 
         verifyAll(players, map);
         territories.forEach(EasyMock::verify);
+        EasyMock.verify(random);
     }
 
     @Test
@@ -189,8 +199,10 @@ public class GameTests {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);
         List<ITerritory> territories = makeTerritories(3);
+        Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
+        expectIdentityShuffle(random, 3);
         players.get(0).addTerritory(territories.get(0));
         players.get(0).addTerritory(territories.get(2));
         players.get(1).addTerritory(territories.get(1));
@@ -200,25 +212,83 @@ public class GameTests {
 
         replayAll(players, map);
         territories.forEach(EasyMock::replay);
+        EasyMock.replay(random);
 
-        Game game = new Game(players, map, new ArrayList<>(), new Random());
+        Game game = new Game(players, map, new ArrayList<>(), random);
         game.assignTerritories();
 
         verifyAll(players, map);
         territories.forEach(EasyMock::verify);
+        EasyMock.verify(random);
+    }
+
+    @Test
+    public void assignTerritories_twoTerritories_randomProducesSwap_assignmentReflectsShuffledOrder() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<ITerritory> territories = makeTerritories(2);
+        Random random = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(map.getTerritories()).andReturn(territories);
+        EasyMock.expect(random.nextInt(2)).andReturn(0); // causes swap: [t1, t0]
+        players.get(0).addTerritory(territories.get(1));  // t1 goes to player[0]
+        players.get(1).addTerritory(territories.get(0));  // t0 goes to player[1]
+        expectTerritoryAssignment(territories.get(1), players.get(0));
+        expectTerritoryAssignment(territories.get(0), players.get(1));
+
+        replayAll(players, map);
+        territories.forEach(EasyMock::replay);
+        EasyMock.replay(random);
+
+        Game game = new Game(players, map, new ArrayList<>(), random);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+        territories.forEach(EasyMock::verify);
+        EasyMock.verify(random);
+    }
+
+    @Test
+    public void assignTerritories_twoTerritories_randomProducesNoSwap_assignmentReflectsOriginalOrder() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<ITerritory> territories = makeTerritories(2);
+        Random random = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(map.getTerritories()).andReturn(territories);
+        EasyMock.expect(random.nextInt(2)).andReturn(1); // no swap: [t0, t1]
+        players.get(0).addTerritory(territories.get(0));  // t0 goes to player[0]
+        players.get(1).addTerritory(territories.get(1));  // t1 goes to player[1]
+        expectTerritoryAssignment(territories.get(0), players.get(0));
+        expectTerritoryAssignment(territories.get(1), players.get(1));
+
+        replayAll(players, map);
+        territories.forEach(EasyMock::replay);
+        EasyMock.replay(random);
+
+        Game game = new Game(players, map, new ArrayList<>(), random);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+        territories.forEach(EasyMock::verify);
+        EasyMock.verify(random);
     }
 
     @Test
     public void assignTerritories_noTerritories_noTerritoriesAddedToPlayers() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);
+        Random random = EasyMock.createMock(Random.class);
+        // shuffle of size 0 makes no nextInt calls
         EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
         replayAll(players, map);
+        EasyMock.replay(random);
 
-        Game game = new Game(players, map, new ArrayList<>(), new Random());
+        Game game = new Game(players, map, new ArrayList<>(), random);
         game.assignTerritories();
 
         verifyAll(players, map);
+        EasyMock.verify(random);
     }
 
     // ! distributeStartingTroops tests

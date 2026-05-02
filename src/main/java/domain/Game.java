@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -39,7 +40,8 @@ public class Game {
     }
 
     public void assignTerritories() {
-        List<ITerritory> territories = map.getTerritories();
+        List<ITerritory> territories = new ArrayList<>(map.getTerritories());
+        Collections.shuffle(territories, random);
         for (int i = 0; i < territories.size(); i++) {
             Player player = players.get(i % players.size());
             ITerritory territory = territories.get(i);

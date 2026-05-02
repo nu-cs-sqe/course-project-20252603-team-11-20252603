@@ -55,6 +55,12 @@ The territories collection from the map is a Count variable (size ≥ 0). The pa
 - **TC13: territories.size() > 1, NOT evenly divisible by players.size()** ( :white_check_mark: )
   - **State of the system**: Game constructed; e.g. 3 territories, 2 players
   - **Expected output**: All territories assigned (no territory is unowned); territory counts across players differ by at most 1; each territory has troopCount = 1
+- **TC13a: 2 territories, random produces a swap → assignment reflects shuffled order** ( :white_check_mark: )
+  - **State of the system**: Game constructed with 2 players; map has [t0, t1]; random.nextInt(2) returns 0 (causes swap → [t1, t0])
+  - **Expected output**: player[0] receives t1; player[1] receives t0
+- **TC13b: 2 territories, random produces no swap → assignment reflects original order** ( :white_check_mark: )
+  - **State of the system**: Game constructed with 2 players; map has [t0, t1]; random.nextInt(2) returns 1 (no swap → [t0, t1])
+  - **Expected output**: player[0] receives t0; player[1] receives t1
 
 ---
 

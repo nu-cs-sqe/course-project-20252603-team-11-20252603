@@ -166,4 +166,11 @@ public class PlayerTests {
         assertEquals(0, player.getAvailableTroops());
     }
 
+    @Test
+    public void setAvailableTroops_positiveAmount_setsCorrectly() {
+        Player player = new Player("Alice");
+        player.setAvailableTroops(5);
+        assertEquals(5, player.getAvailableTroops());
+    }
+
 }

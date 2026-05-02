@@ -49,3 +49,7 @@
 - **TC14: amount = 0, still valid** ( :white_check_mark: )
   - **State of the system**: Player created
   - **Expected output**: Player.availableTroops == 0
+- **TC15: positive amount** ( :white_check_mark: )
+  - **State of the system**: Player created
+  - **Expected output**: Player.availableTroops == 5
+

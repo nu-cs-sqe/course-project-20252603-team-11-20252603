@@ -32,4 +32,8 @@ public class Player {
         }
         if (!territories.contains(territory)) territories.add(territory);
     }
+
+    public void removeTerritory(ITerritory territory) {
+        throw new IllegalArgumentException("Territory cannot be null.");
+    }
 }

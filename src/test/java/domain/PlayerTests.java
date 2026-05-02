@@ -80,4 +80,11 @@ public class PlayerTests {
         assertEquals(1, player.getTerritoryCount());
         EasyMock.verify(t1);
     }
+
+    // removeTerritory tests
+    @Test
+    public void removeTerritory_nullTerritory_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        assertThrows(IllegalArgumentException.class, () -> player.removeTerritory(null));
+    }
 }

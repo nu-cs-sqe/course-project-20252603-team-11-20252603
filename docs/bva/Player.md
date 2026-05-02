@@ -26,7 +26,7 @@
   - **Expected output**: No explicit output, Player.territories.size() == 1 (no-op, no duplicate added)
 
 ### Method under test: `void removeTerritory(ITerritory territory)`
-- **TC 7: input is null** ( :x: )
+- **TC 7: input is null** ( :white_check_mark: )
   - **State of system**: Player created, Player.territories can be in any state
   - **Expected output**: IllegalArgumentException thrown
 - **TC 8: remove only one element, list becomes empty** ( :x: )

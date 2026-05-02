@@ -57,7 +57,7 @@
 - **TC16: null card** ( :white_check_mark: )
   - **State of the system**: any
   - **Expected output**: IllegalArgumentException thrown
-- **TC17: add to empty hand** ( :x: )
+- **TC17: add to empty hand** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.size() = 1; list contains added card
 - **TC18: add second card** ( :x: )

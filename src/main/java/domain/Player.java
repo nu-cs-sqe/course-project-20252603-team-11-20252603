@@ -48,6 +48,9 @@ public class Player {
     }
 
     public void addCard(IRiskCard card) {
-        throw new IllegalArgumentException("Card cannot be null.");
+        if (card == null) {
+            throw new IllegalArgumentException("Card cannot be null.");
+        }
+        cards.add(card);
     }
 }

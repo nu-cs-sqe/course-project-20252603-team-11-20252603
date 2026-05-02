@@ -180,4 +180,19 @@ public class PlayerTests {
         assertThrows(IllegalArgumentException.class, () -> player.addCard(null));
     }
 
+    @Test
+    public void addCard_emptyHand_sizeBecomesOne() {
+        Player player = new Player("Alice");
+        IRiskCard card = EasyMock.createMock(IRiskCard.class);
+
+        EasyMock.replay(card);
+
+        player.addCard(card);
+        assertEquals(1, player.getCards().size());
+        assertTrue(player.getCards().contains(card));
+
+        EasyMock.verify(card);
+    }
+
+
 }

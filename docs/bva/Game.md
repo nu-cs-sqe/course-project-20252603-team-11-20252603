@@ -28,7 +28,7 @@
   - **Expected output**: IllegalArgumentException thrown
 
 **`map` parameter (Pointer):**
-- **TC8: null map**
+- **TC8: null map** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC9: valid non-null map**

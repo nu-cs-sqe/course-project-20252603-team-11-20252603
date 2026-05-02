@@ -68,6 +68,15 @@ public class GameTests {
     }
 
     @Test
+    public void constructor_nullMap_throwsIllegalArgumentException() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        EasyMock.replay(p1, p2);
+        assertThrows(IllegalArgumentException.class, () -> new Game(List.of(p1, p2), null));
+        EasyMock.verify(p1, p2);
+    }
+
+    @Test
     public void constructor_playersListContainsNull_throwsIllegalArgumentException() {
         IGameMap map = EasyMock.createMock(IGameMap.class);
         Player p1 = EasyMock.createMock(Player.class);

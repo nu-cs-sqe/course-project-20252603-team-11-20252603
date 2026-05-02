@@ -8,7 +8,7 @@
 - **TC1: null players list** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
-- **TC2: 0 players (empty list, below lower bound)**
+- **TC2: 0 players (empty list, below lower bound)** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC3: 1 player (one below lower bound)**

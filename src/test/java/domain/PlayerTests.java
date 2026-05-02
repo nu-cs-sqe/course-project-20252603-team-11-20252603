@@ -103,4 +103,23 @@ public class PlayerTests {
 
         EasyMock.verify(t1);
     }
+
+    @Test
+    public void removeTerritory_multiItemList_onlyTargetRemoved() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+
+        player.addTerritory(t1);
+        player.addTerritory(t2);
+        player.removeTerritory(t1);
+
+        assertEquals(1, player.getTerritoryCount());
+        assertFalse(player.getTerritories().contains(t1));
+        assertTrue(player.getTerritories().contains(t2));
+
+        EasyMock.verify(t1, t2);
+    }
 }

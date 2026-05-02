@@ -107,7 +107,7 @@ Precondition: Game constructed with 2–6 players.
 
 Sets `currentPlayerIndex` to a random value. BVA is on the resulting index as an interval [0, players.size() − 1].
 
-- **TC23: 2 players, result = 0 (lower bound of valid range)**
+- **TC23: 2 players, result = 0 (lower bound of valid range)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players
   - **Expected output**: currentPlayerIndex = 0 (a valid outcome; lower boundary of [0, 1])
 - **TC24: 2 players, result = 1 (upper bound of valid range)**

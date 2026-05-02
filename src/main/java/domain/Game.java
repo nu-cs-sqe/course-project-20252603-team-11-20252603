@@ -2,18 +2,22 @@ package domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     private final List<Player> players;
     private final IGameMap map;
     private final List<IRiskCard> deck;
+    private final Random random;
+    private int currentPlayerIndex = -1;
 
-    public Game(List<Player> players, IGameMap map, List<IRiskCard> deck) {
+    public Game(List<Player> players, IGameMap map, List<IRiskCard> deck, Random random) {
         validatePlayers(players);
         validateMap(map);
         this.players = players;
         this.map = map;
         this.deck = deck;
+        this.random = random;
     }
 
     private static void validatePlayers(List<Player> players) {
@@ -60,8 +64,13 @@ public class Game {
         Collections.shuffle(deck);
     }
 
+    public void chooseFirstPlayer() {
+        currentPlayerIndex = random.nextInt(players.size());
+    }
+
     public int getPlayerCount() { return players.size(); }
     public IGameMap getMap() { return map; }
     public int getDeckSize() { return deck.size(); }
     public List<IRiskCard> getDeck() { return Collections.unmodifiableList(deck); }
+    public int getCurrentPlayerIndex() { return currentPlayerIndex; }
 }

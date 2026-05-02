@@ -66,4 +66,18 @@ public class PlayerTests {
 
         EasyMock.verify(t1, t2);
     }
+
+    @Test
+    public void addTerritory_duplicateTerritory_sizeRemainsOne() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+
+        player.addTerritory(t1);
+        player.addTerritory(t1);
+
+        assertEquals(1, player.getTerritoryCount());
+        EasyMock.verify(t1);
+    }
 }

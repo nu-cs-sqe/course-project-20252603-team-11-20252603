@@ -52,7 +52,7 @@ The territories collection from the map is a Count variable (size ≥ 0). The pa
 - **TC12: territories.size() > 1, evenly divisible by players.size()** ( :white_check_mark: )
   - **State of the system**: Game constructed; e.g. 4 territories, 2 players
   - **Expected output**: All territories assigned; each player owns territories.size() / players.size() territories; each territory has troopCount = 1
-- **TC13: territories.size() > 1, NOT evenly divisible by players.size()**
+- **TC13: territories.size() > 1, NOT evenly divisible by players.size()** ( :white_check_mark: )
   - **State of the system**: Game constructed; e.g. 3 territories, 2 players
   - **Expected output**: All territories assigned (no territory is unowned); territory counts across players differ by at most 1; each territory has troopCount = 1
 

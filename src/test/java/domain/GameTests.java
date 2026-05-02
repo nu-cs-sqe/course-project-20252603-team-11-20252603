@@ -176,6 +176,30 @@ public class GameTests {
     }
 
     @Test
+    public void assignTerritories_threeTerritoriesTwoPlayers_allAssignedUnevenly() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<ITerritory> territories = makeTerritories(3);
+
+        EasyMock.expect(map.getTerritories()).andReturn(territories);
+        players.get(0).addTerritory(territories.get(0));
+        players.get(0).addTerritory(territories.get(2));
+        players.get(1).addTerritory(territories.get(1));
+        expectTerritoryAssignment(territories.get(0), players.get(0));
+        expectTerritoryAssignment(territories.get(1), players.get(1));
+        expectTerritoryAssignment(territories.get(2), players.get(0));
+
+        replayAll(players, map);
+        territories.forEach(EasyMock::replay);
+
+        Game game = new Game(players, map);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+        territories.forEach(EasyMock::verify);
+    }
+
+    @Test
     public void assignTerritories_noTerritories_noTerritoriesAddedToPlayers() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

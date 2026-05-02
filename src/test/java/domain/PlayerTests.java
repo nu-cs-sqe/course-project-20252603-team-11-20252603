@@ -364,4 +364,22 @@ public class PlayerTests {
 
         EasyMock.verify(t);
     }
+
+    @Test
+    public void placeTroops_amountEqualsAvailable_availableBecomesZero() {
+        Player player = new Player("Alice");
+        ITerritory t = EasyMock.createMock(ITerritory.class);
+
+        player.setAvailableTroops(5);
+        t.addTroops(5);
+
+        EasyMock.expectLastCall().once();
+        EasyMock.replay(t);
+
+        player.addTerritory(t);
+        player.placeTroops(t, 5);
+        assertEquals(0, player.getAvailableTroops());
+
+        EasyMock.verify(t);
+    }
 }

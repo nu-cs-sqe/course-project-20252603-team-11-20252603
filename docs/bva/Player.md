@@ -98,7 +98,7 @@
 - **TC29: amount = 1 (minimum valid)** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: territory.addTroops(1) called, availableTroops = 4
-- **TC30: amount = availableTroops (upper valid boundary)** ( :x: )
+- **TC30: amount = availableTroops (upper valid boundary)** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: territory.addTroops(5) called, availableTroops = 0
 - **TC31: availableTroops = 0, amount = 0** ( :x: )

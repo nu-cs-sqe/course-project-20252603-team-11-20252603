@@ -46,7 +46,7 @@ The territories collection from the map is a Count variable (size ≥ 0). The pa
 - **TC10: 0 territories in map** ( :white_check_mark: )
   - **State of the system**: Game constructed; map contains no territories
   - **Expected output**: All players own 0 territories; no exception thrown
-- **TC11: 1 territory in map, 2 players**
+- **TC11: 1 territory in map, 2 players** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; map contains exactly 1 territory
   - **Expected output**: Exactly 1 player owns the territory; that territory has troopCount = 1; the other player owns 0 territories
 - **TC12: territories.size() > 1, evenly divisible by players.size()**

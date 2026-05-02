@@ -116,6 +116,27 @@ public class GameTests {
 
     // ! assignTerritories tests
     @Test
+    public void assignTerritories_oneTerritory_assignedToFirstPlayerWithOneTroop() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        ITerritory territory = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.expect(map.getTerritories()).andReturn(List.of(territory));
+        players.get(0).addTerritory(territory);
+        territory.setOwner(players.get(0));
+        territory.addTroops(1);
+
+        replayAll(players, map);
+        EasyMock.replay(territory);
+
+        Game game = new Game(players, map);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+        EasyMock.verify(territory);
+    }
+
+    @Test
     public void assignTerritories_noTerritories_noTerritoriesAddedToPlayers() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

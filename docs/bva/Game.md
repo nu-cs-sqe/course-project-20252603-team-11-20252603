@@ -140,7 +140,7 @@ Precondition: Game constructed with 2–6 players, a valid map, and a deck.
   - **Expected output**: deck shuffled; both territories assigned (each with 1 troop); each player's availableTroops set correctly; currentPlayerIndex set to the value returned by random
 
 **Resulting `currentPlayerIndex` after startGame (Interval [0, players.size() − 1]):**
-- **TC28: 2 players, result = 0 (lower bound of resulting index)**
+- **TC28: 2 players, result = 0 (lower bound of resulting index)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; random returns 0 for chooseFirstPlayer call
   - **Expected output**: currentPlayerIndex = 0
 - **TC29: 2 players, result = 1 (upper bound of resulting index)**

@@ -516,6 +516,30 @@ public class GameTests {
         EasyMock.verify(random);
     }
 
+    @Test
+    public void startGame_twoPlayers_currentPlayerIndexAtLowerBound() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        Random random = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
+        EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(0);
+        EasyMock.expect(players.get(1).getTerritoryCount()).andReturn(0);
+        players.get(0).setAvailableTroops(40);
+        players.get(1).setAvailableTroops(40);
+        EasyMock.expect(random.nextInt(2)).andReturn(0);
+
+        replayAll(players, map);
+        EasyMock.replay(random);
+
+        Game game = new Game(players, map, new ArrayList<>(), random);
+        game.startGame();
+
+        assertEquals(0, game.getCurrentPlayerIndex());
+        verifyAll(players, map);
+        EasyMock.verify(random);
+    }
+
     // ! shuffleDeck tests
     @Test
     public void shuffleDeck_oneCard_deckStillContainsThatCard() {

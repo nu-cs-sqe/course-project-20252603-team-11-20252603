@@ -9,7 +9,7 @@
   - **Expected output**: IllegalArgumentException thrown
 - **TC3: valid non-empty name** ( :white_check_mark: )
   - **State of the system**: No player created yet
-  - **Expected output**: Player created; name stored; territories empty; cards empty; availableTroops = 0
+  - **Expected output**: Player created, name stored, territories empty, cards empty, availableTroops = 0
 
 ### Method under test: `void addTerritory(ITerritory territory)`
 - **TC4: null territory** ( :white_check_mark: )
@@ -53,16 +53,16 @@
   - **State of the system**: Player created
   - **Expected output**: Player.availableTroops == 5
 
-  ### Method under test: `void addCard(IRiskCard card)`
+### Method under test: `void addCard(IRiskCard card)`
 - **TC16: null card** ( :white_check_mark: )
   - **State of the system**: any
   - **Expected output**: IllegalArgumentException thrown
 - **TC17: add to empty hand** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
-  - **Expected output**: Player.cards.size() = 1; list contains added card
+  - **Expected output**: Player.cards.size() = 1, list contains added card
 - **TC18: add second card** ( :white_check_mark: )
   - **State of the system**: Player.cards has 1 card
-  - **Expected output**: Player.cards.size() = 2; list contains both cards
+  - **Expected output**: Player.cards.size() = 2, list contains both cards
 - **TC19: add INFANTRY card** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.get(0).getType() = INFANTRY
@@ -78,3 +78,32 @@
 - **TC23: duplicate card type allowed** ( :white_check_mark: )
   - **State of the system**: Player.cards already has 1 INFANTRY card
   - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)  
+
+### Method under test: `void placeTroops(ITerritory territory, int amount)`
+- **TC24: null territory** ( :x: )
+  - **State of the system**: availableTroops = 5
+  - **Expected output**: IllegalArgumentException thrown
+- **TC25: territory not owned by player** ( :x: )
+  - **State of the system**: player does not own T1, availableTroops = 5
+  - **Expected output**: IllegalArgumentException thrown
+- **TC26: amount = 0 (lower boundary, invalid)** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 5
+  - **Expected output**: IllegalArgumentException thrown
+- **TC27: amount is negative** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 5
+  - **Expected output**: IllegalArgumentException thrown
+- **TC28: amount = availableTroops + 1 (one over, invalid)** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 5
+  - **Expected output**: IllegalArgumentException thrown
+- **TC29: amount = 1 (minimum valid)** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 5
+  - **Expected output**: territory.addTroops(1) called, availableTroops = 4
+- **TC30: amount = availableTroops (upper valid boundary)** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 5
+  - **Expected output**: territory.addTroops(5) called, availableTroops = 0
+- **TC31: availableTroops = 0, amount = 0** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 0
+  - **Expected output**: IllegalArgumentException thrown (amount = 0 invalid regardless)
+- **TC32: availableTroops = 0, amount = 1** ( :x: )
+  - **State of the system**: player owns T1, availableTroops = 0
+  - **Expected output**: IllegalArgumentException thrown (insufficient troops)  

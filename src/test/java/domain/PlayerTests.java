@@ -139,4 +139,17 @@ public class PlayerTests {
         EasyMock.verify(t1, t2);
     }
 
+    @Test
+    public void removeTerritory_emptyList_noOpNoException() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+
+        assertDoesNotThrow(() -> player.removeTerritory(t1));
+        assertEquals(0, player.getTerritoryCount());
+
+        EasyMock.verify(t1);
+    }
+
 }

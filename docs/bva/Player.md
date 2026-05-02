@@ -38,6 +38,6 @@
 - **TC 10: remove territory not in list** ( :white_check_mark: )
   - **State of the system**: Player.territories has [T1], but T2 is not present
   - **Expected output**: No explicit output, Player.territories.size() == 1 still (no-op, no exception)
-- **TC 11: remove from an empty territories list** ( :x: )
+- **TC 11: remove from an empty territories list** ( :white_check_mark: )
   - **State of the system**: Player.territories is empty
   - **Expected output**: No explicit output, Player.territories.size() == 0 (no-op, no exception)

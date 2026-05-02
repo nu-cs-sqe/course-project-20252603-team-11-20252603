@@ -42,6 +42,17 @@ public class Game {
         }
     }
 
+    public void distributeStartingTroops() {
+        int startingArmies = calculateStartingArmies(players.size());
+        for (Player player : players) {
+            player.setAvailableTroops(startingArmies - player.getTerritoryCount());
+        }
+    }
+
+    private static int calculateStartingArmies(int playerCount) {
+        return 50 - (5 * playerCount);
+    }
+
     public int getPlayerCount() { return players.size(); }
     public IGameMap getMap() { return map; }
 }

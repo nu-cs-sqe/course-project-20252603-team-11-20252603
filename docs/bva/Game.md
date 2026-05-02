@@ -64,7 +64,7 @@ Precondition: `assignTerritories()` has already been called.
 
 The number of starting armies per player is determined by `players.size()`, which is a Case variable over {2, 3, 4, 5, 6}. Every case must be tested.
 
-- **TC14: 2 players**
+- **TC14: 2 players** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; territories assigned
   - **Expected output**: Each player's availableTroops = 40 − (number of territories they own)
 - **TC15: 3 players**

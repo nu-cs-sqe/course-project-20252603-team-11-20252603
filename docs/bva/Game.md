@@ -143,6 +143,6 @@ Precondition: Game constructed with 2–6 players, a valid map, and a deck.
 - **TC28: 2 players, result = 0 (lower bound of resulting index)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; random returns 0 for chooseFirstPlayer call
   - **Expected output**: currentPlayerIndex = 0
-- **TC29: 2 players, result = 1 (upper bound of resulting index)**
+- **TC29: 2 players, result = 1 (upper bound of resulting index)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
   - **Expected output**: currentPlayerIndex = 1

@@ -31,6 +31,17 @@ public class Game {
         }
     }
 
+    public void assignTerritories() {
+        List<ITerritory> territories = map.getTerritories();
+        for (int i = 0; i < territories.size(); i++) {
+            Player player = players.get(i % players.size());
+            ITerritory territory = territories.get(i);
+            player.addTerritory(territory);
+            territory.setOwner(player);
+            territory.addTroops(1);
+        }
+    }
+
     public int getPlayerCount() { return players.size(); }
     public IGameMap getMap() { return map; }
 }

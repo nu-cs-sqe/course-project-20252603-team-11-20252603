@@ -114,6 +114,20 @@ public class GameTests {
         players.forEach(EasyMock::verify);
     }
 
+    // ! assignTerritories tests
+    @Test
+    public void assignTerritories_noTerritories_noTerritoriesAddedToPlayers() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
+        replayAll(players, map);
+
+        Game game = new Game(players, map);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+    }
+
     @Test
     public void constructor_validPlayersAndMap_mapStoredCorrectly() {
         IGameMap map = makeMap();

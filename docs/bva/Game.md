@@ -43,7 +43,7 @@ Precondition: Game constructed with 2–6 players and a valid map.
 
 The territories collection from the map is a Count variable (size ≥ 0). The pair (territories.size(), players.size()) drives distribution behavior.
 
-- **TC10: 0 territories in map**
+- **TC10: 0 territories in map** ( :white_check_mark: )
   - **State of the system**: Game constructed; map contains no territories
   - **Expected output**: All players own 0 territories; no exception thrown
 - **TC11: 1 territory in map, 2 players**

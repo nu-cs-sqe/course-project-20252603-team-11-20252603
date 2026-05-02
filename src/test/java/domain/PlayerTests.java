@@ -281,4 +281,12 @@ public class PlayerTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    // placeTroops tests
+    @Test
+    public void placeTroops_nullTerritory_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        player.setAvailableTroops(5);
+        assertThrows(IllegalArgumentException.class, () -> player.placeTroops(null, 1));
+    }
 }

@@ -80,7 +80,7 @@
   - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)  
 
 ### Method under test: `void placeTroops(ITerritory territory, int amount)`
-- **TC24: null territory** ( :x: )
+- **TC24: null territory** ( :white_check_mark: )
   - **State of the system**: availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
 - **TC25: territory not owned by player** ( :x: )

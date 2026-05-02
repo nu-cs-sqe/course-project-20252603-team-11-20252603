@@ -53,4 +53,8 @@ public class Player {
         }
         cards.add(card);
     }
+
+    public void placeTroops(ITerritory territory, int amount) {
+        throw new IllegalArgumentException("Territory cannot be null.");
+    }
 }

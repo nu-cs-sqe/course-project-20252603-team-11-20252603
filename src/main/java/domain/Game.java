@@ -13,6 +13,9 @@ public class Game {
         if (players.size() < 2 || players.size() > 6) {
             throw new IllegalArgumentException("Game requires between 2 and 6 players.");
         }
+        if (players.stream().anyMatch(p -> p == null)) {
+            throw new IllegalArgumentException("Players list cannot contain null.");
+        }
         this.players = players;
         this.map = map;
     }

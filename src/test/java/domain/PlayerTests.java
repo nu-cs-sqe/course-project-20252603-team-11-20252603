@@ -159,4 +159,11 @@ public class PlayerTests {
         assertThrows(IllegalArgumentException.class, () -> player.setAvailableTroops(-1));
     }
 
+    @Test
+    public void setAvailableTroops_zero_setsToZero() {
+        Player player = new Player("Alice");
+        player.setAvailableTroops(0);
+        assertEquals(0, player.getAvailableTroops());
+    }
+
 }

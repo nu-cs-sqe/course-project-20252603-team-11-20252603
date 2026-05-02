@@ -42,7 +42,10 @@
   - **State of the system**: Player.territories is empty
   - **Expected output**: No explicit output, Player.territories.size() == 0 (no-op, no exception)
 
-  ### Method under test: `void setAvailableTroops(int amount)`
-  - **TC13: negative amount** ( :x: )
-    - **State of the system**: Player created with availableTroops = 0
-    - **Expected output**: `IllegalArgumentException` thrown
+### Method under test: `void setAvailableTroops(int amount)`
+- **TC13: negative amount** ( :white_check_mark: )
+  - **State of the system**: Player created
+  - **Expected output**: `IllegalArgumentException` thrown
+- **TC14: amount = 0, still valid** ( :white_check_mark: )
+  - **State of the system**: Player created
+  - **Expected output**: Player.availableTroops == 0

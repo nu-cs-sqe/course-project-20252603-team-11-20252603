@@ -89,7 +89,7 @@
 - **TC26: amount = 0 (lower boundary, invalid)** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
-- **TC27: amount is negative** ( :x: )
+- **TC27: amount is negative** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
 - **TC28: amount = availableTroops + 1 (one over, invalid)** ( :x: )

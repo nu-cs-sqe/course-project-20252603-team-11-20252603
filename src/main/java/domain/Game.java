@@ -63,4 +63,5 @@ public class Game {
     public int getPlayerCount() { return players.size(); }
     public IGameMap getMap() { return map; }
     public int getDeckSize() { return deck.size(); }
+    public List<IRiskCard> getDeck() { return Collections.unmodifiableList(deck); }
 }

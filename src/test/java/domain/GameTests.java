@@ -341,6 +341,24 @@ public class GameTests {
 
     // ! shuffleDeck tests
     @Test
+    public void shuffleDeck_oneCard_deckStillContainsThatCard() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<IRiskCard> deck = makeCards(1);
+        IRiskCard card = deck.get(0);
+        EasyMock.replay(card);
+        replayAll(players, map);
+
+        Game game = new Game(players, map, deck);
+        game.shuffleDeck();
+
+        assertEquals(1, game.getDeckSize());
+        assertEquals(card, game.getDeck().get(0));
+        verifyAll(players, map);
+        EasyMock.verify(card);
+    }
+
+    @Test
     public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

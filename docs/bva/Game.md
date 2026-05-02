@@ -89,7 +89,7 @@ Precondition: Game constructed. BVA is on `deck` (Count variable, size ≥ 0).
 - **TC19: deck has 0 cards (empty)** ( :white_check_mark: )
   - **State of the system**: deck is empty
   - **Expected output**: deck remains empty; no exception thrown
-- **TC20: deck has 1 card**
+- **TC20: deck has 1 card** ( :white_check_mark: )
   - **State of the system**: deck contains exactly 1 card
   - **Expected output**: deck still contains the same 1 card; no exception thrown
 - **TC21: deck has 2 cards (minimum meaningful shuffle)**

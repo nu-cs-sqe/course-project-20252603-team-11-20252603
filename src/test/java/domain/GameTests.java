@@ -479,6 +479,43 @@ public class GameTests {
         verifyAll(players, map);
     }
 
+    // ! startGame tests
+    @Test
+    public void startGame_twoPlayersWithTerritoriesAndDeck_allSetupStepsComplete() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<ITerritory> territories = makeTerritories(2);
+        List<IRiskCard> deck = makeCards(1);
+        Random random = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(map.getTerritories()).andReturn(territories);
+        expectIdentityShuffle(random, 2);
+        players.get(0).addTerritory(territories.get(0));
+        players.get(1).addTerritory(territories.get(1));
+        expectTerritoryAssignment(territories.get(0), players.get(0));
+        expectTerritoryAssignment(territories.get(1), players.get(1));
+        EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(1);
+        EasyMock.expect(players.get(1).getTerritoryCount()).andReturn(1);
+        players.get(0).setAvailableTroops(39); // 40 - 1 territory
+        players.get(1).setAvailableTroops(39);
+        EasyMock.expect(random.nextInt(2)).andReturn(0); // chooseFirstPlayer
+
+        replayAll(players, map);
+        territories.forEach(EasyMock::replay);
+        deck.forEach(EasyMock::replay);
+        EasyMock.replay(random);
+
+        Game game = new Game(players, map, deck, random);
+        game.startGame();
+
+        assertEquals(0, game.getCurrentPlayerIndex());
+        assertEquals(1, game.getDeckSize());
+        verifyAll(players, map);
+        territories.forEach(EasyMock::verify);
+        deck.forEach(EasyMock::verify);
+        EasyMock.verify(random);
+    }
+
     // ! shuffleDeck tests
     @Test
     public void shuffleDeck_oneCard_deckStillContainsThatCard() {

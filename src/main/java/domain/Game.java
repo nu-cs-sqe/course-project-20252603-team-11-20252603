@@ -62,6 +62,13 @@ public class Game {
         return 50 - (5 * playerCount);
     }
 
+    public void startGame() {
+        shuffleDeck();
+        assignTerritories();
+        distributeStartingTroops();
+        chooseFirstPlayer();
+    }
+
     public void shuffleDeck() {
         Collections.shuffle(deck);
     }

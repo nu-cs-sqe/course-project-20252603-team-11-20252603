@@ -135,7 +135,7 @@ Precondition: Game constructed with 2–6 players, a valid map, and a deck.
 `startGame()` is a sequencing method with no input parameters. It orchestrates four setup steps in order: `shuffleDeck` → `assignTerritories` → `distributeStartingTroops` → `chooseFirstPlayer`. BVA focuses on two concerns: (1) all four steps execute and produce correct observable state, and (2) the resulting `currentPlayerIndex` is valid (an interval [0, players.size() − 1] — boundary values inherited from `chooseFirstPlayer`).
 
 **All four setup steps execute in correct sequence:**
-- **TC27: startGame executes all four setup steps in the correct order**
+- **TC27: startGame executes all four setup steps in the correct order** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players, 2 territories, 1 deck card; random controlled
   - **Expected output**: deck shuffled; both territories assigned (each with 1 troop); each player's availableTroops set correctly; currentPlayerIndex set to the value returned by random
 

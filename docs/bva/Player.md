@@ -104,6 +104,6 @@
 - **TC31: availableTroops = 0, amount = 0** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 0
   - **Expected output**: IllegalArgumentException thrown (amount = 0 invalid regardless)
-- **TC32: availableTroops = 0, amount = 1** ( :x: )
+- **TC32: availableTroops = 0, amount = 1** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 0
   - **Expected output**: IllegalArgumentException thrown (insufficient troops)  

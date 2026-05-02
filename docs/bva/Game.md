@@ -17,7 +17,7 @@
 - **TC4: 2 players (lower bound, valid)** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: Game constructed; players list stored, map stored
-- **TC5: 6 players (upper bound, valid)**
+- **TC5: 6 players (upper bound, valid)** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: Game constructed; players list stored, map stored
 - **TC6: 7 players (one above upper bound)**

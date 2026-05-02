@@ -107,3 +107,32 @@
 - **TC32: availableTroops = 0, amount = 1** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 0
   - **Expected output**: IllegalArgumentException thrown (insufficient troops)  
+
+### Method under test: `int calculateReinforcements()`
+- **TC33: 0 territories** ( :x: )
+  - **State of the system**: Player.territories is empty
+  - **Expected output**: 3 (minimum floor)
+- **TC34: 1 territory** ( :x: )
+  - **State of the system**: Player.territories.size() = 1
+  - **Expected output**: 3 (floor(1/3) = 0, minimum applies)
+- **TC35: 2 territories** ( :x: )
+  - **State of the system**: Player.territories.size() = 2
+  - **Expected output**: 3 (floor(2/3) = 0, minimum applies)
+- **TC36: 3 territories** ( :x: )
+  - **State of the system**: Player.territories.size() = 3
+  - **Expected output**: 3 (floor(3/3) = 1, still below minimum of 3)
+- **TC37: 9 territories (formula equals minimum)** ( :x: )
+  - **State of the system**: Player.territories.size() = 9
+  - **Expected output**: 3 (floor(9/3) = 3, equals minimum exactly)
+- **TC38: 10 territories** ( :x: )
+  - **State of the system**: Player.territories.size() = 10
+  - **Expected output**: 3 (floor(10/3) = 3)
+- **TC39: 11 territories (last value before formula exceeds minimum)** ( :x: )
+  - **State of the system**: Player.territories.size() = 11
+  - **Expected output**: 3 (floor(11/3) = 3)
+- **TC40: 12 territories (first value where formula exceeds minimum)** ( :x: )
+  - **State of the system**: Player.territories.size() = 12
+  - **Expected output**: 4 (floor(12/3) = 4)
+- **TC41: 30 territories** ( :x: )
+  - **State of the system**: Player.territories.size() = 30
+  - **Expected output**: 10 (floor(30/3) = 10)   

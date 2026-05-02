@@ -18,7 +18,7 @@
 - **TC 5: add to empty list**: ( :white_check_mark: )
   - **State of the system**: Player.territories is empty
   - **Expected output**: No explicit output, Player.territories.size() = 1 now.
-- **TC 6: add to non-empty list**: ( :x: )
+- **TC 6: add to non-empty list**: ( :white_check_mark: )
   - **State of the system**: Player.territories has 1 element
   - **Expected output**: No explicit output, Player.territories.size() == 2 now. 
 - **TC 6: add duplicate territory to list with 1 territory**: ( :x: )

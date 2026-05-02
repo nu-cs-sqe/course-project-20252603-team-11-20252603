@@ -6,6 +6,7 @@ import org.easymock.EasyMock;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTests {
+    // ! Constructor tests
     @Test
     public void constructor_nullName_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Player(null));
@@ -26,6 +27,7 @@ public class PlayerTests {
         assertEquals(0, player.getTerritoryCount());
     }
 
+    // ! addTerritory tests
     @Test
     public void addTerritory_nullTerritory_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
@@ -44,5 +46,24 @@ public class PlayerTests {
 
         assertTrue(player.getTerritories().contains(t1));
         EasyMock.verify(t1);
+    }
+
+    @Test
+    public void addTerritory_oneExisting_sizeBecomesTwo() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+
+        player.addTerritory(t1);
+        assertEquals(1, player.getTerritoryCount());
+        assertTrue(player.getTerritories().contains(t1));
+
+        player.addTerritory(t2);
+        assertEquals(2, player.getTerritoryCount());
+        assertTrue(player.getTerritories().contains(t2));
+
+        EasyMock.verify(t1, t2);
     }
 }

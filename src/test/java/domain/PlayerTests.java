@@ -238,4 +238,18 @@ public class PlayerTests {
 
         EasyMock.verify(card);
     }
+
+    @Test
+    public void addCard_artilleryCard_addedToHand() {
+        Player player = new Player("Alice");
+        IRiskCard card = EasyMock.createMock(IRiskCard.class);
+        EasyMock.expect(card.getType()).andStubReturn(IRiskCardType.ARTILLERY);
+
+        EasyMock.replay(card);
+
+        player.addCard(card);
+        assertEquals(IRiskCardType.ARTILLERY, player.getCards().get(0).getType());
+
+        EasyMock.verify(card);
+    }
 }

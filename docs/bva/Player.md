@@ -63,7 +63,7 @@
 - **TC18: add second card** ( :white_check_mark: )
   - **State of the system**: Player.cards has 1 card
   - **Expected output**: Player.cards.size() = 2; list contains both cards
-- **TC19: add INFANTRY card** ( :x: )
+- **TC19: add INFANTRY card** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.get(0).getType() = INFANTRY
 - **TC20: add CAVALRY card** ( :x: )

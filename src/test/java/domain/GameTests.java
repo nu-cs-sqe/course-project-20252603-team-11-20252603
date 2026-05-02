@@ -33,6 +33,19 @@ public class GameTests {
         EasyMock.verify(map);
     }
 
+    private List<ITerritory> makeTerritories(int count) {
+        List<ITerritory> territories = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            territories.add(EasyMock.createMock(ITerritory.class));
+        }
+        return territories;
+    }
+
+    private void expectTerritoryAssignment(ITerritory territory, Player owner) {
+        territory.setOwner(owner);
+        territory.addTroops(1);
+    }
+
     // ! Constructor tests
     @Test
     public void constructor_nullPlayers_throwsIllegalArgumentException() {
@@ -134,6 +147,32 @@ public class GameTests {
 
         verifyAll(players, map);
         EasyMock.verify(territory);
+    }
+
+    @Test
+    public void assignTerritories_fourTerritoriesTwoPlayers_eachPlayerGetsTwoTerritories() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<ITerritory> territories = makeTerritories(4);
+
+        EasyMock.expect(map.getTerritories()).andReturn(territories);
+        players.get(0).addTerritory(territories.get(0));
+        players.get(0).addTerritory(territories.get(2));
+        players.get(1).addTerritory(territories.get(1));
+        players.get(1).addTerritory(territories.get(3));
+        expectTerritoryAssignment(territories.get(0), players.get(0));
+        expectTerritoryAssignment(territories.get(1), players.get(1));
+        expectTerritoryAssignment(territories.get(2), players.get(0));
+        expectTerritoryAssignment(territories.get(3), players.get(1));
+
+        replayAll(players, map);
+        territories.forEach(EasyMock::replay);
+
+        Game game = new Game(players, map);
+        game.assignTerritories();
+
+        verifyAll(players, map);
+        territories.forEach(EasyMock::verify);
     }
 
     @Test

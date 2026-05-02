@@ -95,7 +95,7 @@ Precondition: Game constructed. BVA is on `deck` (Count variable, size ≥ 0).
 - **TC21: deck has 2 cards (minimum meaningful shuffle)** ( :white_check_mark: )
   - **State of the system**: deck contains exactly 2 cards
   - **Expected output**: deck still contains both original cards (order may differ)
-- **TC22: deck has 44 cards (maximum: 42 territory cards + 2 wildcards)**
+- **TC22: deck has 44 cards (maximum: 42 territory cards + 2 wildcards)** ( :white_check_mark: )
   - **State of the system**: deck contains all 44 standard Risk cards
   - **Expected output**: deck still contains all 44 original cards after shuffle (order may differ)
 

@@ -83,7 +83,7 @@
 - **TC24: null territory** ( :white_check_mark: )
   - **State of the system**: availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
-- **TC25: territory not owned by player** ( :x: )
+- **TC25: territory not owned by player** ( :white_check_mark: )
   - **State of the system**: player does not own T1, availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
 - **TC26: amount = 0 (lower boundary, invalid)** ( :x: )

@@ -55,6 +55,12 @@ public class Player {
     }
 
     public void placeTroops(ITerritory territory, int amount) {
-        throw new IllegalArgumentException("Territory cannot be null.");
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory cannot be null.");
+        }
+        if (!territories.contains(territory)) {
+            throw new IllegalArgumentException("Territory not owned by player.");
+        }
+
     }
 }

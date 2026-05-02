@@ -15,7 +15,7 @@
 - **TC 4: null territory** ( :white_check_mark: )
   - **State of the system**: any 
   - **Expected output**: IllegalArgumentException thrown
-- **TC 5: add to empty list**: ( :x: )
+- **TC 5: add to empty list**: ( :white_check_mark: )
   - **State of the system**: Player.territories is empty
   - **Expected output**: No explicit output, Player.territories.size() = 1 now.
 - **TC 6: add to non-empty list**: ( :x: )

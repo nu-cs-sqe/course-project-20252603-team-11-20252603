@@ -27,6 +27,9 @@ public class Player {
     public int getTerritoryCount() { return territories.size(); }
 
     public void addTerritory(ITerritory territory) {
-        throw new IllegalArgumentException("Territory cannot be null.");
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory cannot be null.");
+        }
+        if (!territories.contains(territory)) territories.add(territory);
     }
 }

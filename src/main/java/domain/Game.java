@@ -16,4 +16,7 @@ public class Game {
         this.players = players;
         this.map = map;
     }
+
+    public int getPlayerCount() { return players.size(); }
+    public IGameMap getMap() { return map; }
 }

@@ -20,6 +20,20 @@ public class GameTests {
     }
 
     @Test
+    public void constructor_twoPlayers_gameConstructedWithPlayersAndMap() {
+        IGameMap map = EasyMock.createMock(IGameMap.class);
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        EasyMock.replay(map, p1, p2);
+
+        Game game = new Game(List.of(p1, p2), map);
+
+        assertEquals(2, game.getPlayerCount());
+        assertEquals(map, game.getMap());
+        EasyMock.verify(map, p1, p2);
+    }
+
+    @Test
     public void constructor_onePlayer_throwsIllegalArgumentException() {
         IGameMap map = EasyMock.createMock(IGameMap.class);
         Player p1 = EasyMock.createMock(Player.class);

@@ -341,9 +341,9 @@ public class PlayerTests {
         ITerritory t = EasyMock.createMock(ITerritory.class);
 
         player.setAvailableTroops(5);
-        player.addTerritory(t);
-
         EasyMock.replay(t);
+
+        player.addTerritory(t);
 
         assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 6));
         EasyMock.verify(t);

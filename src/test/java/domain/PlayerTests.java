@@ -346,4 +346,22 @@ public class PlayerTests {
         assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 6));
         EasyMock.verify(t);
     }
+
+    @Test
+    public void placeTroops_amountOne_troopsPlacedAndAvailableDecremented() {
+        Player player = new Player("Alice");
+        ITerritory t = EasyMock.createMock(ITerritory.class);
+
+        player.setAvailableTroops(5);
+        t.addTroops(1);
+
+        EasyMock.expectLastCall().once();
+        EasyMock.replay(t);
+
+        player.addTerritory(t);
+        player.placeTroops(t, 1);
+        assertEquals(4, player.getAvailableTroops());
+
+        EasyMock.verify(t);
+    }
 }

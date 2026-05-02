@@ -95,7 +95,7 @@
 - **TC28: amount = availableTroops + 1 (one over, invalid)** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: IllegalArgumentException thrown
-- **TC29: amount = 1 (minimum valid)** ( :x: )
+- **TC29: amount = 1 (minimum valid)** ( :white_check_mark: )
   - **State of the system**: player owns T1, availableTroops = 5
   - **Expected output**: territory.addTroops(1) called, availableTroops = 4
 - **TC30: amount = availableTroops (upper valid boundary)** ( :x: )

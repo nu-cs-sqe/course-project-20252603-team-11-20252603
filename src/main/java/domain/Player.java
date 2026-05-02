@@ -67,6 +67,8 @@ public class Player {
         if (amount > availableTroops) {
             throw new IllegalArgumentException("Not enough available troops.");
         }
+        territory.addTroops(amount);
+        availableTroops -= amount;
 
     }
 }

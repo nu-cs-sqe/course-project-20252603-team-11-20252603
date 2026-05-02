@@ -64,6 +64,9 @@ public class Player {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive.");
         }
+        if (amount > availableTroops) {
+            throw new IllegalArgumentException("Not enough available troops.");
+        }
 
     }
 }

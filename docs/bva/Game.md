@@ -67,7 +67,7 @@ The number of starting armies per player is determined by `players.size()`, whic
 - **TC14: 2 players** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; territories assigned
   - **Expected output**: Each player's availableTroops = 40 − (number of territories they own)
-- **TC15: 3 players**
+- **TC15: 3 players** ( :white_check_mark: )
   - **State of the system**: Game constructed with 3 players; territories assigned
   - **Expected output**: Each player's availableTroops = 35 − (number of territories they own)
 - **TC16: 4 players**

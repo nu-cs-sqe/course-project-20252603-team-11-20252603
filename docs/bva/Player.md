@@ -45,7 +45,7 @@
 ### Method under test: `void setAvailableTroops(int amount)`
 - **TC13: negative amount** ( :white_check_mark: )
   - **State of the system**: Player created
-  - **Expected output**: `IllegalArgumentException` thrown
+  - **Expected output**: IllegalArgumentException thrown
 - **TC14: amount = 0, still valid** ( :white_check_mark: )
   - **State of the system**: Player created
   - **Expected output**: Player.availableTroops == 0
@@ -53,3 +53,28 @@
   - **State of the system**: Player created
   - **Expected output**: Player.availableTroops == 5
 
+  ### Method under test: `void addCard(IRiskCard card)`
+- **TC16: null card** ( :x: )
+  - **State of the system**: any
+  - **Expected output**: IllegalArgumentException thrown
+- **TC17: add to empty hand** ( :x: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: Player.cards.size() = 1; list contains added card
+- **TC18: add second card** ( :x: )
+  - **State of the system**: Player.cards has 1 card
+  - **Expected output**: Player.cards.size() = 2; list contains both cards
+- **TC19: add INFANTRY card** ( :x: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: Player.cards.get(0).getType() = INFANTRY
+- **TC20: add CAVALRY card** ( :x: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: Player.cards.get(0).getType() = CAVALRY
+- **TC21: add ARTILLERY card** ( :x: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: Player.cards.get(0).getType() = ARTILLERY
+- **TC22: add WILDCARD card** ( :x: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: Player.cards.get(0).getType() = WILDCARD
+- **TC23: duplicate card type allowed** ( :x: )
+  - **State of the system**: Player.cards already has 1 INFANTRY card
+  - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)  

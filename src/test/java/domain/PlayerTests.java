@@ -152,4 +152,11 @@ public class PlayerTests {
         EasyMock.verify(t1);
     }
 
+    // setAvailableTroops tests
+    @Test
+    public void setAvailableTroops_negativeAmount_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        assertThrows(IllegalArgumentException.class, () -> player.setAvailableTroops(-1));
+    }
+
 }

@@ -39,4 +39,8 @@ public class Player {
         }
         territories.remove(territory);
     }
+
+    public void setAvailableTroops(int amount) {
+        throw new IllegalArgumentException("Available troops cannot be negative");
+    }
 }

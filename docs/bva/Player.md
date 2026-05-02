@@ -66,7 +66,7 @@
 - **TC19: add INFANTRY card** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.get(0).getType() = INFANTRY
-- **TC20: add CAVALRY card** ( :x: )
+- **TC20: add CAVALRY card** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.get(0).getType() = CAVALRY
 - **TC21: add ARTILLERY card** ( :x: )

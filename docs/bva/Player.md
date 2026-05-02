@@ -54,7 +54,7 @@
   - **Expected output**: Player.availableTroops == 5
 
   ### Method under test: `void addCard(IRiskCard card)`
-- **TC16: null card** ( :x: )
+- **TC16: null card** ( :white_check_mark: )
   - **State of the system**: any
   - **Expected output**: IllegalArgumentException thrown
 - **TC17: add to empty hand** ( :x: )

@@ -173,4 +173,11 @@ public class PlayerTests {
         assertEquals(5, player.getAvailableTroops());
     }
 
+    // addCard tests
+    @Test
+    public void addCard_nullCard_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        assertThrows(IllegalArgumentException.class, () -> player.addCard(null));
+    }
+
 }

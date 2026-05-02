@@ -46,4 +46,8 @@ public class Player {
         }
         this.availableTroops = amount;
     }
+
+    public void addCard(IRiskCard card) {
+        throw new IllegalArgumentException("Card cannot be null.");
+    }
 }

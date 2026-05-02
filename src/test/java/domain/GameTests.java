@@ -359,6 +359,24 @@ public class GameTests {
     }
 
     @Test
+    public void shuffleDeck_twoCards_deckStillContainsBothCards() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        List<IRiskCard> deck = makeCards(2);
+        deck.forEach(EasyMock::replay);
+        replayAll(players, map);
+
+        Game game = new Game(players, map, deck);
+        game.shuffleDeck();
+
+        assertEquals(2, game.getDeckSize());
+        assertTrue(game.getDeck().contains(deck.get(0)));
+        assertTrue(game.getDeck().contains(deck.get(1)));
+        verifyAll(players, map);
+        deck.forEach(EasyMock::verify);
+    }
+
+    @Test
     public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

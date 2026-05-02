@@ -2,6 +2,8 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 import org.easymock.EasyMock;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -409,4 +411,28 @@ public class PlayerTests {
         EasyMock.verify(t);
     }
 
+    // calculateReinforcements tests
+    @ParameterizedTest
+    @CsvSource({
+            "0,  3",
+            "1,  3",
+            "2,  3",
+            "3,  3",
+            "9,  3",
+            "10, 3",
+            "11, 3",
+            "12, 4",
+            "30, 10"
+    })
+    public void calculateReinforcements_nTerritories_returnsExpected(int n, int expected) {
+        Player player = new Player("Alice");
+
+        for (int i = 0; i < n; i++) {
+            ITerritory t = EasyMock.createMock(ITerritory.class);
+            EasyMock.replay(t);
+            player.addTerritory(t);
+        }
+
+        assertEquals(expected, player.calculateReinforcements());
+    }
 }

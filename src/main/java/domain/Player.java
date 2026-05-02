@@ -69,6 +69,9 @@ public class Player {
         }
         territory.addTroops(amount);
         availableTroops -= amount;
+    }
 
+    public int calculateReinforcements() {
+        return Math.max(3, territories.size() / 3);
     }
 }

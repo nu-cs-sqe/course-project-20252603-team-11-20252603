@@ -46,12 +46,20 @@ public class GameTests {
         territory.addTroops(1);
     }
 
+    private List<IRiskCard> makeCards(int count) {
+        List<IRiskCard> cards = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            cards.add(EasyMock.createMock(IRiskCard.class));
+        }
+        return cards;
+    }
+
     // ! Constructor tests
     @Test
     public void constructor_nullPlayers_throwsIllegalArgumentException() {
         IGameMap map = makeMap();
         EasyMock.replay(map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(null, map));
+        assertThrows(IllegalArgumentException.class, () -> new Game(null, map, new ArrayList<>()));
         EasyMock.verify(map);
     }
 
@@ -59,7 +67,7 @@ public class GameTests {
     public void constructor_emptyPlayersList_throwsIllegalArgumentException() {
         IGameMap map = makeMap();
         EasyMock.replay(map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(new ArrayList<>(), map));
+        assertThrows(IllegalArgumentException.class, () -> new Game(new ArrayList<>(), map, new ArrayList<>()));
         EasyMock.verify(map);
     }
 
@@ -68,7 +76,7 @@ public class GameTests {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(1);
         replayAll(players, map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, map));
+        assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>()));
         verifyAll(players, map);
     }
 
@@ -78,7 +86,7 @@ public class GameTests {
         List<Player> players = makePlayers(2);
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
 
         assertEquals(2, game.getPlayerCount());
         assertEquals(map, game.getMap());
@@ -91,7 +99,7 @@ public class GameTests {
         List<Player> players = makePlayers(6);
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
 
         assertEquals(6, game.getPlayerCount());
         assertEquals(map, game.getMap());
@@ -103,7 +111,7 @@ public class GameTests {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(7);
         replayAll(players, map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, map));
+        assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>()));
         verifyAll(players, map);
     }
 
@@ -114,7 +122,7 @@ public class GameTests {
         players.add(null);
         players.forEach(p -> { if (p != null) EasyMock.replay(p); });
         EasyMock.replay(map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, map));
+        assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>()));
         players.forEach(p -> { if (p != null) EasyMock.verify(p); });
         EasyMock.verify(map);
     }
@@ -123,7 +131,7 @@ public class GameTests {
     public void constructor_nullMap_throwsIllegalArgumentException() {
         List<Player> players = makePlayers(2);
         players.forEach(EasyMock::replay);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, null));
+        assertThrows(IllegalArgumentException.class, () -> new Game(players, null, new ArrayList<>()));
         players.forEach(EasyMock::verify);
     }
 
@@ -142,7 +150,7 @@ public class GameTests {
         replayAll(players, map);
         EasyMock.replay(territory);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.assignTerritories();
 
         verifyAll(players, map);
@@ -168,7 +176,7 @@ public class GameTests {
         replayAll(players, map);
         territories.forEach(EasyMock::replay);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.assignTerritories();
 
         verifyAll(players, map);
@@ -192,7 +200,7 @@ public class GameTests {
         replayAll(players, map);
         territories.forEach(EasyMock::replay);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.assignTerritories();
 
         verifyAll(players, map);
@@ -206,7 +214,7 @@ public class GameTests {
         EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.assignTerritories();
 
         verifyAll(players, map);
@@ -225,7 +233,7 @@ public class GameTests {
 
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.distributeStartingTroops();
 
         verifyAll(players, map);
@@ -245,7 +253,7 @@ public class GameTests {
 
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.distributeStartingTroops();
 
         verifyAll(players, map);
@@ -267,7 +275,7 @@ public class GameTests {
 
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.distributeStartingTroops();
 
         verifyAll(players, map);
@@ -287,7 +295,7 @@ public class GameTests {
 
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.distributeStartingTroops();
 
         verifyAll(players, map);
@@ -313,7 +321,7 @@ public class GameTests {
 
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
         game.distributeStartingTroops();
 
         verifyAll(players, map);
@@ -325,9 +333,23 @@ public class GameTests {
         List<Player> players = makePlayers(2);
         replayAll(players, map);
 
-        Game game = new Game(players, map);
+        Game game = new Game(players, map, new ArrayList<>());
 
         assertEquals(map, game.getMap());
+        verifyAll(players, map);
+    }
+
+    // ! shuffleDeck tests
+    @Test
+    public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(2);
+        replayAll(players, map);
+
+        Game game = new Game(players, map, new ArrayList<>());
+        game.shuffleDeck();
+
+        assertEquals(0, game.getDeckSize());
         verifyAll(players, map);
     }
 }

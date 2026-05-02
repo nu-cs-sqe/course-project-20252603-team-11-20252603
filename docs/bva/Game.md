@@ -86,7 +86,7 @@ The number of starting armies per player is determined by `players.size()`, whic
 
 Precondition: Game constructed. BVA is on `deck` (Count variable, size ≥ 0).
 
-- **TC19: deck has 0 cards (empty)**
+- **TC19: deck has 0 cards (empty)** ( :white_check_mark: )
   - **State of the system**: deck is empty
   - **Expected output**: deck remains empty; no exception thrown
 - **TC20: deck has 1 card**

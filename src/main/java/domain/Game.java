@@ -1,16 +1,19 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
     private final List<Player> players;
     private final IGameMap map;
+    private final List<IRiskCard> deck;
 
-    public Game(List<Player> players, IGameMap map) {
+    public Game(List<Player> players, IGameMap map, List<IRiskCard> deck) {
         validatePlayers(players);
         validateMap(map);
         this.players = players;
         this.map = map;
+        this.deck = deck;
     }
 
     private static void validatePlayers(List<Player> players) {
@@ -53,6 +56,11 @@ public class Game {
         return 50 - (5 * playerCount);
     }
 
+    public void shuffleDeck() {
+        Collections.shuffle(deck);
+    }
+
     public int getPlayerCount() { return players.size(); }
     public IGameMap getMap() { return map; }
+    public int getDeckSize() { return deck.size(); }
 }

@@ -125,3 +125,24 @@ Sets `currentPlayerIndex` to a random value. BVA is on the resulting index as an
 - **TC26: 6 players, result = 5 (upper bound of valid range)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 6 players
   - **Expected output**: currentPlayerIndex = 5 (a valid outcome; upper boundary of [0, 5])
+
+---
+
+### Method under test: `void startGame()`
+
+Precondition: Game constructed with 2–6 players, a valid map, and a deck.
+
+`startGame()` is a sequencing method with no input parameters. It orchestrates four setup steps in order: `shuffleDeck` → `assignTerritories` → `distributeStartingTroops` → `chooseFirstPlayer`. BVA focuses on two concerns: (1) all four steps execute and produce correct observable state, and (2) the resulting `currentPlayerIndex` is valid (an interval [0, players.size() − 1] — boundary values inherited from `chooseFirstPlayer`).
+
+**All four setup steps execute in correct sequence:**
+- **TC27: startGame executes all four setup steps in the correct order**
+  - **State of the system**: Game constructed with 2 players, 2 territories, 1 deck card; random controlled
+  - **Expected output**: deck shuffled; both territories assigned (each with 1 troop); each player's availableTroops set correctly; currentPlayerIndex set to the value returned by random
+
+**Resulting `currentPlayerIndex` after startGame (Interval [0, players.size() − 1]):**
+- **TC28: 2 players, result = 0 (lower bound of resulting index)**
+  - **State of the system**: Game constructed with 2 players; random returns 0 for chooseFirstPlayer call
+  - **Expected output**: currentPlayerIndex = 0
+- **TC29: 2 players, result = 1 (upper bound of resulting index)**
+  - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
+  - **Expected output**: currentPlayerIndex = 1

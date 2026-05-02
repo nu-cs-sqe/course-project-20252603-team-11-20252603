@@ -194,5 +194,21 @@ public class PlayerTests {
         EasyMock.verify(card);
     }
 
+    @Test
+    public void addCard_oneExisting_sizeBecomesTwo() {
+        Player player = new Player("Alice");
+        IRiskCard card1 = EasyMock.createMock(IRiskCard.class);
+        IRiskCard card2 = EasyMock.createMock(IRiskCard.class);
+
+        EasyMock.replay(card1, card2);
+
+        player.addCard(card1);
+        player.addCard(card2);
+        assertEquals(2, player.getCards().size());
+        assertTrue(player.getCards().contains(card1));
+        assertTrue(player.getCards().contains(card2));
+
+        EasyMock.verify(card1, card2);
+    }
 
 }

@@ -60,7 +60,7 @@
 - **TC17: add to empty hand** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.size() = 1; list contains added card
-- **TC18: add second card** ( :x: )
+- **TC18: add second card** ( :white_check_mark: )
   - **State of the system**: Player.cards has 1 card
   - **Expected output**: Player.cards.size() = 2; list contains both cards
 - **TC19: add INFANTRY card** ( :x: )

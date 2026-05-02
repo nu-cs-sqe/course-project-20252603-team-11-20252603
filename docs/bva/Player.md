@@ -75,6 +75,6 @@
 - **TC22: add WILDCARD card** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: Player.cards.get(0).getType() = WILDCARD
-- **TC23: duplicate card type allowed** ( :x: )
+- **TC23: duplicate card type allowed** ( :white_check_mark: )
   - **State of the system**: Player.cards already has 1 INFANTRY card
   - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)  

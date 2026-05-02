@@ -266,4 +266,19 @@ public class PlayerTests {
 
         EasyMock.verify(card);
     }
+
+    @Test
+    public void addCard_duplicateCardType_bothAdded() {
+        Player player = new Player("Alice");
+        IRiskCard card1 = EasyMock.createMock(IRiskCard.class);
+        IRiskCard card2 = EasyMock.createMock(IRiskCard.class);
+
+        EasyMock.replay(card1, card2);
+
+        player.addCard(card1);
+        player.addCard(card2);
+        assertEquals(2, player.getCards().size());
+
+        EasyMock.verify(card1, card2);
+    }
 }

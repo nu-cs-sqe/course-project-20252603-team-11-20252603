@@ -302,4 +302,19 @@ public class PlayerTests {
 
         EasyMock.verify(t);
     }
+
+    @Test
+    public void placeTroops_amountZero_throwsIllegalArgumentException() {
+        Player player = new Player("Alice");
+        ITerritory t = EasyMock.createMock(ITerritory.class);
+
+        player.setAvailableTroops(5);
+
+        EasyMock.replay(t);
+
+        player.addTerritory(t);
+        assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 0));
+
+        EasyMock.verify(t);
+    }
 }

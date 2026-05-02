@@ -61,6 +61,9 @@ public class Player {
         if (!territories.contains(territory)) {
             throw new IllegalArgumentException("Territory not owned by player.");
         }
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be positive.");
+        }
 
     }
 }

@@ -20,7 +20,7 @@
 - **TC5: 6 players (upper bound, valid)** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: Game constructed; players list stored, map stored
-- **TC6: 7 players (one above upper bound)**
+- **TC6: 7 players (one above upper bound)** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC7: players list contains a null element**

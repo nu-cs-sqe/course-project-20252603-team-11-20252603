@@ -10,8 +10,8 @@ public class Game {
         if (players == null) {
             throw new IllegalArgumentException("Players list cannot be null.");
         }
-        if (players.size() < 2) {
-            throw new IllegalArgumentException("Game requires at least 2 players.");
+        if (players.size() < 2 || players.size() > 6) {
+            throw new IllegalArgumentException("Game requires between 2 and 6 players.");
         }
         this.players = players;
         this.map = map;

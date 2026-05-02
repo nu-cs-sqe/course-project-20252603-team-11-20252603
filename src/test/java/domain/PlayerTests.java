@@ -122,4 +122,21 @@ public class PlayerTests {
 
         EasyMock.verify(t1, t2);
     }
+
+    @Test
+    public void removeTerritory_territoryNotInList_noOpSizeUnchanged() {
+        Player player = new Player("Alice");
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+
+        player.addTerritory(t1);
+        player.removeTerritory(t2);
+
+        assertEquals(1, player.getTerritoryCount());
+
+        EasyMock.verify(t1, t2);
+    }
+
 }

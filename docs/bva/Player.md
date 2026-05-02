@@ -35,7 +35,7 @@
 - **TC 9: remove one of many territories** ( :white_check_mark: )
   - **State of the system**: Plauyer.territories has [T1, T2]
   - **Expected output**: No explicit output, Player.territories.size() == 1, containing only T2
-- **TC 10: remove territory not in list** ( :x: )
+- **TC 10: remove territory not in list** ( :white_check_mark: )
   - **State of the system**: Player.territories has [T1], but T2 is not present
   - **Expected output**: No explicit output, Player.territories.size() == 1 still (no-op, no exception)
 - **TC 11: remove from an empty territories list** ( :x: )

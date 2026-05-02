@@ -274,6 +274,26 @@ public class GameTests {
     }
 
     @Test
+    public void distributeStartingTroops_fivePlayers_availableTroopsSetTo25MinusTerritoryCount() {
+        IGameMap map = makeMap();
+        List<Player> players = makePlayers(5);
+
+        EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(2);
+        EasyMock.expect(players.get(1).getTerritoryCount()).andReturn(2);
+        EasyMock.expect(players.get(2).getTerritoryCount()).andReturn(2);
+        EasyMock.expect(players.get(3).getTerritoryCount()).andReturn(2);
+        EasyMock.expect(players.get(4).getTerritoryCount()).andReturn(2);
+        for (Player p : players) p.setAvailableTroops(23);
+
+        replayAll(players, map);
+
+        Game game = new Game(players, map);
+        game.distributeStartingTroops();
+
+        verifyAll(players, map);
+    }
+
+    @Test
     public void constructor_validPlayersAndMap_mapStoredCorrectly() {
         IGameMap map = makeMap();
         List<Player> players = makePlayers(2);

@@ -5,7 +5,7 @@
 `players` is a collection with a constrained size in the interval [2, 6].
 
 **`players` parameter (Pointer + Collection with size interval [2, 6]):**
-- **TC1: null players list**
+- **TC1: null players list** ( :white_check_mark: )
   - **State of the system**: No game created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC2: 0 players (empty list, below lower bound)**

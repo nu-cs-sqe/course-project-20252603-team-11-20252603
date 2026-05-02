@@ -116,6 +116,6 @@ Sets `currentPlayerIndex` to a random value. BVA is on the resulting index as an
 - **TC25: 6 players, result = 0 (lower bound of valid range)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 6 players
   - **Expected output**: currentPlayerIndex = 0 (a valid outcome; lower boundary of [0, 5])
-- **TC26: 6 players, result = 5 (upper bound of valid range)**
+- **TC26: 6 players, result = 5 (upper bound of valid range)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 6 players
   - **Expected output**: currentPlayerIndex = 5 (a valid outcome; upper boundary of [0, 5])

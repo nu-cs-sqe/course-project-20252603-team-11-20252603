@@ -18,7 +18,10 @@ public class GameMap implements IGameMap {
 
     @Override
     public void addTerritory(ITerritory territory) {
-        throw new IllegalArgumentException("Territory cannot be null.");
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory cannot be null.");
+        }
+        territories.add(territory);
     }
 
     @Override

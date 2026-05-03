@@ -19,4 +19,17 @@ public class GameMapTests {
         GameMap map = new GameMap();
         assertThrows(IllegalArgumentException.class, () -> map.addTerritory(null));
     }
+
+    @Test
+    public void addTerritory_emptyMap_sizeBecomesOne() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+        map.addTerritory(t1);
+
+        assertEquals(1, map.getTerritories().size());
+        assertTrue(map.getTerritories().contains(t1));
+        EasyMock.verify(t1);
+    }
 }

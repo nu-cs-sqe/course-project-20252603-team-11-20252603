@@ -15,7 +15,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC2: null territory** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
-- **TC3: add to empty map** ( :x: )
+- **TC3: add to empty map** ( :white_check_mark: )
     - **State of the system**: GameMap.territories is empty
     - **Expected output**: No explicit output; `getTerritories().size() == 1`; the added territory is contained
 - **TC4: add second distinct territory** ( :x: )

@@ -38,7 +38,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC8: a == b (self-connection)** ( :white_check_mark: )
     - **State of the system**: GameMap.territories contains T1
     - **Expected output**: IllegalArgumentException thrown
-- **TC9: a not in map** ( :x: )
+- **TC9: a not in map** ( :white_check_mark: )
     - **State of the system**: GameMap.territories contains T2 but not T1
     - **Expected output**: IllegalArgumentException thrown
 - **TC10: b not in map** ( :x: )

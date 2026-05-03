@@ -44,7 +44,8 @@ public class GameMap implements IGameMap {
         if (!territories.contains(a) || !territories.contains(b)) {
             throw new IllegalArgumentException("Both territories must be in the map.");
         }
-        adjacency.get(a).add(b);   // one-directional only
+        adjacency.get(a).add(b);
+        adjacency.get(b).add(a);
     }
 
     @Override

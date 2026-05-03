@@ -96,6 +96,6 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC24: both in map, connected — query (a, b)** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) called
     - **Expected output**: true
-- **TC25: both in map, connected — reverse query (b, a)** ( :x: )
+- **TC25: both in map, connected — reverse query (b, a)** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) called
     - **Expected output**: true (bidirectionality)

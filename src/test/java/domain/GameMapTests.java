@@ -322,4 +322,19 @@ public class GameMapTests {
         assertTrue(map.areAdjacent(t1, t2));
         EasyMock.verify(t1, t2);
     }
+
+    @Test
+    public void areAdjacent_connectedAB_reverseQuery_returnsTrue() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addConnection(t1, t2);
+
+        assertTrue(map.areAdjacent(t2, t1));
+        EasyMock.verify(t1, t2);
+    }
 }

@@ -2,13 +2,19 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GameMap implements IGameMap {
     private final List<ITerritory> territories;
+    private final Map<ITerritory, Set<ITerritory>> adjacency;
 
     public GameMap() {
         this.territories = new ArrayList<>();
+        this.adjacency = new HashMap<>();
     }
 
     @Override
@@ -23,6 +29,7 @@ public class GameMap implements IGameMap {
         }
         if (!territories.contains(territory)) {
             territories.add(territory);
+            adjacency.put(territory, new HashSet<>());
         }
     }
 
@@ -37,6 +44,7 @@ public class GameMap implements IGameMap {
         if (!territories.contains(a) || !territories.contains(b)) {
             throw new IllegalArgumentException("Both territories must be in the map.");
         }
+        adjacency.get(a).add(b);   // one-directional only
     }
 
     @Override
@@ -44,7 +52,11 @@ public class GameMap implements IGameMap {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
-        return Collections.emptyList();
+        Set<ITerritory> neighbors = adjacency.get(territory);
+        if (neighbors == null) {
+            return Collections.emptyList();
+        }
+        return Collections.unmodifiableList(new ArrayList<>(neighbors));
     }
 
     @Override

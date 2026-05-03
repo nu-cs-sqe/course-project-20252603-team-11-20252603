@@ -78,7 +78,7 @@ No parameters. Verifies the constructed map's initial observable state.
 
 `a` and `b` are Pointers. Both must be in the map. Adjacency is symmetric.
 
-- **TC19: a is null** ( :x: )
+- **TC19: a is null** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
 - **TC20: b is null** ( :x: )

@@ -242,4 +242,17 @@ public class GameMapTests {
         assertTrue(map.getNeighbors(t1).contains(t3));
         EasyMock.verify(t1, t2, t3);
     }
+
+    // ! areAdjacent tests
+    @Test
+    public void areAdjacent_nullA_throwsIllegalArgumentException() {
+        GameMap map = new GameMap();
+        ITerritory t = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t);
+        map.addTerritory(t);
+
+        assertThrows(IllegalArgumentException.class, () -> map.areAdjacent(null, t));
+        EasyMock.verify(t);
+    }
 }

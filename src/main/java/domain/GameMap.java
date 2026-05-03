@@ -61,6 +61,6 @@ public class GameMap implements IGameMap {
 
     @Override
     public boolean areAdjacent(ITerritory a, ITerritory b) {
-        throw new UnsupportedOperationException();
+        throw new IllegalArgumentException("Territories cannot be null.");
     }
 }

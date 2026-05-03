@@ -81,7 +81,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC19: a is null** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
-- **TC20: b is null** ( :x: )
+- **TC20: b is null** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
 - **TC21: a not in map** ( :x: )

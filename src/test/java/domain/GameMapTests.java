@@ -160,4 +160,16 @@ public class GameMapTests {
         assertTrue(map.getNeighbors(t1).isEmpty());
         EasyMock.verify(t1);
     }
+
+    @Test
+    public void getNeighbors_territoryWithNoConnections_returnsEmptyList() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+        map.addTerritory(t1);
+
+        assertTrue(map.getNeighbors(t1).isEmpty());
+        EasyMock.verify(t1);
+    }
 }

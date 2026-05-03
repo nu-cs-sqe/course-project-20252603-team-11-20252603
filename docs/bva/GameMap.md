@@ -64,7 +64,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC15: territory not in map** ( :white_check_mark: )
     - **State of the system**: GameMap does not contain T1
     - **Expected output**: empty list
-- **TC16: territory in map with no connections** ( :x: )
+- **TC16: territory in map with no connections** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1; no connections involve T1
     - **Expected output**: empty list
 - **TC17: territory with exactly 1 neighbor** ( :x: )

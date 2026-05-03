@@ -41,7 +41,10 @@ public class GameMap implements IGameMap {
 
     @Override
     public List<ITerritory> getNeighbors(ITerritory territory) {
-        throw new IllegalArgumentException("Territory cannot be null.");
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory cannot be null.");
+        }
+        return Collections.emptyList();
     }
 
     @Override

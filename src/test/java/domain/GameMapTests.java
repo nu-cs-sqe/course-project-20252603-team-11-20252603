@@ -149,4 +149,15 @@ public class GameMapTests {
         GameMap map = new GameMap();
         assertThrows(IllegalArgumentException.class, () -> map.getNeighbors(null));
     }
+
+    @Test
+    public void getNeighbors_territoryNotInMap_returnsEmptyList() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+
+        assertTrue(map.getNeighbors(t1).isEmpty());
+        EasyMock.verify(t1);
+    }
 }

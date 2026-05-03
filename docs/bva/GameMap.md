@@ -58,7 +58,7 @@ No parameters. Verifies the constructed map's initial observable state.
 
 `territory` is a Pointer. The neighbors collection is a Count variable.
 
-- **TC14: null territory** ( :x: )
+- **TC14: null territory** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
 - **TC15: territory not in map** ( :x: )

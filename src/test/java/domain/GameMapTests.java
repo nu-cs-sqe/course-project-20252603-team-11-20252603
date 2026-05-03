@@ -142,4 +142,11 @@ public class GameMapTests {
         assertDoesNotThrow(() -> map.addConnection(t1, t2));
         EasyMock.verify(t1, t2);
     }
+
+    // ! getNeighbors tests
+    @Test
+    public void getNeighbors_nullTerritory_throwsIllegalArgumentException() {
+        GameMap map = new GameMap();
+        assertThrows(IllegalArgumentException.class, () -> map.getNeighbors(null));
+    }
 }

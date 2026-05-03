@@ -87,7 +87,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC21: a not in map** ( :white_check_mark: )
     - **State of the system**: GameMap contains T2 but not T1
     - **Expected output**: IllegalArgumentException thrown
-- **TC22: b not in map** ( :x: )
+- **TC22: b not in map** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1 but not T2
     - **Expected output**: IllegalArgumentException thrown
 - **TC23: both in map, not connected** ( :x: )

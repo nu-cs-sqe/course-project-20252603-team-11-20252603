@@ -47,7 +47,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC11: valid pair, both in map** ( :white_check_mark: )
     - **State of the system**: GameMap.territories contains T1 and T2
     - **Expected output**: No explicit output; no exception thrown (bidirectionality verified by later `areAdjacent` tests)
-- **TC12: duplicate connection (same pair (a,b))** ( :x: )
+- **TC12: duplicate connection (same pair (a,b))** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) already called
     - **Expected output**: No explicit output; calling addConnection(T1, T2) again is a no-op; T1's neighbor list still has size 1
 - **TC13: duplicate connection reversed (b,a after a,b)** ( :x: )

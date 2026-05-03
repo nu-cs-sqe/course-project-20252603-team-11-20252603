@@ -12,7 +12,7 @@ No parameters. Verifies the constructed map's initial observable state.
 
 `territory` parameter is a Pointer; the territories collection is a Count variable that drives duplicate behavior.
 
-- **TC2: null territory** ( :x: )
+- **TC2: null territory** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
 - **TC3: add to empty map** ( :x: )

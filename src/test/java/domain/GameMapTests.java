@@ -12,4 +12,11 @@ public class GameMapTests {
         GameMap map = new GameMap();
         assertTrue(map.getTerritories().isEmpty());
     }
+
+    // ! addTerritory tests
+    @Test
+    public void addTerritory_nullTerritory_throwsIllegalArgumentException() {
+        GameMap map = new GameMap();
+        assertThrows(IllegalArgumentException.class, () -> map.addTerritory(null));
+    }
 }

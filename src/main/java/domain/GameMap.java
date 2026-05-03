@@ -28,7 +28,15 @@ public class GameMap implements IGameMap {
 
     @Override
     public void addConnection(ITerritory a, ITerritory b) {
-        throw new IllegalArgumentException("Territories cannot be null.");
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Territories cannot be null.");
+        }
+        if (a == b) {
+            throw new IllegalArgumentException("Cannot connect a territory to itself.");
+        }
+        if (!territories.contains(a) || !territories.contains(b)) {
+            throw new IllegalArgumentException("Both territories must be in the map.");
+        }
     }
 
     @Override

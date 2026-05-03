@@ -44,7 +44,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC10: b not in map** ( :white_check_mark: )
     - **State of the system**: GameMap.territories contains T1 but not T2
     - **Expected output**: IllegalArgumentException thrown
-- **TC11: valid pair, both in map** ( :x: )
+- **TC11: valid pair, both in map** ( :white_check_mark: )
     - **State of the system**: GameMap.territories contains T1 and T2
     - **Expected output**: No explicit output; no exception thrown (bidirectionality verified by later `areAdjacent` tests)
 - **TC12: duplicate connection (same pair (a,b))** ( :x: )

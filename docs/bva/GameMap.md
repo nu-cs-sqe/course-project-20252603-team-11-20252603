@@ -29,7 +29,7 @@ No parameters. Verifies the constructed map's initial observable state.
 
 `a` and `b` are Pointers. Self-connection is invalid. Both must already be in the map. Edges are undirected; duplicate edges are no-ops.
 
-- **TC6: a is null** ( :x: )
+- **TC6: a is null** ( :white_check_mark: )
     - **State of the system**: any
     - **Expected output**: IllegalArgumentException thrown
 - **TC7: b is null** ( :x: )

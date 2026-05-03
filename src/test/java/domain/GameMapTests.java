@@ -32,4 +32,23 @@ public class GameMapTests {
         assertTrue(map.getTerritories().contains(t1));
         EasyMock.verify(t1);
     }
+
+    @Test
+    public void addTerritory_oneExisting_sizeBecomesTwo() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+
+        map.addTerritory(t1);
+        assertEquals(1, map.getTerritories().size());
+        assertTrue(map.getTerritories().contains(t1));
+
+        map.addTerritory(t2);
+        assertEquals(2, map.getTerritories().size());
+        assertTrue(map.getTerritories().contains(t2));
+
+        EasyMock.verify(t1, t2);
+    }
 }

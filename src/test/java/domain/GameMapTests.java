@@ -90,4 +90,16 @@ public class GameMapTests {
         assertThrows(IllegalArgumentException.class, () -> map.addConnection(t, null));
         EasyMock.verify(t);
     }
+
+    @Test
+    public void addConnection_selfConnection_throwsIllegalArgumentException() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+        map.addTerritory(t1);
+
+        assertThrows(IllegalArgumentException.class, () -> map.addConnection(t1, t1));
+        EasyMock.verify(t1);
+    }
 }

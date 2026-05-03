@@ -4,7 +4,7 @@
 
 No parameters. Verifies the constructed map's initial observable state.
 
-- **TC1: empty map after construction** ( :x: )
+- **TC1: empty map after construction** ( :white_check_mark: )
     - **State of the system**: No map created yet
     - **Expected output**: GameMap constructed; `getTerritories()` returns an empty list
 

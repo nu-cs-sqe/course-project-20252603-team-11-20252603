@@ -70,7 +70,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC17: territory with exactly 1 neighbor** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) called
     - **Expected output**: list of size 1 containing T2
-- **TC18: territory with multiple neighbors** ( :x: )
+- **TC18: territory with multiple neighbors** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2, T3; addConnection(T1, T2) and addConnection(T1, T3) called
     - **Expected output**: list of size 2 containing T2 and T3
 

@@ -189,4 +189,23 @@ public class GameMapTests {
         EasyMock.verify(t1, t2);
     }
 
+    @Test
+    public void getNeighbors_multipleNeighbors_returnsAllNeighbors() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        ITerritory t3 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2, t3);
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t3);
+        map.addConnection(t1, t2);
+        map.addConnection(t1, t3);
+
+        assertEquals(2, map.getNeighbors(t1).size());
+        assertTrue(map.getNeighbors(t1).contains(t2));
+        assertTrue(map.getNeighbors(t1).contains(t3));
+        EasyMock.verify(t1, t2, t3);
+    }
 }

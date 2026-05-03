@@ -160,6 +160,23 @@ public class GameMapTests {
         EasyMock.verify(t1, t2);
     }
 
+    @Test
+    public void addConnection_duplicateReversedPair_isNoOp() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1, t2);
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+
+        map.addConnection(t1, t2);
+        assertDoesNotThrow(() -> map.addConnection(t2, t1));
+        assertEquals(1, map.getNeighbors(t1).size());
+
+        EasyMock.verify(t1, t2);
+    }
+
     // ! getNeighbors tests
     @Test
     public void getNeighbors_nullTerritory_throwsIllegalArgumentException() {

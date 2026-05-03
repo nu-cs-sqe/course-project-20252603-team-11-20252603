@@ -50,7 +50,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC12: duplicate connection (same pair (a,b))** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) already called
     - **Expected output**: No explicit output; calling addConnection(T1, T2) again is a no-op; T1's neighbor list still has size 1
-- **TC13: duplicate connection reversed (b,a after a,b)** ( :x: )
+- **TC13: duplicate connection reversed (b,a after a,b)** ( :white_check_mark: )
     - **State of the system**: GameMap contains T1, T2; addConnection(T1, T2) already called
     - **Expected output**: No explicit output; calling addConnection(T2, T1) is a no-op; T1's neighbor list still has size 1
 

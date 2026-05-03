@@ -21,7 +21,7 @@ No parameters. Verifies the constructed map's initial observable state.
 - **TC4: add second distinct territory** ( :white_check_mark: )
     - **State of the system**: GameMap.territories has exactly 1 element
     - **Expected output**: No explicit output; `getTerritories().size() == 2`; both territories contained
-- **TC5: add duplicate territory** ( :x: )
+- **TC5: add duplicate territory** ( :white_check_mark: )
     - **State of the system**: GameMap.territories already contains some T1
     - **Expected output**: No explicit output; `getTerritories().size() == 1` (no-op, no duplicate added)
 

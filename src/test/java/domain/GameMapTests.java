@@ -51,4 +51,18 @@ public class GameMapTests {
 
         EasyMock.verify(t1, t2);
     }
+
+    @Test
+    public void addTerritory_duplicateTerritory_sizeRemainsOne() {
+        GameMap map = new GameMap();
+        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+
+        EasyMock.replay(t1);
+
+        map.addTerritory(t1);
+        map.addTerritory(t1);
+
+        assertEquals(1, map.getTerritories().size());
+        EasyMock.verify(t1);
+    }
 }

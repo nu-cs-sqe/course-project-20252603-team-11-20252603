@@ -21,7 +21,9 @@ public class GameMap implements IGameMap {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
-        territories.add(territory);
+        if (!territories.contains(territory)) {
+            territories.add(territory);
+        }
     }
 
     @Override

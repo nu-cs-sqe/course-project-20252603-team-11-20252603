@@ -61,6 +61,12 @@ public class GameMap implements IGameMap {
 
     @Override
     public boolean areAdjacent(ITerritory a, ITerritory b) {
-        throw new IllegalArgumentException("Territories cannot be null.");
+        if (a == null || b == null) {
+            throw new IllegalArgumentException("Territories cannot be null.");
+        }
+        if (!territories.contains(a) || !territories.contains(b)) {
+            throw new IllegalArgumentException("Both territories must be in the map.");
+        }
+        return adjacency.get(a).contains(b);
     }
 }

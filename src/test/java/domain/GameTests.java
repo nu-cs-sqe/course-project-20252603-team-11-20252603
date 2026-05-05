@@ -20,29 +20,29 @@ public class GameTests {
         return players;
     }
 
-    private IGameMap makeMap() {
-        return EasyMock.createMock(IGameMap.class);
+    private GameMap makeMap() {
+        return EasyMock.createMock(GameMap.class);
     }
 
-    private void replayAll(List<Player> players, IGameMap map) {
+    private void replayAll(List<Player> players, GameMap map) {
         players.forEach(EasyMock::replay);
         EasyMock.replay(map);
     }
 
-    private void verifyAll(List<Player> players, IGameMap map) {
+    private void verifyAll(List<Player> players, GameMap map) {
         players.forEach(EasyMock::verify);
         EasyMock.verify(map);
     }
 
-    private List<ITerritory> makeTerritories(int count) {
-        List<ITerritory> territories = new ArrayList<>();
+a    private List<Territory> makeTerritories(int count) {
+        List<Territory> territories = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            territories.add(EasyMock.createMock(ITerritory.class));
+            territories.add(EasyMock.createMock(Territory.class));
         }
         return territories;
     }
 
-    private void expectTerritoryAssignment(ITerritory territory, Player owner) {
+    private void expectTerritoryAssignment(Territory territory, Player owner) {
         territory.setOwner(owner);
         territory.addTroops(1);
     }
@@ -53,10 +53,10 @@ public class GameTests {
         }
     }
 
-    private List<IRiskCard> makeCards(int count) {
-        List<IRiskCard> cards = new ArrayList<>();
+    private List<RiskCard> makeCards(int count) {
+        List<RiskCard> cards = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            cards.add(EasyMock.createMock(IRiskCard.class));
+            cards.add(EasyMock.createMock(RiskCard.class));
         }
         return cards;
     }
@@ -64,7 +64,7 @@ public class GameTests {
     // ! Constructor tests
     @Test
     public void constructor_nullPlayers_throwsIllegalArgumentException() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         EasyMock.replay(map);
         assertThrows(IllegalArgumentException.class, () -> new Game(null, map, new ArrayList<>(), new Random()));
         EasyMock.verify(map);
@@ -72,7 +72,7 @@ public class GameTests {
 
     @Test
     public void constructor_emptyPlayersList_throwsIllegalArgumentException() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         EasyMock.replay(map);
         assertThrows(IllegalArgumentException.class, () -> new Game(new ArrayList<>(), map, new ArrayList<>(), new Random()));
         EasyMock.verify(map);
@@ -80,7 +80,7 @@ public class GameTests {
 
     @Test
     public void constructor_onePlayer_throwsIllegalArgumentException() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(1);
         replayAll(players, map);
         assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), new Random()));
@@ -89,7 +89,7 @@ public class GameTests {
 
     @Test
     public void constructor_twoPlayers_gameConstructedWithPlayersAndMap() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         replayAll(players, map);
 
@@ -102,7 +102,7 @@ public class GameTests {
 
     @Test
     public void constructor_sixPlayers_gameConstructedWithPlayersAndMap() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(6);
         replayAll(players, map);
 
@@ -115,7 +115,7 @@ public class GameTests {
 
     @Test
     public void constructor_sevenPlayers_throwsIllegalArgumentException() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(7);
         replayAll(players, map);
         assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), new Random()));
@@ -124,7 +124,7 @@ public class GameTests {
 
     @Test
     public void constructor_playersListContainsNull_throwsIllegalArgumentException() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(1);
         players.add(null);
         players.forEach(p -> { if (p != null) EasyMock.replay(p); });
@@ -145,9 +145,9 @@ public class GameTests {
     // ! assignTerritories tests
     @Test
     public void assignTerritories_oneTerritory_assignedToFirstPlayerWithOneTroop() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        ITerritory territory = EasyMock.createMock(ITerritory.class);
+        Territory territory = EasyMock.createMock(Territory.class);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(List.of(territory));
@@ -166,9 +166,9 @@ public class GameTests {
 
     @Test
     public void assignTerritories_fourTerritoriesTwoPlayers_eachPlayerGetsTwoTerritories() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<ITerritory> territories = makeTerritories(4);
+        List<Territory> territories = makeTerritories(4);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
@@ -196,9 +196,9 @@ public class GameTests {
 
     @Test
     public void assignTerritories_threeTerritoriesTwoPlayers_allAssignedUnevenly() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<ITerritory> territories = makeTerritories(3);
+        List<Territory> territories = makeTerritories(3);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
@@ -224,9 +224,9 @@ public class GameTests {
 
     @Test
     public void assignTerritories_twoTerritories_randomProducesSwap_assignmentReflectsShuffledOrder() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<ITerritory> territories = makeTerritories(2);
+        List<Territory> territories = makeTerritories(2);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
@@ -250,9 +250,9 @@ public class GameTests {
 
     @Test
     public void assignTerritories_twoTerritories_randomProducesNoSwap_assignmentReflectsOriginalOrder() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<ITerritory> territories = makeTerritories(2);
+        List<Territory> territories = makeTerritories(2);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
@@ -276,7 +276,7 @@ public class GameTests {
 
     @Test
     public void assignTerritories_noTerritories_noTerritoriesAddedToPlayers() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         Random random = EasyMock.createMock(Random.class);
         // shuffle of size 0 makes no nextInt calls
@@ -294,7 +294,7 @@ public class GameTests {
     // ! distributeStartingTroops tests
     @Test
     public void distributeStartingTroops_twoPlayers_availableTroopsSetTo40MinusTerritoryCount() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
 
         EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(3);
@@ -312,7 +312,7 @@ public class GameTests {
 
     @Test
     public void distributeStartingTroops_threePlayers_availableTroopsSetTo35MinusTerritoryCount() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(3);
 
         EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(5);
@@ -332,7 +332,7 @@ public class GameTests {
 
     @Test
     public void distributeStartingTroops_fourPlayers_availableTroopsSetTo30MinusTerritoryCount() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(4);
 
         EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(3);
@@ -354,7 +354,7 @@ public class GameTests {
 
     @Test
     public void distributeStartingTroops_fivePlayers_availableTroopsSetTo25MinusTerritoryCount() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(5);
 
         EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(2);
@@ -374,7 +374,7 @@ public class GameTests {
 
     @Test
     public void distributeStartingTroops_sixPlayers_availableTroopsSetTo20MinusTerritoryCount() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(6);
 
         EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(2);
@@ -401,7 +401,7 @@ public class GameTests {
     // ! chooseFirstPlayer tests
     @Test
     public void chooseFirstPlayer_twoPlayers_resultZero_lowerBoundChosen() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         Random random = EasyMock.createMock(Random.class);
         EasyMock.expect(random.nextInt(2)).andReturn(0);
@@ -418,7 +418,7 @@ public class GameTests {
 
     @Test
     public void chooseFirstPlayer_twoPlayers_resultOne_upperBoundChosen() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         Random random = EasyMock.createMock(Random.class);
         EasyMock.expect(random.nextInt(2)).andReturn(1);
@@ -435,7 +435,7 @@ public class GameTests {
 
     @Test
     public void chooseFirstPlayer_sixPlayers_resultZero_lowerBoundChosen() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(6);
         Random random = EasyMock.createMock(Random.class);
         EasyMock.expect(random.nextInt(6)).andReturn(0);
@@ -452,7 +452,7 @@ public class GameTests {
 
     @Test
     public void chooseFirstPlayer_sixPlayers_resultFive_upperBoundChosen() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(6);
         Random random = EasyMock.createMock(Random.class);
         EasyMock.expect(random.nextInt(6)).andReturn(5);
@@ -469,7 +469,7 @@ public class GameTests {
 
     @Test
     public void constructor_validPlayersAndMap_mapStoredCorrectly() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         replayAll(players, map);
 
@@ -482,10 +482,10 @@ public class GameTests {
     // ! startGame tests
     @Test
     public void startGame_twoPlayersWithTerritoriesAndDeck_allSetupStepsComplete() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<ITerritory> territories = makeTerritories(2);
-        List<IRiskCard> deck = makeCards(1);
+        List<Territory> territories = makeTerritories(2);
+        List<RiskCard> deck = makeCards(1);
         Random random = EasyMock.createMock(Random.class);
 
         EasyMock.expect(map.getTerritories()).andReturn(territories);
@@ -518,7 +518,7 @@ public class GameTests {
 
     @Test
     public void startGame_twoPlayers_currentPlayerIndexAtLowerBound() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         Random random = EasyMock.createMock(Random.class);
 
@@ -542,7 +542,7 @@ public class GameTests {
 
     @Test
     public void startGame_twoPlayers_currentPlayerIndexAtUpperBound() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         Random random = EasyMock.createMock(Random.class);
 
@@ -567,10 +567,10 @@ public class GameTests {
     // ! shuffleDeck tests
     @Test
     public void shuffleDeck_oneCard_deckStillContainsThatCard() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<IRiskCard> deck = makeCards(1);
-        IRiskCard card = deck.get(0);
+        List<RiskCard> deck = makeCards(1);
+        RiskCard card = deck.get(0);
         EasyMock.replay(card);
         replayAll(players, map);
 
@@ -585,9 +585,9 @@ public class GameTests {
 
     @Test
     public void shuffleDeck_twoCards_deckStillContainsBothCards() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<IRiskCard> deck = makeCards(2);
+        List<RiskCard> deck = makeCards(2);
         deck.forEach(EasyMock::replay);
         replayAll(players, map);
 
@@ -603,9 +603,9 @@ public class GameTests {
 
     @Test
     public void shuffleDeck_fortyFourCards_allCardsStillPresent() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
-        List<IRiskCard> deck = makeCards(44);
+        List<RiskCard> deck = makeCards(44);
         deck.forEach(EasyMock::replay);
         replayAll(players, map);
 
@@ -620,7 +620,7 @@ public class GameTests {
 
     @Test
     public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
-        IGameMap map = makeMap();
+        GameMap map = makeMap();
         List<Player> players = makePlayers(2);
         replayAll(players, map);
 

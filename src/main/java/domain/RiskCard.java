@@ -9,7 +9,7 @@ public class RiskCard {
         this.territory = territory;
     }
 
-    public RiskCardType getRiskCardType(){
+    public RiskCardType getType(){
         return this.riskCardType;
     }
 

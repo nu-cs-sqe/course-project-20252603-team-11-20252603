@@ -8,22 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GameMap implements IGameMap {
-    private final List<ITerritory> territories;
-    private final Map<ITerritory, Set<ITerritory>> adjacency;
+public class GameMap {
+    private final List<Territory> territories;
+    private final Map<Territory, Set<Territory>> adjacency;
 
     public GameMap() {
         this.territories = new ArrayList<>();
         this.adjacency = new HashMap<>();
     }
 
-    @Override
-    public List<ITerritory> getTerritories() {
+    public List<Territory> getTerritories() {
         return Collections.unmodifiableList(territories);
     }
 
-    @Override
-    public void addTerritory(ITerritory territory) {
+    public void addTerritory(Territory territory) {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
@@ -33,8 +31,7 @@ public class GameMap implements IGameMap {
         }
     }
 
-    @Override
-    public void addConnection(ITerritory a, ITerritory b) {
+    public void addConnection(Territory a, Territory b) {
         if (a == null || b == null) {
             throw new IllegalArgumentException("Territories cannot be null.");
         }
@@ -48,20 +45,18 @@ public class GameMap implements IGameMap {
         adjacency.get(b).add(a);
     }
 
-    @Override
-    public List<ITerritory> getNeighbors(ITerritory territory) {
+    public List<Territory> getNeighbors(Territory territory) {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
-        Set<ITerritory> neighbors = adjacency.get(territory);
+        Set<Territory> neighbors = adjacency.get(territory);
         if (neighbors == null) {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(new ArrayList<>(neighbors));
     }
 
-    @Override
-    public boolean areAdjacent(ITerritory a, ITerritory b) {
+    public boolean areAdjacent(Territory a, Territory b) {
         if (a == null || b == null) {
             throw new IllegalArgumentException("Territories cannot be null.");
         }

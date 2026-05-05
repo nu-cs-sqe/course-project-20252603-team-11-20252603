@@ -12,7 +12,7 @@
 6. [in progress] Brock/Kris: Write rules for Risk ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/2))
 7. [in progress] Nandan: Implement Game class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/8))
 8. [in progress] Brock: Implement Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/9))
-9. [in progress] Kris: Implement GameMap class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/13))
+9. [done] Kris: Implement GameMap class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/13))
 10. [in progress] Jefferson: Implement Risk Card class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/11))
 11. [in progress] Jefferson: Implement Territory class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/10))
 

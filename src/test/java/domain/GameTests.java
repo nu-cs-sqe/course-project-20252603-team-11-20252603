@@ -34,7 +34,7 @@ public class GameTests {
         EasyMock.verify(map);
     }
 
-a    private List<Territory> makeTerritories(int count) {
+    private List<Territory> makeTerritories(int count) {
         List<Territory> territories = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             territories.add(EasyMock.createMock(Territory.class));

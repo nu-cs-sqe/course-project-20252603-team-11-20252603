@@ -15,16 +15,16 @@
 
 `riskCardType` is a Case variable over { INFANTRY, CAVALRY, ARTILLERY, WILDCARD }.
 
-- **TC4: INFANTRY type** ( :white_check_mark: or :x: )
+- **TC4: INFANTRY type** ( :white_check_mark:  )
   - **State of the system**: RiskCard constructed with RiskCardType.INFANTRY
   - **Expected output**: getType() returns RiskCardType.INFANTRY
-- **TC5: CAVALRY type** ( :white_check_mark: or :x: )
+- **TC5: CAVALRY type** ( :white_check_mark:  )
   - **State of the system**: RiskCard constructed with RiskCardType.CAVALRY
   - **Expected output**: getType() returns RiskCardType.CAVALRY
-- **TC6: ARTILLERY type** ( :white_check_mark: or :x: )
+- **TC6: ARTILLERY type** ( :white_check_mark:  )
   - **State of the system**: RiskCard constructed with RiskCardType.ARTILLERY
   - **Expected output**: getType() returns RiskCardType.ARTILLERY
-- **TC7: WILDCARD type** ( :white_check_mark: or :x: )
+- **TC7: WILDCARD type** ( :white_check_mark:  )
   - **State of the system**: RiskCard constructed with RiskCardType.WILDCARD
   - **Expected output**: getType() returns RiskCardType.WILDCARD
 

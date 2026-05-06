@@ -1,8 +1,7 @@
 # RiskCard - BVA Analysis
 
 ### Method under test: `RiskCard(RiskCardType riskCardType, Territory territory)`
-
-- **TC1: null riskCardType** ( :white_check_mark: or :x: )
+- **TC1: null riskCardType** ( :white_check_mark: )
   - **State of the system**: No card created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC2: null territory** ( :white_check_mark: or :x: )

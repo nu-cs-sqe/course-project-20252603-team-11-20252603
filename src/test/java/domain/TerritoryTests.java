@@ -21,6 +21,15 @@ public class TerritoryTests {
     }
 
     @Test
+    public void constructor_validName_successfulNameAssignment() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
+
+        String expected = "TestTerritory";
+        assertEquals(expected, t1.getName());
+    }
+
+    @Test
     public void addTroops_negativeTroops_fail(){
         Player p1  = EasyMock.createMock(Player.class);
         Territory t1 = new Territory("TestTerritory", p1, 5);

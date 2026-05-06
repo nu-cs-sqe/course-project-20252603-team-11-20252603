@@ -11,10 +11,19 @@
 5. [done] Whole team: Split up classes for implementation, following TDD
 6. [in progress] Brock/Kris: Write rules for Risk ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/2))
 7. [in progress] Nandan: Implement Game class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/8))
-8. [in progress] Brock: Implement Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/9))
+8. [done] Brock: Implement Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/9))
 9. [done] Kris: Implement GameMap class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/13))
 10. [in progress] Jefferson: Implement Risk Card class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/11))
 11. [in progress] Jefferson: Implement Territory class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/10))
+
+# Week 5 (04/27/2026-05/03/2026)
+**Planning and Progress Tracking**:
+1. [in progress] Brock: Clean up class interactions to use real classes, not pseudoclasses ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/23))
+
+# Week 6 (05/04/2026-05/10/2026)
+**Planning and Progress Tracking**:
+1. [done] Brock: Clean up class interactions to use real classes, not pseudoclasses ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/23))
+
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:

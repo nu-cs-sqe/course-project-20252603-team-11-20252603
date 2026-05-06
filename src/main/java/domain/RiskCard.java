@@ -8,6 +8,9 @@ public class RiskCard {
         if (riskCardType == null) {
             throw new IllegalArgumentException("Risk Card Type cannot be null");
         }
+        if (territory == null) {
+            throw new IllegalArgumentException("Territory associated with Risk Card cannot be null");
+        }
         this.riskCardType = riskCardType;
         this.territory = territory;
     }

@@ -4,7 +4,7 @@
 - **TC1: null riskCardType** ( :white_check_mark: )
   - **State of the system**: No card created yet
   - **Expected output**: IllegalArgumentException thrown
-- **TC2: null territory** ( :white_check_mark: or :x: )
+- **TC2: null territory** ( :white_check_mark: )
   - **State of the system**: No card created yet
   - **Expected output**: IllegalArgumentException thrown
 - **TC3: valid riskCardType and territory** ( :white_check_mark: or :x: )

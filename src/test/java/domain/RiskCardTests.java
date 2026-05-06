@@ -12,4 +12,10 @@ public class RiskCardTests {
         Territory t = new Territory("TestTerritory", p, 1);
         assertThrows(IllegalArgumentException.class, () -> new RiskCard(null, t));
     }
+
+    @Test
+    public void constructor_nullTerritory_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new RiskCard(RiskCardType.INFANTRY, null));
+    }
+
 }

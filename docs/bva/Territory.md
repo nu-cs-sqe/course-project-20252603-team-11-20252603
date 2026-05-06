@@ -1,12 +1,12 @@
 # Territory Class BVA
 
 ## Territory(String name, Player owner, int troopCount)
-|             | System under test | Expected output                 | Implemented?              |
-|-------------|-------------------|---------------------------------|---------------------------|
-| Test Case 1 | null name         | IllegalArgumentException thrown | :white_check_mark:        |
-| Test Case 2 | empy name         | IllegalArgumentException thrown | :white_check_mark:        |
-| Test Case 3 | valid name        | this.name = name                | :white_check_mark:        |
-| Test Case 4 | null Player       | IllegalArgumentException thrown | :x: or :white_check_mark: |
+|             | System under test | Expected output                 | Implemented?             |
+|-------------|-------------------|---------------------------------|--------------------------|
+| Test Case 1 | null name         | IllegalArgumentException thrown | :white_check_mark:       |
+| Test Case 2 | empy name         | IllegalArgumentException thrown | :white_check_mark:       |
+| Test Case 3 | valid name        | this.name = name                | :white_check_mark:       |
+| Test Case 4 | null Player       | IllegalArgumentException thrown | :white_check_mark: |
 | Test Case 4 | valid Player      | this.player = Player            | :x: or :white_check_mark: |
 
 ## addTroops(int amount)

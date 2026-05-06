@@ -6,6 +6,9 @@ public class Territory {
     private int troopCount;
 
     public Territory(String name, Player owner, int troopCount) {
+        if (name == null) {
+            throw new IllegalArgumentException("Territory name cannot be null.");
+        }
         this.name = name;
         this.owner = owner;
         this.troopCount = troopCount;

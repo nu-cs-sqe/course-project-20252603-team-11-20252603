@@ -9,6 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TerritoryTests {
 
     @Test
+    public void constructor_nullName_throwsIllegalArgumentException() {
+        Player p1 = EasyMock.createMock(Player.class);
+        assertThrows(IllegalArgumentException.class, () -> new Territory(null, p1, 5));
+    }
+
+    @Test
     public void addTroops_negativeTroops_fail(){
         Player p1  = EasyMock.createMock(Player.class);
         Territory t1 = new Territory("TestTerritory", p1, 5);

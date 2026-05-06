@@ -3,8 +3,7 @@ package domain;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TerritoryTests {
 
@@ -33,6 +32,14 @@ public class TerritoryTests {
     public void constructor_nullPlayer_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () ->
                 new Territory("TestTerritory", null, 5));
+    }
+
+    @Test
+    public void constructor_validPlayer_successfulPlayerAssignment() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
+
+        assertEquals(t1.getOwner(), p1);
     }
 
     @Test

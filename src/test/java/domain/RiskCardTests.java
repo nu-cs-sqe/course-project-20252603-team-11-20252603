@@ -28,4 +28,12 @@ public class RiskCardTests {
         assertEquals(t, card.getTerritory());
     }
 
+    @Test public void getType_infantry_returnsInfantry() {
+        Player p = EasyMock.createMock(Player.class);
+        Territory t = new Territory("Alaska", p, 1);
+        RiskCard card = new RiskCard(RiskCardType.INFANTRY, t);
+
+        assertEquals(RiskCardType.INFANTRY, card.getType());
+    }
+
 }

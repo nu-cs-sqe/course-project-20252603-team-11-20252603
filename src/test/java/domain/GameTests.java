@@ -60,8 +60,7 @@ public class GameTests {
         }
         return cards;
     }
-
-    // ! Constructor tests
+    
     @Test
     public void constructor_nullPlayers_throwsIllegalArgumentException() {
         GameMap map = makeMap();
@@ -142,7 +141,6 @@ public class GameTests {
         players.forEach(EasyMock::verify);
     }
 
-    // ! assignTerritories tests
     @Test
     public void assignTerritories_oneTerritory_assignedToFirstPlayerWithOneTroop() {
         GameMap map = makeMap();
@@ -291,7 +289,6 @@ public class GameTests {
         EasyMock.verify(random);
     }
 
-    // ! distributeStartingTroops tests
     @Test
     public void distributeStartingTroops_twoPlayers_availableTroopsSetTo40MinusTerritoryCount() {
         GameMap map = makeMap();
@@ -398,7 +395,6 @@ public class GameTests {
         verifyAll(players, map);
     }
 
-    // ! chooseFirstPlayer tests
     @Test
     public void chooseFirstPlayer_twoPlayers_resultZero_lowerBoundChosen() {
         GameMap map = makeMap();
@@ -479,7 +475,6 @@ public class GameTests {
         verifyAll(players, map);
     }
 
-    // ! startGame tests
     @Test
     public void startGame_twoPlayersWithTerritoriesAndDeck_allSetupStepsComplete() {
         GameMap map = makeMap();
@@ -564,7 +559,6 @@ public class GameTests {
         EasyMock.verify(random);
     }
 
-    // ! shuffleDeck tests
     @Test
     public void shuffleDeck_oneCard_deckStillContainsThatCard() {
         GameMap map = makeMap();

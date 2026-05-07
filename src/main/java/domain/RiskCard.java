@@ -1,8 +1,8 @@
 package domain;
 
 public class RiskCard {
-    public final RiskCardType riskCardType;
-    public final Territory territory;
+    private final RiskCardType riskCardType;
+    private final Territory territory;
 
     public RiskCard(RiskCardType riskCardType, Territory territory) {
         if (riskCardType == null) {

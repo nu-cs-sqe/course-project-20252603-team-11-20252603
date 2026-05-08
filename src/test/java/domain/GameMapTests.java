@@ -23,7 +23,7 @@ public class GameMapTests {
     @Test
     public void addTerritory_emptyMap_sizeBecomesOne() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
         map.addTerritory(t1);
@@ -36,8 +36,8 @@ public class GameMapTests {
     @Test
     public void addTerritory_oneExisting_sizeBecomesTwo() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
 
@@ -55,7 +55,7 @@ public class GameMapTests {
     @Test
     public void addTerritory_duplicateTerritory_sizeRemainsOne() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
 
@@ -70,7 +70,7 @@ public class GameMapTests {
     @Test
     public void addConnection_nullA_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
         map.addTerritory(t);
@@ -82,7 +82,7 @@ public class GameMapTests {
     @Test
     public void addConnection_nullB_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
         map.addTerritory(t);
@@ -94,7 +94,7 @@ public class GameMapTests {
     @Test
     public void addConnection_selfConnection_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
         map.addTerritory(t1);
@@ -106,8 +106,8 @@ public class GameMapTests {
     @Test
     public void addConnection_aNotInMap_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t2);
@@ -119,8 +119,8 @@ public class GameMapTests {
     @Test
     public void addConnection_bNotInMap_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -132,8 +132,8 @@ public class GameMapTests {
     @Test
     public void addConnection_validPair_doesNotThrow() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -146,8 +146,8 @@ public class GameMapTests {
     @Test
     public void addConnection_duplicatePair_isNoOp() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -163,8 +163,8 @@ public class GameMapTests {
     @Test
     public void addConnection_duplicateReversedPair_isNoOp() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -187,7 +187,7 @@ public class GameMapTests {
     @Test
     public void getNeighbors_territoryNotInMap_returnsEmptyList() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
 
@@ -198,7 +198,7 @@ public class GameMapTests {
     @Test
     public void getNeighbors_territoryWithNoConnections_returnsEmptyList() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
         map.addTerritory(t1);
@@ -210,8 +210,8 @@ public class GameMapTests {
     @Test
     public void getNeighbors_oneNeighbor_returnsSingletonList() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -226,9 +226,9 @@ public class GameMapTests {
     @Test
     public void getNeighbors_multipleNeighbors_returnsAllNeighbors() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
-        ITerritory t3 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
+        Territory t3 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2, t3);
         map.addTerritory(t1);
@@ -247,7 +247,7 @@ public class GameMapTests {
     @Test
     public void areAdjacent_nullA_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
         map.addTerritory(t);
@@ -259,7 +259,7 @@ public class GameMapTests {
     @Test
     public void areAdjacent_nullB_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
         map.addTerritory(t);
@@ -271,8 +271,8 @@ public class GameMapTests {
     @Test
     public void areAdjacent_aNotInMap_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t2);
@@ -284,8 +284,8 @@ public class GameMapTests {
     @Test
     public void areAdjacent_bNotInMap_throwsIllegalArgumentException() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -297,8 +297,8 @@ public class GameMapTests {
     @Test
     public void areAdjacent_notConnected_returnsFalse() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -311,8 +311,8 @@ public class GameMapTests {
     @Test
     public void areAdjacent_connectedAB_returnsTrue() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);
@@ -326,8 +326,8 @@ public class GameMapTests {
     @Test
     public void areAdjacent_connectedAB_reverseQuery_returnsTrue() {
         GameMap map = new GameMap();
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
         map.addTerritory(t1);

@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class Game {
     private final List<Player> players;
-    private final IGameMap map;
-    private final List<IRiskCard> deck;
+    private final GameMap map;
+    private final List<RiskCard> deck;
     private final Random random;
     private int currentPlayerIndex = -1;
 
-    public Game(List<Player> players, IGameMap map, List<IRiskCard> deck, Random random) {
+    public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
         validatePlayers(players);
         validateMap(map);
         this.players = players;
@@ -33,18 +33,18 @@ public class Game {
         }
     }
 
-    private static void validateMap(IGameMap map) {
+    private static void validateMap(GameMap map) {
         if (map == null) {
             throw new IllegalArgumentException("Map cannot be null.");
         }
     }
 
     public void assignTerritories() {
-        List<ITerritory> territories = new ArrayList<>(map.getTerritories());
+        List<Territory> territories = new ArrayList<>(map.getTerritories());
         Collections.shuffle(territories, random);
         for (int i = 0; i < territories.size(); i++) {
             Player player = players.get(i % players.size());
-            ITerritory territory = territories.get(i);
+            Territory territory = territories.get(i);
             player.addTerritory(territory);
             territory.setOwner(player);
             territory.addTroops(1);
@@ -78,8 +78,8 @@ public class Game {
     }
 
     public int getPlayerCount() { return players.size(); }
-    public IGameMap getMap() { return map; }
+    public GameMap getMap() { return map; }
     public int getDeckSize() { return deck.size(); }
-    public List<IRiskCard> getDeck() { return Collections.unmodifiableList(deck); }
+    public List<RiskCard> getDeck() { return Collections.unmodifiableList(deck); }
     public int getCurrentPlayerIndex() { return currentPlayerIndex; }
 }

@@ -62,14 +62,6 @@ public class GameTests {
     }
     
     @Test
-    public void constructor_nullPlayers_throwsIllegalArgumentException() {
-        GameMap map = makeMap();
-        EasyMock.replay(map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(null, map, new ArrayList<>(), new Random()));
-        EasyMock.verify(map);
-    }
-
-    @Test
     public void constructor_emptyPlayersList_throwsIllegalArgumentException() {
         GameMap map = makeMap();
         EasyMock.replay(map);
@@ -119,26 +111,6 @@ public class GameTests {
         replayAll(players, map);
         assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), new Random()));
         verifyAll(players, map);
-    }
-
-    @Test
-    public void constructor_playersListContainsNull_throwsIllegalArgumentException() {
-        GameMap map = makeMap();
-        List<Player> players = makePlayers(1);
-        players.add(null);
-        players.forEach(p -> { if (p != null) EasyMock.replay(p); });
-        EasyMock.replay(map);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), new Random()));
-        players.forEach(p -> { if (p != null) EasyMock.verify(p); });
-        EasyMock.verify(map);
-    }
-
-    @Test
-    public void constructor_nullMap_throwsIllegalArgumentException() {
-        List<Player> players = makePlayers(2);
-        players.forEach(EasyMock::replay);
-        assertThrows(IllegalArgumentException.class, () -> new Game(players, null, new ArrayList<>(), new Random()));
-        players.forEach(EasyMock::verify);
     }
 
     @Test

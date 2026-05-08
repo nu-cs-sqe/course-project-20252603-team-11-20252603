@@ -3,15 +3,49 @@ package domain;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TerritoryTests {
 
     @Test
+    public void constructor_nullName_throwsIllegalArgumentException() {
+        Player p1 = EasyMock.createMock(Player.class);
+        assertThrows(IllegalArgumentException.class, () -> new Territory(null, p1, 5));
+    }
+
+    @Test
+    public void constructor_emptyName_throwsIllegalArgumentException() {
+        Player p1 = EasyMock.createMock(Player.class);
+        assertThrows(IllegalArgumentException.class, () -> new Territory("", p1, 5));
+    }
+
+    @Test
+    public void constructor_validName_successfulNameAssignment() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
+
+        String expected = "TestTerritory";
+        assertEquals(expected, t1.getName());
+    }
+
+    @Test
+    public void constructor_nullPlayer_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new Territory("TestTerritory", null, 5));
+    }
+
+    @Test
+    public void constructor_validPlayer_successfulPlayerAssignment() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
+
+        assertEquals(t1.getOwner(), p1);
+    }
+
+    @Test
     public void addTroops_negativeTroops_fail(){
         Player p1  = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 5);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
 
         int input = -1;
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -25,7 +59,7 @@ public class TerritoryTests {
     @Test
     public void addTroops_zeroTroops_fail(){
         Player p1  = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 0);
+        Territory t1 = new Territory("TestTerritory", p1, 0);
 
         int input = 0;
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -39,7 +73,7 @@ public class TerritoryTests {
     @Test
     public void addTroops_oneTroop_success() {
         Player p1 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 1);
+        Territory t1 = new Territory("TestTerritory", p1, 1);
 
         int input = 1;
         int expected = 2;
@@ -52,7 +86,7 @@ public class TerritoryTests {
     @Test
     public void removeTroops_oneTroop_removeOneTroop_fail() {
         Player p1 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 1);
+        Territory t1 = new Territory("TestTerritory", p1, 1);
 
         int input = 1;
 
@@ -67,7 +101,7 @@ public class TerritoryTests {
     @Test
     public void removeTroops_oneTroop_removeTwoTroop_fail() {
         Player p1 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 1);
+        Territory t1 = new Territory("TestTerritory", p1, 1);
 
         int input = 2;
 
@@ -82,7 +116,7 @@ public class TerritoryTests {
     @Test
     public void removeTroops_FiveTroops_removeFourTroops_success() {
         Player p1 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 5);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
 
         int input = 4;
         t1.removeTroops(input);
@@ -94,7 +128,7 @@ public class TerritoryTests {
     public void conquer_P2ConquersP1_movesZeroTroops_fail() {
         Player p1 = EasyMock.createMock(Player.class);
         Player p2 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 5);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             t1.conquer(p2, 0);
@@ -108,7 +142,7 @@ public class TerritoryTests {
     public void conquer_P2ConquersP1_movesOneTroops_success() {
         Player p1 = EasyMock.createMock(Player.class);
         Player p2 = EasyMock.createMock(Player.class);
-        Territory t1 = new Territory(p1, 5);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
 
         t1.conquer(p2, 1);
 

@@ -1,13 +1,23 @@
 package domain;
 
 public class Territory {
+    private final String name;
     private Player owner;
     private int troopCount;
 
-    Territory(Player owner, int troopCount) {
+    public Territory(String name, Player owner, int troopCount) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Territory name cannot be null or empty.");
+        }
+        if (owner == null) {
+            throw new IllegalArgumentException("Owner (Player) of a territory cannot be null.");
+        }
+        this.name = name;
         this.owner = owner;
         this.troopCount = troopCount;
     }
+
+    public String getName() { return name; }
 
     public void addTroops(int amount) {
         if (amount <= 0) {

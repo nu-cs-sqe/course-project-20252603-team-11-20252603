@@ -29,6 +29,18 @@ Should end with `BUILD SUCCESSFUL`. If checkstyle fails out of the gate, stop an
 - Check **Enable google-java-format**
 - Code style: **Default (Google Java Style)**
 
+## 2.5 IntelliJ JRE Config
+- **Help** -> **Edit Custom VM Options**
+- **Paste the following**:
+```
+--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+```
+
 ## 3. Fix IntelliJ's import layout (critical — without this, Optimize Imports fights Checkstyle forever)
 
 - **Settings** → **Editor** → **Code Style** → **Java** → **Imports** tab

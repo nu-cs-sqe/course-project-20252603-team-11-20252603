@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Player {
     private final String name;
-    private final List<ITerritory> territories;
-    private final List<IRiskCard> cards;
+    private final List<Territory> territories;
+    private final List<RiskCard> cards;
     private int availableTroops;
 
     public Player(String name) {
@@ -21,19 +21,19 @@ public class Player {
     }
 
     public String getName() { return name; }
-    public List<ITerritory> getTerritories() { return Collections.unmodifiableList(territories); }
-    public List<IRiskCard> getCards() { return Collections.unmodifiableList(cards); }
+    public List<Territory> getTerritories() { return Collections.unmodifiableList(territories); }
+    public List<RiskCard> getCards() { return Collections.unmodifiableList(cards); }
     public int getAvailableTroops() { return availableTroops; }
     public int getTerritoryCount() { return territories.size(); }
 
-    public void addTerritory(ITerritory territory) {
+    public void addTerritory(Territory territory) {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
         if (!territories.contains(territory)) territories.add(territory);
     }
 
-    public void removeTerritory(ITerritory territory) {
+    public void removeTerritory(Territory territory) {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
@@ -47,14 +47,14 @@ public class Player {
         this.availableTroops = amount;
     }
 
-    public void addCard(IRiskCard card) {
+    public void addCard(RiskCard card) {
         if (card == null) {
             throw new IllegalArgumentException("Card cannot be null.");
         }
         cards.add(card);
     }
 
-    public void placeTroops(ITerritory territory, int amount) {
+    public void placeTroops(Territory territory, int amount) {
         if (territory == null) {
             throw new IllegalArgumentException("Territory cannot be null.");
         }

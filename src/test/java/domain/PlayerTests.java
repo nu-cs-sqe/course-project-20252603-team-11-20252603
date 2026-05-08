@@ -39,7 +39,7 @@ public class PlayerTests {
     @Test
     public void addTerritory_emptyList_sizeBecomesOne() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
         player.addTerritory(t1);
@@ -53,8 +53,8 @@ public class PlayerTests {
     @Test
     public void addTerritory_oneExisting_sizeBecomesTwo() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
 
@@ -72,7 +72,7 @@ public class PlayerTests {
     @Test
     public void addTerritory_duplicateTerritory_sizeRemainsOne() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
 
@@ -93,7 +93,7 @@ public class PlayerTests {
     @Test
     public void removeTerritory_singleItemList_listBecomesEmpty() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
 
@@ -109,8 +109,8 @@ public class PlayerTests {
     @Test
     public void removeTerritory_multiItemList_onlyTargetRemoved() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
 
@@ -128,8 +128,8 @@ public class PlayerTests {
     @Test
     public void removeTerritory_territoryNotInList_noOpSizeUnchanged() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
-        ITerritory t2 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
+        Territory t2 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1, t2);
 
@@ -144,7 +144,7 @@ public class PlayerTests {
     @Test
     public void removeTerritory_emptyList_noOpNoException() {
         Player player = new Player("Alice");
-        ITerritory t1 = EasyMock.createMock(ITerritory.class);
+        Territory t1 = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t1);
 
@@ -185,7 +185,7 @@ public class PlayerTests {
     @Test
     public void addCard_emptyHand_sizeBecomesOne() {
         Player player = new Player("Alice");
-        IRiskCard card = EasyMock.createMock(IRiskCard.class);
+        RiskCard card = EasyMock.createMock(RiskCard.class);
 
         EasyMock.replay(card);
 
@@ -199,8 +199,8 @@ public class PlayerTests {
     @Test
     public void addCard_oneExisting_sizeBecomesTwo() {
         Player player = new Player("Alice");
-        IRiskCard card1 = EasyMock.createMock(IRiskCard.class);
-        IRiskCard card2 = EasyMock.createMock(IRiskCard.class);
+        RiskCard card1 = EasyMock.createMock(RiskCard.class);
+        RiskCard card2 = EasyMock.createMock(RiskCard.class);
 
         EasyMock.replay(card1, card2);
 
@@ -216,13 +216,13 @@ public class PlayerTests {
     @Test
     public void addCard_infantryCard_addedToHand() {
         Player player = new Player("Alice");
-        IRiskCard card = EasyMock.createMock(IRiskCard.class);
-        EasyMock.expect(card.getType()).andStubReturn(IRiskCardType.INFANTRY);
+        RiskCard card = EasyMock.createMock(RiskCard.class);
+        EasyMock.expect(card.getType()).andStubReturn(RiskCardType.INFANTRY);
 
         EasyMock.replay(card);
 
         player.addCard(card);
-        assertEquals(IRiskCardType.INFANTRY, player.getCards().get(0).getType());
+        assertEquals(RiskCardType.INFANTRY, player.getCards().get(0).getType());
 
         EasyMock.verify(card);
     }
@@ -230,13 +230,13 @@ public class PlayerTests {
     @Test
     public void addCard_cavalryCard_addedToHand() {
         Player player = new Player("Alice");
-        IRiskCard card = EasyMock.createMock(IRiskCard.class);
-        EasyMock.expect(card.getType()).andStubReturn(IRiskCardType.CAVALRY);
+        RiskCard card = EasyMock.createMock(RiskCard.class);
+        EasyMock.expect(card.getType()).andStubReturn(RiskCardType.CAVALRY);
 
         EasyMock.replay(card);
 
         player.addCard(card);
-        assertEquals(IRiskCardType.CAVALRY, player.getCards().get(0).getType());
+        assertEquals(RiskCardType.CAVALRY, player.getCards().get(0).getType());
 
         EasyMock.verify(card);
     }
@@ -244,13 +244,13 @@ public class PlayerTests {
     @Test
     public void addCard_artilleryCard_addedToHand() {
         Player player = new Player("Alice");
-        IRiskCard card = EasyMock.createMock(IRiskCard.class);
-        EasyMock.expect(card.getType()).andStubReturn(IRiskCardType.ARTILLERY);
+        RiskCard card = EasyMock.createMock(RiskCard.class);
+        EasyMock.expect(card.getType()).andStubReturn(RiskCardType.ARTILLERY);
 
         EasyMock.replay(card);
 
         player.addCard(card);
-        assertEquals(IRiskCardType.ARTILLERY, player.getCards().get(0).getType());
+        assertEquals(RiskCardType.ARTILLERY, player.getCards().get(0).getType());
 
         EasyMock.verify(card);
     }
@@ -258,13 +258,13 @@ public class PlayerTests {
     @Test
     public void addCard_wildcardCard_addedToHand() {
         Player player = new Player("Alice");
-        IRiskCard card = EasyMock.createMock(IRiskCard.class);
-        EasyMock.expect(card.getType()).andStubReturn(IRiskCardType.WILDCARD);
+        RiskCard card = EasyMock.createMock(RiskCard.class);
+        EasyMock.expect(card.getType()).andStubReturn(RiskCardType.WILDCARD);
 
         EasyMock.replay(card);
 
         player.addCard(card);
-        assertEquals(IRiskCardType.WILDCARD, player.getCards().get(0).getType());
+        assertEquals(RiskCardType.WILDCARD, player.getCards().get(0).getType());
 
         EasyMock.verify(card);
     }
@@ -272,8 +272,8 @@ public class PlayerTests {
     @Test
     public void addCard_duplicateCardType_bothAdded() {
         Player player = new Player("Alice");
-        IRiskCard card1 = EasyMock.createMock(IRiskCard.class);
-        IRiskCard card2 = EasyMock.createMock(IRiskCard.class);
+        RiskCard card1 = EasyMock.createMock(RiskCard.class);
+        RiskCard card2 = EasyMock.createMock(RiskCard.class);
 
         EasyMock.replay(card1, card2);
 
@@ -295,7 +295,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_unownedTerritory_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
 
@@ -308,7 +308,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_amountZero_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
 
@@ -323,7 +323,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_amountNegative_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
 
@@ -338,7 +338,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_amountExceedsAvailable_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
         EasyMock.replay(t);
@@ -352,7 +352,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_amountOne_troopsPlacedAndAvailableDecremented() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
         t.addTroops(1);
@@ -370,7 +370,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_amountEqualsAvailable_availableBecomesZero() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         player.setAvailableTroops(5);
         t.addTroops(5);
@@ -388,7 +388,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_availableZeroAmountZero_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
 
@@ -401,7 +401,7 @@ public class PlayerTests {
     @Test
     public void placeTroops_availableZeroAmountOne_throwsIllegalArgumentException() {
         Player player = new Player("Alice");
-        ITerritory t = EasyMock.createMock(ITerritory.class);
+        Territory t = EasyMock.createMock(Territory.class);
 
         EasyMock.replay(t);
 
@@ -428,7 +428,7 @@ public class PlayerTests {
         Player player = new Player("Alice");
 
         for (int i = 0; i < n; i++) {
-            ITerritory t = EasyMock.createMock(ITerritory.class);
+            Territory t = EasyMock.createMock(Territory.class);
             EasyMock.replay(t);
             player.addTerritory(t);
         }

@@ -24,6 +24,14 @@ public class Player {
     public List<Territory> getTerritories() { return Collections.unmodifiableList(territories); }
     public List<RiskCard> getCards() { return Collections.unmodifiableList(cards); }
     public int getAvailableTroops() { return availableTroops; }
+
+    public void setAvailableTroops(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Available troops cannot be negative");
+        }
+        this.availableTroops = amount;
+    }
+
     public int getTerritoryCount() { return territories.size(); }
 
     public void addTerritory(Territory territory) {
@@ -38,13 +46,6 @@ public class Player {
             throw new IllegalArgumentException("Territory cannot be null.");
         }
         territories.remove(territory);
-    }
-
-    public void setAvailableTroops(int amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Available troops cannot be negative");
-        }
-        this.availableTroops = amount;
     }
 
     public void addCard(RiskCard card) {

@@ -9,7 +9,7 @@
 3. [done] Whole team: Decided to use a GUI for Risk ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/7))
 4. [done] Whole team: Finished user story and initial design ([Google Document](https://docs.google.com/document/d/1YCv8tL5Uc0MT8etI7hFDUxLlvCKmzwen8G1awSIu3ZA/edit?usp=drive_web&ouid=112435136878503482288))
 5. [done] Whole team: Split up classes for implementation, following TDD
-6. [in progress] Brock/Kris: Write rules for Risk ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/2))
+6. [done] Brock/Kris: Write rules for Risk ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/2))
 7. [done] Nandan: Implement Game class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/8))
 8. [done] Brock: Implement Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/9))
 9. [done] Kris: Implement GameMap class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/13))
@@ -18,11 +18,30 @@
 
 # Week 5 (04/27/2026-05/03/2026)
 **Planning and Progress Tracking**:
-1. [in progress] Brock: Clean up class interactions to use real classes, not pseudoclasses ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/23))
+1. [done] Brock: Clean up class interactions to use real classes, not pseudoclasses ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/23))
 
-# Week 6 (05/04/2026-05/10/2026)
+# Weeks 6 and 7 (05/04/2026-05/18/2026)
 **Planning and Progress Tracking**:
 1. [done] Brock: Clean up class interactions to use real classes, not pseudoclasses ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/23))
+2. [done] Team: Review week 4 feedback ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/28))
+3. [done] Team: Review week 5 feedback ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/29))
+4. [done] Team: Review week 6 feedback ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/31))
+5. [done] Team: Decide on and document territories ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/37))
+6. [done] Team: Outline weeks 6 and 7 tasks ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/38))
+7. [done] Team: Write user story for first turn ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/39))
+8. [done] Nandan: Fix magic numbers in Game class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/32))
+9. [in progress] Brock: Set up linter (SpotBugs + CheckStyle) ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/33))
+10. [in progress] Jefferson: Update diagram to reflect architectural decisions ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/34))
+11. [in progress] Kris: Set up GUI ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/30))
+12. [in progress] Nandan/Kris: Set up code coverage ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/36))
+13. [in progress] Brock: Implement Turn class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/46))
+14. [in progress] Brock: Implement Turn enum ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/40))
+15. [in progress] Jefferson: Implement ReinforcementPhase class + modify Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/43))
+16. [in progress] Nandan: Implement DiceRoller class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/42))
+17. [in progress] Nandan: Implement BattleResult class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/41))
+18. [in progress] Nandan: Implement AttackPhase class + territory + game ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/44))
+19. [in progress] Nandan: Update Game class: add advanceToNextPlayer() and drawCard() ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/47))
+20. [in progress] Kris: Implement FortificationPhase class + GameMap ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/45))
 
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)

@@ -37,12 +37,12 @@ public class Territory {
         return this.troopCount;
     }
 
-    public void setOwner(Player owner) {
-        this.owner = owner;
-    }
-
     public Player getOwner() {
         return this.owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
     public void conquer(Player newOwner, int troopsMovedIn) {

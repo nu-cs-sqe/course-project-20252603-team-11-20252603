@@ -29,9 +29,15 @@ Should end with `BUILD SUCCESSFUL`. If checkstyle fails out of the gate, stop an
 - Check **Enable google-java-format**
 - Code style: **Default (Google Java Style)**
 
+> Once enabled, the plugin **replaces what `Reformat Code` (`⌥⌘L`) does** — it doesn't add a new shortcut. So your existing keybinds keep working; they just use Google's formatting engine instead of IntelliJ's built-in one.
+
 ## 2.5 IntelliJ JRE Config
-- **Help** -> **Edit Custom VM Options**
-- **Paste the following**:
+
+google-java-format uses internal JDK compiler APIs that are locked down by default in modern JDKs. Without these flags the plugin throws `module java.base does not export …` errors as soon as you try to format.
+
+- **Help** → **Edit Custom VM Options**
+- Paste the following at the bottom of the file, then restart IntelliJ:
+
 ```
 --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
 --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
@@ -72,7 +78,17 @@ Should end with `BUILD SUCCESSFUL`. If checkstyle fails out of the gate, stop an
 
 - Open any `.java` file, mess up the indentation or import order on purpose
 - Hit `⌥⌘L` then `⌃⌥O`
+- The file should snap to 2-space Google Style and imports should sort with statics on top
 - Run `./gradlew checkstyleMain checkstyleTest` — should pass
+
+## 7. (Optional) Bulk-format an entire branch
+
+If you pull a branch that hasn't been formatted yet (or you want to clean up your own WIP), do it in one shot instead of file by file:
+
+- In the **Project** tool window, right-click `src/` → **Reformat Code**
+- In the dialog, check **Include subdirectories** and **Optimize imports** → **OK**
+
+This is also how the existing repo was bulk-formatted the first time the linter was added.
 
 ---
 

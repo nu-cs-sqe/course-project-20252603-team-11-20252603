@@ -10,6 +10,10 @@ public class Game {
     private final GameMap map;
     private final List<RiskCard> deck;
     private final Random random;
+    private static final int BASE_STARTING_ARMIES = 50;
+    private static final int ARMIES_REDUCTION_PER_PLAYER = 5;
+    private static final int MIN_NUMBER_OF_PLAYERS = 2;
+    private static final int MAX_NUMBER_OF_PLAYERS  = 6;
     private int currentPlayerIndex = -1;
 
     public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
@@ -25,7 +29,7 @@ public class Game {
         if (players == null) {
             throw new IllegalArgumentException("Players list cannot be null.");
         }
-        if (players.size() < 2 || players.size() > 6) {
+        if (players.size() < MIN_NUMBER_OF_PLAYERS || players.size() > MAX_NUMBER_OF_PLAYERS) {
             throw new IllegalArgumentException("Game requires between 2 and 6 players.");
         }
         if (players.stream().anyMatch(p -> p == null)) {
@@ -59,7 +63,7 @@ public class Game {
     }
 
     private static int calculateStartingArmies(int playerCount) {
-        return 50 - (5 * playerCount);
+        return BASE_STARTING_ARMIES - (ARMIES_REDUCTION_PER_PLAYER * playerCount);
     }
 
     public void startGame() {

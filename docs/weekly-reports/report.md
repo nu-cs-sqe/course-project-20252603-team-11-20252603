@@ -30,7 +30,7 @@
 6. [done] Team: Outline weeks 6 and 7 tasks ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/38))
 7. [done] Team: Write user story for first turn ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/39))
 8. [done] Nandan: Fix magic numbers in Game class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/32))
-9. [in progress] Brock: Set up linter (SpotBugs + CheckStyle) ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/33))
+9. [done] Brock: Set up linter (SpotBugs + CheckStyle) ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/33))
 10. [in progress] Jefferson: Update diagram to reflect architectural decisions ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/34))
 11. [in progress] Kris: Set up GUI ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/30))
 12. [in progress] Nandan/Kris: Set up code coverage ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/36))

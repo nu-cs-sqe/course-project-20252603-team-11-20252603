@@ -125,6 +125,17 @@ public class TerritoryTests {
     }
 
     @Test
+    public void setOwner_P2SetsOwnerOnP1Territory_ownerIsP2() {
+        Player p1 = EasyMock.createMock(Player.class);
+        Player p2 = EasyMock.createMock(Player.class);
+        Territory t1 = new Territory("TestTerritory", p1, 5);
+
+        t1.setOwner(p2);
+
+        assertEquals(p2, t1.getOwner());
+    }
+
+    @Test
     public void conquer_P2ConquersP1_movesZeroTroops_fail() {
         Player p1 = EasyMock.createMock(Player.class);
         Player p2 = EasyMock.createMock(Player.class);

@@ -31,6 +31,10 @@ public class ReinforcementPhase {
         return this.troopsToPlace;
     }
 
+    public boolean isComplete() {
+        return false;
+    }
+
 
 
 

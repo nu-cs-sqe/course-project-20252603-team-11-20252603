@@ -182,4 +182,13 @@ public class ReinforcementPhaseTests {
         EasyMock.verify(player,territory);
     }
 
+    @Test
+    public void isComplete_oneTroopLeft_returnsFalse() {
+        Player player = EasyMock.createMock(Player.class);
+        int troopsToPlace = 1;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        assertFalse(reinforcements.isComplete());
+    }
+
 }

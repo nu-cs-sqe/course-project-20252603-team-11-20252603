@@ -1,6 +1,7 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class ReinforcementPhaseTests {
         List<Territory> territories = new ArrayList<>();
         int troopsToPlace = 3;
 
-        EasyMock.expect(player.getTerritories()).andStubReturn(territories);
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
         EasyMock.replay(player);
 
         ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
@@ -36,12 +37,31 @@ public class ReinforcementPhaseTests {
         ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
 
         territories.add(territory);
-        EasyMock.expect(player.getTerritories()).andStubReturn(territories);
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
         EasyMock.replay(player);
 
         int troops = 4;
 
         assertFalse(reinforcements.validatePlacement(troops, territory));
+        EasyMock.verify(player);
+    }
+
+    @Test
+    public void validatePlacement_placeOneWithThreeLeft_validTerritory_returnFalse() {
+        Player player = EasyMock.createMock(Player.class);
+        Territory territory = EasyMock.createMock(Territory.class);
+
+        List<Territory> territories = new ArrayList<>();
+        int troopsToPlace = 3;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        territories.add(territory);
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
+        EasyMock.replay(player);
+
+        int troops = 1;
+
+        assertTrue(reinforcements.validatePlacement(troops, territory));
         EasyMock.verify(player);
     }
 

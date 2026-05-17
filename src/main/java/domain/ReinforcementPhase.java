@@ -10,6 +10,11 @@ public class ReinforcementPhase {
     }
 
     public boolean validatePlacement(int troops, Territory territory) {
+        for (Territory t : player.getTerritories()) {
+            if (t.equals(territory)) {
+                return troops <= troopsToPlace;
+            }
+        }
         return false;
     }
 

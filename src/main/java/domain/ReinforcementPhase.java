@@ -32,7 +32,7 @@ public class ReinforcementPhase {
     }
 
     public boolean isComplete() {
-        return false;
+        return this.troopsToPlace == 0;
     }
 
 

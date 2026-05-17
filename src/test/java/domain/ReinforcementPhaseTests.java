@@ -158,5 +158,28 @@ public class ReinforcementPhaseTests {
         EasyMock.verify(player,territory);
     }
 
+    @Test
+    public void placeTroops_invalidTerritory_void() {
+        Player player = EasyMock.createMock(Player.class);
+        Territory territory = EasyMock.createMock(Territory.class);
+
+        List<Territory> territories = new ArrayList<>();
+
+        int troopsToPlace = 3;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
+        EasyMock.replay(player, territory);
+
+        int tryToPlaceTroops = 1;
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> reinforcements.placeTroops(tryToPlaceTroops, territory)
+        );
+
+        assertEquals("Invalid troop placement", exception.getMessage());
+        EasyMock.verify(player,territory);
+    }
 
 }

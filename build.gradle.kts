@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("checkstyle")
     id("jacoco")
 }
 
@@ -29,6 +30,19 @@ tasks.compileJava {
 tasks.test {
     useJUnitPlatform()
     finalizedBy(tasks.jacocoTestReport)
+}
+
+configure<CheckstyleExtension> {
+    toolVersion = "10.21.4"
+    configFile = file("config/checkstyle/checkstyle.xml")
+    configProperties = mapOf(
+        "org.checkstyle.google.severity" to "error",
+        "org.checkstyle.google.suppressionfilter.config"
+            to file("config/checkstyle/suppressions.xml").absolutePath
+    )
+    isIgnoreFailures = false
+    isShowViolations = true
+    maxWarnings = 0
 }
 
 jacoco {

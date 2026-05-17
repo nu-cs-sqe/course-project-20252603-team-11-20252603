@@ -19,9 +19,17 @@ public class ReinforcementPhase {
         return false;
     }
 
-    public int getTroopsToPlace() {
+    public void placeTroops(int troops, Territory territory) {
+        this.player.getTerritories();
+        territory.addTroops(troops);
+        this.troopsToPlace -= troops;
+    }
+
+    public int getRemaining() {
         return this.troopsToPlace;
     }
+
+
 
 
 }

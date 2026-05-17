@@ -1,5 +1,6 @@
 package domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.easymock.EasyMock;
@@ -81,6 +82,30 @@ public class ReinforcementPhaseTests {
         int troops = 0;
 
         assertFalse(reinforcements.validatePlacement(troops, territory));
+    }
+
+    @Test
+    public void placeTroops_placeOneValidTroop_validTerritory_void() {
+        Player player = EasyMock.createMock(Player.class);
+        Territory territory = EasyMock.createMock(Territory.class);
+
+        List<Territory> territories = new ArrayList<>();
+        territories.add(territory);
+
+        int troopsToPlace = 3;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
+        territory.addTroops(1);
+        EasyMock.expectLastCall().once();
+
+        EasyMock.replay(player, territory);
+
+        int tryToPlaceTroops = 1;
+        reinforcements.placeTroops(tryToPlaceTroops, territory);
+
+        assertEquals(2, reinforcements.getRemaining());
+        EasyMock.verify(player,territory);
     }
 
 

@@ -2,10 +2,12 @@
 
 ## placeTroops(int amount, Territory territory)
 
-|             | System under test                        | Expected output                                                      | Implemented?       |
-|-------------|------------------------------------------|----------------------------------------------------------------------|--------------------|
-| Test Case 1 | Place one valid troop on your territory  | Territory troops increases by one, troops left decreases by one      | :white_check_mark: |
-| Test Case 2 | Place max valid troops on your territory | Territory troops increases by 10, troops left decreases to 0 from 10 | :white_check_mark: |
+|             | System under test                            | Expected output                                                      | Implemented?       |
+|-------------|----------------------------------------------|----------------------------------------------------------------------|--------------------|
+| Test Case 1 | Place one valid troop on your territory      | Territory troops increases by one, troops left decreases by one      | :white_check_mark: |
+| Test Case 2 | Place max valid troops on your territory     | Territory troops increases by 10, troops left decreases to 0 from 10 | :white_check_mark: |
+| Test Case 2 | Place max + 1 valid troops on your territory | Exception                                                            | :white_check_mark: |
+| Test Case 1 | Place troop on invalid territory             | Exception                                                            | :white_check_mark: |
 
 ## isComplete()
 

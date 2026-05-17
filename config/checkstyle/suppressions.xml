@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<!--
+  Project-level Checkstyle suppressions.
+
+  Add <suppress> entries here to skip specific checks for specific files.
+  Example:
+    <suppress files="GeneratedThing\.java" checks="."/>
+    <suppress files=".*Tests?\.java" checks="MissingJavadocMethod|MissingJavadocType"/>
+-->
+<suppressions>
+  <!-- Relax stylistic checks in test code. -->
+  <suppress files=".*Tests?\.java" checks="VariableDeclarationUsageDistance"/>
+  <suppress files=".*Tests?\.java" checks="AbbreviationAsWordInName"/>
+  <suppress files=".*Tests?\.java" checks="MethodName"/>
+</suppressions>

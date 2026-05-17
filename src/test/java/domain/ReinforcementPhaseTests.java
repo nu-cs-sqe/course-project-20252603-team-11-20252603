@@ -108,5 +108,29 @@ public class ReinforcementPhaseTests {
         EasyMock.verify(player,territory);
     }
 
+    @Test
+    public void placeTroops_placeMaxValidTroop_validTerritory_void() {
+        Player player = EasyMock.createMock(Player.class);
+        Territory territory = EasyMock.createMock(Territory.class);
+
+        List<Territory> territories = new ArrayList<>();
+        territories.add(territory);
+
+        int troopsToPlace = 3;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
+        territory.addTroops(3);
+        EasyMock.expectLastCall().once();
+
+        EasyMock.replay(player, territory);
+
+        int tryToPlaceTroops = 3;
+        reinforcements.placeTroops(tryToPlaceTroops, territory);
+
+        assertEquals(0, reinforcements.getRemaining());
+        EasyMock.verify(player,territory);
+    }
+
 
 }

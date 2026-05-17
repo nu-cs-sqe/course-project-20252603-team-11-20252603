@@ -31,7 +31,9 @@ Getter
 
 ## setOwner(Player p1)
 
-Setter
+|              | System under test                      | Expected output       | Implemented?       |
+|--------------|----------------------------------------|-----------------------|--------------------|
+| Test Case 14 | territory owned by P1, setOwner(P2)    | owner = P2            | :white_check_mark: |
 
 ## getOwner()
 

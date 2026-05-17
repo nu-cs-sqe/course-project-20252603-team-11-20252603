@@ -20,7 +20,9 @@ public class ReinforcementPhase {
     }
 
     public void placeTroops(int troops, Territory territory) {
-        this.player.getTerritories();
+        if (!validatePlacement(troops, territory)) {
+            throw new IllegalArgumentException("Invalid troop placement");
+        }
         territory.addTroops(troops);
         this.troopsToPlace -= troops;
     }

@@ -2,6 +2,7 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -129,6 +130,31 @@ public class ReinforcementPhaseTests {
         reinforcements.placeTroops(tryToPlaceTroops, territory);
 
         assertEquals(0, reinforcements.getRemaining());
+        EasyMock.verify(player,territory);
+    }
+
+    @Test
+    public void placeTroops_placeMaxPlusOneTroops_validTerritory_void() {
+        Player player = EasyMock.createMock(Player.class);
+        Territory territory = EasyMock.createMock(Territory.class);
+
+        List<Territory> territories = new ArrayList<>();
+        territories.add(territory);
+
+        int troopsToPlace = 3;
+        ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
+
+        EasyMock.expect(player.getTerritories()).andReturn(territories);
+        EasyMock.replay(player, territory);
+
+        int tryToPlaceTroops = 4;
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> reinforcements.placeTroops(tryToPlaceTroops, territory)
+        );
+
+        assertEquals("Invalid troop placement", exception.getMessage());
         EasyMock.verify(player,territory);
     }
 

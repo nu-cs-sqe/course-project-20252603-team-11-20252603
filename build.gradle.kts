@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("checkstyle")
+    id("jacoco")
 }
 
 group = "nu.csse.sqe"
@@ -28,6 +29,7 @@ tasks.compileJava {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 configure<CheckstyleExtension> {
@@ -41,4 +43,18 @@ configure<CheckstyleExtension> {
     isIgnoreFailures = false
     isShowViolations = true
     maxWarnings = 0
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
+    }
 }

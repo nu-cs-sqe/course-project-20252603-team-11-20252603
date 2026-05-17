@@ -1,15 +1,5 @@
 # Reinforcement Phase BVA
 
-## calculateTroops()
-
-|             | System under test              | Expected output  | Implemented?       |
-|-------------|--------------------------------|------------------|--------------------|
-| Test Case 1 | 0 territories, 0 continents    | Exception thrown | :white_check_mark: |
-| Test Case 2 | 1 territory, 1 (3pt) continent | 6 new troops     | :white_check_mark: |
-| Test Case 3 | 11 territory, 0 continents     | 3 new troops     | :white_check_mark: |
-| Test Case 4 | 12 territory, 0 continents     | 4 new troops     | :white_check_mark: |
-| Test Case 5 | 42 territories, 5 continents   | 35 new troops    | :white_check_mark: |
-
 ## placeTroops(int amount, Territory territory)
 
 |             | System under test                        | Expected output                                                      | Implemented?       |

@@ -136,3 +136,13 @@
 - **TC41: 30 territories** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 30
   - **Expected output**: 10 (floor(30/3) = 10)   
+
+## calculateTroops()
+
+|             | System under test              | Expected output  | Implemented?       |
+|-------------|--------------------------------|------------------|--------------------|
+| Test Case 1 | 0 territories, 0 continents    | Exception thrown | :white_check_mark: |
+| Test Case 2 | 1 territory, 1 (3pt) continent | 6 new troops     | :white_check_mark: |
+| Test Case 3 | 11 territory, 0 continents     | 3 new troops     | :white_check_mark: |
+| Test Case 4 | 12 territory, 0 continents     | 4 new troops     | :white_check_mark: |
+| Test Case 5 | 42 territories, 5 continents   | 35 new troops    | :white_check_mark: |

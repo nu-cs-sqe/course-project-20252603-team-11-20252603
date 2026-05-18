@@ -42,4 +42,13 @@ public class DiceRollerTests {
     assertEquals(List.of(3, 3, 3), result);
     EasyMock.verify(random);
   }
+
+  @Test
+  public void rollAttacker_fourDice_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    assertThrows(IllegalArgumentException.class, () -> diceRoller.rollAttacker(4));
+    EasyMock.verify(random);
+  }
 }

@@ -20,7 +20,7 @@ interval [1, 6], produced by `random.nextInt(6) + 1`.
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2 each call
     - **Expected output**: list of size 3 containing [3, 3, 3]
 
-- **TC4: n = 4 (above upper bound)** ( :x: )
+- **TC4: n = 4 (above upper bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with any Random
     - **Expected output**: IllegalArgumentException thrown
 

@@ -42,7 +42,7 @@
     - **State of the system**: phase == REINFORCEMENT, troops not all placed
     - **Expected output**: IllegalStateException thrown, phase stays REINFORCEMENT,
       getAttackPhase() still null
-- **TC12: reinforcementPhase.isComplete() == true (valid transition)** ( :x: )
+- **TC12: reinforcementPhase.isComplete() == true (valid transition)** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT, all troops placed
     - **Expected output**: phase == ATTACK, getAttackPhase() returns a non-null AttackPhase
       instance constructed with (currentPlayer, game, random)

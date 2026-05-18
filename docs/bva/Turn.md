@@ -105,6 +105,6 @@
 - **TC28: phase == FORTIFICATION** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION
     - **Expected output**: IllegalStateException thrown
-- **TC29: valid call, phase == ENDED** ( :x: )
+- **TC29: valid call, phase == ENDED** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: game.advanceToNextPlayer() called exactly once

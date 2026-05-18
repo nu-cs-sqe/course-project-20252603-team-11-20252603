@@ -81,4 +81,25 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, s, t);
   }
+
+  @Test
+  public void canAttack_territoriesNotAdjacent_returnsFalse() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    EasyMock.expect(s.getOwner()).andReturn(attacker);
+    EasyMock.expect(s.getTroopCount()).andReturn(2);
+    EasyMock.expect(game.getMap()).andReturn(map);
+    EasyMock.expect(map.areAdjacent(s, t)).andReturn(false);
+    EasyMock.replay(attacker, diceRoller, game, map, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    assertFalse(phase.canAttack(s, t));
+
+    EasyMock.verify(attacker, diceRoller, game, map, s, t);
+  }
 }

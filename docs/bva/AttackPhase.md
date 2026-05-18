@@ -31,7 +31,7 @@ s and t are adjacent (game.getMap().areAdjacent(s, t)); t is not owned by the at
   - **State of the system**: s.getOwner() returns a different player
   - **Expected output**: false
 
-- **TC5: s and t not adjacent → false** ( :x: )
+- **TC5: s and t not adjacent → false** ( :white_check_mark: )
   - **State of the system**: game.getMap().areAdjacent(s, t) returns false
   - **Expected output**: false
 

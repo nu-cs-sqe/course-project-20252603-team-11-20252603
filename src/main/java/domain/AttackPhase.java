@@ -20,6 +20,12 @@ public class AttackPhase {
     if (!s.getOwner().equals(attacker)) {
       return false;
     }
-    return s.getTroopCount() >= 2;
+    if (s.getTroopCount() < 2) {
+      return false;
+    }
+    if (!game.getMap().areAdjacent(s, t)) {
+      return false;
+    }
+    return !t.getOwner().equals(attacker);
   }
 }

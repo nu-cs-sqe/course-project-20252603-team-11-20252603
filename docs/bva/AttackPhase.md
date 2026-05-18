@@ -21,7 +21,7 @@ s and t are adjacent (game.getMap().areAdjacent(s, t)); t is not owned by the at
   - **State of the system**: s owned by attacker, s has 1 troop, s and t adjacent, t owned by enemy
   - **Expected output**: false
 
-- **TC3: s.getTroopCount() = 2 (lower bound) and all conditions met → true** ( :x: )
+- **TC3: s.getTroopCount() = 2 (lower bound) and all conditions met → true** ( :white_check_mark: )
   - **State of the system**: s owned by attacker, s has 2 troops, s and t adjacent, t owned by enemy
   - **Expected output**: true
 

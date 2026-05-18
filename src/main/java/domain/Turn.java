@@ -7,6 +7,13 @@ public class Turn {
   private final Game game;
   private final Random random;
 
+  private TurnPhase phase;
+  private boolean conqueredThisTurn;
+
+  private ReinforcementPhase reinforcementPhase;
+  private AttackPhase attackPhase;
+  private FortificationPhase fortificationPhase;
+
   public Turn(Player currentPlayer, Game game, Random random) {
     if (currentPlayer == null) {
       throw new IllegalArgumentException("currentPlayer cannot be null.");
@@ -20,5 +27,35 @@ public class Turn {
     this.currentPlayer = currentPlayer;
     this.game = game;
     this.random = random;
+    this.phase = null;
+    this.conqueredThisTurn = false;
+  }
+
+  public TurnPhase getPhase() {
+    return null;
+  }
+
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
+
+  public Game getGame() {
+    return game;
+  }
+
+  public boolean hasConqueredThisTurn() {
+    return false;
+  }
+
+  public ReinforcementPhase getReinforcementPhase() {
+    return null;
+  }
+
+  public AttackPhase getAttackPhase() {
+    return null;
+  }
+
+  public FortificationPhase getFortificationPhase() {
+    return null;
   }
 }

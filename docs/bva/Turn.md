@@ -10,7 +10,7 @@
 - **TC3: null random** ( :white_check_mark: )
     - **State of the system**: No turn created yet
     - **Expected output**: IllegalArgumentException thrown
-- **TC4: all valid args** ( :x: )
+- **TC4: all valid args** ( :white_check_mark: )
     - **State of the system**: No turn created yet
     - **Expected output**: Turn created, getPhase() == null, hasConqueredThisTurn() == false,
       getCurrentPlayer() returns injected player, getGame() returns injected game,

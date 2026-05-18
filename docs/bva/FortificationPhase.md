@@ -10,7 +10,7 @@
   - **State of the system**: No FortificationPhase created yet; valid Player provided
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC3: valid player and map** ( :x: )
+- **TC3: valid player and map** ( :white_check_mark: )
   - **State of the system**: No FortificationPhase created yet; valid Player and GameMap provided
   - **Expected output**: FortificationPhase constructed; moved = false
 

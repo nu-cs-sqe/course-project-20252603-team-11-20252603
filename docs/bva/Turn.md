@@ -102,7 +102,7 @@
 - **TC27: phase == ATTACK** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK
     - **Expected output**: IllegalStateException thrown
-- **TC28: phase == FORTIFICATION** ( :x: )
+- **TC28: phase == FORTIFICATION** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION
     - **Expected output**: IllegalStateException thrown
 - **TC29: valid call, phase == ENDED** ( :x: )

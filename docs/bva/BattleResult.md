@@ -23,7 +23,7 @@ otherwise (tie or less) → attacker loses 1 army.
 
 **3v2 — 2 comparisons; attacker losses ∈ {0, 1, 2}:**
 
-- **TC4: attacker [6,5,4] vs defender [3,1] — attacker wins both (0 attacker losses, lower bound)** ( :x: )
+- **TC4: attacker [6,5,4] vs defender [3,1] — attacker wins both (0 attacker losses, lower bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller.compare([6,5,4], [3,1]) called
     - **Expected output**: getAttackerLosses() = 0, getDefenderLosses() = 2
 

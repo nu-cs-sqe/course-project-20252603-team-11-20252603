@@ -25,6 +25,18 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC20
+  @Test
+  public void isConnected_sourceEqualsDestination_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory t = EasyMock.createMock(Territory.class);
+    EasyMock.replay(map, t);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.isConnected(t, t));
+    EasyMock.verify(map, t);
+  }
+
   // TC19
   @Test
   public void isConnected_nullDestination_throwsIllegalArgumentException() {

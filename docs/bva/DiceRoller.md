@@ -26,11 +26,11 @@ interval [1, 6], produced by `random.nextInt(6) + 1`.
 
 **Die face value (interval [1, 6]):**
 
-- **TC5: random produces minimum — die value = 1 (lower bound)** ( :x: )
+- **TC5: random produces minimum — die value = 1 (lower bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with mocked Random; nextInt(6) returns 0
     - **Expected output**: list containing [1]
 
-- **TC6: random produces maximum — die value = 6 (upper bound)** ( :x: )
+- **TC6: random produces maximum — die value = 6 (upper bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with mocked Random; nextInt(6) returns 5
     - **Expected output**: list containing [6]
 

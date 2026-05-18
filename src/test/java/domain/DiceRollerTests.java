@@ -51,4 +51,26 @@ public class DiceRollerTests {
     assertThrows(IllegalArgumentException.class, () -> diceRoller.rollAttacker(4));
     EasyMock.verify(random);
   }
+
+  @Test
+  public void rollAttacker_randomProducesMinimum_dieValueIsOne() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(0);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(1);
+    assertEquals(1, result.get(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_randomProducesMaximum_dieValueIsSix() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(5);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(1);
+    assertEquals(6, result.get(0));
+    EasyMock.verify(random);
+  }
 }

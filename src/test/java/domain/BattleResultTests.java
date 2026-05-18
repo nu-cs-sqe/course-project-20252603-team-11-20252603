@@ -34,4 +34,11 @@ public class BattleResultTests {
     assertEquals(0, result.getAttackerLosses());
     assertEquals(2, result.getDefenderLosses());
   }
+
+  @Test
+  public void getAttackerLosses_threeVsTwo_splitResult_eachLosesOne() {
+    BattleResult result = new BattleResult(List.of(6, 1, 1), List.of(5, 5), false);
+    assertEquals(1, result.getAttackerLosses());
+    assertEquals(1, result.getDefenderLosses());
+  }
 }

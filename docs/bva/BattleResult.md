@@ -27,7 +27,7 @@ otherwise (tie or less) → attacker loses 1 army.
     - **State of the system**: DiceRoller.compare([6,5,4], [3,1]) called
     - **Expected output**: getAttackerLosses() = 0, getDefenderLosses() = 2
 
-- **TC5: attacker [6,1,1] vs defender [5,5] — split result (1 loss each)** ( :x: )
+- **TC5: attacker [6,1,1] vs defender [5,5] — split result (1 loss each)** ( :white_check_mark: )
     - **State of the system**: DiceRoller.compare([6,1,1], [5,5]) called
     - **Expected output**: getAttackerLosses() = 1, getDefenderLosses() = 1
 

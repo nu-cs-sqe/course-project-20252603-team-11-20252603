@@ -721,6 +721,24 @@ public class GameTests {
   }
 
   @Test
+  public void drawCard_twoCardsInDeck_returnsFirstCardAndDeckHasOneRemaining() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    List<RiskCard> deck = makeCards(2);
+    RiskCard firstCard = deck.get(0);
+    deck.forEach(EasyMock::replay);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, deck, new Random());
+    RiskCard drawn = game.drawCard();
+
+    assertEquals(firstCard, drawn);
+    assertEquals(1, game.getDeckSize());
+    verifyAll(players, map);
+    deck.forEach(EasyMock::verify);
+  }
+
+  @Test
   public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);

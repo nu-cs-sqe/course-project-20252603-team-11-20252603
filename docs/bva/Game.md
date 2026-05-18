@@ -178,6 +178,6 @@ conquered at least one territory this turn.
   - **State of the system**: Game constructed with a deck of 1 card
   - **Expected output**: that card is returned; deck is now empty (size = 0)
 
-- **TC32: deck has 2 cards (one above lower bound)** ( :x: )
+- **TC32: deck has 2 cards (one above lower bound)** ( :white_check_mark: )
   - **State of the system**: Game constructed with a deck of 2 cards
   - **Expected output**: first card is returned; deck now has 1 card remaining

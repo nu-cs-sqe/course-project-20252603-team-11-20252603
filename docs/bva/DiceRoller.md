@@ -102,7 +102,7 @@ since `compare()` has no access to territory army counts.
     - **Expected output**: BattleResult with getAttackerLosses() = 0, getDefenderLosses() = 1
       (correct only if attacker [4] is compared against defender [3], not [2])
 
-- **TC17: unsorted defender dice — sort applied before comparison** ( :x: )
+- **TC17: unsorted defender dice — sort applied before comparison** ( :white_check_mark: )
     - **State of the system**: a = [5], d = [4, 6] (ascending)
     - **Expected output**: BattleResult with getAttackerLosses() = 1, getDefenderLosses() = 0
       (correct only if defender [6] is compared against attacker [5], not [4])

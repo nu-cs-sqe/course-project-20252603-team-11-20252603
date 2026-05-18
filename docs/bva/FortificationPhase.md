@@ -146,55 +146,55 @@
   - **State of the system**: Phase created, moved = false
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC35: null destination** ( :x: )
+- **TC35: null destination** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; valid territory provided as source
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC36: source == destination (same territory object)** ( :x: )
+- **TC36: source == destination (same territory object)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns T1
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC37: source not owned by player** ( :x: )
+- **TC37: source not owned by player** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns d but not s
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC38: destination not owned by player** ( :x: )
+- **TC38: destination not owned by player** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s but not d
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC39: neither source nor destination owned by player** ( :x: )
+- **TC39: neither source nor destination owned by player** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns neither s nor d
   - **Expected output**: IllegalArgumentException thrown (source ownership fails first)
 
-- **TC40: n = 0 (below minimum valid count)** ( :x: )
+- **TC40: n = 0 (below minimum valid count)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC41: n = −1 (negative)** ( :x: )
+- **TC41: n = −1 (negative)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC42: n = s.troopCount (one over maximum valid, source has 2 troops)** ( :x: )
+- **TC42: n = s.troopCount (one over maximum valid, source has 2 troops)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC43: moved already true (phase already completed)** ( :x: )
+- **TC43: moved already true (phase already completed)** ( :white_check_mark: )
   - **State of the system**: Phase created; moved = true (prior moveTroops or skipPhase call succeeded)
   - **Expected output**: IllegalStateException thrown
 
-- **TC44: no path between source and destination** ( :x: )
+- **TC44: no path between source and destination** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s and d; no connection between s and d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC45: path exists in map but intermediate territory is enemy-owned** ( :x: )
+- **TC45: path exists in map but intermediate territory is enemy-owned** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s and d; map has s−mid−d but mid is owned by a different player
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC46: n = 1 (minimum valid), source has 2 troops, s and d directly connected** ( :x: )
+- **TC46: n = 1 (minimum valid), source has 2 troops, s and d directly connected** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: no exception thrown
 
-- **TC47: n = s.troopCount − 1 (maximum valid), source has 3 troops, s and d directly connected** ( :x: )
+- **TC47: n = s.troopCount − 1 (maximum valid), source has 3 troops, s and d directly connected** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 3) and d; direct connection s−d in map
   - **Expected output**: no exception thrown
 

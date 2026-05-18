@@ -606,4 +606,17 @@ public class TurnTests {
     assertNotNull(turn.createReinforcementPhase(player));
     EasyMock.verify(player, game, random);
   }
+
+  @Test
+  public void createAttackPhase_returnsNewAttackPhase() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(player, game, random);
+
+    Turn turn = new Turn(player, game, random);
+
+    assertNotNull(turn.createAttackPhase(player, game, random));
+    EasyMock.verify(player, game, random);
+  }
 }

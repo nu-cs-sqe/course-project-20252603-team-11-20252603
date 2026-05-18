@@ -34,6 +34,14 @@ public class DiceRoller {
     dice.sort(Collections.reverseOrder());
   }
 
+  public BattleResult compare(List<Integer> attackerDice, List<Integer> defenderDice) {
+    List<Integer> a = new ArrayList<>(attackerDice);
+    List<Integer> d = new ArrayList<>(defenderDice);
+    sortDescending(a);
+    sortDescending(d);
+    return new BattleResult(a, d, false);
+  }
+
   private List<Integer> rollDice(int n) {
     List<Integer> dice = new ArrayList<>();
     for (int i = 0; i < n; i++) {

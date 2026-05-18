@@ -15,6 +15,8 @@ public class TurnTests {
   private Turn buildTurn(Player player, Game game, Random random, ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
     return new Turn(player, game, random) {
       @Override protected ReinforcementPhase createReinforcementPhase(Player p) { return rp; }
+      @Override protected AttackPhase createAttackPhase(Player p, Game g, Random r) { return ap; }
+      @Override protected FortificationPhase createFortificationPhase(Player p, Game g) { return fp; }
     };
   }
   private void recordAdvanceToReinforcement(Player p) {
@@ -144,5 +146,26 @@ public class TurnTests {
 
     assertThrows(IllegalStateException.class, turn::runReinforcementPhase);
     EasyMock.verify(player, game, rp, ap);
+  }
+
+  @Test
+  public void runReinforcementPhase_whenFortificationPhase_throwsIllegalStateException() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
+    AttackPhase ap = EasyMock.createMock(AttackPhase.class);
+    FortificationPhase fp = EasyMock.createMock(FortificationPhase.class);
+
+    recordAdvanceToFortification(player, rp, ap, 0);
+    EasyMock.replay(player, game, rp, ap, fp);
+
+    Turn turn = buildTurn(player, game, random, rp, ap, fp);
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+
+    assertThrows(IllegalStateException.class, turn::runReinforcementPhase);
+    EasyMock.verify(player, game, rp, ap, fp);
   }
 }

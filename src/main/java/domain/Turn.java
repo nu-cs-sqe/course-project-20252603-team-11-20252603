@@ -44,7 +44,7 @@ public class Turn {
   }
 
   public boolean hasConqueredThisTurn() {
-    return false;
+    return conqueredThisTurn;
   }
 
   public ReinforcementPhase getReinforcementPhase() {
@@ -52,11 +52,11 @@ public class Turn {
   }
 
   public AttackPhase getAttackPhase() {
-    return null;
+    return attackPhase;
   }
 
   public FortificationPhase getFortificationPhase() {
-    return null;
+    return fortificationPhase;
   }
 
   public void startTurn() {
@@ -79,11 +79,27 @@ public class Turn {
     phase = TurnPhase.ATTACK;
   }
 
+  public void runAttackPhase() {
+    if (phase != TurnPhase.ATTACK) {
+      throw new IllegalStateException("Not in ATTACK phase.");
+    }
+    if (!attackPhase.isEnded()) {
+      throw new IllegalStateException("Attack phase not ended.");
+    }
+    conqueredThisTurn = attackPhase.getConqueredCount() > 0;
+    fortificationPhase = createFortificationPhase(currentPlayer, game);
+    phase = TurnPhase.FORTIFICATION;
+  }
+
   protected ReinforcementPhase createReinforcementPhase(Player p) {
     return new ReinforcementPhase(p);
   }
 
   protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
     return new AttackPhase(p, g, r);
+  }
+
+  protected FortificationPhase createFortificationPhase(Player p, Game g) {
+    return new FortificationPhase(p, g);
   }
 }

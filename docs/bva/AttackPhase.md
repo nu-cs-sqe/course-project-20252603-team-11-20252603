@@ -100,7 +100,7 @@ later by moveInTroops). If no conquest, t.removeTroops(defenderLosses) is called
   - **State of the system**: t has 1 troop; diceRoller.rollDefender(1) mocked
   - **Expected output**: diceRoller.rollDefender(1) called; losses applied
 
-- **TC16: t.getTroopCount() = 2 (upper bound → defender rolls 2 dice)** ( :x: )
+- **TC16: t.getTroopCount() = 2 (upper bound → defender rolls 2 dice)** ( :white_check_mark: )
   - **State of the system**: t has 2 troops; diceRoller.rollDefender(2) mocked
   - **Expected output**: diceRoller.rollDefender(2) called; losses applied
 

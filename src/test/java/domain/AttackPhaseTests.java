@@ -306,4 +306,28 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, diceRoller, game, s, t);
   }
+
+  @Test
+  public void resolveBattle_defenderHasTwoTroops_rollsTwoDice() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(3);
+    List<Integer> defendDice = List.of(5, 4);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(2);
+    EasyMock.expect(diceRoller.rollDefender(2)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(3), List.of(5, 4), false));
+    s.removeTroops(1);
+    EasyMock.replay(attacker, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 1);
+
+    EasyMock.verify(attacker, diceRoller, game, s, t);
+  }
 }

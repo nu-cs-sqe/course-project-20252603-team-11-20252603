@@ -13,4 +13,11 @@ public class TurnTests {
     Random random = EasyMock.createMock(Random.class);
     assertThrows(IllegalArgumentException.class, () -> new Turn(null, game, random));
   }
+
+  @Test
+  public void constructor_nullGame_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    Random random = EasyMock.createMock(Random.class);
+    assertThrows(IllegalArgumentException.class, () -> new Turn(player, null, random));
+  }
 }

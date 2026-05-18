@@ -11,6 +11,9 @@ public class Turn {
     if (currentPlayer == null) {
       throw new IllegalArgumentException("currentPlayer cannot be null.");
     }
+    if (game == null) {
+      throw new IllegalArgumentException("game cannot be null.");
+    }
     this.currentPlayer = currentPlayer;
     this.game = game;
     this.random = random;

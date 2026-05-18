@@ -65,6 +65,9 @@ public class FortificationPhase {
   }
 
   public void skipPhase() {
+    if (moved) {
+      throw new IllegalStateException("Fortification phase already completed");
+    }
     moved = true;
   }
 

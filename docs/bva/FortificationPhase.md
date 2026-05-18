@@ -204,7 +204,7 @@
   - **State of the system**: Phase created, moved = false
   - **Expected output**: moved = true; no territory troop counts changed
 
-- **TC49: skipPhase called after moveTroops already succeeded** ( :x: )
+- **TC49: skipPhase called after moveTroops already succeeded** ( :white_check_mark: )
   - **State of the system**: Phase created; moveTroops already called successfully; moved = true
   - **Expected output**: IllegalStateException thrown
 

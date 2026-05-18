@@ -82,4 +82,16 @@ public class DiceRollerTests {
     assertThrows(IllegalArgumentException.class, () -> diceRoller.rollDefender(0));
     EasyMock.verify(random);
   }
+
+  @Test
+  public void rollDefender_oneDie_returnsListOfSizeOneWithCorrectValue() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollDefender(1);
+    assertEquals(1, result.size());
+    assertEquals(3, result.get(0));
+    EasyMock.verify(random);
+  }
 }

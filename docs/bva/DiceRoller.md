@@ -47,7 +47,7 @@ are the same as `rollAttacker` and are covered by TC5–TC6.
     - **State of the system**: DiceRoller constructed with any Random
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC8: n = 1 (lower bound, valid)** ( :x: )
+- **TC8: n = 1 (lower bound, valid)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2
     - **Expected output**: list of size 1 containing [3]
 

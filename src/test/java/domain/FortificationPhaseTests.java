@@ -25,6 +25,24 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC25
+  @Test
+  public void isConnected_pathThroughEnemyTerritory_returnsFalse() {
+    Player player = new Player("Alice");
+    Player enemy = new Player("Bob");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory mid = new Territory("Mid", enemy, 3);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertFalse(phase.isConnected(s, d));
+  }
+
   // TC24
   @Test
   public void isConnected_noPathBetweenTerritories_returnsFalse() {

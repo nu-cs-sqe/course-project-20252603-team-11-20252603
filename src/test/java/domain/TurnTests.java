@@ -2,24 +2,39 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Random;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
-import java.util.Random;
 
 public class TurnTests {
+
   // Helpers
-  private Turn buildTurn(Player player, Game game, Random random, ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
+  private Turn buildTurn(Player player, Game game, Random random,
+                         ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
     return new Turn(player, game, random) {
-      @Override protected ReinforcementPhase createReinforcementPhase(Player p) { return rp; }
-      @Override protected AttackPhase createAttackPhase(Player p, Game g, Random r) { return ap; }
-      @Override protected FortificationPhase createFortificationPhase(Player p, Game g) { return fp; }
+      @Override
+      protected ReinforcementPhase createReinforcementPhase(Player p) {
+        return rp;
+      }
+
+      @Override
+      protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
+        return ap;
+      }
+
+      @Override
+      protected FortificationPhase createFortificationPhase(Player p, Game g) {
+        return fp;
+      }
     };
   }
+
   private void recordAdvanceToReinforcement(Player p) {
     EasyMock.expect(p.calculateReinforcements()).andReturn(5);
     p.setAvailableTroops(5);
@@ -575,5 +590,20 @@ public class TurnTests {
     turn.endTurn();
 
     EasyMock.verify(player, game, rp, ap, fp);
+  }
+
+  // ─── Factory methods (coverage for the real bodies, not the test overrides) ──
+
+  @Test
+  public void createReinforcementPhase_returnsNewReinforcementPhase() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(player, game, random);
+
+    Turn turn = new Turn(player, game, random);
+
+    assertNotNull(turn.createReinforcementPhase(player));
+    EasyMock.verify(player, game, random);
   }
 }

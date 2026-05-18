@@ -64,7 +64,7 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 3) and d (troopCount = 1); direct connection s−d in map
   - **Expected output**: s.troopCount = 1; d.troopCount = 3; moved = true
 
-- **TC16: second moveTroops call after a successful first call** ( :x: )
+- **TC16: second moveTroops call after a successful first call** ( :white_check_mark: )
   - **State of the system**: Phase created; moveTroops already called successfully; moved = true
   - **Expected output**: IllegalStateException thrown
 

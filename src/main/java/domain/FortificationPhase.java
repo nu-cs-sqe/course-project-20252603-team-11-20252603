@@ -35,6 +35,9 @@ public class FortificationPhase {
   }
 
   public void validateMove(Territory s, Territory d, int n) {
+    if (moved) {
+      throw new IllegalStateException("Fortification phase already completed");
+    }
     if (s == null) {
       throw new IllegalArgumentException("Source territory cannot be null");
     }

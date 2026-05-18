@@ -25,6 +25,21 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC16
+  @Test
+  public void moveTroops_calledAfterSuccessfulMove_throwsIllegalStateException() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    phase.moveTroops(s, d, 1);
+    assertThrows(IllegalStateException.class, () -> phase.moveTroops(s, d, 1));
+  }
+
   // TC15
   @Test
   public void moveTroops_nIsTroopCountMinusOne_maxValid_troopsTransferredAndMovedIsTrue() {

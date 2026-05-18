@@ -161,4 +161,27 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, map, s, t);
   }
+
+  @Test
+  public void declareAttack_nEqualsThree_sourceTroopCountFour_noException() {
+    Player attacker = EasyMock.createMock(Player.class);
+    Player enemy = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    EasyMock.expect(s.getOwner()).andReturn(attacker);
+    EasyMock.expect(t.getOwner()).andReturn(enemy);
+    EasyMock.expect(s.getTroopCount()).andReturn(4);
+    EasyMock.expect(game.getMap()).andReturn(map);
+    EasyMock.expect(map.areAdjacent(s, t)).andReturn(true);
+    EasyMock.replay(attacker, enemy, diceRoller, game, map, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.declareAttack(s, t, 3);
+
+    EasyMock.verify(attacker, enemy, diceRoller, game, map, s, t);
+  }
 }

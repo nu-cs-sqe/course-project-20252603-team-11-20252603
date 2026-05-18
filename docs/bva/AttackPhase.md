@@ -56,7 +56,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
   - **State of the system**: s owned by attacker, s has 2 troops, s and t adjacent, t owned by enemy
   - **Expected output**: no exception; ownership and adjacency checks made on mocks
 
-- **TC9: n = 3 (upper bound), s.getTroopCount() = 4 → no exception** ( :x: )
+- **TC9: n = 3 (upper bound), s.getTroopCount() = 4 → no exception** ( :white_check_mark: )
   - **State of the system**: s owned by attacker, s has 4 troops, s and t adjacent, t owned by enemy
   - **Expected output**: no exception; ownership and adjacency checks made on mocks
 

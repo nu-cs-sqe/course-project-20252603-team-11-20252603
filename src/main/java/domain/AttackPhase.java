@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.List;
+
 public class AttackPhase {
   private static final int MIN_ATTACK_DICE = 1;
   private static final int MAX_ATTACK_DICE = 3;
+  private static final int MAX_DEFENDER_DICE = 2;
   private static final int MIN_TROOPS_TO_ATTACK = 2;
 
   private final Player attacker;
@@ -35,6 +38,22 @@ public class AttackPhase {
     }
     if (!game.getMap().areAdjacent(s, t)) {
       throw new IllegalArgumentException("Source and target territories must be adjacent.");
+    }
+  }
+
+  public void resolveBattle(Territory s, Territory t, int n) {
+    int defenderTroops = t.getTroopCount();
+    int defenderDice = Math.min(MAX_DEFENDER_DICE, defenderTroops);
+    List<Integer> attackerRoll = diceRoller.rollAttacker(n);
+    List<Integer> defenderRoll = diceRoller.rollDefender(defenderDice);
+    BattleResult result = diceRoller.compare(attackerRoll, defenderRoll);
+    if (result.getAttackerLosses() > 0) {
+      s.removeTroops(result.getAttackerLosses());
+    }
+    if (result.getDefenderLosses() >= defenderTroops) {
+      conqueredCount++;
+    } else if (result.getDefenderLosses() > 0) {
+      t.removeTroops(result.getDefenderLosses());
     }
   }
 

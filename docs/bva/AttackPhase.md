@@ -96,7 +96,7 @@ later by moveInTroops). If no conquest, t.removeTroops(defenderLosses) is called
 
 **Defender dice count (min(2, t.getTroopCount()), interval [1, 2]):**
 
-- **TC15: t.getTroopCount() = 1 (lower bound → defender rolls 1 die)** ( :x: )
+- **TC15: t.getTroopCount() = 1 (lower bound → defender rolls 1 die)** ( :white_check_mark: )
   - **State of the system**: t has 1 troop; diceRoller.rollDefender(1) mocked
   - **Expected output**: diceRoller.rollDefender(1) called; losses applied
 

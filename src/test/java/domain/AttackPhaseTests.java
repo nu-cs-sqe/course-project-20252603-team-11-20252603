@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -278,6 +279,30 @@ public class AttackPhaseTests {
     AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
     assertThrows(IllegalArgumentException.class,
         () -> phase.declareAttack(s, t, 1));
+
+    EasyMock.verify(attacker, diceRoller, game, s, t);
+  }
+
+  @Test
+  public void resolveBattle_defenderHasOneTroop_rollsOneDie() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(3);
+    List<Integer> defendDice = List.of(4);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(3), List.of(4), false));
+    s.removeTroops(1);
+    EasyMock.replay(attacker, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 1);
 
     EasyMock.verify(attacker, diceRoller, game, s, t);
   }

@@ -1,8 +1,8 @@
 package domain;
 
 public enum RiskCardType {
-    INFANTRY,
-    CAVALRY,
-    ARTILLERY,
-    WILDCARD
+  INFANTRY,
+  CAVALRY,
+  ARTILLERY,
+  WILDCARD
 }

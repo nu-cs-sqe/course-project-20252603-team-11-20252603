@@ -70,7 +70,7 @@ Sorts the list in-place in descending order. Called by `compare()` before constr
     - **State of the system**: dice = []
     - **Expected output**: dice = [] (unchanged, no exception)
 
-- **TC12: single element — no change** ( :x: )
+- **TC12: single element — no change** ( :white_check_mark: )
     - **State of the system**: dice = [4]
     - **Expected output**: dice = [4] (unchanged)
 

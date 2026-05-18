@@ -86,7 +86,7 @@
   - **State of the system**: Phase created; player owns T1
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC21: source and destination are direct neighbors, both owned by player (1 hop)** ( :x: )
+- **TC21: source and destination are direct neighbors, both owned by player (1 hop)** ( :white_check_mark: )
   - **State of the system**: Phase created; player owns s and d; map has direct connection s−d
   - **Expected output**: true
 

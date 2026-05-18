@@ -137,3 +137,47 @@ Precondition: Game constructed with 2–6 players, a valid map, and a deck.
 - **TC26: 2 players, result = 1 (upper bound of resulting index)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
   - **Expected output**: currentPlayerIndex = 1
+
+---
+
+### Method under test: `void advanceToNextPlayer()`
+
+Precondition: `currentPlayerIndex` has been set (e.g. by `chooseFirstPlayer()`). The index is an
+interval [0, players.size() − 1]. `advanceToNextPlayer()` increments the index with wrap-around:
+`(currentPlayerIndex + 1) % players.size()`.
+
+**`currentPlayerIndex` (interval [0, players.size() − 1]):**
+
+- **TC27: 2 players, currentPlayerIndex = 0 (lower bound, not last player)** ( :x: )
+  - **State of the system**: Game constructed with 2 players; currentPlayerIndex set to 0
+  - **Expected output**: currentPlayerIndex = 1
+
+- **TC28: 2 players, currentPlayerIndex = 1 (upper bound, last player — wraps to 0)** ( :x: )
+  - **State of the system**: Game constructed with 2 players; currentPlayerIndex set to 1
+  - **Expected output**: currentPlayerIndex = 0
+
+- **TC29: 3 players, currentPlayerIndex = 1 (interior, one below last — no wrap)** ( :x: )
+  - **State of the system**: Game constructed with 3 players; currentPlayerIndex set to 1
+  - **Expected output**: currentPlayerIndex = 2
+
+---
+
+### Method under test: `RiskCard drawCard()`
+
+Precondition: Game constructed. `deck` is a Count variable (size ≥ 0). `drawCard()` removes and
+returns the first card from the deck. Called by `AttackPhase.awardCardIfEarned()` when the player
+conquered at least one territory this turn.
+
+**`deck.size()` (Count, size ≥ 0):**
+
+- **TC30: deck is empty (size = 0, below lower bound)** ( :x: )
+  - **State of the system**: Game constructed with an empty deck
+  - **Expected output**: IllegalStateException thrown
+
+- **TC31: deck has 1 card (lower bound, valid)** ( :x: )
+  - **State of the system**: Game constructed with a deck of 1 card
+  - **Expected output**: that card is returned; deck is now empty (size = 0)
+
+- **TC32: deck has 2 cards (one above lower bound)** ( :x: )
+  - **State of the system**: Game constructed with a deck of 2 cards
+  - **Expected output**: first card is returned; deck now has 1 card remaining

@@ -16,7 +16,7 @@ interval [1, 6], produced by `random.nextInt(6) + 1`.
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2
     - **Expected output**: list of size 1 containing [3]
 
-- **TC3: n = 3 (upper bound, valid)** ( :x: )
+- **TC3: n = 3 (upper bound, valid)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2 each call
     - **Expected output**: list of size 3 containing [3, 3, 3]
 

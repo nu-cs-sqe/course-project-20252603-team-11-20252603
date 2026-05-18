@@ -30,4 +30,16 @@ public class DiceRollerTests {
     assertEquals(3, result.get(0));
     EasyMock.verify(random);
   }
+
+  @Test
+  public void rollAttacker_threeDice_returnsListOfSizeThreeWithCorrectValues() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2).times(3);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(3);
+    assertEquals(3, result.size());
+    assertEquals(List.of(3, 3, 3), result);
+    EasyMock.verify(random);
+  }
 }

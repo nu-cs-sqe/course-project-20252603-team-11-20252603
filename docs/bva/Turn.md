@@ -1,7 +1,7 @@
 # Turn - BVA Analysis
 
 ### Method under test: `Turn(Player currentPlayer, Game game, Random random)`
-- **TC1: null player** ( :x: )
+- **TC1: null player** ( :white_check_mark: )
     - **State of the system**: No turn created yet
     - **Expected output**: IllegalArgumentException thrown
 - **TC2: null game** ( :x: )

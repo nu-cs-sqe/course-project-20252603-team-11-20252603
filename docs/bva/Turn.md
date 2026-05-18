@@ -38,7 +38,7 @@
 - **TC10: called when phase == ENDED** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: IllegalStateException thrown
-- **TC11: reinforcementPhase.isComplete() == false** ( :x: )
+- **TC11: reinforcementPhase.isComplete() == false** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT, troops not all placed
     - **Expected output**: IllegalStateException thrown, phase stays REINFORCEMENT,
       getAttackPhase() still null

@@ -170,7 +170,7 @@ conquered at least one territory this turn.
 
 **`deck.size()` (Count, size ≥ 0):**
 
-- **TC30: deck is empty (size = 0, below lower bound)** ( :x: )
+- **TC30: deck is empty (size = 0, below lower bound)** ( :white_check_mark: )
   - **State of the system**: Game constructed with an empty deck
   - **Expected output**: IllegalStateException thrown
 

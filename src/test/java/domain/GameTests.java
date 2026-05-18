@@ -691,6 +691,18 @@ public class GameTests {
   }
 
   @Test
+  public void drawCard_emptyDeck_throwsIllegalStateException() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, new ArrayList<>(), new Random());
+
+    assertThrows(IllegalStateException.class, () -> game.drawCard());
+    verifyAll(players, map);
+  }
+
+  @Test
   public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);

@@ -104,4 +104,11 @@ public class Game {
   public void advanceToNextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
   }
+
+  public RiskCard drawCard() {
+    if (deck.isEmpty()) {
+      throw new IllegalStateException("Cannot draw from an empty deck.");
+    }
+    return deck.remove(0);
+  }
 }

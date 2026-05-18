@@ -55,7 +55,7 @@ are the same as `rollAttacker` and are covered by TC5–TC6.
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2 each call
     - **Expected output**: list of size 2 containing [3, 3]
 
-- **TC10: n = 3 (above upper bound)** ( :x: )
+- **TC10: n = 3 (above upper bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with any Random
     - **Expected output**: IllegalArgumentException thrown
 

@@ -51,7 +51,7 @@
 - **TC13: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
-- **TC14: phase == FORTIFICATION** ( :x: )
+- **TC14: phase == FORTIFICATION** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION
     - **Expected output**: IllegalStateException thrown
 - **TC15: phase == ENDED** ( :x: )

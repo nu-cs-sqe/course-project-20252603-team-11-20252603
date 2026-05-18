@@ -140,6 +140,17 @@ public class DiceRollerTests {
   }
 
   @Test
+  public void sortDescending_ascendingOrder_listReversed() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>(List.of(1, 3, 5));
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(5, 3, 1), dice);
+    EasyMock.verify(random);
+  }
+
+  @Test
   public void sortDescending_alreadySortedDescending_listUnchanged() {
     Random random = EasyMock.createMock(Random.class);
     EasyMock.replay(random);

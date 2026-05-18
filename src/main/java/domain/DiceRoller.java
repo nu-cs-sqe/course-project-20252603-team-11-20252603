@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -30,6 +31,7 @@ public class DiceRoller {
   }
 
   public void sortDescending(List<Integer> dice) {
+    dice.sort(Collections.reverseOrder());
   }
 
   private List<Integer> rollDice(int n) {

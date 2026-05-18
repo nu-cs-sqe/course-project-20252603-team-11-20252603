@@ -78,7 +78,7 @@ Sorts the list in-place in descending order. Called by `compare()` before constr
     - **State of the system**: dice = [5, 3, 1]
     - **Expected output**: dice = [5, 3, 1] (unchanged)
 
-- **TC14: ascending order — reversed** ( :x: )
+- **TC14: ascending order — reversed** ( :white_check_mark: )
     - **State of the system**: dice = [1, 3, 5]
     - **Expected output**: dice = [5, 3, 1]
 

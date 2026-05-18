@@ -72,7 +72,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
 
 **Territory validation:**
 
-- **TC12: s not owned by attacker → IllegalArgumentException** ( :x: )
+- **TC12: s not owned by attacker → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: s.getOwner() returns a different player
   - **Expected output**: IllegalArgumentException thrown
 

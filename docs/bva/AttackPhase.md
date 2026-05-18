@@ -126,7 +126,7 @@ count from the preceding resolveBattle call (stored internally by AttackPhase).
 
 **n count (interval [lastAttackDice, s.getTroopCount() − 1]):**
 
-- **TC19: n < lastAttackDice (below lower bound) → IllegalArgumentException** ( :x: )
+- **TC19: n < lastAttackDice (below lower bound) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: lastAttackDice = 2; n = 1; s has 5 troops
   - **Expected output**: IllegalArgumentException thrown
 

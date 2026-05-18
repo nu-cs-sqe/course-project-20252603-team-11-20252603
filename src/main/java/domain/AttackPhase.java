@@ -12,6 +12,7 @@ public class AttackPhase {
   private final DiceRoller diceRoller;
   private final Game game;
   private int conqueredCount = 0;
+  private int lastAttackDice = 0;
 
   public AttackPhase(Player attacker, DiceRoller diceRoller, Game game) {
     this.attacker = attacker;
@@ -41,7 +42,18 @@ public class AttackPhase {
     }
   }
 
+  public void moveInTroops(Territory s, Territory t, int n) {
+    if (n < lastAttackDice) {
+      throw new IllegalArgumentException(
+          "Must move at least as many armies as attacking dice rolled.");
+    }
+    if (n >= s.getTroopCount()) {
+      throw new IllegalArgumentException("Source must retain at least 1 army.");
+    }
+  }
+
   public void resolveBattle(Territory s, Territory t, int n) {
+    lastAttackDice = n;
     int defenderTroops = t.getTroopCount();
     int defenderDice = Math.min(MAX_DEFENDER_DICE, defenderTroops);
     List<Integer> attackerRoll = diceRoller.rollAttacker(n);

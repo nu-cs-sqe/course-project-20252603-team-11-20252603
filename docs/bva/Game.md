@@ -156,7 +156,7 @@ interval [0, players.size() − 1]. `advanceToNextPlayer()` increments the index
   - **State of the system**: Game constructed with 2 players; currentPlayerIndex set to 1
   - **Expected output**: currentPlayerIndex = 0
 
-- **TC29: 3 players, currentPlayerIndex = 1 (interior, one below last — no wrap)** ( :x: )
+- **TC29: 3 players, currentPlayerIndex = 1 (interior, one below last — no wrap)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 3 players; currentPlayerIndex set to 1
   - **Expected output**: currentPlayerIndex = 2
 

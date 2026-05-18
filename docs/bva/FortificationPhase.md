@@ -32,7 +32,7 @@
   - **State of the system**: Phase created, moved = false; player owns d but not s
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC8: destination not owned by player** ( :x: )
+- **TC8: destination not owned by player** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s but not d
   - **Expected output**: IllegalArgumentException thrown
 

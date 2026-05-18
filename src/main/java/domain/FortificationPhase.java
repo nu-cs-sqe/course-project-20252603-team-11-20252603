@@ -35,5 +35,8 @@ public class FortificationPhase {
     if (s.getOwner() != player) {
       throw new IllegalArgumentException("Source territory must be owned by the player");
     }
+    if (d.getOwner() != player) {
+      throw new IllegalArgumentException("Destination territory must be owned by the player");
+    }
   }
 }

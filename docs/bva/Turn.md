@@ -26,7 +26,7 @@
       getReinforcementPhase() returns a non-null ReinforcementPhase instance
 
 ### Method under test: `void runReinforcementPhase()`
-- **TC7: called before startTurn (phase == null)** ( :x: )
+- **TC7: called before startTurn (phase == null)** ( :white_check_mark: )
     - **State of the system**: Turn just constructed
     - **Expected output**: IllegalStateException thrown
 - **TC8: called when phase == ATTACK** ( :x: )

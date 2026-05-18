@@ -68,9 +68,17 @@ public class Turn {
     phase = TurnPhase.REINFORCEMENT;
   }
 
-
+  public void runReinforcementPhase() {
+    if (phase != TurnPhase.REINFORCEMENT) {
+      throw new IllegalStateException("Not in REINFORCEMENT phase.");
+    }
+  }
 
   protected ReinforcementPhase createReinforcementPhase(Player p) {
     return new ReinforcementPhase(p);
+  }
+
+  protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
+    return new AttackPhase(p, g, r);
   }
 }

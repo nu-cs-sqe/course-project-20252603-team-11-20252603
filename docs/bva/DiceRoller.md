@@ -51,7 +51,7 @@ are the same as `rollAttacker` and are covered by TC5–TC6.
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2
     - **Expected output**: list of size 1 containing [3]
 
-- **TC9: n = 2 (upper bound, valid)** ( :x: )
+- **TC9: n = 2 (upper bound, valid)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with mocked Random returning nextInt(6) = 2 each call
     - **Expected output**: list of size 2 containing [3, 3]
 

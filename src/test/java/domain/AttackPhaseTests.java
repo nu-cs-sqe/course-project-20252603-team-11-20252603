@@ -507,6 +507,43 @@ public class AttackPhaseTests {
   }
 
   @Test
+  public void awardCardIfEarned_twoConquests_drawsExactlyOneCard() {
+    Player attacker = EasyMock.createMock(Player.class);
+    Player enemy = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t1 = EasyMock.createMock(Territory.class);
+    Territory t2 = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice1 = List.of(6);
+    List<Integer> defendDice1 = List.of(1);
+    List<Integer> attackDice2 = List.of(5);
+    List<Integer> defendDice2 = List.of(2);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice1);
+    EasyMock.expect(t1.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice1);
+    EasyMock.expect(diceRoller.compare(attackDice1, defendDice1))
+        .andReturn(new BattleResult(List.of(6), List.of(1), false));
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice2);
+    EasyMock.expect(t2.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice2);
+    EasyMock.expect(diceRoller.compare(attackDice2, defendDice2))
+        .andReturn(new BattleResult(List.of(5), List.of(2), false));
+    EasyMock.expect(game.drawCard()).andReturn(card);
+    attacker.addCard(card);
+    EasyMock.replay(attacker, enemy, diceRoller, game, card, s, t1, t2);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t1, 1);
+    phase.resolveBattle(s, t2, 1);
+    phase.awardCardIfEarned();
+
+    EasyMock.verify(attacker, enemy, diceRoller, game, card, s, t1, t2);
+  }
+
+  @Test
   public void awardCardIfEarned_oneConquest_drawsOneCardAndAddsToAttacker() {
     Player attacker = EasyMock.createMock(Player.class);
     DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);

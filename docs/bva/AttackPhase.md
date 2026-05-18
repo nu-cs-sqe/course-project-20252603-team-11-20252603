@@ -161,7 +161,7 @@ attacker iff conqueredCount ≥ 1, regardless of how many territories were conqu
   - **State of the system**: conqueredCount = 1 (one conquest this turn); game.drawCard() mocked
   - **Expected output**: game.drawCard() called exactly once; attacker.addCard(card) called
 
-- **TC25: conqueredCount = 2 (above lower bound) → exactly one card drawn** ( :x: )
+- **TC25: conqueredCount = 2 (above lower bound) → exactly one card drawn** ( :white_check_mark: )
   - **State of the system**: conqueredCount = 2; game.drawCard() mocked
   - **Expected output**: game.drawCard() called exactly once (not twice)
 

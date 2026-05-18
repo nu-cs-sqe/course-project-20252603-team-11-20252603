@@ -118,6 +118,16 @@ public class DiceRollerTests {
   }
 
   @Test
+  public void compare_returnsConqueredFalse() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    BattleResult result = diceRoller.compare(List.of(3), List.of(2));
+    assertEquals(false, result.isConquered());
+    EasyMock.verify(random);
+  }
+
+  @Test
   public void compare_unsortedDefenderDice_sortAppliedBeforeComparison() {
     Random random = EasyMock.createMock(Random.class);
     EasyMock.replay(random);

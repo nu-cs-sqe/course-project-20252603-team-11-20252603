@@ -109,6 +109,6 @@ since `compare()` has no access to territory army counts.
 
 **Returned BattleResult has conquered=false:**
 
-- **TC18: compare returns BattleResult with conquered=false** ( :x: )
+- **TC18: compare returns BattleResult with conquered=false** ( :white_check_mark: )
     - **State of the system**: a = [3], d = [2]
     - **Expected output**: BattleResult.isConquered() = false

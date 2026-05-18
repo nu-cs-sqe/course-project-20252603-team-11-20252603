@@ -100,4 +100,8 @@ public class Game {
   public int getCurrentPlayerIndex() {
     return currentPlayerIndex;
   }
+
+  public void advanceToNextPlayer() {
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+  }
 }

@@ -507,6 +507,19 @@ public class AttackPhaseTests {
   }
 
   @Test
+  public void endPhase_noConquest_noCardDrawn() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.replay(attacker, diceRoller, game);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.endPhase();
+
+    EasyMock.verify(attacker, diceRoller, game);
+  }
+
+  @Test
   public void awardCardIfEarned_twoConquests_drawsExactlyOneCard() {
     Player attacker = EasyMock.createMock(Player.class);
     Player enemy = EasyMock.createMock(Player.class);

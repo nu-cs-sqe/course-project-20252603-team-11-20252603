@@ -172,7 +172,7 @@ attacker iff conqueredCount ≥ 1, regardless of how many territories were conqu
 Postcondition: card awarded if any territory was conquered. endPhase delegates to
 awardCardIfEarned; BVA tests verify the observable effects through that delegation.
 
-- **TC26: endPhase with conqueredCount = 0 → no card drawn** ( :x: )
+- **TC26: endPhase with conqueredCount = 0 → no card drawn** ( :white_check_mark: )
   - **State of the system**: no conquests this turn
   - **Expected output**: game.drawCard() not called; attacker.addCard() not called
 

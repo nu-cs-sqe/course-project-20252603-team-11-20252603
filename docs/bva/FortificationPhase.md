@@ -36,7 +36,7 @@
   - **State of the system**: Phase created, moved = false; player owns s but not d
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC9: n = 0 (below minimum valid count)** ( :x: )
+- **TC9: n = 0 (below minimum valid count)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 

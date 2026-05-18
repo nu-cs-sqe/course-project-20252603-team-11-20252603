@@ -38,5 +38,8 @@ public class FortificationPhase {
     if (d.getOwner() != player) {
       throw new IllegalArgumentException("Destination territory must be owned by the player");
     }
+    if (n < 1) {
+      throw new IllegalArgumentException("Number of troops must be at least 1");
+    }
   }
 }

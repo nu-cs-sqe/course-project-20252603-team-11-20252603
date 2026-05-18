@@ -60,7 +60,7 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d (troopCount = 1); direct connection s−d in map
   - **Expected output**: s.troopCount = 1; d.troopCount = 2; moved = true
 
-- **TC15: n = s.troopCount − 1 (maximum valid), source has 3 troops, s and d directly connected** ( :x: )
+- **TC15: n = s.troopCount − 1 (maximum valid), source has 3 troops, s and d directly connected** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 3) and d (troopCount = 1); direct connection s−d in map
   - **Expected output**: s.troopCount = 1; d.troopCount = 3; moved = true
 

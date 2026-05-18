@@ -2,6 +2,8 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +25,100 @@ public class FortificationPhaseTests {
     EasyMock.replay(player);
     assertThrows(IllegalArgumentException.class, () -> new FortificationPhase(player, null));
     EasyMock.verify(player);
+  }
+
+  // TC29
+  @Test
+  public void findPath_directNeighbors_returnsPathOfSizeTwo() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    List<Territory> path = phase.findPath(s, d);
+    assertEquals(2, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(d, path.get(1));
+  }
+
+  // TC30
+  @Test
+  public void findPath_twoHopPath_returnsPathOfSizeThree() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory mid = new Territory("Mid", player, 1);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    List<Territory> path = phase.findPath(s, d);
+    assertEquals(3, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(mid, path.get(1));
+    assertEquals(d, path.get(2));
+  }
+
+  // TC31
+  @Test
+  public void findPath_threeHopPath_returnsPathOfSizeFour() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory mid1 = new Territory("Mid1", player, 1);
+    Territory mid2 = new Territory("Mid2", player, 1);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(mid1);
+    map.addTerritory(mid2);
+    map.addTerritory(d);
+    map.addConnection(s, mid1);
+    map.addConnection(mid1, mid2);
+    map.addConnection(mid2, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    List<Territory> path = phase.findPath(s, d);
+    assertEquals(4, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(mid1, path.get(1));
+    assertEquals(mid2, path.get(2));
+    assertEquals(d, path.get(3));
+  }
+
+  // TC32
+  @Test
+  public void findPath_noPath_returnsEmptyList() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertTrue(phase.findPath(s, d).isEmpty());
+  }
+
+  // TC33
+  @Test
+  public void findPath_pathThroughEnemyTerritory_returnsEmptyList() {
+    Player player = new Player("Alice");
+    Player enemy = new Player("Bob");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory mid = new Territory("Mid", enemy, 3);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertTrue(phase.findPath(s, d).isEmpty());
   }
 
   // TC28

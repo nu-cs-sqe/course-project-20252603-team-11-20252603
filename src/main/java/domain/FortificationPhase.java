@@ -5,5 +5,8 @@ public class FortificationPhase {
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null");
     }
+    if (map == null) {
+      throw new IllegalArgumentException("Map cannot be null");
+    }
   }
 }

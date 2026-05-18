@@ -14,4 +14,13 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> new FortificationPhase(null, map));
     EasyMock.verify(map);
   }
+
+  // TC2
+  @Test
+  public void constructor_nullMap_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.replay(player);
+    assertThrows(IllegalArgumentException.class, () -> new FortificationPhase(player, null));
+    EasyMock.verify(player);
+  }
 }

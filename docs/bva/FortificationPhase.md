@@ -6,7 +6,7 @@
   - **State of the system**: No FortificationPhase created yet
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC2: null map** ( :x: )
+- **TC2: null map** ( :white_check_mark: )
   - **State of the system**: No FortificationPhase created yet; valid Player provided
   - **Expected output**: IllegalArgumentException thrown
 

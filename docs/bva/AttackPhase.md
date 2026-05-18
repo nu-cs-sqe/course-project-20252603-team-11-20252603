@@ -130,7 +130,7 @@ count from the preceding resolveBattle call (stored internally by AttackPhase).
   - **State of the system**: lastAttackDice = 2; n = 1; s has 5 troops
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC20: n = lastAttackDice (lower bound) — valid** ( :x: )
+- **TC20: n = lastAttackDice (lower bound) — valid** ( :white_check_mark: )
   - **State of the system**: lastAttackDice = 2; n = 2; s has 5 troops; t conquered
   - **Expected output**: t.conquer(attacker, 2) called; s.removeTroops(2) called;
     old owner's territory list updated; attacker's territory list updated

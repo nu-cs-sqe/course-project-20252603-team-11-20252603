@@ -50,6 +50,11 @@ public class AttackPhase {
     if (n >= s.getTroopCount()) {
       throw new IllegalArgumentException("Source must retain at least 1 army.");
     }
+    Player previousOwner = t.getOwner();
+    previousOwner.removeTerritory(t);
+    attacker.addTerritory(t);
+    t.conquer(attacker, n);
+    s.removeTroops(n);
   }
 
   public void resolveBattle(Territory s, Territory t, int n) {

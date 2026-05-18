@@ -404,4 +404,35 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, diceRoller, game, s, t);
   }
+
+  @Test
+  public void moveInTroops_nEqualsLastAttackDice_transfersOwnershipAndTroops() {
+    Player attacker = EasyMock.createMock(Player.class);
+    Player enemy = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(6, 5);
+    List<Integer> defendDice = List.of(1);
+    EasyMock.expect(diceRoller.rollAttacker(2)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(6, 5), List.of(1), false));
+    EasyMock.expect(s.getTroopCount()).andReturn(5);
+    EasyMock.expect(t.getOwner()).andReturn(enemy);
+    enemy.removeTerritory(t);
+    attacker.addTerritory(t);
+    t.conquer(attacker, 2);
+    s.removeTroops(2);
+    EasyMock.replay(attacker, enemy, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 2);
+    phase.moveInTroops(s, t, 2);
+
+    EasyMock.verify(attacker, enemy, diceRoller, game, s, t);
+  }
 }

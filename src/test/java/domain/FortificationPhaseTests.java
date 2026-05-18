@@ -25,6 +25,21 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC7
+  @Test
+  public void moveTroops_sourceNotOwnedByPlayer_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    Player other = new Player("Bob");
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(s.getOwner()).andReturn(other);
+    EasyMock.replay(map, s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.moveTroops(s, d, 1));
+    EasyMock.verify(map, s, d);
+  }
+
   // TC6
   @Test
   public void moveTroops_sourceEqualsDestination_throwsIllegalArgumentException() {

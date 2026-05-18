@@ -28,7 +28,7 @@
   - **State of the system**: Phase created, moved = false; player owns T1
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC7: source not owned by player** ( :x: )
+- **TC7: source not owned by player** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns d but not s
   - **Expected output**: IllegalArgumentException thrown
 

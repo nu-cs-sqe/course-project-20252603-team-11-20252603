@@ -1,6 +1,7 @@
 package domain;
 
 public class FortificationPhase {
+  private final Player player;
   private boolean moved;
 
   public FortificationPhase(Player player, GameMap map) {
@@ -10,6 +11,7 @@ public class FortificationPhase {
     if (map == null) {
       throw new IllegalArgumentException("Map cannot be null");
     }
+    this.player = player;
   }
 
   public boolean isMoved() {
@@ -29,6 +31,9 @@ public class FortificationPhase {
     }
     if (s == d) {
       throw new IllegalArgumentException("Source and destination cannot be the same territory");
+    }
+    if (s.getOwner() != player) {
+      throw new IllegalArgumentException("Source territory must be owned by the player");
     }
   }
 }

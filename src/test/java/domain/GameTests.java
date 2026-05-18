@@ -703,6 +703,24 @@ public class GameTests {
   }
 
   @Test
+  public void drawCard_oneCardInDeck_returnsCardAndDeckIsEmpty() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    List<RiskCard> deck = makeCards(1);
+    RiskCard card = deck.get(0);
+    EasyMock.replay(card);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, deck, new Random());
+    RiskCard drawn = game.drawCard();
+
+    assertEquals(card, drawn);
+    assertEquals(0, game.getDeckSize());
+    verifyAll(players, map);
+    EasyMock.verify(card);
+  }
+
+  @Test
   public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);

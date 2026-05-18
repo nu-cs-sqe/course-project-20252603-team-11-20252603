@@ -174,7 +174,7 @@ conquered at least one territory this turn.
   - **State of the system**: Game constructed with an empty deck
   - **Expected output**: IllegalStateException thrown
 
-- **TC31: deck has 1 card (lower bound, valid)** ( :x: )
+- **TC31: deck has 1 card (lower bound, valid)** ( :white_check_mark: )
   - **State of the system**: Game constructed with a deck of 1 card
   - **Expected output**: that card is returned; deck is now empty (size = 0)
 

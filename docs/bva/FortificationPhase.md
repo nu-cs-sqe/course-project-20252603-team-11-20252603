@@ -48,7 +48,7 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC12: no path between source and destination** ( :x: )
+- **TC12: no path between source and destination** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s and d; no connection between s and d in map
   - **Expected output**: IllegalArgumentException thrown
 

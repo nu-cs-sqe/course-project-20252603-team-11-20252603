@@ -1,7 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
 public class FortificationPhase {
   private final Player player;
+  private final GameMap map;
   private boolean moved;
 
   public FortificationPhase(Player player, GameMap map) {
@@ -12,6 +20,7 @@ public class FortificationPhase {
       throw new IllegalArgumentException("Map cannot be null");
     }
     this.player = player;
+    this.map = map;
   }
 
   public boolean isMoved() {
@@ -44,5 +53,39 @@ public class FortificationPhase {
     if (n >= s.getTroopCount()) {
       throw new IllegalArgumentException("Source must retain at least 1 troop");
     }
+    if (!isConnected(s, d)) {
+      throw new IllegalArgumentException("No player-owned path between source and destination");
+    }
+  }
+
+  public boolean isConnected(Territory s, Territory d) {
+    return !findPath(s, d).isEmpty();
+  }
+
+  public List<Territory> findPath(Territory s, Territory d) {
+    Map<Territory, Territory> parent = new HashMap<>();
+    Queue<Territory> queue = new LinkedList<>();
+    queue.add(s);
+    parent.put(s, null);
+    while (!queue.isEmpty()) {
+      Territory current = queue.poll();
+      for (Territory neighbor : map.getNeighbors(current)) {
+        if (neighbor == d) {
+          List<Territory> path = new ArrayList<>();
+          path.add(d);
+          Territory cur = current;
+          while (cur != null) {
+            path.add(0, cur);
+            cur = parent.get(cur);
+          }
+          return path;
+        }
+        if (neighbor.getOwner() == player && !parent.containsKey(neighbor)) {
+          parent.put(neighbor, current);
+          queue.add(neighbor);
+        }
+      }
+    }
+    return new ArrayList<>();
   }
 }

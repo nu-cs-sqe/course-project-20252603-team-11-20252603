@@ -112,7 +112,7 @@
   - **State of the system**: Phase created
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC27: null destination** ( :x: )
+- **TC27: null destination** ( :white_check_mark: )
   - **State of the system**: Phase created; valid territory provided as source
   - **Expected output**: IllegalArgumentException thrown
 

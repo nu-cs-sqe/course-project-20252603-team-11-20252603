@@ -81,6 +81,9 @@ public class FortificationPhase {
     if (s == null) {
       throw new IllegalArgumentException("Source territory cannot be null");
     }
+    if (d == null) {
+      throw new IllegalArgumentException("Destination territory cannot be null");
+    }
     Map<Territory, Territory> parent = new HashMap<>();
     Queue<Territory> queue = new LinkedList<>();
     queue.add(s);

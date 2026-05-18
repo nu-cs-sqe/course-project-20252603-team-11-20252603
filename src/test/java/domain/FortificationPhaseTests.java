@@ -25,6 +25,18 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC27
+  @Test
+  public void findPath_nullDestination_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, map, s);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(s, null));
+    EasyMock.verify(player, map, s);
+  }
+
   // TC26
   @Test
   public void findPath_nullSource_throwsIllegalArgumentException() {

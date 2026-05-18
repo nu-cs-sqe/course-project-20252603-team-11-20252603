@@ -98,7 +98,7 @@
   - **State of the system**: Phase created; player owns s, mid1, mid2, and d; map has connections s−mid1, mid1−mid2, mid2−d
   - **Expected output**: true
 
-- **TC24: no path between source and destination in map** ( :x: )
+- **TC24: no path between source and destination in map** ( :white_check_mark: )
   - **State of the system**: Phase created; player owns s and d; no connection between s and d in map
   - **Expected output**: false
 

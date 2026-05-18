@@ -25,6 +25,23 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC22
+  @Test
+  public void isConnected_twoHopPathAllOwned_returnsTrue() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory mid = new Territory("Mid", player, 1);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertTrue(phase.isConnected(s, d));
+  }
+
   // TC21
   @Test
   public void isConnected_directNeighborsBothOwned_returnsTrue() {

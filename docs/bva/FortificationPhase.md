@@ -90,7 +90,7 @@
   - **State of the system**: Phase created; player owns s and d; map has direct connection s−d
   - **Expected output**: true
 
-- **TC22: source and destination connected via one intermediate territory, all player-owned (2 hops)** ( :x: )
+- **TC22: source and destination connected via one intermediate territory, all player-owned (2 hops)** ( :white_check_mark: )
   - **State of the system**: Phase created; player owns s, mid, and d; map has connections s−mid and mid−d
   - **Expected output**: true
 

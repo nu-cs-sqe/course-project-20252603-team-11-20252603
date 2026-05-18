@@ -65,6 +65,9 @@ public class FortificationPhase {
   }
 
   public boolean isConnected(Territory s, Territory d) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
     return !findPath(s, d).isEmpty();
   }
 

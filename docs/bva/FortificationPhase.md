@@ -74,7 +74,7 @@
 
 ### Method under test: `boolean isConnected(Territory s, Territory d)`
 
-- **TC18: null source** ( :x: )
+- **TC18: null source** ( :white_check_mark: )
   - **State of the system**: Phase created
   - **Expected output**: IllegalArgumentException thrown
 

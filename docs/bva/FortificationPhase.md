@@ -16,7 +16,7 @@
 
 ### Method under test: `void moveTroops(Territory s, Territory d, int n)`
 
-- **TC4: null source territory** ( :x: )
+- **TC4: null source territory** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false
   - **Expected output**: IllegalArgumentException thrown
 

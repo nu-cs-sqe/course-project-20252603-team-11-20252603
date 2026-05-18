@@ -15,4 +15,14 @@ public class FortificationPhase {
   public boolean isMoved() {
     return moved;
   }
+
+  public void moveTroops(Territory s, Territory d, int n) {
+    validateMove(s, d, n);
+  }
+
+  public void validateMove(Territory s, Territory d, int n) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+  }
 }

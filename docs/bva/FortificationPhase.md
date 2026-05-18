@@ -52,7 +52,7 @@
   - **State of the system**: Phase created, moved = false; player owns s and d; no connection between s and d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC13: path exists in map but intermediate territory is enemy-owned** ( :x: )
+- **TC13: path exists in map but intermediate territory is enemy-owned** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s and d; map has s−mid−d but mid is owned by a different player
   - **Expected output**: IllegalArgumentException thrown
 

@@ -24,6 +24,18 @@ public class AttackPhase {
     if (n < MIN_ATTACK_DICE || n > MAX_ATTACK_DICE) {
       throw new IllegalArgumentException("Attacker must roll between 1 and 3 dice.");
     }
+    if (!s.getOwner().equals(attacker)) {
+      throw new IllegalArgumentException("Source territory must be owned by the attacker.");
+    }
+    if (t.getOwner().equals(attacker)) {
+      throw new IllegalArgumentException("Target territory must not be owned by the attacker.");
+    }
+    if (s.getTroopCount() <= n) {
+      throw new IllegalArgumentException("Source must have more armies than dice rolled.");
+    }
+    if (!game.getMap().areAdjacent(s, t)) {
+      throw new IllegalArgumentException("Source and target territories must be adjacent.");
+    }
   }
 
   public boolean canAttack(Territory s, Territory t) {

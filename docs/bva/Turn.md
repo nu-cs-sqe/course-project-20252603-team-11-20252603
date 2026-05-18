@@ -66,7 +66,7 @@
       attackPhase.getConqueredCount() == 0
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == false,
       getFortificationPhase() returns a non-null FortificationPhase instance
-- **TC18: valid transition, 1 territory conquered (lower valid boundary)** ( :x: )
+- **TC18: valid transition, 1 territory conquered (lower valid boundary)** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() == true,
       attackPhase.getConqueredCount() == 1
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == true

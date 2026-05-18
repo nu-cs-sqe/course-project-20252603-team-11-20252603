@@ -79,7 +79,7 @@
 - **TC20: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
-- **TC21: phase == ATTACK** ( :x: )
+- **TC21: phase == ATTACK** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK
     - **Expected output**: IllegalStateException thrown
 - **TC22: phase == ENDED (called twice)** ( :x: )

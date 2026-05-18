@@ -66,7 +66,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
 
 **Army constraint (n ≤ s.getTroopCount() − 1):**
 
-- **TC11: n > s.getTroopCount() − 1 (e.g., n = 2, s.getTroopCount() = 2) → IllegalArgumentException** ( :x: )
+- **TC11: n > s.getTroopCount() − 1 (e.g., n = 2, s.getTroopCount() = 2) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: n within [1, 3] but s does not have enough armies (needs n + 1)
   - **Expected output**: IllegalArgumentException thrown
 

@@ -507,6 +507,33 @@ public class AttackPhaseTests {
   }
 
   @Test
+  public void endPhase_oneConquest_drawsCardAndAddsToAttacker() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(6);
+    List<Integer> defendDice = List.of(1);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(6), List.of(1), false));
+    EasyMock.expect(game.drawCard()).andReturn(card);
+    attacker.addCard(card);
+    EasyMock.replay(attacker, diceRoller, game, card, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 1);
+    phase.endPhase();
+
+    EasyMock.verify(attacker, diceRoller, game, card, s, t);
+  }
+
+  @Test
   public void endPhase_noConquest_noCardDrawn() {
     Player attacker = EasyMock.createMock(Player.class);
     DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);

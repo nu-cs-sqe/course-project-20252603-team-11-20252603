@@ -111,7 +111,7 @@ later by moveInTroops). If no conquest, t.removeTroops(defenderLosses) is called
   - **Expected output**: s.removeTroops(attackerLosses) called; t.removeTroops(defenderLosses)
     called; conqueredCount remains 0
 
-- **TC18: conquest — defenderLosses exhaust t's armies** ( :x: )
+- **TC18: conquest — defenderLosses exhaust t's armies** ( :white_check_mark: )
   - **State of the system**: defenderLosses = t.getTroopCount(); mocked dice produce this outcome
   - **Expected output**: s.removeTroops(attackerLosses) called; t.removeTroops NOT called;
     conqueredCount = 1

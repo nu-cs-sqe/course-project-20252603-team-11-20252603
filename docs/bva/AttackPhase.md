@@ -60,7 +60,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
   - **State of the system**: s owned by attacker, s has 4 troops, s and t adjacent, t owned by enemy
   - **Expected output**: no exception; ownership and adjacency checks made on mocks
 
-- **TC10: n = 4 (above upper bound) → IllegalArgumentException** ( :x: )
+- **TC10: n = 4 (above upper bound) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: valid s, t; n = 4
   - **Expected output**: IllegalArgumentException thrown
 

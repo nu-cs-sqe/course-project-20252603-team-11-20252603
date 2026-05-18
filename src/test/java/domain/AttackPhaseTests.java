@@ -184,4 +184,18 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, map, s, t);
   }
+
+  @Test
+  public void declareAttack_nEqualsFour_throwsIllegalArgumentException() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.replay(attacker, diceRoller, game);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    assertThrows(IllegalArgumentException.class,
+        () -> phase.declareAttack(null, null, 4));
+
+    EasyMock.verify(attacker, diceRoller, game);
+  }
 }

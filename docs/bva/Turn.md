@@ -48,7 +48,7 @@
       instance constructed with (currentPlayer, game, random)
 
 ### Method under test: `void runAttackPhase()`
-- **TC13: phase == REINFORCEMENT** ( :x: )
+- **TC13: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
 - **TC14: phase == FORTIFICATION** ( :x: )

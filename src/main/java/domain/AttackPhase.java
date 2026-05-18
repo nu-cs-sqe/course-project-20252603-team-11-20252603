@@ -15,4 +15,11 @@ public class AttackPhase {
   public int getConqueredCount() {
     return conqueredCount;
   }
+
+  public boolean canAttack(Territory s, Territory t) {
+    if (!s.getOwner().equals(attacker)) {
+      return false;
+    }
+    return s.getTroopCount() >= 2;
+  }
 }

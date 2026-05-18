@@ -66,7 +66,7 @@ are the same as `rollAttacker` and are covered by TC5–TC6.
 Sorts the list in-place in descending order. Called by `compare()` before constructing
 `BattleResult`. Input is a mutable list (not the immutable lists from `List.of()`).
 
-- **TC11: empty list — no change** ( :x: )
+- **TC11: empty list — no change** ( :white_check_mark: )
     - **State of the system**: dice = []
     - **Expected output**: dice = [] (unchanged, no exception)
 

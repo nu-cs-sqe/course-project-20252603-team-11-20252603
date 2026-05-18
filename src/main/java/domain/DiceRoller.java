@@ -29,6 +29,9 @@ public class DiceRoller {
     return rollDice(n);
   }
 
+  public void sortDescending(List<Integer> dice) {
+  }
+
   private List<Integer> rollDice(int n) {
     List<Integer> dice = new ArrayList<>();
     for (int i = 0; i < n; i++) {

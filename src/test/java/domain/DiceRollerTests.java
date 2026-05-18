@@ -3,6 +3,7 @@ package domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.easymock.EasyMock;
@@ -113,6 +114,17 @@ public class DiceRollerTests {
     EasyMock.replay(random);
     DiceRoller diceRoller = new DiceRoller(random);
     assertThrows(IllegalArgumentException.class, () -> diceRoller.rollDefender(3));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_emptyList_listUnchanged() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>();
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(), dice);
     EasyMock.verify(random);
   }
 }

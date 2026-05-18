@@ -32,7 +32,7 @@ public class Turn {
   }
 
   public TurnPhase getPhase() {
-    return null;
+    return phase;
   }
 
   public Player getCurrentPlayer() {
@@ -48,7 +48,7 @@ public class Turn {
   }
 
   public ReinforcementPhase getReinforcementPhase() {
-    return null;
+    return reinforcementPhase;
   }
 
   public AttackPhase getAttackPhase() {

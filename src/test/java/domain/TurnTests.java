@@ -1,5 +1,6 @@
 package domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -92,6 +93,24 @@ public class TurnTests {
     turn.startTurn();
 
     assertThrows(IllegalStateException.class, turn::startTurn);
+    EasyMock.verify(player, game, rp);
+  }
+
+  @Test
+  public void startTurn_valid_setsPhaseAndReinforcements() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = new Random();
+    ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
+
+    recordAdvanceToReinforcement(player);
+    EasyMock.replay(player, game, rp);
+
+    Turn turn = buildTurn(player, game, random, rp, null, null);
+    turn.startTurn();
+
+    assertEquals(TurnPhase.REINFORCEMENT, turn.getPhase());
+    assertSame(rp, turn.getReinforcementPhase());
     EasyMock.verify(player, game, rp);
   }
 }

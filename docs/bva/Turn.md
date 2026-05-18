@@ -20,7 +20,7 @@
 - **TC5: called twice** ( :white_check_mark: )
     - **State of the system**: startTurn() already called once, phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
-- **TC6: valid first call** ( :x: )
+- **TC6: valid first call** ( :white_check_mark: )
     - **State of the system**: phase == null, player.calculateReinforcements() returns 5
     - **Expected output**: player.setAvailableTroops(5) called, phase == REINFORCEMENT,
       getReinforcementPhase() returns a non-null ReinforcementPhase instance

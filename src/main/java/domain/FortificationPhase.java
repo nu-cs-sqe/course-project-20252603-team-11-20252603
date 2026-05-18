@@ -64,6 +64,10 @@ public class FortificationPhase {
     }
   }
 
+  public void skipPhase() {
+    moved = true;
+  }
+
   public boolean isConnected(Territory s, Territory d) {
     if (s == null) {
       throw new IllegalArgumentException("Source territory cannot be null");

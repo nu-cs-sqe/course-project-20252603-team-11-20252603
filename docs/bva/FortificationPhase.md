@@ -200,7 +200,7 @@
 
 ### Method under test: `void skipPhase()`
 
-- **TC48: fresh phase, skip without moving** ( :x: )
+- **TC48: fresh phase, skip without moving** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false
   - **Expected output**: moved = true; no territory troop counts changed
 

@@ -56,7 +56,7 @@
   - **State of the system**: Phase created, moved = false; player owns s and d; map has s−mid−d but mid is owned by a different player
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC14: n = 1 (minimum valid), source has 2 troops, s and d directly connected** ( :x: )
+- **TC14: n = 1 (minimum valid), source has 2 troops, s and d directly connected** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d (troopCount = 1); direct connection s−d in map
   - **Expected output**: s.troopCount = 1; d.troopCount = 2; moved = true
 

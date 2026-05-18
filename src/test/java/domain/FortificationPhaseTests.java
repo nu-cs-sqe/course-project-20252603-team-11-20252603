@@ -25,6 +25,23 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC14
+  @Test
+  public void moveTroops_nIsOne_minValid_troopsTransferredAndMovedIsTrue() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    phase.moveTroops(s, d, 1);
+    assertEquals(1, s.getTroopCount());
+    assertEquals(2, d.getTroopCount());
+    assertTrue(phase.isMoved());
+  }
+
   // TC13
   @Test
   public void moveTroops_pathThroughEnemyTerritory_throwsIllegalArgumentException() {

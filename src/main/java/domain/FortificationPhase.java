@@ -29,6 +29,9 @@ public class FortificationPhase {
 
   public void moveTroops(Territory s, Territory d, int n) {
     validateMove(s, d, n);
+    s.removeTroops(n);
+    d.addTroops(n);
+    moved = true;
   }
 
   public void validateMove(Territory s, Territory d, int n) {

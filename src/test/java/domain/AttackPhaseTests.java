@@ -492,4 +492,17 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, diceRoller, game, s, t);
   }
+
+  @Test
+  public void awardCardIfEarned_noConquest_noCardDrawn() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.replay(attacker, diceRoller, game);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.awardCardIfEarned();
+
+    EasyMock.verify(attacker, diceRoller, game);
+  }
 }

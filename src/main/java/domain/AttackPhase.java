@@ -74,6 +74,9 @@ public class AttackPhase {
     }
   }
 
+  public void awardCardIfEarned() {
+  }
+
   public boolean canAttack(Territory s, Territory t) {
     if (!s.getOwner().equals(attacker)) {
       return false;

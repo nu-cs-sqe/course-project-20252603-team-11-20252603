@@ -116,7 +116,7 @@
   - **State of the system**: Phase created; valid territory provided as source
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC28: source == destination (same territory object)** ( :x: )
+- **TC28: source == destination (same territory object)** ( :white_check_mark: )
   - **State of the system**: Phase created; player owns T1
   - **Expected output**: IllegalArgumentException thrown
 

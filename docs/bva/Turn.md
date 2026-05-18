@@ -88,7 +88,7 @@
 - **TC23: fortificationPhase.isComplete() == false** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION, player hasn't fortified or skipped
     - **Expected output**: IllegalStateException thrown, phase stays FORTIFICATION
-- **TC24: valid transition (fortified or skipped)** ( :x: )
+- **TC24: valid transition (fortified or skipped)** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION, fortificationPhase.isComplete() == true
     - **Expected output**: phase == ENDED
 

@@ -72,6 +72,11 @@ public class Turn {
     if (phase != TurnPhase.REINFORCEMENT) {
       throw new IllegalStateException("Not in REINFORCEMENT phase.");
     }
+    if (!reinforcementPhase.isComplete()) {
+      throw new IllegalStateException("Reinforcement phase not complete.");
+    }
+    attackPhase = createAttackPhase(currentPlayer, game, random);
+    phase = TurnPhase.ATTACK;
   }
 
   protected ReinforcementPhase createReinforcementPhase(Player p) {

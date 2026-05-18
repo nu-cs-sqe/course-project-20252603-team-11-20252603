@@ -29,7 +29,7 @@
 - **TC7: called before startTurn (phase == null)** ( :white_check_mark: )
     - **State of the system**: Turn just constructed
     - **Expected output**: IllegalStateException thrown
-- **TC8: called when phase == ATTACK** ( :x: )
+- **TC8: called when phase == ATTACK** ( :white_check_mark: )
     - **State of the system**: Turn already advanced past REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
 - **TC9: called when phase == FORTIFICATION** ( :x: )

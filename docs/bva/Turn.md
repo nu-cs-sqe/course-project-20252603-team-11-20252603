@@ -54,7 +54,7 @@
 - **TC14: phase == FORTIFICATION** ( :white_check_mark: )
     - **State of the system**: phase == FORTIFICATION
     - **Expected output**: IllegalStateException thrown
-- **TC15: phase == ENDED** ( :x: )
+- **TC15: phase == ENDED** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: IllegalStateException thrown
 - **TC16: attackPhase.isEnded() == false (pending conquest or not signaled end)** ( :x: )

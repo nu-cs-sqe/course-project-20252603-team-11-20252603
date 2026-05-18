@@ -96,7 +96,7 @@
 - **TC25: phase == null (turn never started)** ( :white_check_mark: )
     - **State of the system**: Turn just constructed
     - **Expected output**: IllegalStateException thrown
-- **TC26: phase == REINFORCEMENT** ( :x: )
+- **TC26: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown, game.advanceToNextPlayer() NOT called
 - **TC27: phase == ATTACK** ( :x: )

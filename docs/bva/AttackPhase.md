@@ -157,7 +157,7 @@ attacker iff conqueredCount ≥ 1, regardless of how many territories were conqu
   - **State of the system**: conqueredCount = 0 (no resolveBattle resulted in conquest)
   - **Expected output**: game.drawCard() not called; attacker.addCard() not called
 
-- **TC24: conqueredCount = 1 (lower bound for card award) → one card drawn** ( :x: )
+- **TC24: conqueredCount = 1 (lower bound for card award) → one card drawn** ( :white_check_mark: )
   - **State of the system**: conqueredCount = 1 (one conquest this turn); game.drawCard() mocked
   - **Expected output**: game.drawCard() called exactly once; attacker.addCard(card) called
 

@@ -75,6 +75,9 @@ public class AttackPhase {
   }
 
   public void awardCardIfEarned() {
+    if (conqueredCount > 0) {
+      attacker.addCard(game.drawCard());
+    }
   }
 
   public boolean canAttack(Territory s, Territory t) {

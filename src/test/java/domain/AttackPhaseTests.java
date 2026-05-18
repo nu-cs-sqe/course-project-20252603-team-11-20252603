@@ -330,4 +330,29 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, diceRoller, game, s, t);
   }
+
+  @Test
+  public void resolveBattle_noConquest_lossesAppliedAndConqueredCountUnchanged() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(5);
+    List<Integer> defendDice = List.of(3, 2);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(3);
+    EasyMock.expect(diceRoller.rollDefender(2)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(5), List.of(3, 2), false));
+    t.removeTroops(1);
+    EasyMock.replay(attacker, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 1);
+
+    assertEquals(0, phase.getConqueredCount());
+    EasyMock.verify(attacker, diceRoller, game, s, t);
+  }
 }

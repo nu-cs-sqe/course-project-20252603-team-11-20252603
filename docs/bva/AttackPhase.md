@@ -135,7 +135,7 @@ count from the preceding resolveBattle call (stored internally by AttackPhase).
   - **Expected output**: t.conquer(attacker, 2) called; s.removeTroops(2) called;
     old owner's territory list updated; attacker's territory list updated
 
-- **TC21: n = s.getTroopCount() − 1 (upper bound) — valid** ( :x: )
+- **TC21: n = s.getTroopCount() − 1 (upper bound) — valid** ( :white_check_mark: )
   - **State of the system**: lastAttackDice = 1; n = s.getTroopCount() − 1; t conquered
   - **Expected output**: t.conquer(attacker, n) called; s.removeTroops(n) called;
     territory ownership updated

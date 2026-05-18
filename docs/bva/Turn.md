@@ -99,7 +99,7 @@
 - **TC26: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown, game.advanceToNextPlayer() NOT called
-- **TC27: phase == ATTACK** ( :x: )
+- **TC27: phase == ATTACK** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK
     - **Expected output**: IllegalStateException thrown
 - **TC28: phase == FORTIFICATION** ( :x: )

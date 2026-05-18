@@ -70,7 +70,7 @@
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() == true,
       attackPhase.getConqueredCount() == 1
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == true
-- **TC19: valid transition, many territories conquered** ( :x: )
+- **TC19: valid transition, many territories conquered** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() == true,
       attackPhase.getConqueredCount() == 7
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == true

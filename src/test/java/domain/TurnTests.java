@@ -341,12 +341,34 @@ public class TurnTests {
   public void runAttackPhase_oneConquest_conqueredTrue() {
     Player player = EasyMock.createMock(Player.class);
     Game game = EasyMock.createMock(Game.class);
-    Random random = new Random();
+    Random random = EasyMock.createMock(Random.class);
     ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
     AttackPhase ap = EasyMock.createMock(AttackPhase.class);
     FortificationPhase fp = EasyMock.createMock(FortificationPhase.class);
 
     recordAdvanceToFortification(player, rp, ap, 1);
+    EasyMock.replay(player, game, rp, ap, fp);
+
+    Turn turn = buildTurn(player, game, random, rp, ap, fp);
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+
+    assertEquals(TurnPhase.FORTIFICATION, turn.getPhase());
+    assertTrue(turn.hasConqueredThisTurn());
+    EasyMock.verify(player, game, rp, ap, fp);
+  }
+
+  @Test
+  public void runAttackPhase_manyConquests_conqueredTrue() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
+    AttackPhase ap = EasyMock.createMock(AttackPhase.class);
+    FortificationPhase fp = EasyMock.createMock(FortificationPhase.class);
+
+    recordAdvanceToFortification(player, rp, ap, 7);
     EasyMock.replay(player, game, rp, ap, fp);
 
     Turn turn = buildTurn(player, game, random, rp, ap, fp);

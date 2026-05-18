@@ -13,7 +13,7 @@ otherwise (tie or less) → attacker loses 1 army.
     - **State of the system**: DiceRoller.compare([3], [2]) called
     - **Expected output**: getAttackerLosses() = 0, getDefenderLosses() = 1
 
-- **TC2: attacker [3] vs defender [3] — tie (defender wins by rule)** ( :x: )
+- **TC2: attacker [3] vs defender [3] — tie (defender wins by rule)** ( :white_check_mark: )
     - **State of the system**: DiceRoller.compare([3], [3]) called
     - **Expected output**: getAttackerLosses() = 1, getDefenderLosses() = 0
 

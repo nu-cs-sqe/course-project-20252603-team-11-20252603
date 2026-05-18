@@ -13,4 +13,11 @@ public class BattleResultTests {
     assertEquals(0, result.getAttackerLosses());
     assertEquals(1, result.getDefenderLosses());
   }
+
+  @Test
+  public void getAttackerLosses_oneVsOne_tie_attackerLosesOne() {
+    BattleResult result = new BattleResult(List.of(3), List.of(3), false);
+    assertEquals(1, result.getAttackerLosses());
+    assertEquals(0, result.getDefenderLosses());
+  }
 }

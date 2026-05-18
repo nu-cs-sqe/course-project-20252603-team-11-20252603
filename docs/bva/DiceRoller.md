@@ -8,7 +8,7 @@ interval [1, 6], produced by `random.nextInt(6) + 1`.
 
 **`n` count (interval [1, 3]):**
 
-- **TC1: n = 0 (below lower bound)** ( :x: )
+- **TC1: n = 0 (below lower bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with any Random
     - **Expected output**: IllegalArgumentException thrown
 

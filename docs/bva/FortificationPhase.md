@@ -142,7 +142,7 @@
 
 ### Method under test: `void validateMove(Territory s, Territory d, int n)`
 
-- **TC34: null source** ( :x: )
+- **TC34: null source** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false
   - **Expected output**: IllegalArgumentException thrown
 

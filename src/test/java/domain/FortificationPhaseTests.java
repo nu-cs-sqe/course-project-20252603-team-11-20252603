@@ -26,6 +26,18 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC34
+  @Test
+  public void validateMove_nullSource_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, map, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.validateMove(null, d, 1));
+    EasyMock.verify(player, map, d);
+  }
+
   // TC29
   @Test
   public void findPath_directNeighbors_returnsPathOfSizeTwo() {

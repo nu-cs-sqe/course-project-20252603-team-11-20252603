@@ -17,7 +17,7 @@
       getReinforcementPhase() == null, getAttackPhase() == null, getFortificationPhase() == null
 
 ### Method under test: `void startTurn()`
-- **TC5: called twice** ( :x: )
+- **TC5: called twice** ( :white_check_mark: )
     - **State of the system**: startTurn() already called once, phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
 - **TC6: valid first call** ( :x: )

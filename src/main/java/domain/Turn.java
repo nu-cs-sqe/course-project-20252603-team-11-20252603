@@ -58,4 +58,19 @@ public class Turn {
   public FortificationPhase getFortificationPhase() {
     return null;
   }
+
+  public void startTurn() {
+    if (phase != null) {
+      throw new IllegalStateException("Turn already started");
+    }
+    currentPlayer.setAvailableTroops(currentPlayer.calculateReinforcements());
+    reinforcementPhase = createReinforcementPhase(currentPlayer);
+    phase = TurnPhase.REINFORCEMENT;
+  }
+
+
+
+  protected ReinforcementPhase createReinforcementPhase(Player p) {
+    return new ReinforcementPhase(p);
+  }
 }

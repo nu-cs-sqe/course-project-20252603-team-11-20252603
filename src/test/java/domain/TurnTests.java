@@ -10,6 +10,36 @@ import org.junit.jupiter.api.Test;
 import java.util.Random;
 
 public class TurnTests {
+  // Helpers
+  private Turn buildTurn(Player player, Game game, Random random, ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
+    return new Turn(player, game, random) {
+      @Override protected ReinforcementPhase createReinforcementPhase(Player p) { return rp; }
+    };
+  }
+  private void recordAdvanceToReinforcement(Player p) {
+    EasyMock.expect(p.calculateReinforcements()).andReturn(5);
+    p.setAvailableTroops(5);
+  }
+
+  private void recordAdvanceToAttack(Player p, ReinforcementPhase rp) {
+    recordAdvanceToReinforcement(p);
+    EasyMock.expect(rp.isComplete()).andReturn(true);
+  }
+
+  private void recordAdvanceToFortification(Player p, ReinforcementPhase rp,
+                                            AttackPhase ap, int conqueredCount) {
+    recordAdvanceToAttack(p, rp);
+    EasyMock.expect(ap.isEnded()).andReturn(true);
+    EasyMock.expect(ap.getConqueredCount()).andReturn(conqueredCount);
+  }
+
+  private void recordAdvanceToEnded(Player p, ReinforcementPhase rp,
+                                    AttackPhase ap, FortificationPhase fp) {
+    recordAdvanceToFortification(p, rp, ap, 0);
+    EasyMock.expect(fp.isComplete()).andReturn(true);
+  }
+
+  // Start Turn tests
   @Test
   public void constructor_nullPlayer_throwsIllegalArgumentException() {
     Game game  = EasyMock.createMock(Game.class);
@@ -46,5 +76,22 @@ public class TurnTests {
     assertNull(turn.getReinforcementPhase());
     assertNull(turn.getAttackPhase());
     assertNull(turn.getFortificationPhase());
+  }
+
+  @Test
+  public void startTurn_calledTwice_throwsIllegalStateException() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = new Random();
+    ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
+
+    recordAdvanceToReinforcement(player);
+    EasyMock.replay(player, game, rp);
+
+    Turn turn = buildTurn(player, game, random, rp, null, null);
+    turn.startTurn();
+
+    assertThrows(IllegalStateException.class, turn::startTurn);
+    EasyMock.verify(player, game, rp);
   }
 }

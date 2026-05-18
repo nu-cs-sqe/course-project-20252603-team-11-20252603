@@ -76,7 +76,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
   - **State of the system**: s.getOwner() returns a different player
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC13: s and t not adjacent → IllegalArgumentException** ( :x: )
+- **TC13: s and t not adjacent → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: game.getMap().areAdjacent(s, t) returns false
   - **Expected output**: IllegalArgumentException thrown
 

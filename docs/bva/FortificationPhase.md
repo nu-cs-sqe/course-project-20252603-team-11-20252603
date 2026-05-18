@@ -2,7 +2,7 @@
 
 ### Method under test: `FortificationPhase(Player player, GameMap map)`
 
-- **TC1: null player** ( :x: )
+- **TC1: null player** ( :white_check_mark: )
   - **State of the system**: No FortificationPhase created yet
   - **Expected output**: IllegalArgumentException thrown
 

@@ -40,7 +40,7 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC10: n = −1 (negative)** ( :x: )
+- **TC10: n = −1 (negative)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 

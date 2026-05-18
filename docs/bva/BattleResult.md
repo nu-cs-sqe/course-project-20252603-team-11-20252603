@@ -57,7 +57,7 @@ in the result.
     - **State of the system**: BattleResult produced with conquered=false (defender has armies remaining after losses)
     - **Expected output**: isConquered() = false
 
-- **TC10: territory conquered** ( :x: )
+- **TC10: territory conquered** ( :white_check_mark: )
     - **State of the system**: BattleResult produced with conquered=true (defender army count reaches 0)
     - **Expected output**: isConquered() = true
 

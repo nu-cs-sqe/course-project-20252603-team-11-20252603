@@ -68,4 +68,10 @@ public class BattleResultTests {
     BattleResult result = new BattleResult(List.of(3), List.of(2), false);
     assertEquals(false, result.isConquered());
   }
+
+  @Test
+  public void isConquered_conquered_returnsTrue() {
+    BattleResult result = new BattleResult(List.of(3), List.of(2), true);
+    assertEquals(true, result.isConquered());
+  }
 }

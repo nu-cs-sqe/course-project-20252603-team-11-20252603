@@ -93,7 +93,7 @@
     - **Expected output**: phase == ENDED
 
 ### Method under test: `void endTurn()`
-- **TC25: phase == null (turn never started)** ( :x: )
+- **TC25: phase == null (turn never started)** ( :white_check_mark: )
     - **State of the system**: Turn just constructed
     - **Expected output**: IllegalStateException thrown
 - **TC26: phase == REINFORCEMENT** ( :x: )

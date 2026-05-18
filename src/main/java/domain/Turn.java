@@ -101,6 +101,12 @@ public class Turn {
     phase = TurnPhase.ENDED;
   }
 
+  public void endTurn() {
+    if (phase != TurnPhase.ENDED) {
+      throw new IllegalStateException("Turn not yet at ENDED state.");
+    }
+  }
+
   protected ReinforcementPhase createReinforcementPhase(Player p) {
     return new ReinforcementPhase(p);
   }

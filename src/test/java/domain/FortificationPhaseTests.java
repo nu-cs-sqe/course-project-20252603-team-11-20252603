@@ -26,6 +26,21 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC17
+  @Test
+  public void moveTroops_calledAfterSkipPhase_throwsIllegalStateException() {
+    Player player = new Player("Alice");
+    GameMap map = new GameMap();
+    Territory s = new Territory("S", player, 2);
+    Territory d = new Territory("D", player, 1);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    phase.skipPhase();
+    assertThrows(IllegalStateException.class, () -> phase.moveTroops(s, d, 1));
+  }
+
   // TC48
   @Test
   public void skipPhase_freshPhase_movedBecomesTrue() {

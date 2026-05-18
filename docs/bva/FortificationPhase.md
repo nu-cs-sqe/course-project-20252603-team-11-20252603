@@ -68,7 +68,7 @@
   - **State of the system**: Phase created; moveTroops already called successfully; moved = true
   - **Expected output**: IllegalStateException thrown
 
-- **TC17: moveTroops called after skipPhase** ( :x: )
+- **TC17: moveTroops called after skipPhase** ( :white_check_mark: )
   - **State of the system**: Phase created; skipPhase already called; moved = true
   - **Expected output**: IllegalStateException thrown
 

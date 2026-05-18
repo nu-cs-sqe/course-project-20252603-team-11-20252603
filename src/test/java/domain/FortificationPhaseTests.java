@@ -26,6 +26,18 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
+  // TC50
+  @Test
+  public void skipPhase_calledTwice_throwsIllegalStateException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    EasyMock.replay(player, map);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    phase.skipPhase();
+    assertThrows(IllegalStateException.class, () -> phase.skipPhase());
+    EasyMock.verify(player, map);
+  }
+
   // TC49
   @Test
   public void skipPhase_calledAfterMoveTroops_throwsIllegalStateException() {

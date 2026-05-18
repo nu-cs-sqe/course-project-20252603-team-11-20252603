@@ -208,6 +208,6 @@
   - **State of the system**: Phase created; moveTroops already called successfully; moved = true
   - **Expected output**: IllegalStateException thrown
 
-- **TC50: skipPhase called twice** ( :x: )
+- **TC50: skipPhase called twice** ( :white_check_mark: )
   - **State of the system**: Phase created; skipPhase already called once; moved = true
   - **Expected output**: IllegalStateException thrown

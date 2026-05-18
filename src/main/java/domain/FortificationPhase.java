@@ -78,6 +78,9 @@ public class FortificationPhase {
   }
 
   public List<Territory> findPath(Territory s, Territory d) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
     Map<Territory, Territory> parent = new HashMap<>();
     Queue<Territory> queue = new LinkedList<>();
     queue.add(s);

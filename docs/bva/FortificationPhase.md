@@ -108,7 +108,7 @@
 
 ### Method under test: `List<Territory> findPath(Territory s, Territory d)`
 
-- **TC26: null source** ( :x: )
+- **TC26: null source** ( :white_check_mark: )
   - **State of the system**: Phase created
   - **Expected output**: IllegalArgumentException thrown
 

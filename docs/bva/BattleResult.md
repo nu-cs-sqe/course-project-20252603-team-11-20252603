@@ -9,7 +9,7 @@ otherwise (tie or less) → attacker loses 1 army.
 
 **1v1 — 1 comparison; attacker losses ∈ {0, 1}:**
 
-- **TC1: attacker [3] vs defender [2] — attacker wins** ( :x: )
+- **TC1: attacker [3] vs defender [2] — attacker wins** ( :white_check_mark: )
     - **State of the system**: DiceRoller.compare([3], [2]) called
     - **Expected output**: getAttackerLosses() = 0, getDefenderLosses() = 1
 

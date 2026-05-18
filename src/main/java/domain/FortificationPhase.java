@@ -41,5 +41,8 @@ public class FortificationPhase {
     if (n < 1) {
       throw new IllegalArgumentException("Number of troops must be at least 1");
     }
+    if (n >= s.getTroopCount()) {
+      throw new IllegalArgumentException("Source must retain at least 1 troop");
+    }
   }
 }

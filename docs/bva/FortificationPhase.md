@@ -44,7 +44,7 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC11: n = s.troopCount (one over maximum valid, source would be left with 0 troops)** ( :x: )
+- **TC11: n = s.troopCount (one over maximum valid, source would be left with 0 troops)** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 2) and d; direct connection s−d in map
   - **Expected output**: IllegalArgumentException thrown
 

@@ -312,4 +312,27 @@ public class TurnTests {
     assertNull(turn.getFortificationPhase());
     EasyMock.verify(player, game, rp, ap);
   }
+
+  @Test
+  public void runAttackPhase_noConquests_transitionsAndConqueredFalse() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
+    AttackPhase ap = EasyMock.createMock(AttackPhase.class);
+    FortificationPhase fp = EasyMock.createMock(FortificationPhase.class);
+
+    recordAdvanceToFortification(player, rp, ap, 0);
+    EasyMock.replay(player, game, rp, ap, fp);
+
+    Turn turn = buildTurn(player, game, random, rp, ap, fp);
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+
+    assertEquals(TurnPhase.FORTIFICATION, turn.getPhase());
+    assertFalse(turn.hasConqueredThisTurn());
+    assertSame(fp, turn.getFortificationPhase());
+    EasyMock.verify(player, game, rp, ap, fp);
+  }
 }

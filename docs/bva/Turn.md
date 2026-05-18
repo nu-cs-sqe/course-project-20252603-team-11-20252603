@@ -61,7 +61,7 @@
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() returns false
     - **Expected output**: IllegalStateException thrown, phase stays ATTACK,
       getFortificationPhase() still null
-- **TC17: valid transition, no territories conquered** ( :x: )
+- **TC17: valid transition, no territories conquered** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() == true,
       attackPhase.getConqueredCount() == 0
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == false,

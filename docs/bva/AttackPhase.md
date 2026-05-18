@@ -4,7 +4,7 @@
 
 Precondition: all arguments non-null. `conqueredCount` initializes to 0.
 
-- **TC1: valid arguments — conqueredCount initialized to 0** ( :x: )
+- **TC1: valid arguments — conqueredCount initialized to 0** ( :white_check_mark: )
   - **State of the system**: attacker, diceRoller, game provided
   - **Expected output**: getConqueredCount() = 0
 

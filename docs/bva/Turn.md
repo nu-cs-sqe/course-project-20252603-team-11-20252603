@@ -76,7 +76,7 @@
     - **Expected output**: phase == FORTIFICATION, hasConqueredThisTurn() == true
 
 ### Method under test: `void runFortificationPhase()`
-- **TC20: phase == REINFORCEMENT** ( :x: )
+- **TC20: phase == REINFORCEMENT** ( :white_check_mark: )
     - **State of the system**: phase == REINFORCEMENT
     - **Expected output**: IllegalStateException thrown
 - **TC21: phase == ATTACK** ( :x: )

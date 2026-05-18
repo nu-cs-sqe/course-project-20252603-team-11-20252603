@@ -7,7 +7,7 @@
 - **TC2: null game** ( :white_check_mark: )
     - **State of the system**: No turn created yet
     - **Expected output**: IllegalArgumentException thrown
-- **TC3: null random** ( :x: )
+- **TC3: null random** ( :white_check_mark: )
     - **State of the system**: No turn created yet
     - **Expected output**: IllegalArgumentException thrown
 - **TC4: all valid args** ( :x: )

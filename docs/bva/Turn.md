@@ -108,3 +108,18 @@
 - **TC29: valid call, phase == ENDED** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: game.advanceToNextPlayer() called exactly once
+
+### Method under test: `protected ReinforcementPhase createReinforcementPhase(Player p)`
+- **TC30: returns a non-null ReinforcementPhase** ( :white_check_mark: )
+    - **State of the system**: Turn just constructed (no test override of the factory)
+    - **Expected output**: returns a freshly constructed ReinforcementPhase instance
+
+### Method under test: `protected AttackPhase createAttackPhase(Player p, Game g, Random r)`
+- **TC31: returns a non-null AttackPhase** ( :white_check_mark: )
+    - **State of the system**: Turn just constructed (no test override of the factory)
+    - **Expected output**: returns a freshly constructed AttackPhase instance
+
+### Method under test: `protected FortificationPhase createFortificationPhase(Player p, Game g)`
+- **TC32: returns a non-null FortificationPhase** ( :white_check_mark: )
+    - **State of the system**: Turn just constructed (no test override of the factory)
+    - **Expected output**: returns a freshly constructed FortificationPhase instance

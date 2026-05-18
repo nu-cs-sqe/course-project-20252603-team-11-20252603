@@ -43,7 +43,7 @@ are the same as `rollAttacker` and are covered by TC5–TC6.
 
 **`n` count (interval [1, 2]):**
 
-- **TC7: n = 0 (below lower bound)** ( :x: )
+- **TC7: n = 0 (below lower bound)** ( :white_check_mark: )
     - **State of the system**: DiceRoller constructed with any Random
     - **Expected output**: IllegalArgumentException thrown
 

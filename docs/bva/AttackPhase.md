@@ -48,7 +48,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
 
 **n count (interval [1, 3]):**
 
-- **TC7: n = 0 (below lower bound) → IllegalArgumentException** ( :x: )
+- **TC7: n = 0 (below lower bound) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: valid s, t; n = 0
   - **Expected output**: IllegalArgumentException thrown
 

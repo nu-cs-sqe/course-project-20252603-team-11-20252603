@@ -91,6 +91,16 @@ public class Turn {
     phase = TurnPhase.FORTIFICATION;
   }
 
+  public void runFortificationPhase() {
+    if (phase != TurnPhase.FORTIFICATION) {
+      throw new IllegalStateException("Not in FORTIFICATION phase.");
+    }
+    if (!fortificationPhase.isComplete()) {
+      throw new IllegalStateException("Fortification phase not complete.");
+    }
+    phase = TurnPhase.ENDED;
+  }
+
   protected ReinforcementPhase createReinforcementPhase(Player p) {
     return new ReinforcementPhase(p);
   }

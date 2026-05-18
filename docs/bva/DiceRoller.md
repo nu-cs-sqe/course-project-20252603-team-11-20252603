@@ -82,7 +82,7 @@ Sorts the list in-place in descending order. Called by `compare()` before constr
     - **State of the system**: dice = [1, 3, 5]
     - **Expected output**: dice = [5, 3, 1]
 
-- **TC15: duplicates present — stable relative order** ( :x: )
+- **TC15: duplicates present — stable relative order** ( :white_check_mark: )
     - **State of the system**: dice = [3, 1, 3]
     - **Expected output**: dice = [3, 3, 1]
 

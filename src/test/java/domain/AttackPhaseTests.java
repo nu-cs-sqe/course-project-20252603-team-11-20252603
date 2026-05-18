@@ -262,4 +262,23 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, map, s, t);
   }
+
+  @Test
+  public void declareAttack_targetOwnedByAttacker_throwsIllegalArgumentException() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    EasyMock.expect(s.getOwner()).andReturn(attacker);
+    EasyMock.expect(t.getOwner()).andReturn(attacker);
+    EasyMock.replay(attacker, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    assertThrows(IllegalArgumentException.class,
+        () -> phase.declareAttack(s, t, 1));
+
+    EasyMock.verify(attacker, diceRoller, game, s, t);
+  }
 }

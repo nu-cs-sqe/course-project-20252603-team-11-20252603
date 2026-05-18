@@ -80,7 +80,7 @@ constraint n ≤ s.getTroopCount() − 1 (source must retain at least 1 army aft
   - **State of the system**: game.getMap().areAdjacent(s, t) returns false
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC14: t owned by attacker → IllegalArgumentException** ( :x: )
+- **TC14: t owned by attacker → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: t.getOwner() returns the attacker
   - **Expected output**: IllegalArgumentException thrown
 

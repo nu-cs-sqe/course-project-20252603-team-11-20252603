@@ -57,7 +57,7 @@
 - **TC15: phase == ENDED** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: IllegalStateException thrown
-- **TC16: attackPhase.isEnded() == false (pending conquest or not signaled end)** ( :x: )
+- **TC16: attackPhase.isEnded() == false (pending conquest or not signaled end)** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK, attackPhase.isEnded() returns false
     - **Expected output**: IllegalStateException thrown, phase stays ATTACK,
       getFortificationPhase() still null

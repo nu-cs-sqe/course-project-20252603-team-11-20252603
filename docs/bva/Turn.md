@@ -82,7 +82,7 @@
 - **TC21: phase == ATTACK** ( :white_check_mark: )
     - **State of the system**: phase == ATTACK
     - **Expected output**: IllegalStateException thrown
-- **TC22: phase == ENDED (called twice)** ( :x: )
+- **TC22: phase == ENDED (called twice)** ( :white_check_mark: )
     - **State of the system**: phase == ENDED
     - **Expected output**: IllegalStateException thrown
 - **TC23: fortificationPhase.isComplete() == false** ( :x: )

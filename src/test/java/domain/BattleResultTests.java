@@ -62,4 +62,10 @@ public class BattleResultTests {
     assertEquals(1, result.getAttackerLosses());
     assertEquals(0, result.getDefenderLosses());
   }
+
+  @Test
+  public void isConquered_notConquered_returnsFalse() {
+    BattleResult result = new BattleResult(List.of(3), List.of(2), false);
+    assertEquals(false, result.isConquered());
+  }
 }

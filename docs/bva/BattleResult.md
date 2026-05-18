@@ -53,7 +53,7 @@ otherwise (tie or less) → attacker loses 1 army.
 count is reduced to zero after applying `defenderLosses`. It is a boolean flag stored
 in the result.
 
-- **TC9: territory not conquered** ( :x: )
+- **TC9: territory not conquered** ( :white_check_mark: )
     - **State of the system**: BattleResult produced with conquered=false (defender has armies remaining after losses)
     - **Expected output**: isConquered() = false
 

@@ -558,7 +558,7 @@ public class TurnTests {
   public void endTurn_whenEnded_callsAdvanceToNextPlayer() {
     Player player = EasyMock.createMock(Player.class);
     Game game = EasyMock.createMock(Game.class);
-    Random random = new Random();
+    Random random = EasyMock.createMock(Random.class);
     ReinforcementPhase rp = EasyMock.createMock(ReinforcementPhase.class);
     AttackPhase ap = EasyMock.createMock(AttackPhase.class);
     FortificationPhase fp = EasyMock.createMock(FortificationPhase.class);

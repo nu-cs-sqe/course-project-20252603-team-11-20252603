@@ -27,7 +27,7 @@ s and t are adjacent (game.getMap().areAdjacent(s, t)); t is not owned by the at
 
 **Boolean conditions (each tested independently; all other conditions valid):**
 
-- **TC4: s not owned by attacker → false** ( :x: )
+- **TC4: s not owned by attacker → false** ( :white_check_mark: )
   - **State of the system**: s.getOwner() returns a different player
   - **Expected output**: false
 

@@ -63,4 +63,22 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, map, s, t);
   }
+
+  @Test
+  public void canAttack_sourceNotOwnedByAttacker_returnsFalse() {
+    Player attacker = EasyMock.createMock(Player.class);
+    Player enemy = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    EasyMock.expect(s.getOwner()).andReturn(enemy);
+    EasyMock.replay(attacker, enemy, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    assertFalse(phase.canAttack(s, t));
+
+    EasyMock.verify(attacker, enemy, diceRoller, game, s, t);
+  }
 }

@@ -37,7 +37,7 @@ otherwise (tie or less) → attacker loses 1 army.
 
 **Unequal dice counts — only min(|a|, |d|) comparisons are made:**
 
-- **TC7: 2v1 — attacker [4,3] vs defender [2] — 1 comparison using highest pair** ( :x: )
+- **TC7: 2v1 — attacker [4,3] vs defender [2] — 1 comparison using highest pair** ( :white_check_mark: )
     - **State of the system**: DiceRoller.compare([4,3], [2]) called
     - **Expected output**: getAttackerLosses() = 0, getDefenderLosses() = 1
 

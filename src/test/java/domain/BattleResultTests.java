@@ -48,4 +48,11 @@ public class BattleResultTests {
     assertEquals(2, result.getAttackerLosses());
     assertEquals(0, result.getDefenderLosses());
   }
+
+  @Test
+  public void getAttackerLosses_twoVsOne_attackerWins_onlyOneComparisonMade() {
+    BattleResult result = new BattleResult(List.of(4, 3), List.of(2), false);
+    assertEquals(0, result.getAttackerLosses());
+    assertEquals(1, result.getDefenderLosses());
+  }
 }

@@ -20,7 +20,7 @@
   - **State of the system**: Phase created, moved = false
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC5: null destination territory** ( :x: )
+- **TC5: null destination territory** ( :white_check_mark: )
   - **State of the system**: Phase created, moved = false; valid territory provided as source
   - **Expected output**: IllegalArgumentException thrown
 

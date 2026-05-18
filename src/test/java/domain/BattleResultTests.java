@@ -55,4 +55,11 @@ public class BattleResultTests {
     assertEquals(0, result.getAttackerLosses());
     assertEquals(1, result.getDefenderLosses());
   }
+
+  @Test
+  public void getAttackerLosses_oneVsTwo_defenderWins_onlyOneComparisonMade() {
+    BattleResult result = new BattleResult(List.of(5), List.of(6, 4), false);
+    assertEquals(1, result.getAttackerLosses());
+    assertEquals(0, result.getDefenderLosses());
+  }
 }

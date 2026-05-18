@@ -140,7 +140,7 @@ count from the preceding resolveBattle call (stored internally by AttackPhase).
   - **Expected output**: t.conquer(attacker, n) called; s.removeTroops(n) called;
     territory ownership updated
 
-- **TC22: n = s.getTroopCount() (above upper bound) → IllegalArgumentException** ( :x: )
+- **TC22: n = s.getTroopCount() (above upper bound) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: n equals s.getTroopCount() (would leave source with 0 armies)
   - **Expected output**: IllegalArgumentException thrown
 

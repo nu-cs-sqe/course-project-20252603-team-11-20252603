@@ -466,4 +466,30 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, enemy, diceRoller, game, s, t);
   }
+
+  @Test
+  public void moveInTroops_nEqualsTroopCount_throwsIllegalArgumentException() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory t = EasyMock.createMock(Territory.class);
+
+    List<Integer> attackDice = List.of(6);
+    List<Integer> defendDice = List.of(1);
+    EasyMock.expect(diceRoller.rollAttacker(1)).andReturn(attackDice);
+    EasyMock.expect(t.getTroopCount()).andReturn(1);
+    EasyMock.expect(diceRoller.rollDefender(1)).andReturn(defendDice);
+    EasyMock.expect(diceRoller.compare(attackDice, defendDice))
+        .andReturn(new BattleResult(List.of(6), List.of(1), false));
+    EasyMock.expect(s.getTroopCount()).andReturn(3);
+    EasyMock.replay(attacker, diceRoller, game, s, t);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+    phase.resolveBattle(s, t, 1);
+    assertThrows(IllegalArgumentException.class,
+        () -> phase.moveInTroops(s, t, 3));
+
+    EasyMock.verify(attacker, diceRoller, game, s, t);
+  }
 }

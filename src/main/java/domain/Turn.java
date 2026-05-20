@@ -63,8 +63,9 @@ public class Turn {
     if (phase != null) {
       throw new IllegalStateException("Turn already started");
     }
-    currentPlayer.setAvailableTroops(currentPlayer.calculateReinforcements());
-    reinforcementPhase = createReinforcementPhase(currentPlayer);
+    int reinforcements = currentPlayer.calculateReinforcements();
+    currentPlayer.setAvailableTroops(reinforcements);
+    reinforcementPhase = createReinforcementPhase(currentPlayer, reinforcements);
     phase = TurnPhase.REINFORCEMENT;
   }
 
@@ -108,8 +109,8 @@ public class Turn {
     game.advanceToNextPlayer();
   }
 
-  protected ReinforcementPhase createReinforcementPhase(Player p) {
-    return new ReinforcementPhase(p);
+  protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
+    return new ReinforcementPhase(p, troopsToPlace);
   }
 
   protected AttackPhase createAttackPhase(Player p, Game g, Random r) {

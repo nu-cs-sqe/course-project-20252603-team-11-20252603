@@ -648,4 +648,17 @@ public class GameTests {
     assertEquals(0, game.getDeckSize());
     verifyAll(players, map);
   }
+
+  @Test
+  public void advanceToNextPlayer_gameNotStarted_throwsIllegalStateException() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, new ArrayList<>(), new Random());
+
+    assertThrows(IllegalStateException.class, game::advanceToNextPlayer);
+    assertEquals(-1, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+  }
 }

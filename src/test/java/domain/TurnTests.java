@@ -19,7 +19,7 @@ public class TurnTests {
                          ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
     return new Turn(player, game, random) {
       @Override
-      protected ReinforcementPhase createReinforcementPhase(Player p) {
+      protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
         return rp;
       }
 
@@ -603,7 +603,7 @@ public class TurnTests {
 
     Turn turn = new Turn(player, game, random);
 
-    assertNotNull(turn.createReinforcementPhase(player));
+    assertNotNull(turn.createReinforcementPhase(player, 5));
     EasyMock.verify(player, game, random);
   }
 

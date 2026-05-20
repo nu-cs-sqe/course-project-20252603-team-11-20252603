@@ -137,3 +137,24 @@ Precondition: Game constructed with 2–6 players, a valid map, and a deck.
 - **TC26: 2 players, result = 1 (upper bound of resulting index)** ( :white_check_mark: )
   - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
   - **Expected output**: currentPlayerIndex = 1
+
+---
+
+### Method under test: `void advanceToNextPlayer()`
+
+Precondition: Game constructed with 2–6 players.
+
+`advanceToNextPlayer` is gated by `currentPlayerIndex`: throw if the game has not started (`currentPlayerIndex == -1`), otherwise increment with modulo wraparound. BVA covers the unstarted boundary plus the two valid-range boundaries (no-wrap vs wraparound) at minimum and maximum player counts.
+
+- **TC27: game not started (currentPlayerIndex == -1)** ( :x: )
+  - **State of the system**: Game just constructed; `chooseFirstPlayer()` not yet called
+  - **Expected output**: IllegalStateException thrown; currentPlayerIndex stays at -1
+- **TC28: 2 players, currentPlayerIndex == 0 (lower boundary, no wraparound)** ( :x: )
+  - **State of the system**: Game with 2 players; currentPlayerIndex == 0
+  - **Expected output**: currentPlayerIndex == 1
+- **TC29: 2 players, currentPlayerIndex == 1 (upper boundary, wraps to 0)** ( :x: )
+  - **State of the system**: Game with 2 players; currentPlayerIndex == 1
+  - **Expected output**: currentPlayerIndex == 0
+- **TC30: 6 players, currentPlayerIndex == 5 (upper boundary, wraps to 0)** ( :x: )
+  - **State of the system**: Game with 6 players; currentPlayerIndex == 5
+  - **Expected output**: currentPlayerIndex == 0

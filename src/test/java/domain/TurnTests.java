@@ -15,8 +15,13 @@ import org.junit.jupiter.api.Test;
 public class TurnTests {
 
   // Helpers
-  private Turn buildTurn(Player player, Game game, Random random,
-                         ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
+  private Turn buildTurn(
+      Player player,
+      Game game,
+      Random random,
+      ReinforcementPhase rp,
+      AttackPhase ap,
+      FortificationPhase fp) {
     return new Turn(player, game, random) {
       @Override
       protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
@@ -45,15 +50,15 @@ public class TurnTests {
     EasyMock.expect(rp.isComplete()).andReturn(true);
   }
 
-  private void recordAdvanceToFortification(Player p, ReinforcementPhase rp,
-                                            AttackPhase ap, int conqueredCount) {
+  private void recordAdvanceToFortification(
+      Player p, ReinforcementPhase rp, AttackPhase ap, int conqueredCount) {
     recordAdvanceToAttack(p, rp);
     EasyMock.expect(ap.isEnded()).andReturn(true);
     EasyMock.expect(ap.getConqueredCount()).andReturn(conqueredCount);
   }
 
-  private void recordAdvanceToEnded(Player p, ReinforcementPhase rp,
-                                    AttackPhase ap, FortificationPhase fp) {
+  private void recordAdvanceToEnded(
+      Player p, ReinforcementPhase rp, AttackPhase ap, FortificationPhase fp) {
     recordAdvanceToFortification(p, rp, ap, 0);
     EasyMock.expect(fp.isComplete()).andReturn(true);
   }
@@ -61,7 +66,7 @@ public class TurnTests {
   // Start Turn tests
   @Test
   public void constructor_nullPlayer_throwsIllegalArgumentException() {
-    Game game  = EasyMock.createMock(Game.class);
+    Game game = EasyMock.createMock(Game.class);
     Random random = EasyMock.createMock(Random.class);
     assertThrows(IllegalArgumentException.class, () -> new Turn(null, game, random));
   }

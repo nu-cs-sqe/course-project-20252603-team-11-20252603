@@ -172,6 +172,6 @@ no-wrap vs wraparound) at minimum and maximum player counts.
 - **TC29: 2 players, currentPlayerIndex == 1 (upper boundary, wraps to 0)** ( :white_check_mark: )
     - **State of the system**: Game with 2 players; currentPlayerIndex == 1
     - **Expected output**: currentPlayerIndex == 0
-- **TC30: 6 players, currentPlayerIndex == 5 (upper boundary, wraps to 0)** ( :x: )
+- **TC30: 6 players, currentPlayerIndex == 5 (upper boundary, wraps to 0)** ( :white_check_mark: )
     - **State of the system**: Game with 6 players; currentPlayerIndex == 5
     - **Expected output**: currentPlayerIndex == 0

@@ -166,7 +166,7 @@ no-wrap vs wraparound) at minimum and maximum player counts.
 - **TC27: game not started (currentPlayerIndex == -1)** ( :white_check_mark: )
     - **State of the system**: Game just constructed; `chooseFirstPlayer()` not yet called
     - **Expected output**: IllegalStateException thrown; currentPlayerIndex stays at -1
-- **TC28: 2 players, currentPlayerIndex == 0 (lower boundary, no wraparound)** ( :x: )
+- **TC28: 2 players, currentPlayerIndex == 0 (lower boundary, no wraparound)** ( :white_check_mark: )
     - **State of the system**: Game with 2 players; currentPlayerIndex == 0
     - **Expected output**: currentPlayerIndex == 1
 - **TC29: 2 players, currentPlayerIndex == 1 (upper boundary, wraps to 0)** ( :x: )

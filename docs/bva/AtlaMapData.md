@@ -57,7 +57,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **State of the system**: `buildMap()` returned; no players assigned
     - **Expected output**: `getTroopCount() == 0` for every territory in the map
 
-- **TC9: no self-loops** ( :x: )
+- **TC9: no self-loops** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: for every territory `t`, `t` is not contained in
       `getNeighbors(t)`

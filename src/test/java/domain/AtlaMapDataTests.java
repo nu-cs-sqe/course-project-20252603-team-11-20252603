@@ -82,6 +82,23 @@ public class AtlaMapDataTests {
     }
   }
 
+  @Test
+  public void buildMap_noSelfLoops_noTerritoryAdjacentToItself() {
+    for (Territory territory : gameMap.getTerritories()) {
+      assertFalse(gameMap.getNeighbors(territory).contains(territory),
+          "Self-loop: " + territory.getName());
+    }
+  }
+
+  @Test
+  public void buildMap_noDuplicateEdges_neighborListHasNoDuplicates() {
+    for (Territory territory : gameMap.getTerritories()) {
+      List<Territory> neighbors = gameMap.getNeighbors(territory);
+      assertEquals(new HashSet<>(neighbors).size(), neighbors.size(),
+          "Duplicate neighbor for: " + territory.getName());
+    }
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

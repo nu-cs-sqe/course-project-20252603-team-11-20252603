@@ -67,7 +67,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **Expected output**: for every territory `t`, `getNeighbors(t)` has no
       duplicates (set size equals list size)
 
-- **TC11: Moon Tribe intra-faction adjacencies** ( :x: )
+- **TC11: Moon Tribe intra-faction adjacencies** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: all 7 edges present and symmetric (areAdjacent both ways):
         - Northern Tundra — Frost Hills

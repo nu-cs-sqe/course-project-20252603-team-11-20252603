@@ -99,6 +99,17 @@ public class AtlaMapDataTests {
     }
   }
 
+  @Test
+  public void buildMap_moonTribeAdjacencies_allEdgesPresentAndSymmetric() {
+    assertBothDirections("Northern Tundra", "Frost Hills");
+    assertBothDirections("Northern Tundra", "Moon Tribe");
+    assertBothDirections("Frost Hills", "Bin-Er");
+    assertBothDirections("Moon Tribe", "Bin-Er");
+    assertBothDirections("Bin-Er", "Yue Bay");
+    assertBothDirections("Yue Bay", "Wulong");
+    assertBothDirections("Wulong", "Western Air Temple");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

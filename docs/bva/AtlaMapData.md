@@ -137,7 +137,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
       and areAdjacent(Shimsom Isle, Whale Tail Isle) == true
       (Fire Nation ↔ Ocean Tribe cross-faction)
 
-- **TC17: sea routes — Bin-Er and Yue Bay to Zigan** ( :x: )
+- **TC17: sea routes — Bin-Er and Yue Bay to Zigan** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: Bin-Er ↔ Zigan and Yue Bay ↔ Zigan both adjacent and
       symmetric (Moon Tribe ↔ Ba Sing Se Kingdom)

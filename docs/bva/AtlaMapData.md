@@ -26,7 +26,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **Expected output**: exactly 7 territories named: Northern Tundra,
       Frost Hills, Moon Tribe, Bin-Er, Yue Bay, Wulong, Western Air Temple
 
-- **TC3: Ba Sing Se Kingdom faction count** ( :x: )
+- **TC3: Ba Sing Se Kingdom faction count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: exactly 10 territories named: Zigan, Northern Air
       Temple, Northern Mountains, Taihua, Ba Sing Se City, Ba Sing Se Province,

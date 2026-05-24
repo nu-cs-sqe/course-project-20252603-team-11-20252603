@@ -33,6 +33,15 @@ public class AtlaMapDataTests {
     assertEquals(7, countByNames(names));
   }
 
+  @Test
+  public void buildMap_baSingSeFactionCount_returns10() {
+    List<String> names = Arrays.asList(
+        "Zigan", "Northern Air Temple", "Northern Mountains", "Taihua",
+        "Ba Sing Se City", "Ba Sing Se Province", "Continental Corridor",
+        "Taku", "Green Farmlands", "Charmeleon Province");
+    assertEquals(10, countByNames(names));
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

@@ -184,6 +184,11 @@ public class AtlaMapDataTests {
     assertBothDirections("Hakoda Island", "Chin");
   }
 
+  @Test
+  public void continentCount_factionStructure_returns5() {
+    assertEquals(5, new AtlaMapData().continentCount());
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

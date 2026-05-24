@@ -116,6 +116,10 @@ public class AtlaMapData {
     return gameMap;
   }
 
+  public int continentCount() {
+    return FACTION_TERRITORIES.size();
+  }
+
   private static void addEdge(
       GameMap gameMap, Map<String, Territory> byName, String[] edge) {
     gameMap.addConnection(byName.get(edge[0]), byName.get(edge[1]));

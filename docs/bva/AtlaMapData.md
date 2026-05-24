@@ -158,7 +158,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
 
 ### Method under test: `continentCount()`
 
-- **TC20: continent count derived from faction structure** ( :x: )
+- **TC20: continent count derived from faction structure** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: `continentCount() == 5`; value is derived from the
       faction data structure, not a literal

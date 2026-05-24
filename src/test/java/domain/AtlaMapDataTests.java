@@ -151,6 +151,18 @@ public class AtlaMapDataTests {
     assertBothDirections("Gao Ling", "Hei Bei");
   }
 
+  @Test
+  public void buildMap_oceanTribeAdjacencies_allEdgesPresentAndSymmetric() {
+    assertBothDirections("Eastern Air Temple", "Seafoam Isles");
+    assertBothDirections("Seafoam Isles", "Hakoda Island");
+    assertBothDirections("Hakoda Island", "Shimsom Isle");
+    assertBothDirections("Shimsom Isle", "Southern Air Temple");
+    assertBothDirections("Southern Air Temple", "Ocean Tribe");
+    assertBothDirections("Ocean Tribe", "Southern Tundra");
+    assertBothDirections("Southern Tundra", "Icy Plains");
+    assertBothDirections("Icy Plains", "Eastern Air Temple");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

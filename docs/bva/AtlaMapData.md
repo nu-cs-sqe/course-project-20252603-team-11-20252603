@@ -119,7 +119,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
         - Chin — Gao Ling
         - Gao Ling — Hei Bei
 
-- **TC15: Ocean Tribe intra-faction adjacencies** ( :x: )
+- **TC15: Ocean Tribe intra-faction adjacencies** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: all 8 edges present and symmetric:
         - Eastern Air Temple — Seafoam Isles

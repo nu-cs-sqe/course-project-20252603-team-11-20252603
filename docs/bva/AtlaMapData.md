@@ -62,7 +62,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **Expected output**: for every territory `t`, `t` is not contained in
       `getNeighbors(t)`
 
-- **TC10: no duplicate edges** ( :x: )
+- **TC10: no duplicate edges** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: for every territory `t`, `getNeighbors(t)` has no
       duplicates (set size equals list size)

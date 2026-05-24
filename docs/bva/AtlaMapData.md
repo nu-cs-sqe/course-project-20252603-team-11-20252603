@@ -53,7 +53,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **State of the system**: `buildMap()` returned; no players assigned
     - **Expected output**: `getOwner() == null` for every territory in the map
 
-- **TC8: all territories start with zero troops** ( :x: )
+- **TC8: all territories start with zero troops** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned; no players assigned
     - **Expected output**: `getTroopCount() == 0` for every territory in the map
 

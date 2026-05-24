@@ -74,6 +74,14 @@ public class AtlaMapDataTests {
     }
   }
 
+  @Test
+  public void buildMap_allTerritoriesZeroTroops_getTroopCountReturnsZero() {
+    for (Territory territory : gameMap.getTerritories()) {
+      assertEquals(0, territory.getTroopCount(),
+          "Expected 0 troops: " + territory.getName());
+    }
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

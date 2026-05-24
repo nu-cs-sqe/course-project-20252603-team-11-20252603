@@ -78,7 +78,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
         - Yue Bay — Wulong
         - Wulong — Western Air Temple
 
-- **TC12: Ba Sing Se Kingdom intra-faction adjacencies** ( :x: )
+- **TC12: Ba Sing Se Kingdom intra-faction adjacencies** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: all 11 edges present and symmetric:
         - Zigan — Northern Air Temple

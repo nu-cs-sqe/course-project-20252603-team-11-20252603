@@ -110,6 +110,21 @@ public class AtlaMapDataTests {
     assertBothDirections("Wulong", "Western Air Temple");
   }
 
+  @Test
+  public void buildMap_baSingSeKingdomAdjacencies_allEdgesPresentAndSymmetric() {
+    assertBothDirections("Zigan", "Northern Air Temple");
+    assertBothDirections("Zigan", "Northern Mountains");
+    assertBothDirections("Northern Air Temple", "Northern Mountains");
+    assertBothDirections("Northern Mountains", "Taihua");
+    assertBothDirections("Taihua", "Ba Sing Se City");
+    assertBothDirections("Ba Sing Se City", "Ba Sing Se Province");
+    assertBothDirections("Ba Sing Se Province", "Continental Corridor");
+    assertBothDirections("Continental Corridor", "Taku");
+    assertBothDirections("Taku", "Green Farmlands");
+    assertBothDirections("Green Farmlands", "Charmeleon Province");
+    assertBothDirections("Charmeleon Province", "Ba Sing Se Province");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

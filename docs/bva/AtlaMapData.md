@@ -131,7 +131,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
         - Southern Tundra — Icy Plains
         - Icy Plains — Eastern Air Temple
 
-- **TC16: sea route — Whale Tail Isle to Shimsom Isle** ( :x: )
+- **TC16: sea route — Whale Tail Isle to Shimsom Isle** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: areAdjacent(Whale Tail Isle, Shimsom Isle) == true
       and areAdjacent(Shimsom Isle, Whale Tail Isle) == true

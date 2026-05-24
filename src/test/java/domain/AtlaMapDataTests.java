@@ -163,6 +163,27 @@ public class AtlaMapDataTests {
     assertBothDirections("Icy Plains", "Eastern Air Temple");
   }
 
+  @Test
+  public void buildMap_whaleTailIsleShimsomIsle_adjacentAndSymmetric() {
+    assertBothDirections("Whale Tail Isle", "Shimsom Isle");
+  }
+
+  @Test
+  public void buildMap_binErYueBayToZigan_adjacentAndSymmetric() {
+    assertBothDirections("Bin-Er", "Zigan");
+    assertBothDirections("Yue Bay", "Zigan");
+  }
+
+  @Test
+  public void buildMap_gaoLingToSeafoamIsles_adjacentAndSymmetric() {
+    assertBothDirections("Gao Ling", "Seafoam Isles");
+  }
+
+  @Test
+  public void buildMap_hakodaIslandToChin_adjacentAndSymmetric() {
+    assertBothDirections("Hakoda Island", "Chin");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

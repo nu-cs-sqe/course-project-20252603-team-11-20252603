@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("checkstyle")
     id("jacoco")
+    id("info.solidsoft.pitest") version "1.15.0"
 }
 
 group = "nu.csse.sqe"
@@ -47,6 +48,15 @@ configure<CheckstyleExtension> {
 
 jacoco {
     toolVersion = "0.8.12"
+}
+
+pitest {
+    junit5PluginVersion.set("1.2.1")
+    targetClasses.set(setOf("domain.*"))
+    targetTests.set(setOf("domain.*"))
+    threads.set(4)
+    outputFormats.set(setOf("HTML"))
+    timestampedReports.set(false)
 }
 
 tasks.jacocoTestReport {

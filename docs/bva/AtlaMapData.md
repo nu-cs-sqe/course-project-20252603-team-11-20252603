@@ -142,7 +142,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **Expected output**: Bin-Er ↔ Zigan and Yue Bay ↔ Zigan both adjacent and
       symmetric (Moon Tribe ↔ Ba Sing Se Kingdom)
 
-- **TC18: sea route — Gao Ling to Seafoam Isles** ( :x: )
+- **TC18: sea route — Gao Ling to Seafoam Isles** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: areAdjacent(Gao Ling, Seafoam Isles) == true and
       areAdjacent(Seafoam Isles, Gao Ling) == true

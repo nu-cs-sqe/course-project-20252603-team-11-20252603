@@ -43,7 +43,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
       Serpent Pass, Full Moon Bay, Omashu, Western Si Wong Desert, Eastern Si
       Wong Desert, Heart Farmlands, Chin, Gao Ling
 
-- **TC6: Ocean Tribe faction count** ( :x: )
+- **TC6: Ocean Tribe faction count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: exactly 8 territories named: Eastern Air Temple,
       Seafoam Isles, Hakoda Island, Shimsom Isle, Southern Air Temple, Ocean

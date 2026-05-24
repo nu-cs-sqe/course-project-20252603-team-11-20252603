@@ -1,0 +1,49 @@
+package domain;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class AtlaMapDataTests {
+
+  private GameMap gameMap;
+
+  @BeforeEach
+  public void setUp() {
+    gameMap = new AtlaMapData().buildMap();
+  }
+
+  @Test
+  public void buildMap_totalTerritoryCount_returns42() {
+    assertEquals(42, gameMap.getTerritories().size());
+  }
+
+  // --- helpers ---
+
+  private long countByNames(List<String> names) {
+    return gameMap.getTerritories().stream()
+        .filter(t -> names.contains(t.getName()))
+        .count();
+  }
+
+  private Territory findByName(String name) {
+    return gameMap.getTerritories().stream()
+        .filter(t -> t.getName().equals(name))
+        .findFirst()
+        .orElseThrow(() -> new AssertionError("Territory not found: " + name));
+  }
+
+  private void assertBothDirections(String nameA, String nameB) {
+    Territory ta = findByName(nameA);
+    Territory tb = findByName(nameB);
+    assertTrue(gameMap.areAdjacent(ta, tb), nameA + " -> " + nameB);
+    assertTrue(gameMap.areAdjacent(tb, ta), nameB + " -> " + nameA);
+  }
+}

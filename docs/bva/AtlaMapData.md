@@ -17,7 +17,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
 
 ### Method under test: `buildMap()`
 
-- **TC1: total territory count** ( :x: )
+- **TC1: total territory count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: `buildMap().getTerritories().size() == 42`
 

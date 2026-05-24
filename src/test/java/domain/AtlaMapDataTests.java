@@ -125,6 +125,17 @@ public class AtlaMapDataTests {
     assertBothDirections("Charmeleon Province", "Ba Sing Se Province");
   }
 
+  @Test
+  public void buildMap_fireNationAdjacencies_allEdgesPresentAndSymmetric() {
+    assertBothDirections("Sun Isles", "Burning Gates");
+    assertBothDirections("Sun Isles", "Caldera City");
+    assertBothDirections("Burning Gates", "Caldera City");
+    assertBothDirections("Caldera City", "Black Cliffs");
+    assertBothDirections("Black Cliffs", "Keonso");
+    assertBothDirections("Keonso", "Fire Archipelago");
+    assertBothDirections("Fire Archipelago", "Whale Tail Isle");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

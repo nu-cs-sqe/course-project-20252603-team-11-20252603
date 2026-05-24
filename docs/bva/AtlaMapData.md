@@ -93,7 +93,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
         - Green Farmlands — Charmeleon Province
         - Charmeleon Province — Ba Sing Se Province
 
-- **TC13: Fire Nation intra-faction adjacencies** ( :x: )
+- **TC13: Fire Nation intra-faction adjacencies** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: all 7 edges present and symmetric:
         - Sun Isles — Burning Gates

@@ -37,7 +37,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **Expected output**: exactly 7 territories named: Sun Isles, Burning Gates,
       Caldera City, Black Cliffs, Keonso, Fire Archipelago, Whale Tail Isle
 
-- **TC5: Omashu Kingdom faction count** ( :x: )
+- **TC5: Omashu Kingdom faction count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: exactly 10 territories named: Hei Bei, Great Divide,
       Serpent Pass, Full Moon Bay, Omashu, Western Si Wong Desert, Eastern Si

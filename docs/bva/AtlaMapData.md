@@ -104,7 +104,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
         - Keonso — Fire Archipelago
         - Fire Archipelago — Whale Tail Isle
 
-- **TC14: Omashu Kingdom intra-faction adjacencies** ( :x: )
+- **TC14: Omashu Kingdom intra-faction adjacencies** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: all 11 edges present and symmetric:
         - Hei Bei — Great Divide

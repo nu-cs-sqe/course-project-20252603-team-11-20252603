@@ -136,6 +136,21 @@ public class AtlaMapDataTests {
     assertBothDirections("Fire Archipelago", "Whale Tail Isle");
   }
 
+  @Test
+  public void buildMap_omashuKingdomAdjacencies_allEdgesPresentAndSymmetric() {
+    assertBothDirections("Hei Bei", "Great Divide");
+    assertBothDirections("Great Divide", "Serpent Pass");
+    assertBothDirections("Serpent Pass", "Full Moon Bay");
+    assertBothDirections("Full Moon Bay", "Omashu");
+    assertBothDirections("Omashu", "Western Si Wong Desert");
+    assertBothDirections("Omashu", "Eastern Si Wong Desert");
+    assertBothDirections("Western Si Wong Desert", "Heart Farmlands");
+    assertBothDirections("Eastern Si Wong Desert", "Heart Farmlands");
+    assertBothDirections("Heart Farmlands", "Chin");
+    assertBothDirections("Chin", "Gao Ling");
+    assertBothDirections("Gao Ling", "Hei Bei");
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

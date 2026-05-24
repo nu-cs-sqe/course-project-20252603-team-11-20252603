@@ -15,6 +15,11 @@ public class TerritoryTests {
   }
 
   @Test
+  public void constructor_unownedEmptyName_throwsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> new Territory(""));
+  }
+
+  @Test
   public void constructor_nullName_throwsIllegalArgumentException() {
     Player p1 = EasyMock.createMock(Player.class);
     assertThrows(IllegalArgumentException.class, () -> new Territory(null, p1, 5));

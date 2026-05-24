@@ -148,7 +148,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
       areAdjacent(Seafoam Isles, Gao Ling) == true
       (Omashu Kingdom ↔ Ocean Tribe)
 
-- **TC19: sea route — Hakoda Island to Chin** ( :x: )
+- **TC19: sea route — Hakoda Island to Chin** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned
     - **Expected output**: areAdjacent(Hakoda Island, Chin) == true and
       areAdjacent(Chin, Hakoda Island) == true

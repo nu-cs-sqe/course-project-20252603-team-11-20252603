@@ -13,7 +13,7 @@
 
 |              | System under test | Expected output                                                       | Implemented? |
 |--------------|-------------------|-----------------------------------------------------------------------|--------------|
-| Test Case 15 | null name         | IllegalArgumentException thrown                                       | :x:          |
+| Test Case 15 | null name         | IllegalArgumentException thrown                                       | :white_check_mark: |
 | Test Case 16 | empty name        | IllegalArgumentException thrown                                       | :x:          |
 | Test Case 17 | valid name        | getName() == name; getOwner() == null (unowned); getTroopCount() == 0 | :x:          |
 

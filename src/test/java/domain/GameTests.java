@@ -648,4 +648,71 @@ public class GameTests {
     assertEquals(0, game.getDeckSize());
     verifyAll(players, map);
   }
+
+  @Test
+  public void advanceToNextPlayer_gameNotStarted_throwsIllegalStateException() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, new ArrayList<>(), new Random());
+
+    assertThrows(IllegalStateException.class, game::advanceToNextPlayer);
+    assertEquals(-1, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+  }
+
+  @Test
+  public void advanceToNextPlayer_twoPlayers_fromZero_advancesToOne() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(2)).andReturn(0);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, new ArrayList<>(), random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(1, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void advanceToNextPlayer_twoPlayers_fromOne_wrapsToZero() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(2)).andReturn(1);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, new ArrayList<>(), random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(0, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void advanceToNextPlayer_sixPlayers_fromFive_wrapsToZero() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(6);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(5);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, new ArrayList<>(), random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(0, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
 }

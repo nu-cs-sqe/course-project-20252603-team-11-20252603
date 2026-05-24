@@ -32,7 +32,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
       Temple, Northern Mountains, Taihua, Ba Sing Se City, Ba Sing Se Province,
       Continental Corridor, Taku, Green Farmlands, Charmeleon Province
 
-- **TC4: Fire Nation faction count** ( :x: )
+- **TC4: Fire Nation faction count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: exactly 7 territories named: Sun Isles, Burning Gates,
       Caldera City, Black Cliffs, Keonso, Fire Archipelago, Whale Tail Isle

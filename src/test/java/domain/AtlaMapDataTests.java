@@ -42,6 +42,31 @@ public class AtlaMapDataTests {
     assertEquals(10, countByNames(names));
   }
 
+  @Test
+  public void buildMap_fireNationFactionCount_returns7() {
+    List<String> names = Arrays.asList(
+        "Sun Isles", "Burning Gates", "Caldera City", "Black Cliffs",
+        "Keonso", "Fire Archipelago", "Whale Tail Isle");
+    assertEquals(7, countByNames(names));
+  }
+
+  @Test
+  public void buildMap_omashuKingdomFactionCount_returns10() {
+    List<String> names = Arrays.asList(
+        "Hei Bei", "Great Divide", "Serpent Pass", "Full Moon Bay",
+        "Omashu", "Western Si Wong Desert", "Eastern Si Wong Desert",
+        "Heart Farmlands", "Chin", "Gao Ling");
+    assertEquals(10, countByNames(names));
+  }
+
+  @Test
+  public void buildMap_oceanTribeFactionCount_returns8() {
+    List<String> names = Arrays.asList(
+        "Eastern Air Temple", "Seafoam Isles", "Hakoda Island", "Shimsom Isle",
+        "Southern Air Temple", "Ocean Tribe", "Southern Tundra", "Icy Plains");
+    assertEquals(8, countByNames(names));
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

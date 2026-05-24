@@ -67,6 +67,13 @@ public class AtlaMapDataTests {
     assertEquals(8, countByNames(names));
   }
 
+  @Test
+  public void buildMap_allTerritoriesUnowned_getOwnerReturnsNull() {
+    for (Territory territory : gameMap.getTerritories()) {
+      assertNull(territory.getOwner(), "Expected unowned: " + territory.getName());
+    }
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

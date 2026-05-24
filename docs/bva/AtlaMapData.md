@@ -49,7 +49,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
       Seafoam Isles, Hakoda Island, Shimsom Isle, Southern Air Temple, Ocean
       Tribe, Southern Tundra, Icy Plains
 
-- **TC7: all territories start unowned** ( :x: )
+- **TC7: all territories start unowned** ( :white_check_mark: )
     - **State of the system**: `buildMap()` returned; no players assigned
     - **Expected output**: `getOwner() == null` for every territory in the map
 

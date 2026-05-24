@@ -21,7 +21,7 @@ membership. `continentCount()` is the single tested source of truth that a futur
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: `buildMap().getTerritories().size() == 42`
 
-- **TC2: Moon Tribe faction count** ( :x: )
+- **TC2: Moon Tribe faction count** ( :white_check_mark: )
     - **State of the system**: `AtlaMapData` instantiated
     - **Expected output**: exactly 7 territories named: Northern Tundra,
       Frost Hills, Moon Tribe, Bin-Er, Yue Bay, Wulong, Western Air Temple

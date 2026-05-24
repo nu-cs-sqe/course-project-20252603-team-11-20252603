@@ -25,6 +25,14 @@ public class AtlaMapDataTests {
     assertEquals(42, gameMap.getTerritories().size());
   }
 
+  @Test
+  public void buildMap_moonTribeFactionCount_returns7() {
+    List<String> names = Arrays.asList(
+        "Northern Tundra", "Frost Hills", "Moon Tribe", "Bin-Er",
+        "Yue Bay", "Wulong", "Western Air Temple");
+    assertEquals(7, countByNames(names));
+  }
+
   // --- helpers ---
 
   private long countByNames(List<String> names) {

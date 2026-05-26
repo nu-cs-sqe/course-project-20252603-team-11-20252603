@@ -2,15 +2,21 @@ package ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  private static final String APP_TITLE = "ATLA Risk";
+  private static final double SCENE_WIDTH = 1100.0;
+  private static final double SCENE_HEIGHT = 750.0;
+
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setTitle("ATLA Risk");
-    primaryStage.setScene(new Scene(new StackPane(), 800, 600));
+    ScrollPane scroll = new ScrollPane(new MapView());
+    scroll.setPannable(true);
+    primaryStage.setTitle(APP_TITLE);
+    primaryStage.setScene(new Scene(scroll, SCENE_WIDTH, SCENE_HEIGHT));
     primaryStage.show();
   }
 

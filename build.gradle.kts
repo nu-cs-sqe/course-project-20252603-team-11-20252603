@@ -1,7 +1,9 @@
 plugins {
     id("java")
+    id("application")
     id("checkstyle")
     id("jacoco")
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "nu.csse.sqe"
@@ -15,6 +17,15 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.easymock:easymock:5.4.0")
+}
+
+application {
+    mainClass.set("ui.Main")
+}
+
+javafx {
+    version = "17.0.6"
+    modules = listOf("javafx.controls", "javafx.graphics")
 }
 
 java {

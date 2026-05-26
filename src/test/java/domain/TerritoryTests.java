@@ -1,12 +1,31 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 public class TerritoryTests {
+
+  @Test
+  public void constructor_unownedNullName_throwsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> new Territory(null));
+  }
+
+  @Test
+  public void constructor_unownedEmptyName_throwsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> new Territory(""));
+  }
+
+  @Test
+  public void constructor_unownedValidName_nameStoredOwnerNullTroopsZero() {
+    Territory territory = new Territory("TestTerritory");
+    assertEquals("TestTerritory", territory.getName());
+    assertNull(territory.getOwner());
+    assertEquals(0, territory.getTroopCount());
+  }
 
   @Test
   public void constructor_nullName_throwsIllegalArgumentException() {

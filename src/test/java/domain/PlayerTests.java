@@ -27,6 +27,7 @@ public class PlayerTests {
     assertTrue(player.getCards().isEmpty());
     assertEquals(0, player.getAvailableTroops());
     assertEquals(0, player.getTerritoryCount());
+    assertFalse(player.isEliminated());
   }
 
   // ! addTerritory tests
@@ -409,6 +410,12 @@ public class PlayerTests {
     assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 1));
 
     EasyMock.verify(t);
+  }
+
+  @Test
+  public void isEliminated_newPlayer_defaultsFalse() {
+    Player player = new Player("Alice");
+    assertFalse(player.isEliminated());
   }
 
   // calculateReinforcements tests

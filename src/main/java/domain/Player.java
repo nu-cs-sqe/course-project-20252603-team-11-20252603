@@ -9,6 +9,7 @@ public class Player {
   private final List<Territory> territories;
   private final List<RiskCard> cards;
   private int availableTroops;
+  private boolean isEliminated;
 
   public Player(String name) {
     if (name == null || name.isEmpty()) {
@@ -85,6 +86,10 @@ public class Player {
     }
     territory.addTroops(amount);
     availableTroops -= amount;
+  }
+
+  public boolean isEliminated() {
+    return isEliminated;
   }
 
   public int calculateReinforcements() {

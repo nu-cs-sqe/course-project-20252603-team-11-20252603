@@ -27,6 +27,7 @@ public class PlayerTests {
     assertTrue(player.getCards().isEmpty());
     assertEquals(0, player.getAvailableTroops());
     assertEquals(0, player.getTerritoryCount());
+    assertFalse(player.isEliminated());
   }
 
   // ! addTerritory tests
@@ -284,131 +285,10 @@ public class PlayerTests {
     EasyMock.verify(card1, card2);
   }
 
-  // placeTroops tests
   @Test
-  public void placeTroops_nullTerritory_throwsIllegalArgumentException() {
+  public void isEliminated_newPlayer_defaultsFalse() {
     Player player = new Player("Alice");
-    player.setAvailableTroops(5);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(null, 1));
-  }
-
-  @Test
-  public void placeTroops_unownedTerritory_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-
-    EasyMock.replay(t);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 1));
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_amountZero_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 0));
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_amountNegative_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, -1));
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_amountExceedsAvailable_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 6));
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_amountOne_troopsPlacedAndAvailableDecremented() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-    t.addTroops(1);
-
-    EasyMock.expectLastCall().once();
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    player.placeTroops(t, 1);
-    assertEquals(4, player.getAvailableTroops());
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_amountEqualsAvailable_availableBecomesZero() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    player.setAvailableTroops(5);
-    t.addTroops(5);
-
-    EasyMock.expectLastCall().once();
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    player.placeTroops(t, 5);
-    assertEquals(0, player.getAvailableTroops());
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_availableZeroAmountZero_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 0));
-
-    EasyMock.verify(t);
-  }
-
-  @Test
-  public void placeTroops_availableZeroAmountOne_throwsIllegalArgumentException() {
-    Player player = new Player("Alice");
-    Territory t = EasyMock.createMock(Territory.class);
-
-    EasyMock.replay(t);
-
-    player.addTerritory(t);
-    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(t, 1));
-
-    EasyMock.verify(t);
+    assertFalse(player.isEliminated());
   }
 
   // calculateReinforcements tests

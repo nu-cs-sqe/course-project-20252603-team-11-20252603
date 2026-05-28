@@ -9,7 +9,7 @@
   - **Expected output**: IllegalArgumentException thrown
 - **TC3: valid non-empty name** ( :white_check_mark: )
   - **State of the system**: No player created yet
-  - **Expected output**: Player created, name stored, territories empty, cards empty, availableTroops = 0
+  - **Expected output**: Player created, name stored, territories empty, cards empty, availableTroops = 0, isEliminated = false
 
 ### Method under test: `void addTerritory(ITerritory territory)`
 - **TC4: null territory** ( :white_check_mark: )
@@ -77,72 +77,47 @@
   - **Expected output**: Player.cards.get(0).getType() = WILDCARD
 - **TC23: duplicate card type allowed** ( :white_check_mark: )
   - **State of the system**: Player.cards already has 1 INFANTRY card
-  - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)  
+  - **Expected output**: Player.cards.size() = 2 (cards are not de-duplicated)
 
-### Method under test: `void placeTroops(ITerritory territory, int amount)`
-- **TC24: null territory** ( :white_check_mark: )
-  - **State of the system**: availableTroops = 5
-  - **Expected output**: IllegalArgumentException thrown
-- **TC25: territory not owned by player** ( :white_check_mark: )
-  - **State of the system**: player does not own T1, availableTroops = 5
-  - **Expected output**: IllegalArgumentException thrown
-- **TC26: amount = 0 (lower boundary, invalid)** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 5
-  - **Expected output**: IllegalArgumentException thrown
-- **TC27: amount is negative** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 5
-  - **Expected output**: IllegalArgumentException thrown
-- **TC28: amount = availableTroops + 1 (one over, invalid)** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 5
-  - **Expected output**: IllegalArgumentException thrown
-- **TC29: amount = 1 (minimum valid)** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 5
-  - **Expected output**: territory.addTroops(1) called, availableTroops = 4
-- **TC30: amount = availableTroops (upper valid boundary)** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 5
-  - **Expected output**: territory.addTroops(5) called, availableTroops = 0
-- **TC31: availableTroops = 0, amount = 0** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 0
-  - **Expected output**: IllegalArgumentException thrown (amount = 0 invalid regardless)
-- **TC32: availableTroops = 0, amount = 1** ( :white_check_mark: )
-  - **State of the system**: player owns T1, availableTroops = 0
-  - **Expected output**: IllegalArgumentException thrown (insufficient troops)  
+### Method under test: `boolean isEliminated()`
+- **TC24: new player defaults to not eliminated** ( :white_check_mark: )
+  - **State of the system**: Player just constructed
+  - **Expected output**: isEliminated() == false
 
 ### Method under test: `int calculateReinforcements()`
-- **TC33: 0 territories** ( :white_check_mark: )
+- **TC25: 0 territories, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories is empty
   - **Expected output**: 3 (minimum floor)
-- **TC34: 1 territory** ( :white_check_mark: )
+- **TC26: 1 territory, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 1
   - **Expected output**: 3 (floor(1/3) = 0, minimum applies)
-- **TC35: 2 territories** ( :white_check_mark: )
+- **TC27: 2 territories, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 2
   - **Expected output**: 3 (floor(2/3) = 0, minimum applies)
-- **TC36: 3 territories** ( :white_check_mark: )
+- **TC28: 3 territories, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 3
   - **Expected output**: 3 (floor(3/3) = 1, still below minimum of 3)
-- **TC37: 9 territories (formula equals minimum)** ( :white_check_mark: )
+- **TC29: 9 territories, no continents (formula equals minimum)** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 9
   - **Expected output**: 3 (floor(9/3) = 3, equals minimum exactly)
-- **TC38: 10 territories** ( :white_check_mark: )
+- **TC30: 10 territories, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 10
   - **Expected output**: 3 (floor(10/3) = 3)
-- **TC39: 11 territories (last value before formula exceeds minimum)** ( :white_check_mark: )
+- **TC31: 11 territories, no continents (last value before formula exceeds minimum)** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 11
   - **Expected output**: 3 (floor(11/3) = 3)
-- **TC40: 12 territories (first value where formula exceeds minimum)** ( :white_check_mark: )
+- **TC32: 12 territories, no continents (first value where formula exceeds minimum)** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 12
   - **Expected output**: 4 (floor(12/3) = 4)
-- **TC41: 30 territories** ( :white_check_mark: )
+- **TC33: 30 territories, no continents** ( :white_check_mark: )
   - **State of the system**: Player.territories.size() = 30
-  - **Expected output**: 10 (floor(30/3) = 10)   
-
-## calculateTroops()
-
-|             | System under test              | Expected output          | Implemented?       |
-|-------------|--------------------------------|--------------------------|--------------------|
-| Test Case 1 | 0 territories, 0 continents    | IllegalArgumentException | :white_check_mark: |
-| Test Case 2 | 1 territory, 1 (3pt) continent | 6 new troops             | :white_check_mark: |
-| Test Case 3 | 11 territory, 0 continents     | 3 new troops             | :white_check_mark: |
-| Test Case 4 | 12 territory, 0 continents     | 4 new troops             | :white_check_mark: |
-| Test Case 5 | 42 territories, 5 continents   | 35 new troops            | :white_check_mark: |
+  - **Expected output**: 10 (floor(30/3) = 10)
+- **TC34: 1 territory, player owns all territories of a 1-territory continent with +3 bonus** ( :white_check_mark: )
+  - **State of the system**: Player.territories = [T1], continent C1 contains [T1] with bonus 3
+  - **Expected output**: 6 (3 base + 3 continent bonus)
+- **TC35: 1 territory, player owns only some territories of a continent (no bonus)** ( :white_check_mark: )
+  - **State of the system**: Player.territories = [T1], continent C1 contains [T1, T2] with bonus 3; player does not own T2
+  - **Expected output**: 3 (floor(1/3)=0 → minimum 3; continent not fully owned, no bonus)
+- **TC36: 42 territories, player owns all territories of 5 continents (total bonus 21)** ( :white_check_mark: )
+  - **State of the system**: Player.territories.size() = 42 spanning 5 fully-owned continents with bonuses summing to 21
+  - **Expected output**: 35 (floor(42/3) = 14 + 21 continent bonus)

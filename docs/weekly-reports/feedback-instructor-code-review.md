@@ -10,6 +10,22 @@ The following chapters of the textbook are considered: Chapter 1, 2, 3, 4, 5, 6,
 Please note that this feedback does not include evaluation of your progress, the proper use of linters, the quality of your test cases, or your compliance of TDD/BDD workflow.  
 You can find the weekly feedback from your dedicated PM/TA for that.
 
+## Week 7-8 Code Review
+This review is for the code your team developed in Week 7 and 8.
+I apologize for this delayed code review (should have been given last Friday but I got really sick...).
+As compensation, I will add one extra code review in Week 10 (around Thursday).
+
+I have read all the code in the `main` branch. Very good work overall! I found no violation of any coding standard. Especially, very good work in breaking a big function into small private functions! 
+
+One minor comment: I noticed some methods defined as `protected` (like `Turn#createAttackPhase`). If the purpose of these are for testing, you change it to "package private" instead of it has a narrower scope. 
+The Java syntax of this is simply not using any keyword, aka just
+``` 
+ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
+    return new ReinforcementPhase(p, troopsToPlace);
+}
+```
+Good quality work!!
+
 ## Week 6 Code Review
 I have read every line of production code currently in the main branch.
 A couple of small things:

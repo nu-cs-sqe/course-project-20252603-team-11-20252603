@@ -80,6 +80,6 @@ the number of `run()` calls (Count variable ≥ 1); each call is an independent 
   - **State of the system**: player has N availableTroops; tradeBonus.getValue() = B
   - **Expected output**: player.getAvailableTroops() = N + B; tradeBonus incremented (next getValue() = B + step)
 
-- **TC9: second call to run() → player receives the already-incremented bonus value** ( :x: )
+- **TC9: second call to run() → player receives the already-incremented bonus value** ( :white_check_mark: )
   - **State of the system**: run() already called once; tradeBonus.getValue() = B + step
   - **Expected output**: player.getAvailableTroops() increases by B + step; tradeBonus incremented again

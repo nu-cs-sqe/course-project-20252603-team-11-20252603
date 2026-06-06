@@ -364,4 +364,15 @@ public class DeckManagerTests {
     EasyMock.verify(random, recycled);
   }
 
+  @Test
+  public void draw_bothPilesEmpty_throwsIllegalStateException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    assertThrows(IllegalStateException.class, dm::draw);
+
+    EasyMock.verify(random);
+  }
+
 }

@@ -375,4 +375,34 @@ public class DeckManagerTests {
     EasyMock.verify(random);
   }
 
+  @Test
+  public void returnCards_null_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    assertThrows(IllegalArgumentException.class, () -> dm.returnCards(null));
+
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void returnCards_emptyList_isNoOp() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    int drawBefore = dm.getDrawPileSize();
+
+    dm.returnCards(new ArrayList<>());
+
+    assertEquals(drawBefore, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
+  }
 }

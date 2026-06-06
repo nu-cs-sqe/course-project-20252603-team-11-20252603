@@ -297,4 +297,43 @@ public class GameLoopTests {
     EasyMock.verify(game, player0, player1, turn, random);
     fourCards.forEach(EasyMock::verify);
   }
+
+  @Test
+  public void runNextTurn_fiveCards_runsCardTradePhaseBeforeReinforcement() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    CardTradePhase cardTradePhase = EasyMock.createMock(CardTradePhase.class);
+    List<RiskCard> fiveCards = makeCards(5);
+    fiveCards.forEach(EasyMock::replay);
+
+    recordActivePlayerTurnSetup(game, player0, player1, turn, random, fiveCards);
+    cardTradePhase.execute();
+    EasyMock.replay(game, player0, player1, turn, random, cardTradePhase);
+
+    final boolean[] cardTradeCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            assertTrue(cardTradeCalled[0]);
+            return turn;
+          }
+
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player) {
+            assertSame(player0, player);
+            cardTradeCalled[0] = true;
+            return cardTradePhase;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertTrue(cardTradeCalled[0]);
+    EasyMock.verify(game, player0, player1, turn, random, cardTradePhase);
+    fiveCards.forEach(EasyMock::verify);
+  }
 }

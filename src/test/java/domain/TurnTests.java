@@ -24,17 +24,17 @@ public class TurnTests {
       FortificationPhase fp) {
     return new Turn(player, game, random) {
       @Override
-      protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
+      ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
         return rp;
       }
 
       @Override
-      protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
+      AttackPhase createAttackPhase(Player p, Game g, Random r) {
         return ap;
       }
 
       @Override
-      protected FortificationPhase createFortificationPhase(Player p, Game g) {
+      FortificationPhase createFortificationPhase(Player p, Game g) {
         return fp;
       }
     };

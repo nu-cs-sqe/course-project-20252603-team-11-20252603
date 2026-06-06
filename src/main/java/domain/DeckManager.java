@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -59,5 +60,9 @@ public class DeckManager {
 
   public int getDiscardPileSize() {
     return discardPile.size();
+  }
+
+  public List<RiskCard> getDrawPile() {
+    return Collections.unmodifiableList(drawPile);
   }
 }

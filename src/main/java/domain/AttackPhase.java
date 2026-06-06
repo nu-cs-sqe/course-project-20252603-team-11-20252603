@@ -13,6 +13,7 @@ public class AttackPhase {
   private final Game game;
   private int conqueredCount = 0;
   private int lastAttackDice = 0;
+  private boolean ended = false;
 
   public AttackPhase(Player attacker, DiceRoller diceRoller, Game game) {
     this.attacker = attacker;
@@ -74,8 +75,13 @@ public class AttackPhase {
     }
   }
 
+  public boolean isEnded() {
+    return ended;
+  }
+
   public void endPhase() {
     awardCardIfEarned();
+    ended = true;
   }
 
   public void awardCardIfEarned() {

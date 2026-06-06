@@ -24,17 +24,35 @@ public class GameLoopTests {
 
   private void recordActivePlayerTurnSetup(
       Game game, Player currentPlayer, Player otherPlayer, Turn turn, Random random) {
+    recordActivePlayerTurnSetup(game, currentPlayer, otherPlayer, turn, random, List.of());
+  }
+
+  private void recordActivePlayerTurnSetup(
+      Game game,
+      Player currentPlayer,
+      Player otherPlayer,
+      Turn turn,
+      Random random,
+      List<RiskCard> currentPlayerCards) {
     EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0);
     EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
-    EasyMock.expect(currentPlayer.getCards()).andReturn(List.of());
+    EasyMock.expect(currentPlayer.getCards()).andReturn(currentPlayerCards);
     EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
     currentPlayer.setAvailableTroops(3);
     EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
     EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
     EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
     recordTurnDelegation(turn);
+  }
+
+  private List<RiskCard> makeCards(int count) {
+    List<RiskCard> cards = new java.util.ArrayList<>();
+    for (int i = 0; i < count; i++) {
+      cards.add(EasyMock.createMock(RiskCard.class));
+    }
+    return cards;
   }
 
   private void recordSkippedEliminatedPlayerTurnSetup(
@@ -243,5 +261,40 @@ public class GameLoopTests {
 
     assertSame(player3, turnPlayer[0]);
     EasyMock.verify(game, player0, player1, player2, player3, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_fourCards_doesNotRunCardTradePhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> fourCards = makeCards(4);
+    fourCards.forEach(EasyMock::replay);
+
+    recordActivePlayerTurnSetup(game, player0, player1, turn, random, fourCards);
+    EasyMock.replay(game, player0, player1, turn, random);
+
+    final boolean[] cardTradeCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            return turn;
+          }
+
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player) {
+            cardTradeCalled[0] = true;
+            return EasyMock.createMock(CardTradePhase.class);
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertFalse(cardTradeCalled[0]);
+    EasyMock.verify(game, player0, player1, turn, random);
+    fourCards.forEach(EasyMock::verify);
   }
 }

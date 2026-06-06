@@ -59,7 +59,7 @@ The win boundary is at exactly **1** active player.
 
 **B. Pre-turn CardTradePhase — current player's card count (Count, trigger interval starts at 5)**
 
-- **TC9: 4 cards (one below trigger threshold)** ( :x: )
+- **TC9: 4 cards (one below trigger threshold)** ( :white_check_mark: )
     - **State of the system**: current player holds 4 cards
     - **Expected output**: CardTradePhase NOT created/run before reinforcement
 - **TC10: 5 cards (lower boundary of trigger threshold)** ( :x: )

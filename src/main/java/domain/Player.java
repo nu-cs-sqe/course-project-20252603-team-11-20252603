@@ -9,6 +9,7 @@ public class Player {
   private final List<Territory> territories;
   private final List<RiskCard> cards;
   private int availableTroops;
+  private boolean isEliminated;
 
   public Player(String name) {
     if (name == null || name.isEmpty()) {
@@ -70,21 +71,8 @@ public class Player {
     cards.add(card);
   }
 
-  public void placeTroops(Territory territory, int amount) {
-    if (territory == null) {
-      throw new IllegalArgumentException("Territory cannot be null.");
-    }
-    if (!territories.contains(territory)) {
-      throw new IllegalArgumentException("Territory not owned by player.");
-    }
-    if (amount <= 0) {
-      throw new IllegalArgumentException("Amount must be positive.");
-    }
-    if (amount > availableTroops) {
-      throw new IllegalArgumentException("Not enough available troops.");
-    }
-    territory.addTroops(amount);
-    availableTroops -= amount;
+  public boolean isEliminated() {
+    return isEliminated;
   }
 
   public int calculateReinforcements() {

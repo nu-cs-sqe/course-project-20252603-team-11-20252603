@@ -21,7 +21,7 @@ Precondition: player and tradeBonus are valid objects. `mandatory` is a Case var
   - **State of the system**: player and tradeBonus provided; mandatory = false
   - **Expected output**: CardTradePhase constructed; isComplete() = true (no forced trading)
 
-- **TC2: mandatory = true → CardTradePhase constructed; isComplete() reflects player's card count** ( :x: )
+- **TC2: mandatory = true → CardTradePhase constructed; isComplete() reflects player's card count** ( :white_check_mark: )
   - **State of the system**: player and tradeBonus provided; mandatory = true; player holds 5 cards
   - **Expected output**: CardTradePhase constructed; isComplete() = false (player must still trade)
 

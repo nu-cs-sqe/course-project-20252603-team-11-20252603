@@ -19,6 +19,10 @@ public class DeckManager {
     this.discardPile = new ArrayList<>();
   }
 
+  public void buildDeck(List<Territory> territories) {
+    throw new IllegalArgumentException("Territories list cannot be null.");
+  }
+
   public int size() {
     return drawPile.size() + discardPile.size();
   }

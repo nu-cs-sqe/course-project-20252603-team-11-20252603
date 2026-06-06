@@ -22,4 +22,11 @@ public class DeskManagerTests {
     assertEquals(0, dm.getDiscardPileSize());
   }
 
+  @Test
+  public void buildDeck_nullTerritories_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    DeckManager dm = new DeckManager(random);
+    assertThrows(IllegalArgumentException.class, () -> dm.buildDeck(null));
+  }
+
 }

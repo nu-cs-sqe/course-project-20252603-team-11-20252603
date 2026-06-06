@@ -49,7 +49,7 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
   - **State of the system**: 3-card list containing 2 wildcards
   - **Expected output**: true
 
-- **TC9: two INFANTRY, one CAVALRY (not all-same, not one-of-each, no wildcard) → false** ( :x: )
+- **TC9: two INFANTRY, one CAVALRY (not all-same, not one-of-each, no wildcard) → false** ( :white_check_mark: )
   - **State of the system**: 3-card list with 2 of same type and 1 of different, no wildcard
   - **Expected output**: false
 

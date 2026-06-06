@@ -10,6 +10,22 @@ import org.junit.jupiter.api.Test;
 public class CardTradePhaseTests {
 
   @Test
+  public void validateSet_invalidThreeCardSet_returnsFalse() {
+    Player player = EasyMock.createMock(Player.class);
+    TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    RiskCard card3 = EasyMock.createMock(RiskCard.class);
+    EasyMock.expect(card1.getType()).andReturn(RiskCardType.INFANTRY).anyTimes();
+    EasyMock.expect(card2.getType()).andReturn(RiskCardType.INFANTRY).anyTimes();
+    EasyMock.expect(card3.getType()).andReturn(RiskCardType.CAVALRY).anyTimes();
+    EasyMock.replay(player, tradeBonus, card1, card2, card3);
+
+    CardTradePhase phase = new CardTradePhase(player, tradeBonus, false);
+    assertFalse(phase.validateSet(List.of(card1, card2, card3)));
+  }
+
+  @Test
   public void validateSet_validThreeCardSet_returnsTrue() {
     Player player = EasyMock.createMock(Player.class);
     TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);

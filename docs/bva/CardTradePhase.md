@@ -61,7 +61,7 @@ CardTradeValidator's own BVA.
   - **State of the system**: 3-card list, all INFANTRY
   - **Expected output**: true
 
-- **TC7: invalid 3-card set (two of same type, one different, no wildcard) → false** ( :x: )
+- **TC7: invalid 3-card set (two of same type, one different, no wildcard) → false** ( :white_check_mark: )
   - **State of the system**: 3-card list, two INFANTRY and one CAVALRY
   - **Expected output**: false
 

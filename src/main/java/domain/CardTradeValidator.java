@@ -15,7 +15,18 @@ public class CardTradeValidator {
     if (allSame) {
       return true;
     }
-    return false;
+    boolean hasInfantry = false;
+    boolean hasCavalry = false;
+    boolean hasArtillery = false;
+    for (RiskCard card : cards) {
+      switch (card.getType()) {
+        case INFANTRY: hasInfantry = true; break;
+        case CAVALRY: hasCavalry = true; break;
+        case ARTILLERY: hasArtillery = true; break;
+        default: break;
+      }
+    }
+    return hasInfantry && hasCavalry && hasArtillery;
   }
 
   public boolean isMandatory(Player player) {

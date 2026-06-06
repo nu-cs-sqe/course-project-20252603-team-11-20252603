@@ -48,4 +48,12 @@ public class TradeBonusTests {
     bonus.increment();
     assertEquals(6, bonus.getValue());
   }
+
+  @Test
+  public void increment_calledTwice_accumulatesStepTwice() {
+    TradeBonus bonus = new TradeBonus(4, 2);
+    bonus.increment();
+    bonus.increment();
+    assertEquals(8, bonus.getValue());
+  }
 }

@@ -60,6 +60,6 @@ adds incrementStep to currentValue. BVA is on the number of calls made (Count va
   - **State of the system**: TradeBonus freshly constructed; increment() called once
   - **Expected output**: getValue() returns initialValue + incrementStep
 
-- **TC8: second call to increment() → currentValue increases by incrementStep again** ( :x: )
+- **TC8: second call to increment() → currentValue increases by incrementStep again** ( :white_check_mark: )
   - **State of the system**: TradeBonus constructed; increment() called twice
   - **Expected output**: getValue() returns initialValue + 2 * incrementStep

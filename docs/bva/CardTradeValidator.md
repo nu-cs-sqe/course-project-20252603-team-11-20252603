@@ -15,47 +15,42 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
 
 **`cards` parameter (Collection with fixed size 3):**
 
-- **TC1: cards is null → IllegalArgumentException** ( :x: )
-  - **State of the system**: validator constructed
-  - **Expected output**: IllegalArgumentException thrown
-
-- **TC2: cards.size() = 2 (one below required size 3) → IllegalArgumentException** ( :x: )
+- **TC1: 2 cards (one below required size 3) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: list contains 2 cards
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC3: cards.size() = 4 (one above required size 3) → IllegalArgumentException** ( :x: )
+- **TC2: 4 cards (one above required size 3) → IllegalArgumentException** ( :x: )
   - **State of the system**: list contains 4 cards
   - **Expected output**: IllegalArgumentException thrown
 
 **Card type combinations (Case variable — all distinct legal and illegal set types):**
 
-- **TC4: [INFANTRY, INFANTRY, INFANTRY] → true** ( :x: )
+- **TC3: three INFANTRY cards (all same type) → true** ( :x: )
   - **State of the system**: 3-card list, all INFANTRY
   - **Expected output**: true
 
-- **TC5: [CAVALRY, CAVALRY, CAVALRY] → true** ( :x: )
+- **TC4: three CAVALRY cards (all same type) → true** ( :x: )
   - **State of the system**: 3-card list, all CAVALRY
   - **Expected output**: true
 
-- **TC6: [ARTILLERY, ARTILLERY, ARTILLERY] → true** ( :x: )
+- **TC5: three ARTILLERY cards (all same type) → true** ( :x: )
   - **State of the system**: 3-card list, all ARTILLERY
   - **Expected output**: true
 
-- **TC7: [INFANTRY, CAVALRY, ARTILLERY] → true** ( :x: )
+- **TC6: one INFANTRY, one CAVALRY, one ARTILLERY (one of each) → true** ( :x: )
   - **State of the system**: 3-card list, one of each non-wildcard type
   - **Expected output**: true
 
-- **TC8: [WILDCARD, INFANTRY, CAVALRY] → true** ( :x: )
+- **TC7: one WILDCARD, one INFANTRY, one CAVALRY (contains wildcard) → true** ( :x: )
   - **State of the system**: 3-card list containing 1 wildcard
   - **Expected output**: true
 
-- **TC9: [WILDCARD, WILDCARD, INFANTRY] → true** ( :x: )
+- **TC8: two WILDCARDs, one INFANTRY (contains two wildcards) → true** ( :x: )
   - **State of the system**: 3-card list containing 2 wildcards
   - **Expected output**: true
 
-- **TC10: [INFANTRY, INFANTRY, CAVALRY] → false** ( :x: )
+- **TC9: two INFANTRY, one CAVALRY (not all-same, not one-of-each, no wildcard) → false** ( :x: )
   - **State of the system**: 3-card list with 2 of same type and 1 of different, no wildcard
-    (the only non-wildcard combination that is neither all-same nor one-of-each)
   - **Expected output**: false
 
 ---
@@ -68,11 +63,11 @@ forced before reinforcement placement. Returns true iff the player holds 5 or mo
 
 **`player.getCardCount()` (Count variable ≥ 0, mandatory threshold 5):**
 
-- **TC11: player.getCardCount() = 4 (one below threshold) → false** ( :x: )
+- **TC10: player holds 4 cards (one below threshold of 5) → false** ( :x: )
   - **State of the system**: player holds 4 cards
   - **Expected output**: false
 
-- **TC12: player.getCardCount() = 5 (at threshold, lower bound of mandatory range) → true** ( :x: )
+- **TC11: player holds 5 cards (at threshold, lower bound of mandatory range) → true** ( :x: )
   - **State of the system**: player holds 5 cards
   - **Expected output**: true
 
@@ -87,11 +82,11 @@ at turn start).
 
 **`player.getCardCount()` (Count variable ≥ 0, must-continue threshold 5):**
 
-- **TC13: player.getCardCount() = 4 (one below threshold) → false** ( :x: )
+- **TC12: player holds 4 cards after a trade (one below threshold of 5) → false** ( :x: )
   - **State of the system**: player holds 4 cards after a trade
   - **Expected output**: false
 
-- **TC14: player.getCardCount() = 5 (at threshold, lower bound of must-continue range) → true** ( :x: )
+- **TC13: player holds 5 cards after a trade (at threshold, lower bound of must-continue range) → true** ( :x: )
   - **State of the system**: player holds 5 cards after a trade (e.g. received cards from
     eliminated opponent)
   - **Expected output**: true

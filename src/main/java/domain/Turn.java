@@ -114,7 +114,7 @@ public class Turn {
   }
 
   protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
-    return new AttackPhase(p, g, r);
+    return new AttackPhase(p, new DiceRoller(r), g);
   }
 
   protected FortificationPhase createFortificationPhase(Player p, Game g) {

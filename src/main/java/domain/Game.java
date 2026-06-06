@@ -12,16 +12,22 @@ public class Game {
   private static final int MAX_NUMBER_OF_PLAYERS = 6;
   private final List<Player> players;
   private final GameMap map;
-  private final List<RiskCard> deck;
+  private final DeckManager deckManager;
   private final Random random;
   private int currentPlayerIndex = -1;
 
-  public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
+  public Game(List<Player> players, GameMap map, DeckManager deckManager, Random random) {
     validatePlayers(players);
     validateMap(map);
+    if (deckManager == null) {
+      throw new IllegalArgumentException("DeckManager cannot be null.");
+    }
+    if (random == null) {
+      throw new IllegalArgumentException("Random cannot be null.");
+    }
     this.players = players;
     this.map = map;
-    this.deck = deck;
+    this.deckManager = deckManager;
     this.random = random;
   }
 
@@ -81,7 +87,7 @@ public class Game {
   }
 
   public void shuffleDeck() {
-    Collections.shuffle(deck, random);
+    deckManager.shuffle();
   }
 
   public void chooseFirstPlayer() {
@@ -97,11 +103,11 @@ public class Game {
   }
 
   public int getDeckSize() {
-    return deck.size();
+    return deckManager.getDrawPileSize();
   }
 
   public List<RiskCard> getDeck() {
-    return Collections.unmodifiableList(deck);
+    return deckManager.getDrawPile();
   }
 
   public int getCurrentPlayerIndex() {
@@ -109,9 +115,6 @@ public class Game {
   }
 
   public RiskCard drawCard() {
-    if (deck.isEmpty()) {
-      throw new IllegalStateException("Cannot draw from an empty deck.");
-    }
-    return deck.remove(0);
+    return deckManager.draw();
   }
 }

@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 public class DeckManager {
+  private static final int WILDCARD_COUNT = 2;
+  private static final RiskCardType[] TERRITORY_TYPES = {
+      RiskCardType.INFANTRY,
+      RiskCardType.CAVALRY,
+      RiskCardType.ARTILLERY
+  };
 
   private final List<RiskCard> drawPile;
   private final List<RiskCard> discardPile;
@@ -20,7 +26,27 @@ public class DeckManager {
   }
 
   public void buildDeck(List<Territory> territories) {
-    throw new IllegalArgumentException("Territories list cannot be null.");
+    if (territories == null) {
+      throw new IllegalArgumentException("Territories list cannot be null.");
+    }
+
+    drawPile.clear();
+    discardPile.clear();
+
+    int i = 0;
+    for (Territory territory : territories) {
+      if (territory == null) {
+        throw new IllegalArgumentException("Territory in list cannot be null.");
+      }
+
+      RiskCardType type = TERRITORY_TYPES[i % TERRITORY_TYPES.length];
+      drawPile.add(new RiskCard(type, territory));
+      i++;
+    }
+
+    for (int w = 0; w < WILDCARD_COUNT; w++) {
+      drawPile.add(new RiskCard(RiskCardType.WILDCARD, null));
+    }
   }
 
   public int size() {

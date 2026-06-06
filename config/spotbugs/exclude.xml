@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter
+    xmlns="https://github.com/spotbugs/filter/3.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+  <!-- TODO: remove when Jefferson implements player-elimination logic. -->
+  <Match>
+    <Class name="domain.Player"/>
+    <Field name="isEliminated"/>
+    <Bug pattern="UWF_UNWRITTEN_FIELD"/>
+  </Match>
+
+  <!-- TODO: remove when Kris wires up hover/reset behavior using baseColor. -->
+  <Match>
+    <Class name="ui.TerritoryNode"/>
+    <Field name="baseColor"/>
+    <Bug pattern="URF_UNREAD_FIELD"/>
+  </Match>
+
+  <!-- Test seam: the anonymous Turn subclass in buildTurn captures enclosing 'this' to
+       reach the rp/ap/fp helper parameters. Refactoring to a named static inner class
+       would significantly bloat the test helper for no test-quality benefit. -->
+  <Match>
+    <Class name="~domain\.TurnTests\$.*"/>
+    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+  </Match>
+
+</FindBugsFilter>

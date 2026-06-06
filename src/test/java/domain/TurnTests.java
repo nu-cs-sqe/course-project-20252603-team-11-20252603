@@ -630,11 +630,13 @@ public class TurnTests {
     Player player = EasyMock.createMock(Player.class);
     Game game = EasyMock.createMock(Game.class);
     Random random = EasyMock.createMock(Random.class);
-    EasyMock.replay(player, game, random);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    EasyMock.expect(game.getMap()).andReturn(map);
+    EasyMock.replay(player, game, random, map);
 
     Turn turn = new Turn(player, game, random);
 
     assertNotNull(turn.createFortificationPhase(player, game));
-    EasyMock.verify(player, game, random);
+    EasyMock.verify(player, game, random, map);
   }
 }

@@ -2,6 +2,7 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -336,5 +337,134 @@ public class GameMapTests {
 
     assertTrue(map.areAdjacent(t2, t1));
     EasyMock.verify(t1, t2);
+  }
+
+  // ! findPath tests
+  @Test
+  public void findPath_nullSource_throwsIllegalArgumentException() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, d);
+    assertThrows(IllegalArgumentException.class, () -> map.findPath(null, d, player));
+    EasyMock.verify(player, d);
+  }
+
+  @Test
+  public void findPath_nullDestination_throwsIllegalArgumentException() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, s);
+    assertThrows(IllegalArgumentException.class, () -> map.findPath(s, null, player));
+    EasyMock.verify(player, s);
+  }
+
+  @Test
+  public void findPath_sourceEqualsDestination_throwsIllegalArgumentException() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory t = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, t);
+    assertThrows(IllegalArgumentException.class, () -> map.findPath(t, t, player));
+    EasyMock.verify(player, t);
+  }
+
+  @Test
+  public void findPath_directNeighbors_returnsPathOfSizeTwo() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, s, d);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    List<Territory> path = map.findPath(s, d, player);
+    assertEquals(2, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(d, path.get(1));
+    EasyMock.verify(player, s, d);
+  }
+
+  @Test
+  public void findPath_twoHopPath_returnsPathOfSizeThree() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory mid = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(mid.getOwner()).andReturn(player);
+    EasyMock.replay(player, s, mid, d);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    List<Territory> path = map.findPath(s, d, player);
+    assertEquals(3, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(mid, path.get(1));
+    assertEquals(d, path.get(2));
+    EasyMock.verify(player, s, mid, d);
+  }
+
+  @Test
+  public void findPath_threeHopPath_returnsPathOfSizeFour() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory mid1 = EasyMock.createMock(Territory.class);
+    Territory mid2 = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(mid1.getOwner()).andReturn(player);
+    EasyMock.expect(mid2.getOwner()).andReturn(player);
+    EasyMock.replay(player, s, mid1, mid2, d);
+    map.addTerritory(s);
+    map.addTerritory(mid1);
+    map.addTerritory(mid2);
+    map.addTerritory(d);
+    map.addConnection(s, mid1);
+    map.addConnection(mid1, mid2);
+    map.addConnection(mid2, d);
+    List<Territory> path = map.findPath(s, d, player);
+    assertEquals(4, path.size());
+    assertEquals(s, path.get(0));
+    assertEquals(mid1, path.get(1));
+    assertEquals(mid2, path.get(2));
+    assertEquals(d, path.get(3));
+    EasyMock.verify(player, s, mid1, mid2, d);
+  }
+
+  @Test
+  public void findPath_noPath_returnsEmptyList() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, s, d);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    assertTrue(map.findPath(s, d, player).isEmpty());
+    EasyMock.verify(player, s, d);
+  }
+
+  @Test
+  public void findPath_pathThroughEnemyTerritory_returnsEmptyList() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Player enemy = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory mid = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(mid.getOwner()).andReturn(enemy);
+    EasyMock.replay(player, enemy, s, mid, d);
+    map.addTerritory(s);
+    map.addTerritory(mid);
+    map.addTerritory(d);
+    map.addConnection(s, mid);
+    map.addConnection(mid, d);
+    assertTrue(map.findPath(s, d, player).isEmpty());
+    EasyMock.verify(player, enemy, s, mid, d);
   }
 }

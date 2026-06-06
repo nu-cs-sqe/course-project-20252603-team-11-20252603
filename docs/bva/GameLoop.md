@@ -14,7 +14,7 @@ Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7)
 
 **`game` parameter:**
 
-- **TC1: null game** ( :x: )
+- **TC1: null game** ( :white_check_mark: )
     - **State of the system**: No GameLoop created yet
     - **Expected output**: IllegalArgumentException thrown
 - **TC2: valid non-null game** ( :x: )

@@ -345,4 +345,23 @@ public class DeckManagerTests {
     EasyMock.verify(random);
   }
 
+  @Test
+  public void draw_drawEmptyDiscardNonEmpty_autoReshufflesThenDraws() {
+    Random random = EasyMock.createMock(Random.class);
+    RiskCard recycled = EasyMock.createMock(RiskCard.class);
+    // shuffle on size 1 makes 0 nextInt calls
+    EasyMock.replay(random, recycled);
+
+    DeckManager dm = new DeckManager(random);
+    dm.returnCards(Arrays.asList(recycled));
+
+    RiskCard card = dm.draw();
+
+    assertSame(recycled, card);
+    assertEquals(0, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+
+    EasyMock.verify(random, recycled);
+  }
+
 }

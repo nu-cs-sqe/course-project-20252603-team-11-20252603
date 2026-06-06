@@ -86,7 +86,7 @@ The win boundary is at exactly **1** active player.
 
 **E. Post-turn elimination handling**
 
-- **TC15: no elimination during turn** ( :x: )
+- **TC15: no elimination during turn** ( :white_check_mark: )
     - **State of the system**: Turn completes; no defending player eliminated
     - **Expected output**: no card transfer; no post-elimination CardTradePhase; checkWinCondition() called once after turn (returns false)
 - **TC16: defending player eliminated — cards transferred to attacker** ( :x: )

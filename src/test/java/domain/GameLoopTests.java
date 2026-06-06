@@ -505,4 +505,43 @@ public class GameLoopTests {
     assertEquals(2, createTurnCalls[0]);
     EasyMock.verify(game, player0, player1, turn1, turn2, random, reinforcementPhase);
   }
+
+  @Test
+  public void runNextTurn_noElimination_checkWinConditionReturnsFalse() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase reinforcementPhase = EasyMock.createMock(ReinforcementPhase.class);
+
+    recordActivePlayerTurnSetup(game, player0, player1, turn, random);
+    EasyMock.replay(game, player0, player1, turn, random, reinforcementPhase);
+
+    final boolean[] postTurnCardTradeCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected ReinforcementPhase createReinforcementPhase(
+              Player player, int reinforcements) {
+            return reinforcementPhase;
+          }
+
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            return turn;
+          }
+
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player) {
+            postTurnCardTradeCalled[0] = true;
+            return EasyMock.createMock(CardTradePhase.class);
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertFalse(postTurnCardTradeCalled[0]);
+    EasyMock.verify(game, player0, player1, turn, random, reinforcementPhase);
+  }
 }

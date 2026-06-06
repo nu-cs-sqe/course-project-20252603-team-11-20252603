@@ -10,6 +10,11 @@ public class CardTradeValidator {
     if (cards.size() != TRADE_SET_SIZE) {
       throw new IllegalArgumentException("A trade set must contain exactly 3 cards.");
     }
+    RiskCardType first = cards.get(0).getType();
+    boolean allSame = cards.get(1).getType() == first && cards.get(2).getType() == first;
+    if (allSame) {
+      return true;
+    }
     return false;
   }
 

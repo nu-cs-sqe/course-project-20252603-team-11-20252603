@@ -25,7 +25,7 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
 
 **Card type combinations (Case variable — all distinct legal and illegal set types):**
 
-- **TC3: three INFANTRY cards (all same type) → true** ( :x: )
+- **TC3: three INFANTRY cards (all same type) → true** ( :white_check_mark: )
   - **State of the system**: 3-card list, all INFANTRY
   - **Expected output**: true
 

@@ -29,7 +29,7 @@ public class TurnTests {
       }
 
       @Override
-      AttackPhase createAttackPhase(Player p, Game g, Random r) {
+      AttackPhase createAttackPhase(Player p, Game g, DiceRoller diceRoller) {
         return ap;
       }
 
@@ -617,12 +617,13 @@ public class TurnTests {
     Player player = EasyMock.createMock(Player.class);
     Game game = EasyMock.createMock(Game.class);
     Random random = EasyMock.createMock(Random.class);
-    EasyMock.replay(player, game, random);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    EasyMock.replay(player, game, random, diceRoller);
 
     Turn turn = new Turn(player, game, random);
 
-    assertNotNull(turn.createAttackPhase(player, game, random));
-    EasyMock.verify(player, game, random);
+    assertNotNull(turn.createAttackPhase(player, game, diceRoller));
+    EasyMock.verify(player, game, random, diceRoller);
   }
 
   @Test

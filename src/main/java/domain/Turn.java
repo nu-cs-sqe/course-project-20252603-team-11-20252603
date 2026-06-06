@@ -5,7 +5,7 @@ import java.util.Random;
 public class Turn {
   private final Player currentPlayer;
   private final Game game;
-  private final Random random;
+  private final DiceRoller diceRoller;
 
   private TurnPhase phase;
   private boolean conqueredThisTurn;
@@ -26,7 +26,7 @@ public class Turn {
     }
     this.currentPlayer = currentPlayer;
     this.game = game;
-    this.random = random;
+    this.diceRoller = new DiceRoller(random);
     this.phase = null;
     this.conqueredThisTurn = false;
   }
@@ -76,7 +76,7 @@ public class Turn {
     if (!reinforcementPhase.isComplete()) {
       throw new IllegalStateException("Reinforcement phase not complete.");
     }
-    attackPhase = createAttackPhase(currentPlayer, game, random);
+    attackPhase = createAttackPhase(currentPlayer, game, diceRoller);
     phase = TurnPhase.ATTACK;
   }
 
@@ -113,8 +113,8 @@ public class Turn {
     return new ReinforcementPhase(p, troopsToPlace);
   }
 
-  AttackPhase createAttackPhase(Player p, Game g, Random r) {
-    return new AttackPhase(p, g, r);
+  AttackPhase createAttackPhase(Player p, Game g, DiceRoller diceRoller) {
+    return new AttackPhase(p, diceRoller, g);
   }
 
   FortificationPhase createFortificationPhase(Player p, Game g) {

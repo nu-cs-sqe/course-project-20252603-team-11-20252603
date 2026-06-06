@@ -35,7 +35,7 @@ traded down below the threshold; false when mandatory=true and the player still 
 
 **`mandatory` and `player.getCardCount()` (jointly drive completion):**
 
-- **TC3: mandatory = false → true** ( :x: )
+- **TC3: mandatory = false → true** ( :white_check_mark: )
   - **State of the system**: CardTradePhase constructed with mandatory=false
   - **Expected output**: true (no mandatory requirement; phase is always complete)
 

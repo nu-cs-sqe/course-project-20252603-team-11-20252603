@@ -10,6 +10,16 @@ import org.junit.jupiter.api.Test;
 public class CardTradePhaseTests {
 
   @Test
+  public void isComplete_mandatoryFalse_returnsTrue() {
+    Player player = EasyMock.createMock(Player.class);
+    TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);
+    EasyMock.replay(player, tradeBonus);
+
+    CardTradePhase phase = new CardTradePhase(player, tradeBonus, false);
+    assertTrue(phase.isComplete());
+  }
+
+  @Test
   public void constructor_mandatoryTrue_playerHoldsFiveCards_isCompleteReturnsFalse() {
     Player player = EasyMock.createMock(Player.class);
     TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);

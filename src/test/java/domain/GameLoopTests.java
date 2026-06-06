@@ -456,4 +456,53 @@ public class GameLoopTests {
     assertEquals(1, createTurnCalls[0]);
     EasyMock.verify(game, player0, player1, turn, random, reinforcementPhase);
   }
+
+  @Test
+  public void runNextTurn_calledTwice_createsDistinctTurnInstances() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn1 = EasyMock.createMock(Turn.class);
+    Turn turn2 = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase reinforcementPhase = EasyMock.createMock(ReinforcementPhase.class);
+
+    EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0).anyTimes();
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(player0, player1)).anyTimes();
+    EasyMock.expect(game.getRandom()).andReturn(random).anyTimes();
+    EasyMock.expect(player0.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(player0.getCards()).andReturn(List.of()).anyTimes();
+    EasyMock.expect(player0.calculateReinforcements()).andReturn(3).anyTimes();
+    player0.setAvailableTroops(3);
+    EasyMock.expectLastCall().anyTimes();
+    EasyMock.expect(player0.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(player1.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(player1.getTerritoryCount()).andReturn(1).anyTimes();
+    recordTurnDelegation(turn1);
+    recordTurnDelegation(turn2);
+    EasyMock.replay(
+        game, player0, player1, turn1, turn2, random, reinforcementPhase);
+
+    final int[] createTurnCalls = {0};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected ReinforcementPhase createReinforcementPhase(
+              Player player, int reinforcements) {
+            return reinforcementPhase;
+          }
+
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            createTurnCalls[0]++;
+            return createTurnCalls[0] == 1 ? turn1 : turn2;
+          }
+        };
+
+    gameLoop.runNextTurn();
+    gameLoop.runNextTurn();
+
+    assertEquals(2, createTurnCalls[0]);
+    EasyMock.verify(game, player0, player1, turn1, turn2, random, reinforcementPhase);
+  }
 }

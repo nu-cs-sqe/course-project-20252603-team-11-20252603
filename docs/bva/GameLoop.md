@@ -29,7 +29,7 @@ Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7)
 
 The win boundary is at exactly **1** active player.
 
-- **TC3: 2 active players (one above win threshold)** ( :x: )
+- **TC3: 2 active players (one above win threshold)** ( :white_check_mark: )
     - **State of the system**: 2 players not eliminated; gameState == IN_PROGRESS; winner unset
     - **Expected output**: returns false; gameState stays IN_PROGRESS; winner remains unset
 - **TC4: 1 active player (win threshold, lower boundary of "game over")** ( :x: )

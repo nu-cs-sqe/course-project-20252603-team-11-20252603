@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class Game {
@@ -14,6 +15,8 @@ public class Game {
   private final GameMap map;
   private final List<RiskCard> deck;
   private final Random random;
+  private GameState gameState = GameState.SETUP;
+  private Optional<Player> winner = Optional.empty();
   private int currentPlayerIndex = -1;
 
   public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
@@ -106,5 +109,25 @@ public class Game {
 
   public int getCurrentPlayerIndex() {
     return currentPlayerIndex;
+  }
+
+  public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
+  }
+
+  public GameState getGameState() {
+    return gameState;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public Optional<Player> getWinner() {
+    return winner;
+  }
+
+  public void setWinner(Player winner) {
+    this.winner = Optional.ofNullable(winner);
   }
 }

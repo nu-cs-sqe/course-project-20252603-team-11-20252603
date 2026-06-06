@@ -9,6 +9,7 @@ public class Player {
   private final List<Territory> territories;
   private final List<RiskCard> cards;
   private int availableTroops;
+  private boolean eliminated;
 
   public Player(String name) {
     if (name == null || name.isEmpty()) {
@@ -89,5 +90,13 @@ public class Player {
 
   public int calculateReinforcements() {
     return Math.max(3, territories.size() / 3);
+  }
+
+  public boolean isEliminated() {
+    return eliminated;
+  }
+
+  public void setEliminated(boolean eliminated) {
+    this.eliminated = eliminated;
   }
 }

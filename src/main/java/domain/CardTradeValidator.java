@@ -35,7 +35,7 @@ public class CardTradeValidator {
   }
 
   public boolean isMandatory(Player player) {
-    return false;
+    return player.getCardCount() >= MANDATORY_TRADE_THRESHOLD;
   }
 
   public boolean mustTrade(Player player) {

@@ -67,7 +67,7 @@ forced before reinforcement placement. Returns true iff the player holds 5 or mo
   - **State of the system**: player holds 4 cards
   - **Expected output**: false
 
-- **TC11: player holds 5 cards (at threshold, lower bound of mandatory range) → true** ( :x: )
+- **TC11: player holds 5 cards (at threshold, lower bound of mandatory range) → true** ( :white_check_mark: )
   - **State of the system**: player holds 5 cards
   - **Expected output**: true
 

@@ -47,7 +47,7 @@ The win boundary is at exactly **1** active player.
 
 `currentPlayerIndex` may point at an eliminated player; GameLoop must advance to the next active player before creating a Turn.
 
-- **TC6: current index points to active player (no skip needed)** ( :x: )
+- **TC6: current index points to active player (no skip needed)** ( :white_check_mark: )
     - **State of the system**: currentPlayerIndex == 0; player[0].isEliminated() == false
     - **Expected output**: Turn created for player[0]; no index adjustment before turn creation
 - **TC7: current index points to eliminated player, next player active (skip 1)** ( :x: )

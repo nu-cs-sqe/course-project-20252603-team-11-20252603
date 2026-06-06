@@ -15,17 +15,24 @@ public class Game {
   private final GameMap map;
   private final List<RiskCard> deck;
   private final Random random;
+  private final DeckManager deckManager;
   private GameState gameState = GameState.SETUP;
   private Optional<Player> winner = Optional.empty();
   private int currentPlayerIndex = -1;
 
-  public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
+  public Game(
+      List<Player> players,
+      GameMap map,
+      List<RiskCard> deck,
+      Random random,
+      DeckManager deckManager) {
     validatePlayers(players);
     validateMap(map);
     this.players = players;
     this.map = map;
     this.deck = deck;
     this.random = random;
+    this.deckManager = deckManager;
   }
 
   private static void validatePlayers(List<Player> players) {
@@ -73,7 +80,11 @@ public class Game {
     if (currentPlayerIndex < 0) {
       throw new IllegalStateException("Game not started; call chooseFirstPlayer() first.");
     }
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    int next = (currentPlayerIndex + 1) % players.size();
+    while (players.get(next).isEliminated()) {
+      next = (next + 1) % players.size();
+    }
+    currentPlayerIndex = next;
   }
 
   public void startGame() {
@@ -84,7 +95,7 @@ public class Game {
   }
 
   public void shuffleDeck() {
-    Collections.shuffle(deck);
+    Collections.shuffle(deck, random);
   }
 
   public void chooseFirstPlayer() {
@@ -111,20 +122,28 @@ public class Game {
     return currentPlayerIndex;
   }
 
-  public List<Player> getPlayers() {
-    return Collections.unmodifiableList(players);
-  }
-
   public GameState getGameState() {
     return gameState;
   }
 
-  public void setGameState(GameState gameState) {
-    this.gameState = gameState;
-  }
-
   public Optional<Player> getWinner() {
     return winner;
+  }
+
+  public RiskCard drawCard() {
+    return deckManager.draw();
+  }
+
+  public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
+  }
+
+  public Random getRandom() {
+    return random;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
   }
 
   public void setWinner(Player winner) {

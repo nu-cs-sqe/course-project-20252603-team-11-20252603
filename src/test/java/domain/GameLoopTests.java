@@ -6,10 +6,36 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 public class GameLoopTests {
+
+  private void recordTurnDelegation(Turn turn) {
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+  }
+
+  private void recordActivePlayerTurnSetup(
+      Game game, Player currentPlayer, Player otherPlayer, Turn turn, Random random) {
+    EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(currentPlayer.getCards()).andReturn(List.of());
+    EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
+    currentPlayer.setAvailableTroops(3);
+    EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    recordTurnDelegation(turn);
+  }
 
   @Test
   public void constructor_nullGame_throwsIllegalArgumentException() {
@@ -88,5 +114,34 @@ public class GameLoopTests {
     assertFalse(gameLoop.checkWinCondition());
 
     EasyMock.verify(game, player1, player2, player3);
+  }
+
+  @Test
+  public void runNextTurn_currentPlayerActive_createsTurnForCurrentPlayer() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+
+    recordActivePlayerTurnSetup(game, player0, player1, turn, random);
+    EasyMock.replay(game, player0, player1, turn, random);
+
+    final Player[] turnPlayer = new Player[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            turnPlayer[0] = currentPlayer;
+            assertSame(game, g);
+            assertSame(random, r);
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertSame(player0, turnPlayer[0]);
+    EasyMock.verify(game, player0, player1, turn, random);
   }
 }

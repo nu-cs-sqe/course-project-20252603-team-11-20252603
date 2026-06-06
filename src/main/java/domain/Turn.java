@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class Turn {
@@ -107,6 +108,10 @@ public class Turn {
       throw new IllegalStateException("Turn not yet at ENDED state.");
     }
     game.advanceToNextPlayer();
+  }
+
+  public Optional<Player> getEliminatedDefender() {
+    return Optional.empty();
   }
 
   protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {

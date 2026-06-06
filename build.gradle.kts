@@ -1,7 +1,10 @@
 plugins {
     id("java")
+    id("application")
     id("checkstyle")
     id("jacoco")
+    id("info.solidsoft.pitest") version "1.15.0"
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "nu.csse.sqe"
@@ -15,6 +18,15 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.easymock:easymock:5.4.0")
+}
+
+application {
+    mainClass.set("ui.Main")
+}
+
+javafx {
+    version = "17.0.6"
+    modules = listOf("javafx.controls", "javafx.graphics")
 }
 
 java {
@@ -47,6 +59,15 @@ configure<CheckstyleExtension> {
 
 jacoco {
     toolVersion = "0.8.12"
+}
+
+pitest {
+    junit5PluginVersion.set("1.2.1")
+    targetClasses.set(setOf("domain.*"))
+    targetTests.set(setOf("domain.*"))
+    threads.set(4)
+    outputFormats.set(setOf("HTML"))
+    timestampedReports.set(false)
 }
 
 tasks.jacocoTestReport {

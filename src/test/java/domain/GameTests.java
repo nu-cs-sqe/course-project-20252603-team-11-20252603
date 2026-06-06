@@ -60,13 +60,19 @@ public class GameTests {
     return cards;
   }
 
+  private DeckManager mockDeck() {
+    DeckManager dm = EasyMock.createMock(DeckManager.class);
+    EasyMock.replay(dm);
+    return dm;
+  }
+
   @Test
   public void constructor_nullPlayers_throwsIllegalArgumentException() {
     GameMap map = makeMap();
     Random random = EasyMock.createMock(Random.class);
     EasyMock.replay(map, random);
     assertThrows(
-        IllegalArgumentException.class, () -> new Game(null, map, new ArrayList<>(), random));
+        IllegalArgumentException.class, () -> new Game(null, map, mockDeck(), random));
     EasyMock.verify(map, random);
   }
 
@@ -77,7 +83,7 @@ public class GameTests {
     EasyMock.replay(map, random);
     assertThrows(
         IllegalArgumentException.class,
-        () -> new Game(new ArrayList<>(), map, new ArrayList<>(), random));
+        () -> new Game(new ArrayList<>(), map, mockDeck(), random));
     EasyMock.verify(map, random);
   }
 
@@ -89,7 +95,8 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
     assertThrows(
-        IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), random));
+        IllegalArgumentException.class,
+        () -> new Game(players, map, mockDeck(), random));
     verifyAll(players, map);
     EasyMock.verify(random);
   }
@@ -102,7 +109,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertEquals(2, game.getPlayerCount());
     assertEquals(map, game.getMap());
@@ -118,7 +125,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertEquals(6, game.getPlayerCount());
     assertEquals(map, game.getMap());
@@ -134,7 +141,8 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
     assertThrows(
-        IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), random));
+        IllegalArgumentException.class,
+        () -> new Game(players, map, mockDeck(), random));
     verifyAll(players, map);
     EasyMock.verify(random);
   }
@@ -154,7 +162,8 @@ public class GameTests {
     Random random = EasyMock.createMock(Random.class);
     EasyMock.replay(random);
     assertThrows(
-        IllegalArgumentException.class, () -> new Game(players, map, new ArrayList<>(), random));
+        IllegalArgumentException.class,
+        () -> new Game(players, map, mockDeck(), random));
     players.forEach(
         p -> {
           if (p != null) {
@@ -172,7 +181,8 @@ public class GameTests {
     players.forEach(EasyMock::replay);
     EasyMock.replay(random);
     assertThrows(
-        IllegalArgumentException.class, () -> new Game(players, null, new ArrayList<>(), random));
+        IllegalArgumentException.class,
+        () -> new Game(players, null, mockDeck(), random));
     players.forEach(EasyMock::verify);
     EasyMock.verify(random);
   }
@@ -191,7 +201,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(territory, random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -220,7 +230,7 @@ public class GameTests {
     territories.forEach(EasyMock::replay);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -248,7 +258,7 @@ public class GameTests {
     territories.forEach(EasyMock::replay);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -275,7 +285,7 @@ public class GameTests {
     territories.forEach(EasyMock::replay);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -302,7 +312,7 @@ public class GameTests {
     territories.forEach(EasyMock::replay);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -320,7 +330,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.assignTerritories();
 
     verifyAll(players, map);
@@ -341,7 +351,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.distributeStartingTroops();
 
     verifyAll(players, map);
@@ -364,7 +374,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.distributeStartingTroops();
 
     verifyAll(players, map);
@@ -389,7 +399,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.distributeStartingTroops();
 
     verifyAll(players, map);
@@ -414,7 +424,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.distributeStartingTroops();
 
     verifyAll(players, map);
@@ -443,7 +453,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.distributeStartingTroops();
 
     verifyAll(players, map);
@@ -459,7 +469,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
 
     assertEquals(0, game.getCurrentPlayerIndex());
@@ -476,7 +486,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
 
     assertEquals(1, game.getCurrentPlayerIndex());
@@ -493,7 +503,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
 
     assertEquals(0, game.getCurrentPlayerIndex());
@@ -510,7 +520,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
 
     assertEquals(5, game.getCurrentPlayerIndex());
@@ -526,7 +536,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertEquals(map, game.getMap());
     verifyAll(players, map);
@@ -538,9 +548,12 @@ public class GameTests {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
     List<Territory> territories = makeTerritories(2);
-    List<RiskCard> deck = makeCards(1);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
 
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(1);
     EasyMock.expect(map.getTerritories()).andReturn(territories);
     expectIdentityShuffle(random, 2);
     players.get(0).addTerritory(territories.get(0));
@@ -555,26 +568,27 @@ public class GameTests {
 
     replayAll(players, map);
     territories.forEach(EasyMock::replay);
-    deck.forEach(EasyMock::replay);
-    EasyMock.replay(random);
+    EasyMock.replay(random, deckManager);
 
-    Game game = new Game(players, map, deck, random);
+    Game game = new Game(players, map, deckManager, random);
     game.startGame();
 
     assertEquals(0, game.getCurrentPlayerIndex());
     assertEquals(1, game.getDeckSize());
     verifyAll(players, map);
     territories.forEach(EasyMock::verify);
-    deck.forEach(EasyMock::verify);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
   public void startGame_twoPlayers_currentPlayerIndexAtLowerBound() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
 
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
     EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
     EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(0);
     EasyMock.expect(players.get(1).getTerritoryCount()).andReturn(0);
@@ -583,22 +597,25 @@ public class GameTests {
     EasyMock.expect(random.nextInt(2)).andReturn(0);
 
     replayAll(players, map);
-    EasyMock.replay(random);
+    EasyMock.replay(random, deckManager);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, deckManager, random);
     game.startGame();
 
     assertEquals(0, game.getCurrentPlayerIndex());
     verifyAll(players, map);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
   public void startGame_twoPlayers_currentPlayerIndexAtUpperBound() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
 
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
     EasyMock.expect(map.getTerritories()).andReturn(new ArrayList<>());
     EasyMock.expect(players.get(0).getTerritoryCount()).andReturn(0);
     EasyMock.expect(players.get(1).getTerritoryCount()).andReturn(0);
@@ -607,34 +624,39 @@ public class GameTests {
     EasyMock.expect(random.nextInt(2)).andReturn(1);
 
     replayAll(players, map);
-    EasyMock.replay(random);
+    EasyMock.replay(random, deckManager);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, deckManager, random);
     game.startGame();
 
     assertEquals(1, game.getCurrentPlayerIndex());
     verifyAll(players, map);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
   public void shuffleDeck_oneCard_deckStillContainsThatCard() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
-    List<RiskCard> deck = makeCards(1);
-    RiskCard card = deck.get(0);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    // shuffle of size 1 makes no nextInt calls
-    EasyMock.replay(card, random);
-    replayAll(players, map);
 
-    Game game = new Game(players, map, deck, random);
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(1);
+    EasyMock.expect(deckManager.getDrawPile()).andReturn(List.of(card));
+
+    replayAll(players, map);
+    EasyMock.replay(card, random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
     game.shuffleDeck();
 
     assertEquals(1, game.getDeckSize());
     assertEquals(card, game.getDeck().get(0));
     verifyAll(players, map);
-    EasyMock.verify(card, random);
+    EasyMock.verify(card, random, deckManager);
   }
 
   @Test
@@ -642,20 +664,26 @@ public class GameTests {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
     List<RiskCard> deck = makeCards(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    expectIdentityShuffle(random, 2);
+
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(2);
+    EasyMock.expect(deckManager.getDrawPile()).andReturn(deck).times(2);
+
     deck.forEach(EasyMock::replay);
     replayAll(players, map);
-    EasyMock.replay(random);
+    EasyMock.replay(random, deckManager);
 
-    Game game = new Game(players, map, deck, random);
+    Game game = new Game(players, map, deckManager, random);
     game.shuffleDeck();
 
     assertEquals(2, game.getDeckSize());
     assertTrue(game.getDeck().contains(deck.get(0)));
     assertTrue(game.getDeck().contains(deck.get(1)));
     deck.forEach(EasyMock::verify);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
@@ -663,19 +691,25 @@ public class GameTests {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
     List<RiskCard> deck = makeCards(44);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    expectIdentityShuffle(random, 44);
+
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(44);
+    EasyMock.expect(deckManager.getDrawPile()).andReturn(deck).times(44);
+
     deck.forEach(EasyMock::replay);
     replayAll(players, map);
-    EasyMock.replay(random);
+    EasyMock.replay(random, deckManager);
 
-    Game game = new Game(players, map, deck, random);
+    Game game = new Game(players, map, deckManager, random);
     game.shuffleDeck();
 
     assertEquals(44, game.getDeckSize());
     deck.forEach(card -> assertTrue(game.getDeck().contains(card)));
     deck.forEach(EasyMock::verify);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
@@ -687,7 +721,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 
@@ -705,7 +739,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 
@@ -723,7 +757,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 
@@ -736,72 +770,87 @@ public class GameTests {
   public void drawCard_emptyDeck_throwsIllegalStateException() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    replayAll(players, map);
-    EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    EasyMock.expect(deckManager.draw()).andThrow(new IllegalStateException("empty"));
+
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
 
     assertThrows(IllegalStateException.class, () -> game.drawCard());
     verifyAll(players, map);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
   public void drawCard_oneCardInDeck_returnsCardAndDeckIsEmpty() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
-    List<RiskCard> deck = makeCards(1);
-    RiskCard card = deck.get(0);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    EasyMock.replay(card, random);
-    replayAll(players, map);
 
-    Game game = new Game(players, map, deck, random);
+    EasyMock.expect(deckManager.draw()).andReturn(card);
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(0);
+
+    replayAll(players, map);
+    EasyMock.replay(card, random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
     RiskCard drawn = game.drawCard();
 
     assertEquals(card, drawn);
     assertEquals(0, game.getDeckSize());
     verifyAll(players, map);
-    EasyMock.verify(card, random);
+    EasyMock.verify(card, random, deckManager);
   }
 
   @Test
   public void drawCard_twoCardsInDeck_returnsFirstCardAndDeckHasOneRemaining() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
-    List<RiskCard> deck = makeCards(2);
-    RiskCard firstCard = deck.get(0);
+    RiskCard firstCard = EasyMock.createMock(RiskCard.class);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    deck.forEach(EasyMock::replay);
-    replayAll(players, map);
-    EasyMock.replay(random);
 
-    Game game = new Game(players, map, deck, random);
+    EasyMock.expect(deckManager.draw()).andReturn(firstCard);
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(1);
+
+    replayAll(players, map);
+    EasyMock.replay(firstCard, random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
     RiskCard drawn = game.drawCard();
 
     assertEquals(firstCard, drawn);
     assertEquals(1, game.getDeckSize());
     verifyAll(players, map);
-    deck.forEach(EasyMock::verify);
-    EasyMock.verify(random);
+    EasyMock.verify(firstCard, random, deckManager);
   }
 
   @Test
   public void shuffleDeck_emptyDeck_deckRemainsEmpty() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
     Random random = EasyMock.createMock(Random.class);
-    // shuffle of size 0 makes no nextInt calls
-    replayAll(players, map);
-    EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    deckManager.shuffle();
+    EasyMock.expectLastCall();
+    EasyMock.expect(deckManager.getDrawPileSize()).andReturn(0);
+
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
     game.shuffleDeck();
 
     assertEquals(0, game.getDeckSize());
     verifyAll(players, map);
-    EasyMock.verify(random);
+    EasyMock.verify(random, deckManager);
   }
 
   @Test
@@ -810,7 +859,7 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     replayAll(players, map);
 
-    Game game = new Game(players, map, new ArrayList<>(), new Random());
+    Game game = new Game(players, map, mockDeck(), new Random());
 
     assertThrows(IllegalStateException.class, game::advanceToNextPlayer);
     assertEquals(-1, game.getCurrentPlayerIndex());
@@ -826,7 +875,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 
@@ -844,7 +893,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 
@@ -862,7 +911,7 @@ public class GameTests {
     replayAll(players, map);
     EasyMock.replay(random);
 
-    Game game = new Game(players, map, new ArrayList<>(), random);
+    Game game = new Game(players, map, mockDeck(), random);
     game.chooseFirstPlayer();
     game.advanceToNextPlayer();
 

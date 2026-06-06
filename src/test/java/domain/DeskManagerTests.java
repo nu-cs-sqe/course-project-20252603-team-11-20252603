@@ -1,6 +1,7 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -57,6 +58,24 @@ public class DeskManagerTests {
   }
 
   @Test
+  public void buildDeck_emptyTerritories_producesTwoWildcardsOnly() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(new ArrayList<>());
+
+    assertEquals(2, dm.size());
+    assertEquals(2, dm.getDrawPileSize());
+    for (RiskCard c : dm.getDrawPile()) {
+      assertEquals(RiskCardType.WILDCARD, c.getType());
+      assertNull(c.getTerritory());
+    }
+
+    EasyMock.verify(random);
+  }
+
+  @Test
   public void buildDeck_oneTerritory_producesInfantryPlusTwoWildcards() {
     Random random = EasyMock.createMock(Random.class);
     Territory a = EasyMock.createMock(Territory.class);
@@ -74,7 +93,7 @@ public class DeskManagerTests {
 
     EasyMock.verify(random, a);
   }
-  
+
   @Test
   public void buildDeck_threeTerritories_producesOneOfEachTypePlusTwoWildcards() {
     Random random = EasyMock.createMock(Random.class);

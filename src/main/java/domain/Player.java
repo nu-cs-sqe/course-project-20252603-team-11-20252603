@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Player {
+public final class Player {
   private final String name;
   private final List<Territory> territories;
   private final List<RiskCard> cards;

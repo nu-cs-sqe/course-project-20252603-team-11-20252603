@@ -1,17 +1,22 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class DiceRoller {
+public final class DiceRoller {
   private static final int MAX_ATTACKER_DICE = 3;
   private static final int MAX_DEFENDER_DICE = 2;
   private static final int FACES_PER_DIE = 6;
 
   private final Random random;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Random is shared so the test harness can seed it for deterministic rolls."
+  )
   public DiceRoller(Random random) {
     this.random = random;
   }

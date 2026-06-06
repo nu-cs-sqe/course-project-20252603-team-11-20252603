@@ -1,9 +1,16 @@
 package domain;
 
-public class ReinforcementPhase {
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+public final class ReinforcementPhase {
   private final Player player;
   private int troopsToPlace;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is an aggregate domain object intentionally shared by reference; "
+          + "the phase needs to mutate and read the same Player as the rest of the Turn."
+  )
   public ReinforcementPhase(Player player, int troopsToPlace) {
     this.player = player;
     this.troopsToPlace = troopsToPlace;

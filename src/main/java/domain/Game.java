@@ -1,11 +1,12 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Game {
+public final class Game {
   private static final int BASE_STARTING_ARMIES = 50;
   private static final int ARMIES_REDUCTION_PER_PLAYER = 5;
   private static final int MIN_NUMBER_OF_PLAYERS = 2;
@@ -16,12 +17,18 @@ public class Game {
   private final Random random;
   private int currentPlayerIndex = -1;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Random is shared so the test harness can seed it for deterministic shuffling. "
+          + "GameMap is the shared aggregate root for the territory graph; cloning it would "
+          + "create orphan territories that drift from real game state."
+  )
   public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
     validatePlayers(players);
     validateMap(map);
-    this.players = players;
+    this.players = new ArrayList<>(players);
     this.map = map;
-    this.deck = deck;
+    this.deck = new ArrayList<>(deck);
     this.random = random;
   }
 
@@ -92,6 +99,11 @@ public class Game {
     return players.size();
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "GameMap is the shared aggregate root for the territory graph; "
+          + "callers need the live reference to read game state."
+  )
   public GameMap getMap() {
     return map;
   }

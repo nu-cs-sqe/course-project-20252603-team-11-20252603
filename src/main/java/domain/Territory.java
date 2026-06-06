@@ -1,6 +1,8 @@
 package domain;
 
-public class Territory {
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+public final class Territory {
   private final String name;
   private Player owner;
   private int troopCount;
@@ -14,6 +16,10 @@ public class Territory {
     this.troopCount = 0;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is an aggregate domain object intentionally shared by reference."
+  )
   public Territory(String name, Player owner, int troopCount) {
     if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Territory name cannot be null or empty.");
@@ -48,14 +54,26 @@ public class Territory {
     return this.troopCount;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Player by design."
+  )
   public Player getOwner() {
     return this.owner;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is an aggregate domain object intentionally shared by reference."
+  )
   public void setOwner(Player owner) {
     this.owner = owner;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is an aggregate domain object intentionally shared by reference."
+  )
   public void conquer(Player newOwner, int troopsMovedIn) {
     if (troopsMovedIn == 0) {
       throw new IllegalArgumentException("Conquered Territories must have at least 1 troop");

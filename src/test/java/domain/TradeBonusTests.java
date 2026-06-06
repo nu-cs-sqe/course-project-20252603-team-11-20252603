@@ -34,4 +34,11 @@ public class TradeBonusTests {
     TradeBonus bonus = new TradeBonus(4, 2);
     assertEquals(4, bonus.getValue());
   }
+
+  @Test
+  public void getValue_oneIncrement_returnsInitialValuePlusStep() {
+    TradeBonus bonus = new TradeBonus(4, 2);
+    bonus.increment();
+    assertEquals(6, bonus.getValue());
+  }
 }

@@ -43,7 +43,7 @@ variable ≥ 0).
   - **State of the system**: TradeBonus freshly constructed; increment() not yet called
   - **Expected output**: getValue() returns initialValue
 
-- **TC6: 1 prior increment (one above lower bound) → returns initialValue + incrementStep** ( :x: )
+- **TC6: 1 prior increment (one above lower bound) → returns initialValue + incrementStep** ( :white_check_mark: )
   - **State of the system**: TradeBonus constructed; increment() called once
   - **Expected output**: getValue() returns initialValue + incrementStep
 

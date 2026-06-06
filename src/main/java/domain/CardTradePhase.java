@@ -20,7 +20,7 @@ public class CardTradePhase {
   }
 
   public boolean validateSet(List<RiskCard> cards) {
-    return false;
+    return validator.isValidSet(cards);
   }
 
   public void run() {

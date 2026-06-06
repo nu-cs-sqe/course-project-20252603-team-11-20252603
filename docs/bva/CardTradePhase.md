@@ -57,7 +57,7 @@ CardTradeValidator's own BVA.
 
 **Card set validity (Case variable — valid / invalid):**
 
-- **TC6: valid 3-card set (three of the same non-wildcard type) → true** ( :x: )
+- **TC6: valid 3-card set (three of the same non-wildcard type) → true** ( :white_check_mark: )
   - **State of the system**: 3-card list, all INFANTRY
   - **Expected output**: true
 

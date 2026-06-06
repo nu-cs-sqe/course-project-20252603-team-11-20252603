@@ -37,6 +37,29 @@ public class GameLoopTests {
     recordTurnDelegation(turn);
   }
 
+  private void recordSkippedEliminatedPlayerTurnSetup(
+      Game game,
+      Player eliminatedPlayer,
+      Player activePlayer,
+      Turn turn,
+      Random random) {
+    EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(eliminatedPlayer, activePlayer)).anyTimes();
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(eliminatedPlayer.isEliminated()).andReturn(true).anyTimes();
+    EasyMock.expect(activePlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(activePlayer.getCards()).andReturn(List.of());
+    EasyMock.expect(activePlayer.calculateReinforcements()).andReturn(3);
+    activePlayer.setAvailableTroops(3);
+    EasyMock.expect(activePlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(eliminatedPlayer.getTerritoryCount()).andReturn(0).anyTimes();
+    recordTurnDelegation(turn);
+    game.setGameState(GameState.GAME_OVER);
+    EasyMock.expectLastCall().once();
+    game.setWinner(activePlayer);
+    EasyMock.expectLastCall().once();
+  }
+
   @Test
   public void constructor_nullGame_throwsIllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> new GameLoop(null));
@@ -142,6 +165,33 @@ public class GameLoopTests {
     gameLoop.runNextTurn();
 
     assertSame(player0, turnPlayer[0]);
+    EasyMock.verify(game, player0, player1, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_currentPlayerEliminated_skipsToNextActivePlayer() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+
+    recordSkippedEliminatedPlayerTurnSetup(game, player0, player1, turn, random);
+    EasyMock.replay(game, player0, player1, turn, random);
+
+    final Player[] turnPlayer = new Player[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            turnPlayer[0] = currentPlayer;
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertSame(player1, turnPlayer[0]);
     EasyMock.verify(game, player0, player1, turn, random);
   }
 }

@@ -21,7 +21,7 @@ to read the current bonus and `increment()` to advance it.
 
 **`incrementStep` parameter (Count variable ≥ 0, valid range ≥ 1):**
 
-- **TC3: incrementStep = 0 (one below lower bound of valid range) → IllegalArgumentException** ( :x: )
+- **TC3: incrementStep = 0 (one below lower bound of valid range) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: no TradeBonus created yet (valid initialValue provided)
   - **Expected output**: IllegalArgumentException thrown
 

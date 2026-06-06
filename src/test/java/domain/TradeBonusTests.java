@@ -17,4 +17,9 @@ public class TradeBonusTests {
     TradeBonus bonus = new TradeBonus(1, 1);
     assertEquals(1, bonus.getValue());
   }
+
+  @Test
+  public void constructor_incrementStepZero_throwsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> new TradeBonus(1, 0));
+  }
 }

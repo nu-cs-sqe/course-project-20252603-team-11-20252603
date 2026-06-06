@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-public class MapView extends Pane {
+public final class MapView extends Pane {
 
   private static final double MAP_WIDTH = 1100.0;
   private static final double MAP_HEIGHT = 750.0;

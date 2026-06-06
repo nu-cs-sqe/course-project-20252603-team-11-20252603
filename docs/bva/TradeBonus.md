@@ -25,7 +25,7 @@ to read the current bonus and `increment()` to advance it.
   - **State of the system**: no TradeBonus created yet (valid initialValue provided)
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC4: incrementStep = 1 (lower bound of valid range) → TradeBonus constructed** ( :x: )
+- **TC4: incrementStep = 1 (lower bound of valid range) → TradeBonus constructed** ( :white_check_mark: )
   - **State of the system**: no TradeBonus created yet (valid initialValue provided)
   - **Expected output**: TradeBonus constructed; increment() increases getValue() by 1
 

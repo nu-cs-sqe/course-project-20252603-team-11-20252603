@@ -22,4 +22,10 @@ public class TradeBonusTests {
   public void constructor_incrementStepZero_throwsIllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> new TradeBonus(1, 0));
   }
+
+  @Test
+  public void constructor_incrementStepOne_constructsSuccessfully() {
+    TradeBonus bonus = new TradeBonus(4, 1);
+    assertEquals(4, bonus.getValue());
+  }
 }

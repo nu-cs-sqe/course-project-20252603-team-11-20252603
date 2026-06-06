@@ -53,7 +53,7 @@ The win boundary is at exactly **1** active player.
 - **TC7: current index points to eliminated player, next player active (skip 1)** ( :white_check_mark: )
     - **State of the system**: currentPlayerIndex == 0; player[0].isEliminated() == true; player[1].isEliminated() == false
     - **Expected output**: Turn created for player[1] (not player[0])
-- **TC8: current index points to eliminated player, two consecutive eliminated, third active (skip 2)** ( :x: )
+- **TC8: current index points to eliminated player, two consecutive eliminated, third active (skip 2)** ( :white_check_mark: )
     - **State of the system**: 4 players; currentPlayerIndex == 0; player[1] and player[2] eliminated; player[3] active
     - **Expected output**: Turn created for player[3]
 

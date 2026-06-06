@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,11 @@ public class DeckManager {
   private final List<RiskCard> discardPile;
   private final Random random;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Random is shared so the test harness can seed it for deterministic "
+          + "shuffling. Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public DeckManager(Random random) {
     if (random == null) {
       throw new IllegalArgumentException("Random cannot be null.");
@@ -24,6 +30,10 @@ public class DeckManager {
     this.discardPile = new ArrayList<>();
   }
 
+  @SuppressFBWarnings(
+      value = "CT_CONSTRUCTOR_THROW",
+      justification = "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public DeckManager(Random random, List<RiskCard> initialDrawPile) {
     this(random);
     if (initialDrawPile == null) {

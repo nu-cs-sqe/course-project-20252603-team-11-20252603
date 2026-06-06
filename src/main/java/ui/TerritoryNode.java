@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
-public class TerritoryNode extends Group {
+public final class TerritoryNode extends Group {
 
   private static final double STROKE_WIDTH = 1.5;
   private static final double OWNER_RADIUS = 8.0;

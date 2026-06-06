@@ -1,9 +1,17 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class RiskCard {
   private final RiskCardType riskCardType;
   private final Territory territory;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Territory is an aggregate domain object intentionally shared by reference; "
+          + "the card identifies an actual board territory, not a copy. "
+          + "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public RiskCard(RiskCardType riskCardType, Territory territory) {
     if (riskCardType == null) {
       throw new IllegalArgumentException("Risk Card Type cannot be null");
@@ -20,6 +28,10 @@ public class RiskCard {
     return this.riskCardType;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Territory by design; see ctor justification."
+  )
   public Territory getTerritory() {
     return this.territory;
   }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class GameMap {
@@ -54,6 +56,42 @@ public class GameMap {
       return Collections.emptyList();
     }
     return Collections.unmodifiableList(new ArrayList<>(neighbors));
+  }
+
+  public List<Territory> findPath(Territory s, Territory d, Player player) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+    if (d == null) {
+      throw new IllegalArgumentException("Destination territory cannot be null");
+    }
+    if (s == d) {
+      throw new IllegalArgumentException("Source and destination cannot be the same territory");
+    }
+    Map<Territory, Territory> parent = new HashMap<>();
+    Queue<Territory> queue = new LinkedList<>();
+    queue.add(s);
+    parent.put(s, null);
+    while (!queue.isEmpty()) {
+      Territory current = queue.poll();
+      for (Territory neighbor : getNeighbors(current)) {
+        if (neighbor == d) {
+          List<Territory> path = new ArrayList<>();
+          path.add(d);
+          Territory cur = current;
+          while (cur != null) {
+            path.add(0, cur);
+            cur = parent.get(cur);
+          }
+          return path;
+        }
+        if (!parent.containsKey(neighbor) && neighbor.getOwner() == player) {
+          parent.put(neighbor, current);
+          queue.add(neighbor);
+        }
+      }
+    }
+    return new ArrayList<>();
   }
 
   public boolean areAdjacent(Territory a, Territory b) {

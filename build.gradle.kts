@@ -5,6 +5,7 @@ plugins {
     id("jacoco")
     id("info.solidsoft.pitest") version "1.15.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
+    id("com.github.spotbugs") version "6.0.26"
 }
 
 group = "nu.csse.sqe"
@@ -78,4 +79,15 @@ tasks.jacocoTestReport {
         csv.required.set(false)
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
     }
+}
+
+spotbugs {
+    toolVersion.set("4.8.6")
+    effort.set(com.github.spotbugs.snom.Effort.MAX)
+    reportLevel.set(com.github.spotbugs.snom.Confidence.LOW)
+    ignoreFailures.set(false)
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+    reports.create("html") { required.set(true) }
 }

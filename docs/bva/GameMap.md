@@ -74,6 +74,42 @@ No parameters. Verifies the constructed map's initial observable state.
     - **State of the system**: GameMap contains T1, T2, T3; addConnection(T1, T2) and addConnection(T1, T3) called
     - **Expected output**: list of size 2 containing T2 and T3
 
+### Method under test: `List<Territory> findPath(Territory s, Territory d, Player player)`
+
+BFS over the map returning the shortest path from `s` to `d` through territories owned by `player`. Returns a list including `s` and `d`, or an empty list when no player-owned path exists.
+
+- **TC26: null source** ( :white_check_mark: )
+  - **State of the system**: any
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC27: null destination** ( :white_check_mark: )
+  - **State of the system**: any; valid source provided
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC28: source == destination (same territory object)** ( :white_check_mark: )
+  - **State of the system**: any
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC29: source and destination are direct neighbors, both player-owned (1 hop)** ( :white_check_mark: )
+  - **State of the system**: map has direct connection s−d; player owns s and d
+  - **Expected output**: list of size 2: [s, d]
+
+- **TC30: source and destination connected via one intermediate, all player-owned (2 hops)** ( :white_check_mark: )
+  - **State of the system**: map has s−mid and mid−d; player owns s, mid, and d
+  - **Expected output**: list of size 3: [s, mid, d]
+
+- **TC31: source and destination connected via two intermediates, all player-owned (3 hops)** ( :white_check_mark: )
+  - **State of the system**: map has s−mid1, mid1−mid2, mid2−d; player owns s, mid1, mid2, and d
+  - **Expected output**: list of size 4: [s, mid1, mid2, d]
+
+- **TC32: no path between source and destination in map** ( :white_check_mark: )
+  - **State of the system**: player owns s and d; no connection between s and d in map
+  - **Expected output**: empty list
+
+- **TC33: path exists in map but intermediate territory is enemy-owned** ( :white_check_mark: )
+  - **State of the system**: map has s−mid−d; mid is owned by a different player
+  - **Expected output**: empty list
+
 ### Method under test: `boolean areAdjacent(ITerritory a, ITerritory b)`
 
 `a` and `b` are Pointers. Both must be in the map. Adjacency is symmetric.

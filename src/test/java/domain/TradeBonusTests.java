@@ -11,4 +11,10 @@ public class TradeBonusTests {
   public void constructor_initialValueZero_throwsIllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> new TradeBonus(0, 1));
   }
+
+  @Test
+  public void constructor_initialValueOne_constructsSuccessfully() {
+    TradeBonus bonus = new TradeBonus(1, 1);
+    assertEquals(1, bonus.getValue());
+  }
 }

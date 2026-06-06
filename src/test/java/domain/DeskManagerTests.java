@@ -128,5 +128,24 @@ public class DeskManagerTests {
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
+  @Test
+  public void buildDeck_calledTwice_replacesContents() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> first = makeTerritoryMocks(3);
+    List<Territory> second = makeTerritoryMocks(6);
+    EasyMock.replay(random);
+    first.forEach(EasyMock::replay);
+    second.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(first);
+    assertEquals(5, dm.size());
+    dm.buildDeck(second);
+    assertEquals(8, dm.size());
+
+    EasyMock.verify(random);
+    first.forEach(EasyMock::verify);
+    second.forEach(EasyMock::verify);
+  }
 
 }

@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 
 public class Turn {
@@ -14,6 +15,12 @@ public class Turn {
   private AttackPhase attackPhase;
   private FortificationPhase fortificationPhase;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Player/Game are aggregate domain objects intentionally shared by reference; "
+          + "Random is shared for deterministic test seeding. Class is intentionally non-final "
+          + "to allow TurnTests to subclass it as a test seam for the createXxxPhase factories."
+  )
   public Turn(Player currentPlayer, Game game, Random random) {
     if (currentPlayer == null) {
       throw new IllegalArgumentException("currentPlayer cannot be null.");
@@ -29,12 +36,19 @@ public class Turn {
     this.diceRoller = new DiceRoller(random);
     this.phase = null;
     this.conqueredThisTurn = false;
+    this.reinforcementPhase = null;
+    this.attackPhase = null;
+    this.fortificationPhase = null;
   }
 
   public TurnPhase getPhase() {
     return phase;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Player by design."
+  )
   public Player getCurrentPlayer() {
     return currentPlayer;
   }

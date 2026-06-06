@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 
 public class AttackPhase {
@@ -15,6 +16,11 @@ public class AttackPhase {
   private int lastAttackDice = 0;
   private boolean ended = false;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is an aggregate domain object intentionally shared by reference; "
+          + "the phase needs to mutate and read the same Player as the rest of the Turn."
+  )
   public AttackPhase(Player attacker, DiceRoller diceRoller, Game game) {
     this.attacker = attacker;
     this.diceRoller = diceRoller;

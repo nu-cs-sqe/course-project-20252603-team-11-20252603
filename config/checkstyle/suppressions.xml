@@ -12,6 +12,9 @@
     <suppress files=".*Tests?\.java" checks="MissingJavadocMethod|MissingJavadocType"/>
 -->
 <suppressions>
+  <!-- i18n is a well-known abbreviation; suppress the digit-in-package-name check. -->
+  <suppress files="i18n[/\\]Messages\.java" checks="PackageName"/>
+
   <!-- Relax stylistic checks in test code. -->
   <suppress files=".*Tests?\.java" checks="VariableDeclarationUsageDistance"/>
   <suppress files=".*Tests?\.java" checks="AbbreviationAsWordInName"/>

@@ -259,4 +259,24 @@ public class DeskManagerTests {
     discarded.forEach(EasyMock::verify);
   }
 
+  @Test
+  public void shuffle_drawEmptyDiscardNonEmpty_mergesDiscardIntoDrawAndShuffles() {
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> discarded = makeCardMocks(2);
+    expectIdentityShuffle(random, 2);
+    EasyMock.replay(random);
+    discarded.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.returnCards(discarded);
+
+    dm.shuffle();
+
+    assertEquals(2, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+    discarded.forEach(EasyMock::verify);
+  }
+
 }

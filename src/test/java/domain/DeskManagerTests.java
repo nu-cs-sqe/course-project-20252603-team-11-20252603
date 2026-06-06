@@ -6,11 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class DeskManagerTests {
+  // Helpers
+  private List<Territory> makeTerritoryMocks(int count) {
+    List<Territory> ts = new ArrayList<>();
+    for (int i = 0; i < count; i++) {
+      ts.add(EasyMock.createMock(Territory.class));
+    }
+    return ts;
+  }
+
   @Test
   public void constructor_nullRandom_throwsIllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> new DeckManager(null));
@@ -63,6 +73,27 @@ public class DeskManagerTests {
     assertEquals(RiskCardType.WILDCARD, cards.get(2).getType());
 
     EasyMock.verify(random, a);
+  }
+  @Test
+  public void buildDeck_threeTerritories_producesOneOfEachTypePlusTwoWildcards() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+
+    List<RiskCard> cards = dm.getDrawPile();
+    assertEquals(5, dm.size());
+    assertEquals(RiskCardType.INFANTRY, cards.get(0).getType());
+    assertEquals(RiskCardType.CAVALRY, cards.get(1).getType());
+    assertEquals(RiskCardType.ARTILLERY, cards.get(2).getType());
+    assertEquals(RiskCardType.WILDCARD, cards.get(3).getType());
+    assertEquals(RiskCardType.WILDCARD, cards.get(4).getType());
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
   }
 
 }

@@ -95,5 +95,38 @@ public class DeskManagerTests {
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
+  @Test
+  public void buildDeck_fortyTwoTerritories_producesEvenDistributionPlusTwoWildcards() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(42);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+
+    int infantry = 0;
+    int cavalry = 0;
+    int artillery = 0;
+    int wildcard = 0;
+    for (RiskCard c : dm.getDrawPile()) {
+      switch (c.getType()) {
+        case INFANTRY: infantry++; break;
+        case CAVALRY: cavalry++; break;
+        case ARTILLERY: artillery++; break;
+        case WILDCARD: wildcard++; break;
+        default: break;
+      }
+    }
+
+    assertEquals(44, dm.size());
+    assertEquals(14, infantry);
+    assertEquals(14, cavalry);
+    assertEquals(14, artillery);
+    assertEquals(2, wildcard);
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
+  }
 
 }

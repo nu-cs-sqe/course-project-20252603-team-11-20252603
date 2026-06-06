@@ -2,11 +2,15 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class Territory {
+public class Territory {
   private final String name;
   private Player owner;
   private int troopCount;
 
+  @SuppressFBWarnings(
+      value = "CT_CONSTRUCTOR_THROW",
+      justification = "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public Territory(String name) {
     if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Territory name cannot be null or empty.");
@@ -17,8 +21,9 @@ public final class Territory {
   }
 
   @SuppressFBWarnings(
-      value = "EI_EXPOSE_REP2",
-      justification = "Player is an aggregate domain object intentionally shared by reference."
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Player is an aggregate domain object intentionally shared by reference. "
+          + "Class is non-final because EasyMock subclasses it to mock in tests."
   )
   public Territory(String name, Player owner, int troopCount) {
     if (name == null || name.isEmpty()) {

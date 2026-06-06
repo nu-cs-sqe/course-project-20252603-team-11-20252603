@@ -1,16 +1,21 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class Player {
+public class Player {
   private final String name;
   private final List<Territory> territories;
   private final List<RiskCard> cards;
   private int availableTroops;
   private boolean isEliminated;
 
+  @SuppressFBWarnings(
+      value = "CT_CONSTRUCTOR_THROW",
+      justification = "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public Player(String name) {
     if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Player name cannot be null or empty");

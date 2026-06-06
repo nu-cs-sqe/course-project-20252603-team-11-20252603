@@ -2,7 +2,7 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class ReinforcementPhase {
+public class ReinforcementPhase {
   private final Player player;
   private int troopsToPlace;
 

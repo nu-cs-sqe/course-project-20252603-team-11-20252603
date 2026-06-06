@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public final class Game {
+public class Game {
   private static final int BASE_STARTING_ARMIES = 50;
   private static final int ARMIES_REDUCTION_PER_PLAYER = 5;
   private static final int MIN_NUMBER_OF_PLAYERS = 2;
@@ -18,10 +18,11 @@ public final class Game {
   private int currentPlayerIndex = -1;
 
   @SuppressFBWarnings(
-      value = "EI_EXPOSE_REP2",
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
       justification = "Random is shared so the test harness can seed it for deterministic shuffling. "
           + "GameMap is the shared aggregate root for the territory graph; cloning it would "
-          + "create orphan territories that drift from real game state."
+          + "create orphan territories that drift from real game state. Class is non-final because "
+          + "EasyMock subclasses it to mock in tests."
   )
   public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
     validatePlayers(players);

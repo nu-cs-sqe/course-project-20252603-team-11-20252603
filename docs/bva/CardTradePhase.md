@@ -39,7 +39,7 @@ traded down below the threshold; false when mandatory=true and the player still 
   - **State of the system**: CardTradePhase constructed with mandatory=false
   - **Expected output**: true (no mandatory requirement; phase is always complete)
 
-- **TC4: mandatory = true, player holds 4 cards (one below mandatory threshold of 5) → true** ( :x: )
+- **TC4: mandatory = true, player holds 4 cards (one below mandatory threshold of 5) → true** ( :white_check_mark: )
   - **State of the system**: CardTradePhase constructed with mandatory=true; player holds 4 cards
   - **Expected output**: true (player has traded below the threshold; mandatory obligation met)
 

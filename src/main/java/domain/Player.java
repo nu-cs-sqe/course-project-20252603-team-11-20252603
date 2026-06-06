@@ -48,6 +48,10 @@ public class Player {
     return territories.size();
   }
 
+  public int getCardCount() {
+    return cards.size();
+  }
+
   public void addTerritory(Territory territory) {
     if (territory == null) {
       throw new IllegalArgumentException("Territory cannot be null.");

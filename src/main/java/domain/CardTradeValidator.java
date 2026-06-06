@@ -20,18 +20,8 @@ public class CardTradeValidator {
     if (allSame) {
       return true;
     }
-    boolean hasInfantry = false;
-    boolean hasCavalry = false;
-    boolean hasArtillery = false;
-    for (RiskCard card : cards) {
-      switch (card.getType()) {
-        case INFANTRY: hasInfantry = true; break;
-        case CAVALRY: hasCavalry = true; break;
-        case ARTILLERY: hasArtillery = true; break;
-        default: break;
-      }
-    }
-    return hasInfantry && hasCavalry && hasArtillery;
+    long distinctTypes = cards.stream().map(RiskCard::getType).distinct().count();
+    return distinctTypes == TRADE_SET_SIZE;
   }
 
   public boolean isMandatory(Player player) {
@@ -39,6 +29,6 @@ public class CardTradeValidator {
   }
 
   public boolean mustTrade(Player player) {
-    return false;
+    return player.getCardCount() >= MANDATORY_TRADE_THRESHOLD;
   }
 }

@@ -86,7 +86,7 @@ at turn start).
   - **State of the system**: player holds 4 cards after a trade
   - **Expected output**: false
 
-- **TC13: player holds 5 cards after a trade (at threshold, lower bound of must-continue range) → true** ( :x: )
+- **TC13: player holds 5 cards after a trade (at threshold, lower bound of must-continue range) → true** ( :white_check_mark: )
   - **State of the system**: player holds 5 cards after a trade (e.g. received cards from
     eliminated opponent)
   - **Expected output**: true

@@ -469,4 +469,22 @@ public class DeckManagerTests {
     ts.forEach(EasyMock::verify);
   }
 
+  @Test
+  public void getDrawPile_returnedViewRejectsMutation() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    RiskCard rogue = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(random, rogue);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    List<RiskCard> view = dm.getDrawPile();
+
+    assertThrows(UnsupportedOperationException.class, () -> view.add(rogue));
+
+    EasyMock.verify(random, rogue);
+    ts.forEach(EasyMock::verify);
+  }
+
 }

@@ -797,6 +797,7 @@ public class GameTests {
   }
 
   @Test
+=======
   public void advanceToNextPlayer_wrapAroundPastEliminatedPlayer_landsOnActivePlayer() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(3);
@@ -819,7 +820,10 @@ public class GameTests {
   }
 
   @Test
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 10ed0e6 (advanceToNextPlayer_wrapAroundPastEliminatedPlayer_landsOnActivePlayer passes)
   public void advanceToNextPlayer_twoConsecutiveEliminatedPlayers_skipsToFirstActivePlayer() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(4);

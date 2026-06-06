@@ -19,7 +19,7 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
   - **State of the system**: list contains 2 cards
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC2: 4 cards (one above required size 3) → IllegalArgumentException** ( :x: )
+- **TC2: 4 cards (one above required size 3) → IllegalArgumentException** ( :white_check_mark: )
   - **State of the system**: list contains 4 cards
   - **Expected output**: IllegalArgumentException thrown
 

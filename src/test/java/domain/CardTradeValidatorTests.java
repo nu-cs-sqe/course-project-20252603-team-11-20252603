@@ -22,4 +22,19 @@ public class CardTradeValidatorTests {
 
     EasyMock.verify(card1, card2);
   }
+
+  @Test
+  public void isValidSet_fourCards_throwsIllegalArgumentException() {
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    RiskCard card3 = EasyMock.createMock(RiskCard.class);
+    RiskCard card4 = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card1, card2, card3, card4);
+
+    CardTradeValidator validator = new CardTradeValidator();
+    assertThrows(IllegalArgumentException.class,
+        () -> validator.isValidSet(List.of(card1, card2, card3, card4)));
+
+    EasyMock.verify(card1, card2, card3, card4);
+  }
 }

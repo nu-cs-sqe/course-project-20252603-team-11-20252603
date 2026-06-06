@@ -819,6 +819,7 @@ public class GameTests {
   }
 
   @Test
+=======
   public void advanceToNextPlayer_twoConsecutiveEliminatedPlayers_skipsToFirstActivePlayer() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(4);

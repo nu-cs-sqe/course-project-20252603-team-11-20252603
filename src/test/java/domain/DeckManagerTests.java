@@ -449,4 +449,24 @@ public class DeckManagerTests {
     returned.forEach(EasyMock::verify);
   }
 
+  @Test
+  public void size_invariantHoldsAcrossBothPiles() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    RiskCard returned = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(random, returned);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    dm.returnCards(Arrays.asList(returned));
+
+    assertEquals(6, dm.size());
+    assertEquals(5, dm.getDrawPileSize());
+    assertEquals(1, dm.getDiscardPileSize());
+
+    EasyMock.verify(random, returned);
+    ts.forEach(EasyMock::verify);
+  }
+
 }

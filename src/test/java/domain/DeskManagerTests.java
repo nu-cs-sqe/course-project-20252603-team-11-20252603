@@ -279,4 +279,18 @@ public class DeskManagerTests {
     discarded.forEach(EasyMock::verify);
   }
 
+  @Test
+  public void shuffle_bothPilesEmpty_noOpNoException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    dm.shuffle();
+
+    assertEquals(0, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+  }
+
 }

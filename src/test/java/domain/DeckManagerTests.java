@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.easymock.EasyMock;
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.Test;
 
 public class DeckManagerTests {
   // Helpers
@@ -105,7 +106,7 @@ public class DeckManagerTests {
     EasyMock.replay(random, a);
 
     DeckManager dm = new DeckManager(random);
-    dm.buildDeck(Arrays.asList(a));
+    dm.buildDeck(Collections.singletonList(a));
 
     assertEquals(3, dm.size());
     List<RiskCard> cards = dm.getDrawPile();
@@ -138,6 +139,7 @@ public class DeckManagerTests {
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
+
   @Test
   public void buildDeck_fortyTwoTerritories_producesEvenDistributionPlusTwoWildcards() {
     Random random = EasyMock.createMock(Random.class);
@@ -154,11 +156,20 @@ public class DeckManagerTests {
     int wildcard = 0;
     for (RiskCard c : dm.getDrawPile()) {
       switch (c.getType()) {
-        case INFANTRY: infantry++; break;
-        case CAVALRY: cavalry++; break;
-        case ARTILLERY: artillery++; break;
-        case WILDCARD: wildcard++; break;
-        default: break;
+        case INFANTRY:
+          infantry++;
+          break;
+        case CAVALRY:
+          cavalry++;
+          break;
+        case ARTILLERY:
+          artillery++;
+          break;
+        case WILDCARD:
+          wildcard++;
+          break;
+        default:
+          break;
       }
     }
 
@@ -202,7 +213,7 @@ public class DeckManagerTests {
 
     DeckManager dm = new DeckManager(random);
     dm.buildDeck(ts);
-    dm.returnCards(Arrays.asList(returned));
+    dm.returnCards(Collections.singletonList(returned));
     assertEquals(1, dm.getDiscardPileSize());
 
     dm.buildDeck(ts);
@@ -353,7 +364,7 @@ public class DeckManagerTests {
     EasyMock.replay(random, recycled);
 
     DeckManager dm = new DeckManager(random);
-    dm.returnCards(Arrays.asList(recycled));
+    dm.returnCards(Collections.singletonList(recycled));
 
     RiskCard card = dm.draw();
 
@@ -418,7 +429,7 @@ public class DeckManagerTests {
     dm.buildDeck(ts);
     int drawBefore = dm.getDrawPileSize();
 
-    dm.returnCards(Arrays.asList(returned));
+    dm.returnCards(Collections.singletonList(returned));
 
     assertEquals(drawBefore, dm.getDrawPileSize());
     assertEquals(1, dm.getDiscardPileSize());
@@ -459,7 +470,7 @@ public class DeckManagerTests {
 
     DeckManager dm = new DeckManager(random);
     dm.buildDeck(ts);
-    dm.returnCards(Arrays.asList(returned));
+    dm.returnCards(Collections.singletonList(returned));
 
     assertEquals(6, dm.size());
     assertEquals(5, dm.getDrawPileSize());
@@ -486,5 +497,4 @@ public class DeckManagerTests {
     EasyMock.verify(random, rogue);
     ts.forEach(EasyMock::verify);
   }
-
 }

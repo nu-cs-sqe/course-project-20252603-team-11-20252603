@@ -8,9 +8,7 @@ import java.util.Random;
 public class DeckManager {
   private static final int WILDCARD_COUNT = 2;
   private static final RiskCardType[] TERRITORY_TYPES = {
-      RiskCardType.INFANTRY,
-      RiskCardType.CAVALRY,
-      RiskCardType.ARTILLERY
+    RiskCardType.INFANTRY, RiskCardType.CAVALRY, RiskCardType.ARTILLERY
   };
 
   private final List<RiskCard> drawPile;
@@ -24,6 +22,14 @@ public class DeckManager {
     this.random = random;
     this.drawPile = new ArrayList<>();
     this.discardPile = new ArrayList<>();
+  }
+
+  public DeckManager(Random random, List<RiskCard> initialDrawPile) {
+    this(random);
+    if (initialDrawPile == null) {
+      throw new IllegalArgumentException("Initial draw pile cannot be null.");
+    }
+    this.drawPile.addAll(initialDrawPile);
   }
 
   public void buildDeck(List<Territory> territories) {

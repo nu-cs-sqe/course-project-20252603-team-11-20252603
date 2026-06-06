@@ -419,4 +419,41 @@ public class GameLoopTests {
     assertEquals(7, troopsToPlace[0]);
     EasyMock.verify(game, player0, player1, turn, random, reinforcementPhase);
   }
+
+  @Test
+  public void runNextTurn_delegatesFullTurnLifecycle() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase reinforcementPhase = EasyMock.createMock(ReinforcementPhase.class);
+
+    recordActivePlayerTurnSetup(game, player0, player1, turn, random);
+    EasyMock.replay(game, player0, player1, turn, random, reinforcementPhase);
+
+    final int[] createTurnCalls = {0};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected ReinforcementPhase createReinforcementPhase(
+              Player player, int reinforcements) {
+            return reinforcementPhase;
+          }
+
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            createTurnCalls[0]++;
+            assertSame(player0, currentPlayer);
+            assertSame(game, g);
+            assertSame(random, r);
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertEquals(1, createTurnCalls[0]);
+    EasyMock.verify(game, player0, player1, turn, random, reinforcementPhase);
+  }
 }

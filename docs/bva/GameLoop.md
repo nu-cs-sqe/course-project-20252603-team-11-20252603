@@ -77,7 +77,7 @@ The win boundary is at exactly **1** active player.
 
 **D. Fresh Turn and delegation**
 
-- **TC13: a new Turn is created each call** ( :x: )
+- **TC13: a new Turn is created each call** ( :white_check_mark: )
     - **State of the system**: runNextTurn() called once on a GameLoop with active player
     - **Expected output**: createTurn() called exactly once; returned Turn receives (currentPlayer, game, random); Turn lifecycle delegated (startTurn → runReinforcementPhase → runAttackPhase → runFortificationPhase → endTurn)
 - **TC14: second call creates a separate Turn instance** ( :x: )

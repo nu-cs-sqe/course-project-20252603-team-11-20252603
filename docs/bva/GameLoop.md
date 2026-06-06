@@ -32,7 +32,7 @@ The win boundary is at exactly **1** active player.
 - **TC3: 2 active players (one above win threshold)** ( :white_check_mark: )
     - **State of the system**: 2 players not eliminated; gameState == IN_PROGRESS; winner unset
     - **Expected output**: returns false; gameState stays IN_PROGRESS; winner remains unset
-- **TC4: 1 active player (win threshold, lower boundary of "game over")** ( :x: )
+- **TC4: 1 active player (win threshold, lower boundary of "game over")** ( :white_check_mark: )
     - **State of the system**: 1 player not eliminated, all others eliminated; gameState == IN_PROGRESS
     - **Expected output**: returns true; game.gameState set to GAME_OVER; game.winner set to the sole remaining player
 - **TC5: 3 active players (nominal in-progress state)** ( :x: )

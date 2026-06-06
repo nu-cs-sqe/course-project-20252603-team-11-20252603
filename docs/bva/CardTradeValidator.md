@@ -29,11 +29,11 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
   - **State of the system**: 3-card list, all INFANTRY
   - **Expected output**: true
 
-- **TC4: three CAVALRY cards (all same type) → true** ( :x: )
+- **TC4: three CAVALRY cards (all same type) → true** ( :white_check_mark: )
   - **State of the system**: 3-card list, all CAVALRY
   - **Expected output**: true
 
-- **TC5: three ARTILLERY cards (all same type) → true** ( :x: )
+- **TC5: three ARTILLERY cards (all same type) → true** ( :white_check_mark: )
   - **State of the system**: 3-card list, all ARTILLERY
   - **Expected output**: true
 

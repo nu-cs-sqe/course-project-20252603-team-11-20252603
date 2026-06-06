@@ -168,6 +168,16 @@
   - **State of the system**: Phase created, moved = false; player owns s (troopCount = 3) and d; direct connection s−d in map
   - **Expected output**: no exception thrown
 
+### Method under test: `boolean isComplete()`
+
+- **TC51: fresh phase (moved = false)** ( :white_check_mark: )
+  - **State of the system**: Phase created, moved = false
+  - **Expected output**: false
+
+- **TC52: phase completed via skipPhase (moved = true)** ( :white_check_mark: )
+  - **State of the system**: Phase created; skipPhase already called; moved = true
+  - **Expected output**: true
+
 ### Method under test: `void skipPhase()`
 
 - **TC48: fresh phase, skip without moving** ( :white_check_mark: )

@@ -20,6 +20,10 @@ public class FortificationPhase {
     return moved;
   }
 
+  public boolean isComplete() {
+    return false;
+  }
+
   public void moveTroops(Territory s, Territory d, int n) {
     validateMove(s, d, n);
     s.removeTroops(n);

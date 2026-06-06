@@ -108,37 +108,7 @@
 
 ### Method under test: `List<Territory> findPath(Territory s, Territory d)`
 
-- **TC26: null source** ( :white_check_mark: )
-  - **State of the system**: Phase created
-  - **Expected output**: IllegalArgumentException thrown
-
-- **TC27: null destination** ( :white_check_mark: )
-  - **State of the system**: Phase created; valid territory provided as source
-  - **Expected output**: IllegalArgumentException thrown
-
-- **TC28: source == destination (same territory object)** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns T1
-  - **Expected output**: IllegalArgumentException thrown
-
-- **TC29: source and destination are direct neighbors, both player-owned (1 hop)** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns s and d; map has direct connection s−d
-  - **Expected output**: list of size 2 containing [s, d]
-
-- **TC30: source and destination connected via one intermediate, all player-owned (2 hops)** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns s, mid, and d; map has connections s−mid and mid−d
-  - **Expected output**: list of size 3: [s, mid, d]
-
-- **TC31: source and destination connected via two intermediates, all player-owned (3 hops)** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns s, mid1, mid2, and d; map has connections s−mid1, mid1−mid2, mid2−d
-  - **Expected output**: list of size 4: [s, mid1, mid2, d]
-
-- **TC32: no path between source and destination in map** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns s and d; no connection between s and d in map
-  - **Expected output**: empty list
-
-- **TC33: path exists in map but intermediate territory is enemy-owned** ( :white_check_mark: )
-  - **State of the system**: Phase created; player owns s and d; map has s−mid−d but mid is owned by a different player
-  - **Expected output**: empty list
+> **Moved to `GameMap`:** `findPath` is now `GameMap.findPath(Territory s, Territory d, Player player)`. See `GameMap.md` TC26–TC33.
 
 ### Method under test: `void validateMove(Territory s, Territory d, int n)`
 

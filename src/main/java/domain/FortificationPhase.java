@@ -1,12 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-
 public class FortificationPhase {
   private final Player player;
   private final GameMap map;
@@ -81,42 +74,6 @@ public class FortificationPhase {
     if (s == d) {
       throw new IllegalArgumentException("Source and destination cannot be the same territory");
     }
-    return !findPath(s, d).isEmpty();
-  }
-
-  public List<Territory> findPath(Territory s, Territory d) {
-    if (s == null) {
-      throw new IllegalArgumentException("Source territory cannot be null");
-    }
-    if (d == null) {
-      throw new IllegalArgumentException("Destination territory cannot be null");
-    }
-    if (s == d) {
-      throw new IllegalArgumentException("Source and destination cannot be the same territory");
-    }
-    Map<Territory, Territory> parent = new HashMap<>();
-    Queue<Territory> queue = new LinkedList<>();
-    queue.add(s);
-    parent.put(s, null);
-    while (!queue.isEmpty()) {
-      Territory current = queue.poll();
-      for (Territory neighbor : map.getNeighbors(current)) {
-        if (neighbor == d) {
-          List<Territory> path = new ArrayList<>();
-          path.add(d);
-          Territory cur = current;
-          while (cur != null) {
-            path.add(0, cur);
-            cur = parent.get(cur);
-          }
-          return path;
-        }
-        if (neighbor.getOwner() == player && !parent.containsKey(neighbor)) {
-          parent.put(neighbor, current);
-          queue.add(neighbor);
-        }
-      }
-    }
-    return new ArrayList<>();
+    return !map.findPath(s, d, player).isEmpty();
   }
 }

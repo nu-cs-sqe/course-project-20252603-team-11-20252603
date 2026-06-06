@@ -293,4 +293,19 @@ public class DeskManagerTests {
     EasyMock.verify(random);
   }
 
+  @Test
+  public void shuffle_invokesRandomNextIntWithDescendingPileSizes() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3); // drawPile size 5
+    expectIdentityShuffle(random, 5); // expects nextInt(5), (4), (3), (2)
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    dm.shuffle();
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
+  }
 }

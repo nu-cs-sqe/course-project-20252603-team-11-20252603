@@ -27,6 +27,41 @@ Precondition: none. Constructs an empty deck (both piles size 0) bound to the gi
 
 ---
 
+### Method under test: `DeckManager(Random random, List<RiskCard> initialDrawPile)`
+
+Precondition: none. Two-arg constructor that pre-seeds the draw pile from an existing list of
+cards (the discard pile starts empty). Used by callers (e.g. `Game`) that hold a pre-built
+deck and want to wrap it without going through `buildDeck`. Delegates Random null-check to
+the single-arg constructor.
+
+**`random` reference (Reference variable, non-null required — same contract as TC1):**
+
+- **TC26: random = null → IllegalArgumentException** ( :white_large_square: )
+    - **State of the system**: no DeckManager constructed yet; initialDrawPile = empty list
+    - **Expected output**: IllegalArgumentException thrown (from the delegated single-arg ctor)
+
+**`initialDrawPile` reference (Reference variable, non-null required):**
+
+- **TC27: initialDrawPile = null → IllegalArgumentException** ( :white_large_square: )
+    - **State of the system**: no DeckManager constructed yet; random = valid Random
+    - **Expected output**: IllegalArgumentException thrown
+
+**`initialDrawPile` size (Count variable ≥ 0):**
+
+- **TC28: initialDrawPile.size = 0 (lower bound) → both piles empty** ( :white_large_square: )
+    - **State of the system**: DeckManager constructed with random + empty list
+    - **Expected output**: size() = 0, getDrawPileSize() = 0, getDiscardPileSize() = 0
+
+- **TC29: initialDrawPile.size = 1 (one above lower bound) → draw pile holds that card, discard empty** ( :white_large_square: )
+    - **State of the system**: DeckManager constructed with random + list of 1 RiskCard
+    - **Expected output**: getDrawPileSize() = 1, getDiscardPileSize() = 0, getDrawPile().get(0) is the given card
+
+- **TC30: initialDrawPile.size = 44 (real Risk deck size) → draw pile holds all 44 cards, discard empty** ( :white_large_square: )
+    - **State of the system**: DeckManager constructed with random + list of 44 RiskCards
+    - **Expected output**: getDrawPileSize() = 44, getDiscardPileSize() = 0
+
+---
+
 ### Method under test: `void buildDeck(List<Territory> territories)`
 
 Precondition: DeckManager constructed. Clears both piles, then populates the draw pile with

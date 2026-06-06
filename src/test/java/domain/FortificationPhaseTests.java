@@ -6,7 +6,6 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 public class FortificationPhaseTests {
-  // TC1
   @Test
   public void constructor_nullPlayer_throwsIllegalArgumentException() {
     GameMap map = EasyMock.createMock(GameMap.class);
@@ -16,7 +15,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map);
   }
 
-  // TC2
   @Test
   public void constructor_nullMap_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -25,7 +23,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player);
   }
 
-  // TC50
   @Test
   public void skipPhase_calledTwice_throwsIllegalStateException() {
     Player player = EasyMock.createMock(Player.class);
@@ -37,7 +34,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map);
   }
 
-  // TC49
   @Test
   public void skipPhase_calledAfterMoveTroops_throwsIllegalStateException() {
     Player player = new Player("Alice");
@@ -52,7 +48,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalStateException.class, () -> phase.skipPhase());
   }
 
-  // TC17
   @Test
   public void moveTroops_calledAfterSkipPhase_throwsIllegalStateException() {
     Player player = new Player("Alice");
@@ -67,7 +62,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalStateException.class, () -> phase.moveTroops(s, d, 1));
   }
 
-  // TC48
   @Test
   public void skipPhase_freshPhase_movedBecomesTrue() {
     Player player = new Player("Alice");
@@ -80,7 +74,6 @@ public class FortificationPhaseTests {
     assertEquals(2, s.getTroopCount());
   }
 
-  // TC35
   @Test
   public void validateMove_nullDestination_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -92,7 +85,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, s);
   }
 
-  // TC36
   @Test
   public void validateMove_sourceEqualsDestination_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -104,7 +96,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, t);
   }
 
-  // TC37
   @Test
   public void validateMove_sourceNotOwnedByPlayer_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -119,7 +110,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC38
   @Test
   public void validateMove_destinationNotOwnedByPlayer_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -135,7 +125,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC39
   @Test
   public void validateMove_neitherOwnedByPlayer_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -150,7 +139,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC40
   @Test
   public void validateMove_nIsZero_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -165,7 +153,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC41
   @Test
   public void validateMove_nIsNegative_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -180,7 +167,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC42
   @Test
   public void validateMove_nEqualsTroopCount_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -196,7 +182,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC43
   @Test
   public void validateMove_movedAlreadyTrue_throwsIllegalStateException() {
     Player player = new Player("Alice");
@@ -211,7 +196,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalStateException.class, () -> phase.validateMove(s, d, 1));
   }
 
-  // TC44
   @Test
   public void validateMove_noPath_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -224,7 +208,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.validateMove(s, d, 1));
   }
 
-  // TC45
   @Test
   public void validateMove_pathThroughEnemyTerritory_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -242,7 +225,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.validateMove(s, d, 1));
   }
 
-  // TC46
   @Test
   public void validateMove_nIsOne_minValid_noExceptionThrown() {
     Player player = new Player("Alice");
@@ -256,7 +238,6 @@ public class FortificationPhaseTests {
     assertDoesNotThrow(() -> phase.validateMove(s, d, 1));
   }
 
-  // TC47
   @Test
   public void validateMove_nIsTroopCountMinusOne_maxValid_noExceptionThrown() {
     Player player = new Player("Alice");
@@ -270,7 +251,6 @@ public class FortificationPhaseTests {
     assertDoesNotThrow(() -> phase.validateMove(s, d, 2));
   }
 
-  // TC34
   @Test
   public void validateMove_nullSource_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -282,7 +262,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, d);
   }
 
-  // TC25
   @Test
   public void isConnected_pathThroughEnemyTerritory_returnsFalse() {
     Player player = new Player("Alice");
@@ -300,7 +279,6 @@ public class FortificationPhaseTests {
     assertFalse(phase.isConnected(s, d));
   }
 
-  // TC24
   @Test
   public void isConnected_noPathBetweenTerritories_returnsFalse() {
     Player player = new Player("Alice");
@@ -313,7 +291,6 @@ public class FortificationPhaseTests {
     assertFalse(phase.isConnected(s, d));
   }
 
-  // TC23
   @Test
   public void isConnected_threeHopPathAllOwned_returnsTrue() {
     Player player = new Player("Alice");
@@ -333,7 +310,6 @@ public class FortificationPhaseTests {
     assertTrue(phase.isConnected(s, d));
   }
 
-  // TC22
   @Test
   public void isConnected_twoHopPathAllOwned_returnsTrue() {
     Player player = new Player("Alice");
@@ -350,7 +326,6 @@ public class FortificationPhaseTests {
     assertTrue(phase.isConnected(s, d));
   }
 
-  // TC21
   @Test
   public void isConnected_directNeighborsBothOwned_returnsTrue() {
     Player player = new Player("Alice");
@@ -364,7 +339,6 @@ public class FortificationPhaseTests {
     assertTrue(phase.isConnected(s, d));
   }
 
-  // TC20
   @Test
   public void isConnected_sourceEqualsDestination_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -376,7 +350,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, t);
   }
 
-  // TC19
   @Test
   public void isConnected_nullDestination_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -388,7 +361,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, s);
   }
 
-  // TC18
   @Test
   public void isConnected_nullSource_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -400,7 +372,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, d);
   }
 
-  // TC16
   @Test
   public void moveTroops_calledAfterSuccessfulMove_throwsIllegalStateException() {
     Player player = new Player("Alice");
@@ -415,7 +386,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalStateException.class, () -> phase.moveTroops(s, d, 1));
   }
 
-  // TC15
   @Test
   public void moveTroops_nIsTroopCountMinusOne_maxValid_troopsTransferredAndMovedIsTrue() {
     Player player = new Player("Alice");
@@ -432,7 +402,6 @@ public class FortificationPhaseTests {
     assertTrue(phase.isMoved());
   }
 
-  // TC14
   @Test
   public void moveTroops_nIsOne_minValid_troopsTransferredAndMovedIsTrue() {
     Player player = new Player("Alice");
@@ -449,7 +418,6 @@ public class FortificationPhaseTests {
     assertTrue(phase.isMoved());
   }
 
-  // TC13
   @Test
   public void moveTroops_pathThroughEnemyTerritory_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -467,7 +435,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.moveTroops(s, d, 1));
   }
 
-  // TC12
   @Test
   public void moveTroops_noPathBetweenSourceAndDestination_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -480,7 +447,6 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.moveTroops(s, d, 1));
   }
 
-  // TC11
   @Test
   public void moveTroops_nEqualsTroopCount_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -496,7 +462,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC10
   @Test
   public void moveTroops_nIsNegative_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -511,7 +476,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC9
   @Test
   public void moveTroops_nIsZero_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -526,7 +490,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC8
   @Test
   public void moveTroops_destinationNotOwnedByPlayer_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -542,7 +505,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC7
   @Test
   public void moveTroops_sourceNotOwnedByPlayer_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -557,7 +519,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, s, d);
   }
 
-  // TC6
   @Test
   public void moveTroops_sourceEqualsDestination_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -569,7 +530,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(map, t);
   }
 
-  // TC5
   @Test
   public void moveTroops_nullDestination_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -581,7 +541,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, s);
   }
 
-  // TC4
   @Test
   public void moveTroops_nullSource_throwsIllegalArgumentException() {
     Player player = EasyMock.createMock(Player.class);
@@ -593,7 +552,6 @@ public class FortificationPhaseTests {
     EasyMock.verify(player, map, d);
   }
 
-  // TC3
   @Test
   public void constructor_validPlayerAndMap_movedIsFalse() {
     Player player = EasyMock.createMock(Player.class);

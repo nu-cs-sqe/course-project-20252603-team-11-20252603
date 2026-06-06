@@ -43,6 +43,22 @@
 19. [in progress] Nandan: Update Game class: add advanceToNextPlayer() and drawCard() ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/47))
 20. [in progress] Kris: Implement FortificationPhase class + GameMap ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/45))
 
+# Week 8 (05/19/2026-05/24/2026)
+**Planning and Progress Tracking**:
+1. [in progress] Kris: Set up GUI ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/30))
+2. [done] Nandan/Kris: Set up code coverage ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/36))
+3. [in progress] Brock: Implement Turn class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/46))
+4. [in progress] Brock: Implement Turn enum ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/40))
+5. [in progress] Jefferson: Implement ReinforcementPhase class + modify Player class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/43))
+6. [in review] Nandan: Implement DiceRoller class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/42))
+7. [done] Nandan: Implement BattleResult class ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/41))
+8. [in progress] Nandan: Implement AttackPhase class + territory + game ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/44))
+9. [in progress] Nandan: Update Game class: add advanceToNextPlayer() and drawCard() ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/47))
+10. [in progress] Kris: Implement FortificationPhase class + GameMap ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/45))
+11. [not started] Brock: Set up mutation testing (Pittest) ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/61))
+12. [not started] Brock: Update PlayerTests.java to cover full cyclomatic complexity ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/55))
+13. [not started] Jefferson: set up internationalization ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/60))
+
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
 **Planning and Progress Tracking**:

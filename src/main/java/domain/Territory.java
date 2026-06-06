@@ -5,6 +5,15 @@ public class Territory {
   private Player owner;
   private int troopCount;
 
+  public Territory(String name) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Territory name cannot be null or empty.");
+    }
+    this.name = name;
+    this.owner = null;
+    this.troopCount = 0;
+  }
+
   public Territory(String name, Player owner, int troopCount) {
     if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Territory name cannot be null or empty.");

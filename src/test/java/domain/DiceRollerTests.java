@@ -1,0 +1,206 @@
+package domain;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import org.easymock.EasyMock;
+import org.junit.jupiter.api.Test;
+
+public class DiceRollerTests {
+
+  @Test
+  public void rollAttacker_zeroDice_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    assertThrows(IllegalArgumentException.class, () -> diceRoller.rollAttacker(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_oneDie_returnsListOfSizeOneWithCorrectValue() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(1);
+    assertEquals(1, result.size());
+    assertEquals(3, result.get(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_threeDice_returnsListOfSizeThreeWithCorrectValues() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2).times(3);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(3);
+    assertEquals(3, result.size());
+    assertEquals(List.of(3, 3, 3), result);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_fourDice_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    assertThrows(IllegalArgumentException.class, () -> diceRoller.rollAttacker(4));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_randomProducesMinimum_dieValueIsOne() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(0);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(1);
+    assertEquals(1, result.get(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollAttacker_randomProducesMaximum_dieValueIsSix() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(5);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollAttacker(1);
+    assertEquals(6, result.get(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollDefender_zeroDice_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    assertThrows(IllegalArgumentException.class, () -> diceRoller.rollDefender(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollDefender_oneDie_returnsListOfSizeOneWithCorrectValue() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollDefender(1);
+    assertEquals(1, result.size());
+    assertEquals(3, result.get(0));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollDefender_twoDice_returnsListOfSizeTwoWithCorrectValues() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(6)).andReturn(2).times(2);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> result = diceRoller.rollDefender(2);
+    assertEquals(2, result.size());
+    assertEquals(List.of(3, 3), result);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void rollDefender_threeDice_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    assertThrows(IllegalArgumentException.class, () -> diceRoller.rollDefender(3));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void compare_returnsConqueredFalse() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    BattleResult result = diceRoller.compare(List.of(3), List.of(2));
+    assertEquals(false, result.isConquered());
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void compare_unsortedDefenderDice_sortAppliedBeforeComparison() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    BattleResult result = diceRoller.compare(List.of(5), List.of(4, 6));
+    assertEquals(1, result.getAttackerLosses());
+    assertEquals(0, result.getDefenderLosses());
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void compare_unsortedAttackerDice_sortAppliedBeforeComparison() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    BattleResult result = diceRoller.compare(List.of(2, 4), List.of(3));
+    assertEquals(0, result.getAttackerLosses());
+    assertEquals(1, result.getDefenderLosses());
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_emptyList_listUnchanged() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>();
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(), dice);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_singleElement_listUnchanged() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>(List.of(4));
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(4), dice);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_ascendingOrder_listReversed() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>(List.of(1, 3, 5));
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(5, 3, 1), dice);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_duplicatesPresent_sortedDescending() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>(List.of(3, 1, 3));
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(3, 3, 1), dice);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void sortDescending_alreadySortedDescending_listUnchanged() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DiceRoller diceRoller = new DiceRoller(random);
+    List<Integer> dice = new ArrayList<>(List.of(5, 3, 1));
+    diceRoller.sortDescending(dice);
+    assertEquals(List.of(5, 3, 1), dice);
+    EasyMock.verify(random);
+  }
+}

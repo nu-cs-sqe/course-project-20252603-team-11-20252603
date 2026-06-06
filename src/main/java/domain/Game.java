@@ -66,6 +66,13 @@ public class Game {
     }
   }
 
+  public void advanceToNextPlayer() {
+    if (currentPlayerIndex < 0) {
+      throw new IllegalStateException("Game not started; call chooseFirstPlayer() first.");
+    }
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+  }
+
   public void startGame() {
     shuffleDeck();
     assignTerritories();

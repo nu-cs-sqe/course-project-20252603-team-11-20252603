@@ -10,6 +10,9 @@
 - **TC3: valid riskCardType and territory** ( :white_check_mark: )
   - **State of the system**: No card created yet
   - **Expected output**: RiskCard created; getType() returns the provided type, getTerritory() returns the provided territory
+- **TC4: WILDCARD with no assigned territory** ( :white_check_mark: )
+  - **State of the system**: No card created yet
+  - **Expected output**: Exception NOT thrown because WILDCARDS are not associated with a territory, card created
 
 ### Method under test: `RiskCardType getType()`
 

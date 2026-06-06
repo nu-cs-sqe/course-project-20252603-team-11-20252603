@@ -21,7 +21,7 @@ public class FortificationPhase {
   }
 
   public boolean isComplete() {
-    return false;
+    return moved;
   }
 
   public void moveTroops(Territory s, Territory d, int n) {

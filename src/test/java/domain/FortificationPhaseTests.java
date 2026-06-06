@@ -542,6 +542,17 @@ public class FortificationPhaseTests {
   }
 
   @Test
+  public void isComplete_afterSkipPhase_returnsTrue() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    EasyMock.replay(player, map);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    phase.skipPhase();
+    assertTrue(phase.isComplete());
+    EasyMock.verify(player, map);
+  }
+
+  @Test
   public void skipPhase_freshPhase_movedBecomesTrue() {
     Player player = EasyMock.createMock(Player.class);
     GameMap map = EasyMock.createMock(GameMap.class);

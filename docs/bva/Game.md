@@ -163,36 +163,46 @@ interval [0, players.size() − 1]. `advanceToNextPlayer()` increments the index
 
 **`currentPlayerIndex` (interval [0, players.size() − 1]):**
 
-- **TC27: 2 players, currentPlayerIndex = 0 (lower bound, not last player)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with 2 players; currentPlayerIndex set to 0
-  - **Expected output**: currentPlayerIndex = 1
+- **TC27: game not started (currentPlayerIndex == -1)** ( :white_check_mark: )
+    - **State of the system**: Game just constructed; `chooseFirstPlayer()` not yet called
+    - **Expected output**: IllegalStateException thrown; currentPlayerIndex stays at -1
+- **TC28: 2 players, currentPlayerIndex == 0 (lower boundary, no wraparound)** ( :white_check_mark: )
+    - **State of the system**: Game with 2 players; currentPlayerIndex == 0
+    - **Expected output**: currentPlayerIndex == 1
+- **TC29: 2 players, currentPlayerIndex == 1 (upper boundary, wraps to 0)** ( :white_check_mark: )
+    - **State of the system**: Game with 2 players; currentPlayerIndex == 1
+    - **Expected output**: currentPlayerIndex == 0
+- **TC30: 6 players, currentPlayerIndex == 5 (upper boundary, wraps to 0)** ( :white_check_mark: )
+    - **State of the system**: Game with 6 players; currentPlayerIndex == 5
+    - **Expected output**: currentPlayerIndex == 0
 
-- **TC28: 2 players, currentPlayerIndex = 1 (upper bound, last player — wraps to 0)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with 2 players; currentPlayerIndex set to 1
-  - **Expected output**: currentPlayerIndex = 0
+- **TC31: 3 players, next player not eliminated → advance to next player (Case A)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 0; player[1].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 1
+- **TC32: 3 players, next player eliminated, one after is active → skip one (Case B)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 0; player[1].isEliminated() == true;
+      player[2].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 2
+- **TC33: 4 players, two consecutive eliminated, third active → skip both (Case C)** ( :white_check_mark: )
+    - **State of the system**: 4 players; currentPlayerIndex == 0; player[1].isEliminated() == true;
+      player[2].isEliminated() == true; player[3].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 3
+- **TC34: 3 players, wrap-around past eliminated player → land on active (Case D)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 2; player[0].isEliminated() == true;
+      player[1].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 1
 
-- **TC29: 3 players, currentPlayerIndex = 1 (interior, one below last — no wrap)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with 3 players; currentPlayerIndex set to 1
-  - **Expected output**: currentPlayerIndex = 2
+- **TC35: gameState initializes to SETUP after construction** ( :white_check_mark: )
+    - **State of the system**: Game just constructed with valid players and map
+    - **Expected output**: getGameState() == SETUP
+- **TC36: winner is absent after construction** ( :white_check_mark: )
+    - **State of the system**: Game just constructed with valid players and map
+    - **Expected output**: getWinner().isEmpty() == true
 
----
+- **TC37: drawCard delegates to DeckManager → returns drawn card** ( :white_check_mark: )
+    - **State of the system**: DeckManager.draw() returns a card
+    - **Expected output**: drawCard() returns the card; DeckManager.draw() was invoked exactly once
 
-### Method under test: `RiskCard drawCard()`
-
-Precondition: Game constructed. `deck` is a Count variable (size ≥ 0). `drawCard()` removes and
-returns the first card from the deck. Called by `AttackPhase.awardCardIfEarned()` when the player
-conquered at least one territory this turn.
-
-**`deck.size()` (Count, size ≥ 0):**
-
-- **TC30: deck is empty (size = 0, below lower bound)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with an empty deck
-  - **Expected output**: IllegalStateException thrown
-
-- **TC31: deck has 1 card (lower bound, valid)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with a deck of 1 card
-  - **Expected output**: that card is returned; deck is now empty (size = 0)
-
-- **TC32: deck has 2 cards (one above lower bound)** ( :white_check_mark: )
-  - **State of the system**: Game constructed with a deck of 2 cards
-  - **Expected output**: first card is returned; deck now has 1 card remaining
+- **TC38: drawCard called twice → each call delegates independently to DeckManager** ( :white_check_mark: )
+    - **State of the system**: DeckManager.draw() returns firstCard then secondCard
+    - **Expected output**: first drawCard() returns firstCard; second returns secondCard; no caching

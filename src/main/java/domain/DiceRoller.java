@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,11 @@ public class DiceRoller {
 
   private final Random random;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Random is shared so the test harness can seed it for deterministic rolls. "
+          + "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public DiceRoller(Random random) {
     this.random = random;
   }

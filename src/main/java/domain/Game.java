@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,12 +17,19 @@ public class Game {
   private final Random random;
   private int currentPlayerIndex = -1;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Random is shared so the test harness can seed it for deterministic "
+          + "shuffling. GameMap is the shared aggregate root for the territory graph; cloning "
+          + "it would create orphan territories that drift from real game state. Class is "
+          + "non-final because EasyMock subclasses it to mock in tests."
+  )
   public Game(List<Player> players, GameMap map, List<RiskCard> deck, Random random) {
     validatePlayers(players);
     validateMap(map);
-    this.players = players;
+    this.players = new ArrayList<>(players);
     this.map = map;
-    this.deck = deck;
+    this.deck = new ArrayList<>(deck);
     this.random = random;
   }
 
@@ -92,6 +100,11 @@ public class Game {
     return players.size();
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "GameMap is the shared aggregate root for the territory graph; "
+          + "callers need the live reference to read game state."
+  )
   public GameMap getMap() {
     return map;
   }

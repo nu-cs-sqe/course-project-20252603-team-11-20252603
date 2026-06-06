@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class DeskManagerTests {
+public class DeckManagerTests {
   // Helpers
   private List<Territory> makeTerritoryMocks(int count) {
     List<Territory> ts = new ArrayList<>();
@@ -308,4 +308,41 @@ public class DeskManagerTests {
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
+
+  @Test
+  public void draw_drawPileSizeOne_returnsCardDrawBecomesEmpty() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(new ArrayList<>()); // 2 wildcards
+    dm.draw(); // reduce to size 1
+    assertEquals(1, dm.getDrawPileSize());
+
+    RiskCard card = dm.draw();
+
+    assertEquals(RiskCardType.WILDCARD, card.getType());
+    assertEquals(0, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void draw_drawPileSizeTwo_returnsTopAndShrinksByOne() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(new ArrayList<>()); // 2 wildcards
+    int before = dm.getDrawPileSize();
+
+    RiskCard card = dm.draw();
+
+    assertEquals(RiskCardType.WILDCARD, card.getType());
+    assertEquals(before - 1, dm.getDrawPileSize());
+
+    EasyMock.verify(random);
+  }
+
 }

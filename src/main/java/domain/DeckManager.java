@@ -58,6 +58,16 @@ public class DeckManager {
     Collections.shuffle(drawPile, random);
   }
 
+  public RiskCard draw() {
+    if (drawPile.isEmpty()) {
+      if (discardPile.isEmpty()) {
+        throw new IllegalStateException("Cannot draw: both piles are empty.");
+      }
+      shuffle();
+    }
+    return drawPile.remove(0);
+  }
+
   public void returnCards(List<RiskCard> cards) {
     if (cards == null) {
       throw new IllegalArgumentException("Cards list cannot be null.");

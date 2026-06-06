@@ -427,4 +427,26 @@ public class DeckManagerTests {
     ts.forEach(EasyMock::verify);
   }
 
+  @Test
+  public void returnCards_threeCards_addsAllToDiscardDrawUnchanged() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    List<RiskCard> returned = makeCardMocks(3);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+    returned.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    int drawBefore = dm.getDrawPileSize();
+
+    dm.returnCards(returned);
+    assertEquals(drawBefore, dm.getDrawPileSize());
+    assertEquals(3, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
+    returned.forEach(EasyMock::verify);
+  }
+
 }

@@ -41,7 +41,7 @@ ARTILLERY); or any 3-card combination containing at least one WILDCARD.
   - **State of the system**: 3-card list, one of each non-wildcard type
   - **Expected output**: true
 
-- **TC7: one WILDCARD, one INFANTRY, one CAVALRY (contains wildcard) → true** ( :x: )
+- **TC7: one WILDCARD, one INFANTRY, one CAVALRY (contains wildcard) → true** ( :white_check_mark: )
   - **State of the system**: 3-card list containing 1 wildcard
   - **Expected output**: true
 

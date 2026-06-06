@@ -101,4 +101,20 @@ public class CardTradeValidatorTests {
 
     EasyMock.verify(card1, card2, card3);
   }
+
+  @Test
+  public void isValidSet_oneWildcardOneInfantryOneCavalry_returnsTrue() {
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    RiskCard card3 = EasyMock.createMock(RiskCard.class);
+    EasyMock.expect(card1.getType()).andReturn(RiskCardType.WILDCARD).anyTimes();
+    EasyMock.expect(card2.getType()).andReturn(RiskCardType.INFANTRY).anyTimes();
+    EasyMock.expect(card3.getType()).andReturn(RiskCardType.CAVALRY).anyTimes();
+    EasyMock.replay(card1, card2, card3);
+
+    CardTradeValidator validator = new CardTradeValidator();
+    assertTrue(validator.isValidSet(List.of(card1, card2, card3)));
+
+    EasyMock.verify(card1, card2, card3);
+  }
 }

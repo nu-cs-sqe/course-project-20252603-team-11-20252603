@@ -82,7 +82,7 @@ at turn start).
 
 **`player.getCardCount()` (Count variable ≥ 0, must-continue threshold 5):**
 
-- **TC12: player holds 4 cards after a trade (one below threshold of 5) → false** ( :x: )
+- **TC12: player holds 4 cards after a trade (one below threshold of 5) → false** ( :white_check_mark: )
   - **State of the system**: player holds 4 cards after a trade
   - **Expected output**: false
 

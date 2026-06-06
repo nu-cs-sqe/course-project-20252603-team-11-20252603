@@ -119,6 +119,18 @@ public class CardTradeValidatorTests {
   }
 
   @Test
+  public void mustTrade_playerHoldsFourCards_returnsFalse() {
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(player.getCardCount()).andReturn(4).anyTimes();
+    EasyMock.replay(player);
+
+    CardTradeValidator validator = new CardTradeValidator();
+    assertFalse(validator.mustTrade(player));
+
+    EasyMock.verify(player);
+  }
+
+  @Test
   public void isMandatory_playerHoldsFiveCards_returnsTrue() {
     Player player = EasyMock.createMock(Player.class);
     EasyMock.expect(player.getCardCount()).andReturn(5).anyTimes();

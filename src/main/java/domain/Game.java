@@ -81,7 +81,7 @@ public class Game {
   }
 
   public void shuffleDeck() {
-    Collections.shuffle(deck);
+    Collections.shuffle(deck, random);
   }
 
   public void chooseFirstPlayer() {
@@ -106,5 +106,12 @@ public class Game {
 
   public int getCurrentPlayerIndex() {
     return currentPlayerIndex;
+  }
+
+  public RiskCard drawCard() {
+    if (deck.isEmpty()) {
+      throw new IllegalStateException("Cannot draw from an empty deck.");
+    }
+    return deck.remove(0);
   }
 }

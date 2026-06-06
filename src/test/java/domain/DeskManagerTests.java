@@ -23,6 +23,21 @@ public class DeskManagerTests {
     return ts;
   }
 
+  private List<RiskCard> makeCardMocks(int count) {
+    List<RiskCard> cs = new ArrayList<>();
+    for (int i = 0; i < count; i++) {
+      cs.add(EasyMock.createMock(RiskCard.class));
+    }
+    return cs;
+  }
+
+  // Identity-shuffle script: nextInt(i) returns i-1, swap(i-1, i-1) is a no-op
+  private void expectIdentityShuffle(Random random, int size) {
+    for (int i = size; i > 1; i--) {
+      EasyMock.expect(random.nextInt(i)).andReturn(i - 1);
+    }
+  }
+
   // Rotation-shuffle script: nextInt(i) returns 0 (forces a visible reorder)
   private void expectRotationShuffle(Random random, int size) {
     for (int i = size; i > 1; i--) {
@@ -218,6 +233,30 @@ public class DeskManagerTests {
 
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
+  }
+
+  @Test
+  public void shuffle_drawAndDiscardNonEmpty_onlyDrawShuffledDiscardUntouched() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3); // drawPile size 5
+    List<RiskCard> discarded = makeCardMocks(3);
+    expectIdentityShuffle(random, 5);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+    discarded.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    dm.returnCards(discarded);
+
+    dm.shuffle();
+
+    assertEquals(5, dm.getDrawPileSize());
+    assertEquals(3, dm.getDiscardPileSize());
+
+    EasyMock.verify(random);
+    ts.forEach(EasyMock::verify);
+    discarded.forEach(EasyMock::verify);
   }
 
 }

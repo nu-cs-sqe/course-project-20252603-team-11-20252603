@@ -1,5 +1,6 @@
 package domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -62,7 +63,9 @@ public class GameLoopTests {
       Turn turn,
       Random random) {
     EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0);
-    EasyMock.expect(game.getPlayers()).andReturn(List.of(eliminatedPlayer, activePlayer)).anyTimes();
+    EasyMock.expect(game.getPlayers())
+        .andReturn(List.of(eliminatedPlayer, activePlayer))
+        .anyTimes();
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(eliminatedPlayer.isEliminated()).andReturn(true).anyTimes();
     EasyMock.expect(activePlayer.isEliminated()).andReturn(false).anyTimes();
@@ -370,5 +373,50 @@ public class GameLoopTests {
 
     EasyMock.verify(game, player0, player1, turn, random, cardTradePhase);
     sixCards.forEach(EasyMock::verify);
+  }
+
+  @Test
+  public void runNextTurn_calculateReinforcements_passedToReinforcementPhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player0 = EasyMock.createMock(Player.class);
+    Player player1 = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    ReinforcementPhase reinforcementPhase = EasyMock.createMock(ReinforcementPhase.class);
+
+    EasyMock.expect(game.getCurrentPlayerIndex()).andReturn(0);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(player0, player1)).anyTimes();
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(player0.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(player0.getCards()).andReturn(List.of());
+    EasyMock.expect(player0.calculateReinforcements()).andReturn(7);
+    player0.setAvailableTroops(7);
+    EasyMock.expect(player0.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(player1.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(player1.getTerritoryCount()).andReturn(1).anyTimes();
+    recordTurnDelegation(turn);
+    EasyMock.replay(game, player0, player1, turn, random, reinforcementPhase);
+
+    final int[] troopsToPlace = {-1};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected ReinforcementPhase createReinforcementPhase(
+              Player player, int reinforcements) {
+            assertSame(player0, player);
+            troopsToPlace[0] = reinforcements;
+            return reinforcementPhase;
+          }
+
+          @Override
+          protected Turn createTurn(Player currentPlayer, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertEquals(7, troopsToPlace[0]);
+    EasyMock.verify(game, player0, player1, turn, random, reinforcementPhase);
   }
 }

@@ -65,13 +65,13 @@ The win boundary is at exactly **1** active player.
 - **TC10: 5 cards (lower boundary of trigger threshold)** ( :white_check_mark: )
     - **State of the system**: current player holds 5 cards
     - **Expected output**: CardTradePhase created and run before reinforcement begins
-- **TC11: 6 cards (above lower boundary, still triggers)** ( :x: )
+- **TC11: 6 cards (above lower boundary, still triggers)** ( :white_check_mark: )
     - **State of the system**: current player holds 6 cards
     - **Expected output**: CardTradePhase created and run before reinforcement begins
 
 **C. Reinforcement count calculated externally**
 
-- **TC12: calculateReinforcements() result passed into ReinforcementPhase, not computed inside ReinforcementPhase** ( :x: )
+- **TC12: calculateReinforcements() result passed into ReinforcementPhase, not computed inside ReinforcementPhase** ( :white_check_mark: )
     - **State of the system**: current player holds < 5 cards; player.calculateReinforcements() returns 7
     - **Expected output**: player.calculateReinforcements() called exactly once; ReinforcementPhase constructed with troopsToPlace == 7; player.setAvailableTroops(7) called (reinforcement count sourced from Player, not ReinforcementPhase internals)
 

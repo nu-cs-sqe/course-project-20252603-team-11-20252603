@@ -41,6 +41,7 @@ public class GameLoop {
 
     int reinforcements = currentPlayer.calculateReinforcements();
     currentPlayer.setAvailableTroops(reinforcements);
+    createReinforcementPhase(currentPlayer, reinforcements);
 
     Turn turn = createTurn(currentPlayer, game, game.getRandom());
     turn.startTurn();
@@ -96,5 +97,9 @@ public class GameLoop {
 
   protected CardTradePhase createCardTradePhase(Player player) {
     return new CardTradePhase(player);
+  }
+
+  protected ReinforcementPhase createReinforcementPhase(Player player, int reinforcements) {
+    return new ReinforcementPhase(player, reinforcements);
   }
 }

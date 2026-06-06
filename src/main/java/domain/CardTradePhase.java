@@ -24,5 +24,7 @@ public class CardTradePhase {
   }
 
   public void run() {
+    player.setAvailableTroops(player.getAvailableTroops() + tradeBonus.getValue());
+    tradeBonus.increment();
   }
 }

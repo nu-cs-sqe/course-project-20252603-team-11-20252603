@@ -76,7 +76,7 @@ the number of `run()` calls (Count variable ≥ 1); each call is an independent 
 
 **Number of `run()` calls:**
 
-- **TC8: first call to run() → player receives current bonus value; tradeBonus advances** ( :x: )
+- **TC8: first call to run() → player receives current bonus value; tradeBonus advances** ( :white_check_mark: )
   - **State of the system**: player has N availableTroops; tradeBonus.getValue() = B
   - **Expected output**: player.getAvailableTroops() = N + B; tradeBonus incremented (next getValue() = B + step)
 

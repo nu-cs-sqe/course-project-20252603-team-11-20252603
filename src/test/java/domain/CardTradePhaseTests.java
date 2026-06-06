@@ -10,6 +10,24 @@ import org.junit.jupiter.api.Test;
 public class CardTradePhaseTests {
 
   @Test
+  public void run_firstCall_awardsBonusToPlayerAndIncrements() {
+    Player player = EasyMock.createMock(Player.class);
+    TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);
+    EasyMock.expect(player.getAvailableTroops()).andReturn(10);
+    EasyMock.expect(tradeBonus.getValue()).andReturn(4);
+    player.setAvailableTroops(14);
+    EasyMock.expectLastCall().once();
+    tradeBonus.increment();
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(player, tradeBonus);
+
+    CardTradePhase phase = new CardTradePhase(player, tradeBonus, false);
+    phase.run();
+
+    EasyMock.verify(player, tradeBonus);
+  }
+
+  @Test
   public void validateSet_invalidThreeCardSet_returnsFalse() {
     Player player = EasyMock.createMock(Player.class);
     TradeBonus tradeBonus = EasyMock.createMock(TradeBonus.class);

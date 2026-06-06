@@ -63,7 +63,7 @@ forced before reinforcement placement. Returns true iff the player holds 5 or mo
 
 **`player.getCardCount()` (Count variable ≥ 0, mandatory threshold 5):**
 
-- **TC10: player holds 4 cards (one below threshold of 5) → false** ( :x: )
+- **TC10: player holds 4 cards (one below threshold of 5) → false** ( :white_check_mark: )
   - **State of the system**: player holds 4 cards
   - **Expected output**: false
 

@@ -119,6 +119,18 @@ public class CardTradeValidatorTests {
   }
 
   @Test
+  public void isMandatory_playerHoldsFourCards_returnsFalse() {
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(player.getCardCount()).andReturn(4).anyTimes();
+    EasyMock.replay(player);
+
+    CardTradeValidator validator = new CardTradeValidator();
+    assertFalse(validator.isMandatory(player));
+
+    EasyMock.verify(player);
+  }
+
+  @Test
   public void isValidSet_twoInfantryOneCavalry_returnsFalse() {
     RiskCard card1 = EasyMock.createMock(RiskCard.class);
     RiskCard card2 = EasyMock.createMock(RiskCard.class);

@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public final class DiceRoller {
+public class DiceRoller {
   private static final int MAX_ATTACKER_DICE = 3;
   private static final int MAX_DEFENDER_DICE = 2;
   private static final int FACES_PER_DIE = 6;
@@ -15,7 +15,8 @@ public final class DiceRoller {
 
   @SuppressFBWarnings(
       value = "EI_EXPOSE_REP2",
-      justification = "Random is shared so the test harness can seed it for deterministic rolls."
+      justification = "Random is shared so the test harness can seed it for deterministic rolls. "
+          + "Class is non-final because EasyMock subclasses it to mock in tests."
   )
   public DiceRoller(Random random) {
     this.random = random;

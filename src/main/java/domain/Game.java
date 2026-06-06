@@ -74,7 +74,7 @@ public class Game {
   }
 
   public void shuffleDeck() {
-    Collections.shuffle(deck);
+    Collections.shuffle(deck, random);
   }
 
   public void chooseFirstPlayer() {

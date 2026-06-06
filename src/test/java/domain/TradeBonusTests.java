@@ -41,4 +41,11 @@ public class TradeBonusTests {
     bonus.increment();
     assertEquals(6, bonus.getValue());
   }
+
+  @Test
+  public void increment_calledOnce_increasesValueByStep() {
+    TradeBonus bonus = new TradeBonus(4, 2);
+    bonus.increment();
+    assertEquals(6, bonus.getValue());
+  }
 }

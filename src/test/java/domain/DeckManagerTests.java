@@ -52,6 +52,56 @@ public class DeckManagerTests {
   }
 
   @Test
+  public void seededConstructor_nullRandom_throwsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class,
+        () -> new DeckManager(null, new ArrayList<>()));
+  }
+
+  @Test
+  public void seededConstructor_nullInitialDrawPile_throwsIllegalArgumentException() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    assertThrows(IllegalArgumentException.class, () -> new DeckManager(random, null));
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void seededConstructor_emptyInitialDrawPile_bothPilesEmpty() {
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    DeckManager dm = new DeckManager(random, new ArrayList<>());
+    assertEquals(0, dm.size());
+    assertEquals(0, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void seededConstructor_oneCard_drawPileHoldsThatCardDiscardEmpty() {
+    Random random = EasyMock.createMock(Random.class);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(random, card);
+    DeckManager dm = new DeckManager(random, Arrays.asList(card));
+    assertEquals(1, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+    assertSame(card, dm.getDrawPile().get(0));
+    EasyMock.verify(random, card);
+  }
+
+  @Test
+  public void seededConstructor_fortyFourCards_drawPileHoldsAllDiscardEmpty() {
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> cards = makeCardMocks(44);
+    EasyMock.replay(random);
+    cards.forEach(EasyMock::replay);
+    DeckManager dm = new DeckManager(random, cards);
+    assertEquals(44, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+    EasyMock.verify(random);
+    cards.forEach(EasyMock::verify);
+  }
+
+  @Test
   public void constructor_validRandom_initialPilesAreEmpty() {
     Random random = EasyMock.createMock(Random.class);
     DeckManager dm = new DeckManager(random);

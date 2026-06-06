@@ -22,7 +22,7 @@
        reach the rp/ap/fp helper parameters. Refactoring to a named static inner class
        would significantly bloat the test helper for no test-quality benefit. -->
   <Match>
-    <Class name="~domain\.TurnTests\$.*"/>
+    <Source name="~.*TurnTests\.java"/>
     <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
   </Match>
 

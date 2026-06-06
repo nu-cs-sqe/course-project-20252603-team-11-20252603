@@ -74,6 +74,7 @@ public class DeskManagerTests {
 
     EasyMock.verify(random, a);
   }
+  
   @Test
   public void buildDeck_threeTerritories_producesOneOfEachTypePlusTwoWildcards() {
     Random random = EasyMock.createMock(Random.class);
@@ -128,6 +129,7 @@ public class DeskManagerTests {
     EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
+
   @Test
   public void buildDeck_calledTwice_replacesContents() {
     Random random = EasyMock.createMock(Random.class);
@@ -146,6 +148,27 @@ public class DeskManagerTests {
     EasyMock.verify(random);
     first.forEach(EasyMock::verify);
     second.forEach(EasyMock::verify);
+  }
+
+  @Test
+  public void buildDeck_calledAfterReturnCards_clearsDiscardPile() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3);
+    RiskCard returned = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(random, returned);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    dm.returnCards(Arrays.asList(returned));
+    assertEquals(1, dm.getDiscardPileSize());
+
+    dm.buildDeck(ts);
+    assertEquals(0, dm.getDiscardPileSize());
+    assertEquals(5, dm.getDrawPileSize());
+
+    EasyMock.verify(random, returned);
+    ts.forEach(EasyMock::verify);
   }
 
 }

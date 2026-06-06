@@ -50,6 +50,13 @@ public class DeckManager {
     }
   }
 
+  public void returnCards(List<RiskCard> cards) {
+    if (cards == null) {
+      throw new IllegalArgumentException("Cards list cannot be null.");
+    }
+    discardPile.addAll(cards);
+  }
+
   public int size() {
     return drawPile.size() + discardPile.size();
   }

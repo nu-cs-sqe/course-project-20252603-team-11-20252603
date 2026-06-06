@@ -1,6 +1,7 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +21,13 @@ public class DeskManagerTests {
       ts.add(EasyMock.createMock(Territory.class));
     }
     return ts;
+  }
+
+  // Rotation-shuffle script: nextInt(i) returns 0 (forces a visible reorder)
+  private void expectRotationShuffle(Random random, int size) {
+    for (int i = size; i > 1; i--) {
+      EasyMock.expect(random.nextInt(i)).andReturn(0);
+    }
   }
 
   @Test
@@ -187,6 +195,28 @@ public class DeskManagerTests {
     assertEquals(5, dm.getDrawPileSize());
 
     EasyMock.verify(random, returned);
+    ts.forEach(EasyMock::verify);
+  }
+
+  @Test
+  public void shuffle_drawNonEmptyDiscardEmpty_reordersDrawDiscardUntouched() {
+    Random random = EasyMock.createMock(Random.class);
+    List<Territory> ts = makeTerritoryMocks(3); // drawPile size 5
+    expectRotationShuffle(random, 5);
+    EasyMock.replay(random);
+    ts.forEach(EasyMock::replay);
+
+    DeckManager dm = new DeckManager(random);
+    dm.buildDeck(ts);
+    List<RiskCard> before = new ArrayList<>(dm.getDrawPile());
+
+    dm.shuffle();
+
+    assertEquals(5, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+    assertNotEquals(before, new ArrayList<>(dm.getDrawPile()));
+
+    EasyMock.verify(random);
     ts.forEach(EasyMock::verify);
   }
 

@@ -50,6 +50,14 @@ public class DeckManager {
     }
   }
 
+  public void shuffle() {
+    if (drawPile.isEmpty() && !discardPile.isEmpty()) {
+      drawPile.addAll(discardPile);
+      discardPile.clear();
+    }
+    Collections.shuffle(drawPile, random);
+  }
+
   public void returnCards(List<RiskCard> cards) {
     if (cards == null) {
       throw new IllegalArgumentException("Cards list cannot be null.");

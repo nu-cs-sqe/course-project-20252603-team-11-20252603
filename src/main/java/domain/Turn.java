@@ -117,7 +117,7 @@ public class Turn {
     return new AttackPhase(p, g, r);
   }
 
-  protected FortificationPhase createFortificationPhase(Player p, Game g) {
+  FortificationPhase createFortificationPhase(Player p, Game g) {
     return new FortificationPhase(p, g.getMap());
   }
 }

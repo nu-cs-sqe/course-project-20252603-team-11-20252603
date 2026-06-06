@@ -777,6 +777,7 @@ public class GameTests {
   }
 
   @Test
+=======
   public void drawCard_delegatesToDeckManager_returnsDrawnCard() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
@@ -797,7 +798,10 @@ public class GameTests {
   }
 
   @Test
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 71b275b (drawCard_delegatesToDeckManager_returnsDrawnCard passes)
   public void advanceToNextPlayer_wrapAroundPastEliminatedPlayer_landsOnActivePlayer() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(3);

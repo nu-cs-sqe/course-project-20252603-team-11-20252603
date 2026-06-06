@@ -18,4 +18,16 @@ public class DeckManager {
     this.drawPile = new ArrayList<>();
     this.discardPile = new ArrayList<>();
   }
+
+  public int size() {
+    return drawPile.size() + discardPile.size();
+  }
+
+  public int getDrawPileSize() {
+    return drawPile.size();
+  }
+
+  public int getDiscardPileSize() {
+    return discardPile.size();
+  }
 }

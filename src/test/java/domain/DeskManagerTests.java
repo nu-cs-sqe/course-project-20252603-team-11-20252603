@@ -14,4 +14,12 @@ public class DeskManagerTests {
     assertThrows(IllegalArgumentException.class, () -> new DeckManager(null));
   }
 
+  @Test
+  public void constructor_validRandom_initialPilesAreEmpty() {
+    DeckManager dm = new DeckManager(new Random(FIXED_SEED));
+    assertEquals(0, dm.size());
+    assertEquals(0, dm.getDrawPileSize());
+    assertEquals(0, dm.getDiscardPileSize());
+  }
+
 }

@@ -39,7 +39,7 @@ variable ≥ 0).
 
 **Number of prior `increment()` calls:**
 
-- **TC5: 0 prior increments (initial state, lower bound) → returns initialValue** ( :x: )
+- **TC5: 0 prior increments (initial state, lower bound) → returns initialValue** ( :white_check_mark: )
   - **State of the system**: TradeBonus freshly constructed; increment() not yet called
   - **Expected output**: getValue() returns initialValue
 

@@ -28,4 +28,10 @@ public class TradeBonusTests {
     TradeBonus bonus = new TradeBonus(4, 1);
     assertEquals(4, bonus.getValue());
   }
+
+  @Test
+  public void getValue_noIncrements_returnsInitialValue() {
+    TradeBonus bonus = new TradeBonus(4, 2);
+    assertEquals(4, bonus.getValue());
+  }
 }

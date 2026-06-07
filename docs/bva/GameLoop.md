@@ -117,7 +117,7 @@ The win boundary is at exactly **1** active player.
 
 No input parameters. BVA focuses on loop termination driven by `checkWinCondition()`.
 
-- **TC22: win condition already met before loop — exits without running a turn** ( :x: )
+- **TC22: win condition already met before loop — exits without running a turn** ( :white_check_mark: )
     - **State of the system**: checkWinCondition() returns true on first evaluation
     - **Expected output**: runNextTurn() never called; gameState == GAME_OVER
 - **TC23: win condition met after exactly 1 iteration** ( :x: )

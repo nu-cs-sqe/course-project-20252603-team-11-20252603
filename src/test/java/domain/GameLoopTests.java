@@ -491,4 +491,33 @@ public class GameLoopTests {
 
     EasyMock.verify(game, attacker, defender, turn, random);
   }
+
+  @Test
+  public void start_winConditionAlreadyMet_neverRunsTurn() {
+    Game game = EasyMock.createMock(Game.class);
+    Player winner = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(winner));
+    EasyMock.expect(winner.isEliminated()).andReturn(false);
+    EasyMock.expect(winner.getTerritoryCount()).andReturn(10);
+    game.setGameState(GameState.FINISHED);
+    EasyMock.expectLastCall().once();
+    game.setWinner(winner);
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(game, winner);
+
+    final int[] runNextTurnCalls = {0};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          public void runNextTurn() {
+            runNextTurnCalls[0]++;
+          }
+        };
+
+    gameLoop.start();
+
+    assertEquals(0, runNextTurnCalls[0]);
+    EasyMock.verify(game, winner);
+  }
 }

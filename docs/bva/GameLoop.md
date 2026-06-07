@@ -1,14 +1,12 @@
 # GameLoop - BVA Analysis
 
-Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7).
+Central coordinator for the multi-turn game cycle
 
 **Threshold constants (from acceptance criteria / game rules):**
 - Pre-reinforcement card trade trigger: player holds **≥ 5** cards at turn start
 - Post-elimination card trade trigger: attacker holds **≥ 6** cards after inheriting eliminated player's cards
 
 **Preconditions for most tests:** Game is in `IN_PROGRESS`, `startGame()` has been called, and `checkWinCondition()` returns false unless stated otherwise. All collaborators (`Game`, `Player`, `Turn`, `CardTradePhase`) are mocked in tests; `GameLoop` may override `createTurn()` to inject a mock `Turn` (same pattern as `TurnTests`).
-
----
 
 ### Method under test: `GameLoop(Game game)`
 
@@ -20,8 +18,6 @@ Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7)
 - **TC2: valid non-null game** ( :white_check_mark: )
     - **State of the system**: No GameLoop created yet
     - **Expected output**: GameLoop constructed without exception
-
----
 
 ### Method under test: `boolean checkWinCondition()`
 
@@ -39,13 +35,9 @@ The win boundary is at exactly **1** active player.
     - **State of the system**: 3 players not eliminated
     - **Expected output**: returns false; gameState stays IN_PROGRESS; winner remains unset
 
----
-
 ### Method under test: `void runNextTurn()`
 
 **A. Current player identification — skip eliminated players**
-
-`currentPlayerIndex` may point at an eliminated player; GameLoop must advance to the next active player before creating a Turn.
 
 - **TC6: current index points to active player (no skip needed)** ( :white_check_mark: )
     - **State of the system**: currentPlayerIndex == 0; player[0].isEliminated() == false
@@ -111,11 +103,7 @@ The win boundary is at exactly **1** active player.
     - **State of the system**: one player eliminated this turn; only 1 active player remains
     - **Expected output**: checkWinCondition() returns true; gameState == GAME_OVER; winner set to remaining player
 
----
-
 ### Method under test: `void start()`
-
-No input parameters. BVA focuses on loop termination driven by `checkWinCondition()`.
 
 - **TC22: win condition already met before loop — exits without running a turn** ( :white_check_mark: )
     - **State of the system**: checkWinCondition() returns true on first evaluation

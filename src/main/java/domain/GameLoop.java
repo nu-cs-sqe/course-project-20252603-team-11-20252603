@@ -1,13 +1,9 @@
 package domain;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class GameLoop {
-  private static final int PRE_TURN_CARD_TRADE_THRESHOLD = 5;
-  private static final int POST_ELIMINATION_CARD_TRADE_THRESHOLD = 6;
-
   private final Game game;
 
   public GameLoop(Game game) {
@@ -15,10 +11,6 @@ public class GameLoop {
       throw new IllegalArgumentException("game cannot be null.");
     }
     this.game = game;
-  }
-
-  public Game getGame() {
-    return game;
   }
 
   public boolean checkWinCondition() {
@@ -36,12 +28,11 @@ public class GameLoop {
   }
 
   public void runNextTurn() {
-    Player currentPlayer = resolveCurrentPlayer();
-    runCardTradeIfNeeded(currentPlayer, PRE_TURN_CARD_TRADE_THRESHOLD);
+    Player currentPlayer = game.getCurrentActivePlayer();
+    CardTradePhase.runIfRequired(currentPlayer, CardTradePhase.PRE_TURN_THRESHOLD);
 
     int reinforcements = currentPlayer.calculateReinforcements();
     currentPlayer.setAvailableTroops(reinforcements);
-    createReinforcementPhase(currentPlayer, reinforcements);
 
     Turn turn = createTurn(currentPlayer, game, game.getRandom());
     turn.startTurn();
@@ -50,56 +41,24 @@ public class GameLoop {
     turn.runFortificationPhase();
     turn.endTurn();
 
-    handleElimination(turn, currentPlayer);
+    turn.getEliminatedDefender()
+        .ifPresent(
+            defender -> {
+              currentPlayer.inheritCardsFrom(defender);
+              CardTradePhase.runIfRequired(
+                  currentPlayer, CardTradePhase.POST_ELIMINATION_THRESHOLD);
+            });
+
     checkWinCondition();
   }
 
-  protected Player resolveCurrentPlayer() {
-    List<Player> players = game.getPlayers();
-    int index = game.getCurrentPlayerIndex();
-    Player current = players.get(index);
-    if (!current.isEliminated()) {
-      return current;
-    }
-    int next = (index + 1) % players.size();
-    while (players.get(next).isEliminated()) {
-      next = (next + 1) % players.size();
-    }
-    return players.get(next);
-  }
-
-  protected void runCardTradeIfNeeded(Player player, int threshold) {
-    if (player.getCards().size() >= threshold) {
-      CardTradePhase cardTradePhase = createCardTradePhase(player);
-      cardTradePhase.execute();
-    }
-  }
-
-  protected void handleElimination(Turn turn, Player attacker) {
-    Optional<Player> eliminatedDefender = turn.getEliminatedDefender();
-    if (eliminatedDefender.isEmpty()) {
-      return;
-    }
-    Player defender = eliminatedDefender.get();
-    inheritCards(defender, attacker);
-    runCardTradeIfNeeded(attacker, POST_ELIMINATION_CARD_TRADE_THRESHOLD);
-  }
-
-  protected void inheritCards(Player defender, Player attacker) {
-    for (RiskCard card : defender.getCards()) {
-      attacker.addCard(card);
+  public void start() {
+    while (!checkWinCondition()) {
+      runNextTurn();
     }
   }
 
   protected Turn createTurn(Player currentPlayer, Game game, java.util.Random random) {
     return new Turn(currentPlayer, game, random);
-  }
-
-  protected CardTradePhase createCardTradePhase(Player player) {
-    return new CardTradePhase(player);
-  }
-
-  protected ReinforcementPhase createReinforcementPhase(Player player, int reinforcements) {
-    return new ReinforcementPhase(player, reinforcements);
   }
 }

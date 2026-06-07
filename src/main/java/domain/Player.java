@@ -71,6 +71,15 @@ public class Player {
     cards.add(card);
   }
 
+  public void inheritCardsFrom(Player eliminated) {
+    if (eliminated == null) {
+      throw new IllegalArgumentException("Eliminated player cannot be null.");
+    }
+    for (RiskCard card : eliminated.getCards()) {
+      addCard(card);
+    }
+  }
+
   public void placeTroops(Territory territory, int amount) {
     if (territory == null) {
       throw new IllegalArgumentException("Territory cannot be null.");

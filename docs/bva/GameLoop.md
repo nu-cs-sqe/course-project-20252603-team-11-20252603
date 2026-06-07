@@ -6,7 +6,7 @@ Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7)
 - Pre-reinforcement card trade trigger: player holds **≥ 5** cards at turn start
 - Post-elimination card trade trigger: attacker holds **≥ 6** cards after inheriting eliminated player's cards
 
-**Preconditions for most tests:** Game is in `IN_PROGRESS`, `startGame()` has been called, and `checkWinCondition()` returns false unless stated otherwise. All collaborators (`Game`, `Player`, `Turn`, `CardTradePhase`) are mocked in tests; protected factory methods (`createTurn`, `createCardTradePhase`) are overridden to inject mocks (same pattern as `TurnTests`).
+**Preconditions for most tests:** Game is in `IN_PROGRESS`, `startGame()` has been called, and `checkWinCondition()` returns false unless stated otherwise. All collaborators (`Game`, `Player`, `Turn`, `CardTradePhase`) are mocked in tests; `GameLoop` may override `createTurn()` to inject a mock `Turn` (same pattern as `TurnTests`).
 
 ---
 
@@ -19,7 +19,7 @@ Central coordinator for the multi-turn game cycle (Issue #64, Use Cases 4, 6, 7)
     - **Expected output**: IllegalArgumentException thrown
 - **TC2: valid non-null game** ( :white_check_mark: )
     - **State of the system**: No GameLoop created yet
-    - **Expected output**: GameLoop created; getGame() returns injected game
+    - **Expected output**: GameLoop constructed without exception
 
 ---
 
@@ -98,7 +98,7 @@ The win boundary is at exactly **1** active player.
 - **TC18: post-elimination card count == 6 (lower boundary of immediate-trade threshold)** ( :white_check_mark: )
     - **State of the system**: after card transfer, attacker holds exactly 6 cards
     - **Expected output**: CardTradePhase created and run immediately for the attacker
-- **TC19: post-elimination card count == 7 (above immediate-trade threshold)** ( :x: )
+- **TC19: post-elimination card count == 7 (above immediate-trade threshold)** ( :white_check_mark: )
     - **State of the system**: after card transfer, attacker holds 7 cards
     - **Expected output**: CardTradePhase created and run immediately for the attacker
 

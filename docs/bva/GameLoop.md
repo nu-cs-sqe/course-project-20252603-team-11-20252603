@@ -123,7 +123,7 @@ No input parameters. BVA focuses on loop termination driven by `checkWinConditio
 - **TC23: win condition met after exactly 1 iteration** ( :white_check_mark: )
     - **State of the system**: checkWinCondition() returns false, then true after one runNextTurn()
     - **Expected output**: runNextTurn() called exactly once; loop exits; gameState == GAME_OVER
-- **TC24: win condition met after multiple iterations** ( :x: )
+- **TC24: win condition met after multiple iterations** ( :white_check_mark: )
     - **State of the system**: checkWinCondition() returns false twice, then true on third check
     - **Expected output**: runNextTurn() called exactly twice; loop exits on third checkWinCondition(); gameState == GAME_OVER
 - **TC25: loop continues while multiple active players remain** ( :x: )

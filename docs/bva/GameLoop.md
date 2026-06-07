@@ -107,7 +107,7 @@ The win boundary is at exactly **1** active player.
 - **TC20: elimination leaves 2+ active players — game continues** ( :white_check_mark: )
     - **State of the system**: one player eliminated this turn; 2 active players remain
     - **Expected output**: checkWinCondition() returns false; gameState stays IN_PROGRESS
-- **TC21: elimination leaves exactly 1 active player — game ends** ( :x: )
+- **TC21: elimination leaves exactly 1 active player — game ends** ( :white_check_mark: )
     - **State of the system**: one player eliminated this turn; only 1 active player remains
     - **Expected output**: checkWinCondition() returns true; gameState == GAME_OVER; winner set to remaining player
 

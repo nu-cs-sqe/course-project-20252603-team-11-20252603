@@ -150,18 +150,18 @@ interval [0, players.size() − 1] — boundary values inherited from `chooseFir
     - **State of the system**: Game constructed with 2 players; random returns 0 for chooseFirstPlayer call
     - **Expected output**: currentPlayerIndex = 0
 - **TC26: 2 players, result = 1 (upper bound of resulting index)** ( :white_check_mark: )
-    - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
-    - **Expected output**: currentPlayerIndex = 1
+  - **State of the system**: Game constructed with 2 players; random returns 1 for chooseFirstPlayer call
+  - **Expected output**: currentPlayerIndex = 1
 
 ---
 
 ### Method under test: `void advanceToNextPlayer()`
 
-Precondition: Game constructed with 2–6 players.
+Precondition: `currentPlayerIndex` has been set (e.g. by `chooseFirstPlayer()`). The index is an
+interval [0, players.size() − 1]. `advanceToNextPlayer()` increments the index with wrap-around:
+`(currentPlayerIndex + 1) % players.size()`.
 
-`advanceToNextPlayer` is gated by `currentPlayerIndex`: throw if the game has not started (`currentPlayerIndex == -1`),
-otherwise increment with modulo wraparound. BVA covers the unstarted boundary plus the two valid-range boundaries (
-no-wrap vs wraparound) at minimum and maximum player counts.
+**`currentPlayerIndex` (interval [0, players.size() − 1]):**
 
 - **TC27: game not started (currentPlayerIndex == -1)** ( :white_check_mark: )
     - **State of the system**: Game just constructed; `chooseFirstPlayer()` not yet called
@@ -175,3 +175,34 @@ no-wrap vs wraparound) at minimum and maximum player counts.
 - **TC30: 6 players, currentPlayerIndex == 5 (upper boundary, wraps to 0)** ( :white_check_mark: )
     - **State of the system**: Game with 6 players; currentPlayerIndex == 5
     - **Expected output**: currentPlayerIndex == 0
+
+- **TC31: 3 players, next player not eliminated → advance to next player (Case A)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 0; player[1].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 1
+- **TC32: 3 players, next player eliminated, one after is active → skip one (Case B)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 0; player[1].isEliminated() == true;
+      player[2].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 2
+- **TC33: 4 players, two consecutive eliminated, third active → skip both (Case C)** ( :white_check_mark: )
+    - **State of the system**: 4 players; currentPlayerIndex == 0; player[1].isEliminated() == true;
+      player[2].isEliminated() == true; player[3].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 3
+- **TC34: 3 players, wrap-around past eliminated player → land on active (Case D)** ( :white_check_mark: )
+    - **State of the system**: 3 players; currentPlayerIndex == 2; player[0].isEliminated() == true;
+      player[1].isEliminated() == false
+    - **Expected output**: currentPlayerIndex == 1
+
+- **TC35: gameState initializes to SETUP after construction** ( :white_check_mark: )
+    - **State of the system**: Game just constructed with valid players and map
+    - **Expected output**: getGameState() == SETUP
+- **TC36: winner is absent after construction** ( :white_check_mark: )
+    - **State of the system**: Game just constructed with valid players and map
+    - **Expected output**: getWinner().isEmpty() == true
+
+- **TC37: drawCard delegates to DeckManager → returns drawn card** ( :white_check_mark: )
+    - **State of the system**: DeckManager.draw() returns a card
+    - **Expected output**: drawCard() returns the card; DeckManager.draw() was invoked exactly once
+
+- **TC38: drawCard called twice → each call delegates independently to DeckManager** ( :white_check_mark: )
+    - **State of the system**: DeckManager.draw() returns firstCard then secondCard
+    - **Expected output**: first drawCard() returns firstCard; second returns secondCard; no caching

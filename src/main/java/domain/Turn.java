@@ -1,12 +1,13 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Optional;
 import java.util.Random;
 
 public class Turn {
   private final Player currentPlayer;
   private final Game game;
-  private final Random random;
+  private final DiceRoller diceRoller;
 
   private TurnPhase phase;
   private boolean conqueredThisTurn;
@@ -15,6 +16,12 @@ public class Turn {
   private AttackPhase attackPhase;
   private FortificationPhase fortificationPhase;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Player/Game are aggregate domain objects intentionally shared by reference; "
+          + "Random is shared for deterministic test seeding. Class is intentionally non-final "
+          + "to allow TurnTests to subclass it as a test seam for the createXxxPhase factories."
+  )
   public Turn(Player currentPlayer, Game game, Random random) {
     if (currentPlayer == null) {
       throw new IllegalArgumentException("currentPlayer cannot be null.");
@@ -27,15 +34,22 @@ public class Turn {
     }
     this.currentPlayer = currentPlayer;
     this.game = game;
-    this.random = random;
+    this.diceRoller = new DiceRoller(random);
     this.phase = null;
     this.conqueredThisTurn = false;
+    this.reinforcementPhase = null;
+    this.attackPhase = null;
+    this.fortificationPhase = null;
   }
 
   public TurnPhase getPhase() {
     return phase;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Player by design."
+  )
   public Player getCurrentPlayer() {
     return currentPlayer;
   }
@@ -77,7 +91,7 @@ public class Turn {
     if (!reinforcementPhase.isComplete()) {
       throw new IllegalStateException("Reinforcement phase not complete.");
     }
-    attackPhase = createAttackPhase(currentPlayer, game, random);
+    attackPhase = createAttackPhase(currentPlayer, game, diceRoller);
     phase = TurnPhase.ATTACK;
   }
 
@@ -114,15 +128,15 @@ public class Turn {
     return Optional.empty();
   }
 
-  protected ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
+  ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {
     return new ReinforcementPhase(p, troopsToPlace);
   }
 
-  protected AttackPhase createAttackPhase(Player p, Game g, Random r) {
-    return new AttackPhase(p, g, r);
+  AttackPhase createAttackPhase(Player p, Game g, DiceRoller diceRoller) {
+    return new AttackPhase(p, diceRoller, g);
   }
 
-  protected FortificationPhase createFortificationPhase(Player p, Game g) {
-    return new FortificationPhase(p, g);
+  FortificationPhase createFortificationPhase(Player p, Game g) {
+    return new FortificationPhase(p, g.getMap());
   }
 }

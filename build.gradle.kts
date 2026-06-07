@@ -3,7 +3,9 @@ plugins {
     id("application")
     id("checkstyle")
     id("jacoco")
+    id("info.solidsoft.pitest") version "1.15.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
+    id("com.github.spotbugs") version "6.0.26"
 }
 
 group = "nu.csse.sqe"
@@ -14,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.8.6")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.easymock:easymock:5.4.0")
@@ -60,6 +63,15 @@ jacoco {
     toolVersion = "0.8.12"
 }
 
+pitest {
+    junit5PluginVersion.set("1.2.1")
+    targetClasses.set(setOf("domain.*"))
+    targetTests.set(setOf("domain.*"))
+    threads.set(4)
+    outputFormats.set(setOf("HTML"))
+    timestampedReports.set(false)
+}
+
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
 
@@ -68,4 +80,16 @@ tasks.jacocoTestReport {
         csv.required.set(false)
         html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
     }
+}
+
+spotbugs {
+    toolVersion.set("4.8.6")
+    effort.set(com.github.spotbugs.snom.Effort.MAX)
+    reportLevel.set(com.github.spotbugs.snom.Confidence.LOW)
+    ignoreFailures.set(false)
+    excludeFilter.set(file("config/spotbugs/exclude.xml"))
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+    reports.create("html") { required.set(true) }
 }

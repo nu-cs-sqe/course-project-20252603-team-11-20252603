@@ -85,7 +85,7 @@ public class GameLoopTests {
     EasyMock.expect(eliminated.isEliminated()).andReturn(true);
     EasyMock.expect(winner.getTerritoryCount()).andReturn(42);
 
-    game.setGameState(GameState.GAME_OVER);
+    game.setGameState(GameState.FINISHED);
     EasyMock.expectLastCall().once();
     game.setWinner(winner);
     EasyMock.expectLastCall().once();

@@ -20,7 +20,7 @@ public class GameLoop {
             .collect(Collectors.toList());
 
     if (activePlayers.size() == 1) {
-      game.setGameState(GameState.GAME_OVER);
+      game.setGameState(GameState.FINISHED);
       game.setWinner(activePlayers.get(0));
       return true;
     }

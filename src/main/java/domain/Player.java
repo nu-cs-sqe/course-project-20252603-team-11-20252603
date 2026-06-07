@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,10 @@ public class Player {
   private int availableTroops;
   private boolean isEliminated;
 
+  @SuppressFBWarnings(
+      value = "CT_CONSTRUCTOR_THROW",
+      justification = "Class is non-final because EasyMock subclasses it to mock in tests."
+  )
   public Player(String name) {
     if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Player name cannot be null or empty");
@@ -46,6 +51,10 @@ public class Player {
 
   public int getTerritoryCount() {
     return territories.size();
+  }
+
+  public int getCardCount() {
+    return cards.size();
   }
 
   public void addTerritory(Territory territory) {
@@ -97,15 +106,15 @@ public class Player {
     availableTroops -= amount;
   }
 
-  public int calculateReinforcements() {
-    return Math.max(3, territories.size() / 3);
-  }
-
   public boolean isEliminated() {
     return isEliminated;
   }
 
   public void setEliminated(boolean eliminated) {
     this.isEliminated = eliminated;
+  }
+
+  public int calculateReinforcements() {
+    return Math.max(3, territories.size() / 3);
   }
 }

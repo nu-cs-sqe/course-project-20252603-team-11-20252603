@@ -104,7 +104,7 @@ The win boundary is at exactly **1** active player.
 
 **F. Win re-check after elimination**
 
-- **TC20: elimination leaves 2+ active players — game continues** ( :x: )
+- **TC20: elimination leaves 2+ active players — game continues** ( :white_check_mark: )
     - **State of the system**: one player eliminated this turn; 2 active players remain
     - **Expected output**: checkWinCondition() returns false; gameState stays IN_PROGRESS
 - **TC21: elimination leaves exactly 1 active player — game ends** ( :x: )

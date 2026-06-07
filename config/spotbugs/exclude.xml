@@ -26,4 +26,9 @@
     <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
   </Match>
 
+  <Match>
+    <Source name="~.*GameLoopTests\.java"/>
+    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+  </Match>
+
 </FindBugsFilter>

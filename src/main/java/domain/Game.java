@@ -166,6 +166,10 @@ public class Game {
     return Collections.unmodifiableList(players);
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Random is shared so the test harness can seed it for deterministic behavior."
+  )
   public Random getRandom() {
     return random;
   }

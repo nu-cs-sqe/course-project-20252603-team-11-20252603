@@ -1,11 +1,17 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameLoop {
   private final Game game;
 
+  @SuppressFBWarnings(
+      value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
+      justification = "Game is the shared aggregate root intentionally stored by reference; "
+          + "class is non-final because tests subclass it to override createTurn()."
+  )
   public GameLoop(Game game) {
     if (game == null) {
       throw new IllegalArgumentException("game cannot be null.");

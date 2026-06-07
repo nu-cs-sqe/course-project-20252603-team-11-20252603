@@ -54,6 +54,10 @@ public class Turn {
     return currentPlayer;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Game by design."
+  )
   public Game getGame() {
     return game;
   }

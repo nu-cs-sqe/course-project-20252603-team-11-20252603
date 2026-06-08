@@ -12,7 +12,7 @@
 
 ### Method under test: `boolean isConnected(Territory s, Territory d, Player owner)`
 
-- **TC3: null source** ( :x: )
+- **TC3: null source** ( :white_check_mark: )
     - **State of the system**: ConnectivityGraph constructed with valid map
     - **Expected output**: IllegalArgumentException thrown
 

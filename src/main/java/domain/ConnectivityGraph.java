@@ -22,4 +22,11 @@ public class ConnectivityGraph {
     }
     this.map = map;
   }
+
+  public boolean isConnected(Territory s, Territory d, Player owner) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+    return false;
+  }
 }

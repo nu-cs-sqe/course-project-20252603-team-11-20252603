@@ -76,7 +76,7 @@ order — `assignTerritories` → `distributeStartingTroops` → `chooseFirstPla
 `game.gameState = IN_PROGRESS`. BVA focuses on: (1) all steps execute, and (2) the resulting
 `gameState` is always `IN_PROGRESS`.
 
-- **TC10: 2-player game — all steps execute; gameState set to IN_PROGRESS** ( :x: )
+- **TC10: 2-player game — all steps execute; gameState set to IN_PROGRESS** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed with 2-player game; game.gameState == SETUP
     - **Expected output**: game.assignTerritories() called; game.distributeStartingTroops() called;
       game.chooseFirstPlayer() called; game.getCurrentActivePlayer() called; game.setGameState(IN_PROGRESS) called

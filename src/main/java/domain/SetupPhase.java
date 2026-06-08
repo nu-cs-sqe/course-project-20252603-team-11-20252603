@@ -32,6 +32,13 @@ public class SetupPhase {
     return game.getCurrentActivePlayer();
   }
 
+  public void run() {
+    assignTerritories();
+    distributeStartingTroops();
+    chooseFirstPlayer();
+    game.setGameState(GameState.IN_PROGRESS);
+  }
+
   public int getPlayerCount() {
     return playerCount;
   }

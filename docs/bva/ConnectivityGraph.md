@@ -28,7 +28,7 @@
     - **State of the system**: map.findPath(s, d, owner) returns a non-empty list
     - **Expected output**: true
 
-- **TC7: no path through owner-owned territories** ( :x: )
+- **TC7: no path through owner-owned territories** ( :white_check_mark: )
     - **State of the system**: map.findPath(s, d, owner) returns empty list
     - **Expected output**: false
 

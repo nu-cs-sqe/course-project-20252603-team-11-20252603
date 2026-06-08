@@ -66,4 +66,17 @@ public class ConnectivityGraphTests {
     assertTrue(graph.isConnected(s, d, owner));
     EasyMock.verify(map, s, d, owner);
   }
+
+  @Test
+  public void isConnected_noPath_returnsFalse() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    Player owner = EasyMock.createMock(Player.class);
+    EasyMock.expect(map.findPath(s, d, owner)).andReturn(List.of());
+    EasyMock.replay(map, s, d, owner);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertFalse(graph.isConnected(s, d, owner));
+    EasyMock.verify(map, s, d, owner);
+  }
 }

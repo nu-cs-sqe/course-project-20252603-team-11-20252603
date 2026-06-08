@@ -39,4 +39,11 @@ public class ConnectivityGraph {
   public List<Territory> findPath(Territory s, Territory d, Player owner) {
     return map.findPath(s, d, owner);
   }
+
+  public Set<Territory> getReachable(Territory src, Player owner) {
+    if (src == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+    return new HashSet<>();
+  }
 }

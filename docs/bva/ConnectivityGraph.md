@@ -44,7 +44,7 @@
 
 ### Method under test: `Set<Territory> getReachable(Territory src, Player owner)`
 
-- **TC10: null src** ( :x: )
+- **TC10: null src** ( :white_check_mark: )
     - **State of the system**: ConnectivityGraph constructed
     - **Expected output**: IllegalArgumentException thrown
 

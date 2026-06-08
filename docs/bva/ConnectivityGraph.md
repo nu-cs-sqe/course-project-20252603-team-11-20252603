@@ -2,7 +2,7 @@
 
 ### Method under test: `ConnectivityGraph(GameMap map)`
 
-- **TC1: null map** ( :x: )
+- **TC1: null map** ( :white_check_mark: )
     - **State of the system**: No ConnectivityGraph created yet
     - **Expected output**: IllegalArgumentException thrown
 

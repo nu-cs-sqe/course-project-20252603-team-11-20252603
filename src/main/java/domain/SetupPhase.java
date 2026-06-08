@@ -27,6 +27,11 @@ public class SetupPhase {
     game.distributeStartingTroops();
   }
 
+  public Player chooseFirstPlayer() {
+    game.chooseFirstPlayer();
+    return game.getCurrentActivePlayer();
+  }
+
   public int getPlayerCount() {
     return playerCount;
   }

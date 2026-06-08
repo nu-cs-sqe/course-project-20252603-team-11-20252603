@@ -22,11 +22,9 @@ public final class TerritoryNode extends Group {
   private static final Color OWNER_FILL = Color.WHITE;
 
   private final Polygon shape;
-  private final Color baseColor;
 
-  public TerritoryNode(Territory territory, Color baseColor,
-      double cx, double cy, double radius, String msgKey) {
-    this.baseColor = baseColor;
+  public TerritoryNode(
+      Territory territory, Color baseColor, double cx, double cy, double radius, String msgKey) {
     this.shape = buildHexagon(cx, cy, radius);
     shape.setFill(baseColor);
     shape.setStroke(STROKE_COLOR);
@@ -36,9 +34,11 @@ public final class TerritoryNode extends Group {
     shape.setOnMouseEntered(e -> shape.setFill(baseColor.brighter()));
     shape.setOnMouseExited(e -> shape.setFill(baseColor));
     shape.setOnMouseClicked(e -> {});
-    getChildren().addAll(shape,
-        new Text(cx + LABEL_DX, cy + LABEL_DY, String.valueOf(territory.getTroopCount())),
-        buildOwnerMarker(cx + radius * OWNER_OFFSET, cy - radius * OWNER_OFFSET, territory));
+    getChildren()
+        .addAll(
+            shape,
+            new Text(cx + LABEL_DX, cy + LABEL_DY, String.valueOf(territory.getTroopCount())),
+            buildOwnerMarker(cx + radius * OWNER_OFFSET, cy - radius * OWNER_OFFSET, territory));
   }
 
   private static Circle buildOwnerMarker(double mx, double my, Territory territory) {

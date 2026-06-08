@@ -44,6 +44,9 @@ public class ConnectivityGraph {
     if (src == null) {
       throw new IllegalArgumentException("Source territory cannot be null");
     }
+    if (owner == null) {
+      throw new IllegalArgumentException("Owner cannot be null");
+    }
     return new HashSet<>();
   }
 }

@@ -116,4 +116,14 @@ public class ConnectivityGraphTests {
     assertThrows(IllegalArgumentException.class, () -> graph.getReachable(null, owner));
     EasyMock.verify(map, owner);
   }
+
+  @Test
+  public void getReachable_nullOwner_throwsIllegalArgumentException() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory src = EasyMock.createMock(Territory.class);
+    EasyMock.replay(map, src);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertThrows(IllegalArgumentException.class, () -> graph.getReachable(src, null));
+    EasyMock.verify(map, src);
+  }
 }

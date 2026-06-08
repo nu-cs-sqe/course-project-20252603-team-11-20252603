@@ -48,7 +48,7 @@
     - **State of the system**: ConnectivityGraph constructed
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC11: null owner** ( :x: )
+- **TC11: null owner** ( :white_check_mark: )
     - **State of the system**: ConnectivityGraph constructed; valid src provided
     - **Expected output**: IllegalArgumentException thrown
 

@@ -38,7 +38,7 @@
     - **State of the system**: map.findPath(s, d, owner) returns [s, d]
     - **Expected output**: [s, d]
 
-- **TC9: no path — delegates to GameMap and returns empty list** ( :x: )
+- **TC9: no path — delegates to GameMap and returns empty list** ( :white_check_mark: )
     - **State of the system**: map.findPath(s, d, owner) returns empty list
     - **Expected output**: empty list (not null)
 

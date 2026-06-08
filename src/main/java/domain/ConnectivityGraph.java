@@ -33,6 +33,10 @@ public class ConnectivityGraph {
     if (s == d) {
       throw new IllegalArgumentException("Source and destination cannot be the same territory");
     }
-    return false;
+    return !findPath(s, d, owner).isEmpty();
+  }
+
+  public List<Territory> findPath(Territory s, Territory d, Player owner) {
+    return map.findPath(s, d, owner);
   }
 }

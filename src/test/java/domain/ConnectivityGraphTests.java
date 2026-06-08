@@ -2,6 +2,7 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +52,18 @@ public class ConnectivityGraphTests {
     ConnectivityGraph graph = new ConnectivityGraph(map);
     assertThrows(IllegalArgumentException.class, () -> graph.isConnected(t, t, owner));
     EasyMock.verify(map, t, owner);
+  }
+
+  @Test
+  public void isConnected_pathExists_returnsTrue() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    Player owner = EasyMock.createMock(Player.class);
+    EasyMock.expect(map.findPath(s, d, owner)).andReturn(List.of(s, d));
+    EasyMock.replay(map, s, d, owner);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertTrue(graph.isConnected(s, d, owner));
+    EasyMock.verify(map, s, d, owner);
   }
 }

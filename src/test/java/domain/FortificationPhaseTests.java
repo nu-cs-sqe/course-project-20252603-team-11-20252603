@@ -616,4 +616,17 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.findPath(s, null));
     EasyMock.verify(player, map, s);
   }
+
+  @Test
+  public void findPath_sourceEqualsDestination_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory t = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(t, t, player)).andThrow(
+        new IllegalArgumentException("Source and destination cannot be the same territory"));
+    EasyMock.replay(player, map, t);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(t, t));
+    EasyMock.verify(player, map, t);
+  }
 }

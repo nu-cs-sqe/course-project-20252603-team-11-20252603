@@ -58,7 +58,7 @@ player is an Interval [player[0], player[n−1]] driven by the game's internal r
 - **TC7: 2 players, upper-bound player returned (player at index 1)** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed with 2-player game; game.getCurrentActivePlayer() returns player[1]
     - **Expected output**: game.chooseFirstPlayer() called exactly once; returned player == player[1]
-- **TC8: 6 players, lower-bound player returned (player at index 0)** ( :x: )
+- **TC8: 6 players, lower-bound player returned (player at index 0)** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed with 6-player game; game.getCurrentActivePlayer() returns player[0]
     - **Expected output**: game.chooseFirstPlayer() called exactly once; returned player == player[0]
 - **TC9: 6 players, upper-bound player returned (player at index 5)** ( :x: )

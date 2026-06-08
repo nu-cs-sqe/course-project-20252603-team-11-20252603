@@ -25,6 +25,22 @@ public class SetupPhaseTests {
   }
 
   @Test
+  public void chooseFirstPlayer_sixPlayers_lowerBoundPlayerReturned() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerCount()).andReturn(6);
+    game.chooseFirstPlayer();
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player);
+    EasyMock.replay(game, player);
+
+    SetupPhase setup = new SetupPhase(game);
+    Player result = setup.chooseFirstPlayer();
+
+    assertSame(player, result);
+    EasyMock.verify(game, player);
+  }
+
+  @Test
   public void chooseFirstPlayer_twoPlayers_upperBoundPlayerReturned() {
     Game game = EasyMock.createMock(Game.class);
     Player player = EasyMock.createMock(Player.class);

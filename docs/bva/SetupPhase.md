@@ -12,7 +12,7 @@ selection. Extracted from `Game` to keep boot orchestration out of the core aggr
 - **TC1: null game** ( :white_check_mark: )
     - **State of the system**: No SetupPhase created yet
     - **Expected output**: IllegalArgumentException thrown
-- **TC2: valid game, 2 players (lower bound of player count)** ( :x: )
+- **TC2: valid game, 2 players (lower bound of player count)** ( :white_check_mark: )
     - **State of the system**: No SetupPhase created yet; game.getPlayerCount() returns 2
     - **Expected output**: SetupPhase constructed without exception; getPlayerCount() == 2
 - **TC3: valid game, 6 players (upper bound of player count)** ( :x: )

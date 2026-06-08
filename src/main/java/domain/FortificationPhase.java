@@ -1,17 +1,18 @@
 package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public class FortificationPhase {
   private final Player player;
-  private final GameMap map;
+  private final ConnectivityGraph connectivity;
   private boolean moved;
 
   @SuppressFBWarnings(
       value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
-      justification = "Player and GameMap are aggregate domain objects intentionally shared by "
-          + "reference; the phase needs to mutate and read the same instances as the rest of the "
-          + "Turn. Class is non-final because EasyMock subclasses it to mock in tests."
+      justification = "Player is an aggregate domain object intentionally shared by reference; "
+          + "the phase needs to read the same instance as the rest of the Turn. "
+          + "Class is non-final because EasyMock subclasses it to mock in tests."
   )
   public FortificationPhase(Player player, GameMap map) {
     if (player == null) {
@@ -21,7 +22,7 @@ public class FortificationPhase {
       throw new IllegalArgumentException("Map cannot be null");
     }
     this.player = player;
-    this.map = map;
+    this.connectivity = new ConnectivityGraph(map);
   }
 
   public boolean isMoved() {
@@ -86,6 +87,13 @@ public class FortificationPhase {
     if (s == d) {
       throw new IllegalArgumentException("Source and destination cannot be the same territory");
     }
-    return !map.findPath(s, d, player).isEmpty();
+    return connectivity.isConnected(s, d, player);
+  }
+
+  public List<Territory> findPath(Territory s, Territory d) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+    return connectivity.findPath(s, d, player);
   }
 }

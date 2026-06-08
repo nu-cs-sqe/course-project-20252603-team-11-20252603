@@ -30,4 +30,15 @@ public class ConnectivityGraphTests {
     assertThrows(IllegalArgumentException.class, () -> graph.isConnected(null, d, owner));
     EasyMock.verify(map, d, owner);
   }
+
+  @Test
+  public void isConnected_nullDestination_throwsIllegalArgumentException() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Player owner = EasyMock.createMock(Player.class);
+    EasyMock.replay(map, s, owner);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertThrows(IllegalArgumentException.class, () -> graph.isConnected(s, null, owner));
+    EasyMock.verify(map, s, owner);
+  }
 }

@@ -16,7 +16,7 @@
     - **State of the system**: ConnectivityGraph constructed with valid map
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC4: null destination** ( :x: )
+- **TC4: null destination** ( :white_check_mark: )
     - **State of the system**: ConnectivityGraph constructed; valid source provided
     - **Expected output**: IllegalArgumentException thrown
 

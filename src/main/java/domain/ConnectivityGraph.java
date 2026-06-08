@@ -27,6 +27,9 @@ public class ConnectivityGraph {
     if (s == null) {
       throw new IllegalArgumentException("Source territory cannot be null");
     }
+    if (d == null) {
+      throw new IllegalArgumentException("Destination territory cannot be null");
+    }
     return false;
   }
 }

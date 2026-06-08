@@ -629,4 +629,17 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.findPath(t, t));
     EasyMock.verify(player, map, t);
   }
+
+  @Test
+  public void findPath_pathFound_returnsList() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, d, player)).andReturn(List.of(s, d));
+    EasyMock.replay(player, map, s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertEquals(List.of(s, d), phase.findPath(s, d));
+    EasyMock.verify(player, map, s, d);
+  }
 }

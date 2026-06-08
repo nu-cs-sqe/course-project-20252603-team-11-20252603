@@ -122,7 +122,7 @@ Delegates to `ConnectivityGraph.findPath(s, d, currentPlayer)`.
   - **State of the system**: Phase created
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC56: path found — delegates and returns path** ( :x: )
+- **TC56: path found — delegates and returns path** ( :white_check_mark: )
   - **State of the system**: Phase created; map.findPath(s, d, player) returns [s, d]
   - **Expected output**: [s, d]
 

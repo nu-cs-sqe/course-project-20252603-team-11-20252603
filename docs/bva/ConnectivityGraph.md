@@ -65,7 +65,7 @@
       map.getNeighbors(neighbor) returns []
     - **Expected output**: {src, neighbor}
 
-- **TC15: src owned by owner, enemy neighbor only — returns src only** ( :x: )
+- **TC15: src owned by owner, enemy neighbor only — returns src only** ( :white_check_mark: )
     - **State of the system**: src owned by owner; map.getNeighbors(src) returns [enemy]; enemy owned by other player
     - **Expected output**: {src}
 

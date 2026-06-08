@@ -56,7 +56,7 @@
     - **State of the system**: src.getOwner() returns a different player
     - **Expected output**: empty set
 
-- **TC13: src owned by owner, no neighbors — returns singleton set** ( :x: )
+- **TC13: src owned by owner, no neighbors — returns singleton set** ( :white_check_mark: )
     - **State of the system**: src.getOwner() == owner; map.getNeighbors(src) returns empty list
     - **Expected output**: {src}
 

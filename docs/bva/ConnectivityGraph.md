@@ -60,7 +60,7 @@
     - **State of the system**: src.getOwner() == owner; map.getNeighbors(src) returns empty list
     - **Expected output**: {src}
 
-- **TC14: src owned by owner, one owner-owned neighbor — returns both** ( :x: )
+- **TC14: src owned by owner, one owner-owned neighbor — returns both** ( :white_check_mark: )
     - **State of the system**: src owned by owner; map.getNeighbors(src) returns [neighbor]; neighbor owned by owner;
       map.getNeighbors(neighbor) returns []
     - **Expected output**: {src, neighbor}

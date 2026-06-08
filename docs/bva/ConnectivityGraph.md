@@ -6,7 +6,7 @@
     - **State of the system**: No ConnectivityGraph created yet
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC2: valid map** ( :x: )
+- **TC2: valid map** ( :white_check_mark: )
     - **State of the system**: No ConnectivityGraph created yet; valid GameMap provided
     - **Expected output**: ConnectivityGraph constructed without exception
 

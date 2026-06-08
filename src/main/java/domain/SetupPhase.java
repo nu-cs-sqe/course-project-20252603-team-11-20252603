@@ -23,6 +23,10 @@ public class SetupPhase {
     game.assignTerritories();
   }
 
+  public void distributeStartingTroops() {
+    game.distributeStartingTroops();
+  }
+
   public int getPlayerCount() {
     return playerCount;
   }

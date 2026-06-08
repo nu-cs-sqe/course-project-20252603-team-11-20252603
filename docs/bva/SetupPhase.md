@@ -39,7 +39,7 @@ Precondition: SetupPhase constructed with a valid game.
 
 No input parameters. Delegates entirely to `game.distributeStartingTroops()`.
 
-- **TC5: delegates to game.distributeStartingTroops()** ( :x: )
+- **TC5: delegates to game.distributeStartingTroops()** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed; game.distributeStartingTroops() not yet called
     - **Expected output**: game.distributeStartingTroops() called exactly once
 

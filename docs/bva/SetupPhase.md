@@ -80,7 +80,7 @@ order — `assignTerritories` → `distributeStartingTroops` → `chooseFirstPla
     - **State of the system**: SetupPhase constructed with 2-player game; game.gameState == SETUP
     - **Expected output**: game.assignTerritories() called; game.distributeStartingTroops() called;
       game.chooseFirstPlayer() called; game.getCurrentActivePlayer() called; game.setGameState(IN_PROGRESS) called
-- **TC11: 6-player game — all steps execute; gameState set to IN_PROGRESS** ( :x: )
+- **TC11: 6-player game — all steps execute; gameState set to IN_PROGRESS** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed with 6-player game; game.gameState == SETUP
     - **Expected output**: game.assignTerritories() called; game.distributeStartingTroops() called;
       game.chooseFirstPlayer() called; game.getCurrentActivePlayer() called; game.setGameState(IN_PROGRESS) called

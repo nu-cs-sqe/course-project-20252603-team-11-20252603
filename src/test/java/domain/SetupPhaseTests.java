@@ -25,6 +25,24 @@ public class SetupPhaseTests {
   }
 
   @Test
+  public void run_sixPlayers_setsGameStateToInProgress() {
+    Game game = EasyMock.createMock(Game.class);
+    Player firstPlayer = EasyMock.createMock(Player.class);
+    EasyMock.expect(game.getPlayerCount()).andReturn(6);
+    game.assignTerritories();
+    game.distributeStartingTroops();
+    game.chooseFirstPlayer();
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(firstPlayer);
+    game.setGameState(GameState.IN_PROGRESS);
+    EasyMock.replay(game, firstPlayer);
+
+    SetupPhase setup = new SetupPhase(game);
+    setup.run();
+
+    EasyMock.verify(game, firstPlayer);
+  }
+
+  @Test
   public void run_twoPlayers_setsGameStateToInProgress() {
     Game game = EasyMock.createMock(Game.class);
     Player firstPlayer = EasyMock.createMock(Player.class);

@@ -23,4 +23,16 @@ public class SetupPhaseTests {
     assertEquals(2, setup.getPlayerCount());
     EasyMock.verify(game);
   }
+
+  @Test
+  public void constructor_sixPlayers_playerCountSetToSix() {
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.expect(game.getPlayerCount()).andReturn(6);
+    EasyMock.replay(game);
+
+    SetupPhase setup = new SetupPhase(game);
+
+    assertEquals(6, setup.getPlayerCount());
+    EasyMock.verify(game);
+  }
 }

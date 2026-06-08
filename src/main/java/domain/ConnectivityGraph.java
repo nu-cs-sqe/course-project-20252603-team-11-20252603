@@ -47,6 +47,21 @@ public class ConnectivityGraph {
     if (owner == null) {
       throw new IllegalArgumentException("Owner cannot be null");
     }
-    return new HashSet<>();
+    Set<Territory> visited = new HashSet<>();
+    Queue<Territory> queue = new LinkedList<>();
+    if (src.getOwner() == owner) {
+      visited.add(src);
+      queue.add(src);
+    }
+    while (!queue.isEmpty()) {
+      Territory current = queue.poll();
+      for (Territory neighbor : map.getNeighbors(current)) {
+        if (!visited.contains(neighbor) && neighbor.getOwner() == owner) {
+          visited.add(neighbor);
+          queue.add(neighbor);
+        }
+      }
+    }
+    return visited;
   }
 }

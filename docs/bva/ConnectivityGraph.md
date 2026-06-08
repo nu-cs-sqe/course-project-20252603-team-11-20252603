@@ -52,7 +52,7 @@
     - **State of the system**: ConnectivityGraph constructed; valid src provided
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC12: src not owned by owner — returns empty set** ( :x: )
+- **TC12: src not owned by owner — returns empty set** ( :white_check_mark: )
     - **State of the system**: src.getOwner() returns a different player
     - **Expected output**: empty set
 

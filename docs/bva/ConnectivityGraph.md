@@ -69,6 +69,6 @@
     - **State of the system**: src owned by owner; map.getNeighbors(src) returns [enemy]; enemy owned by other player
     - **Expected output**: {src}
 
-- **TC16: chain of three owner-owned territories — returns all three** ( :x: )
+- **TC16: chain of three owner-owned territories — returns all three** ( :white_check_mark: )
     - **State of the system**: src→mid→end all owned by owner; BFS traverses chain
     - **Expected output**: {src, mid, end}

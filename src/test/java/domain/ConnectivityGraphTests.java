@@ -184,4 +184,23 @@ public class ConnectivityGraphTests {
     assertEquals(Set.of(src), graph.getReachable(src, owner));
     EasyMock.verify(map, src, enemy, owner, other);
   }
+
+  @Test
+  public void getReachable_chainOfThreeOwnedTerritories_returnsAll() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory src = EasyMock.createMock(Territory.class);
+    Territory mid = EasyMock.createMock(Territory.class);
+    Territory end = EasyMock.createMock(Territory.class);
+    Player owner = EasyMock.createMock(Player.class);
+    EasyMock.expect(src.getOwner()).andReturn(owner);
+    EasyMock.expect(map.getNeighbors(src)).andReturn(List.of(mid));
+    EasyMock.expect(mid.getOwner()).andReturn(owner);
+    EasyMock.expect(map.getNeighbors(mid)).andReturn(List.of(src, end));
+    EasyMock.expect(end.getOwner()).andReturn(owner);
+    EasyMock.expect(map.getNeighbors(end)).andReturn(List.of(mid));
+    EasyMock.replay(map, src, mid, end, owner);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertEquals(Set.of(src, mid, end), graph.getReachable(src, owner));
+    EasyMock.verify(map, src, mid, end, owner);
+  }
 }

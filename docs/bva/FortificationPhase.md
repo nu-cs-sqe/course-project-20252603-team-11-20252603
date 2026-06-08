@@ -126,7 +126,7 @@ Delegates to `ConnectivityGraph.findPath(s, d, currentPlayer)`.
   - **State of the system**: Phase created; map.findPath(s, d, player) returns [s, d]
   - **Expected output**: [s, d]
 
-- **TC57: no path — delegates and returns empty list** ( :x: )
+- **TC57: no path — delegates and returns empty list** ( :white_check_mark: )
   - **State of the system**: Phase created; map.findPath(s, d, player) returns empty list
   - **Expected output**: empty list (not null)
 

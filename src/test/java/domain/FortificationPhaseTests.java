@@ -642,4 +642,17 @@ public class FortificationPhaseTests {
     assertEquals(List.of(s, d), phase.findPath(s, d));
     EasyMock.verify(player, map, s, d);
   }
+
+  @Test
+  public void findPath_noPath_returnsEmptyList() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, d, player)).andReturn(List.of());
+    EasyMock.replay(player, map, s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertTrue(phase.findPath(s, d).isEmpty());
+    EasyMock.verify(player, map, s, d);
+  }
 }

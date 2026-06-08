@@ -34,7 +34,7 @@
 
 ### Method under test: `List<Territory> findPath(Territory s, Territory d, Player owner)`
 
-- **TC8: path found — delegates to GameMap and returns path** ( :x: )
+- **TC8: path found — delegates to GameMap and returns path** ( :white_check_mark: )
     - **State of the system**: map.findPath(s, d, owner) returns [s, d]
     - **Expected output**: [s, d]
 

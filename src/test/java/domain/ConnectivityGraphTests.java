@@ -79,4 +79,17 @@ public class ConnectivityGraphTests {
     assertFalse(graph.isConnected(s, d, owner));
     EasyMock.verify(map, s, d, owner);
   }
+
+  @Test
+  public void findPath_pathFound_delegatesAndReturnsPath() {
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    Player owner = EasyMock.createMock(Player.class);
+    EasyMock.expect(map.findPath(s, d, owner)).andReturn(List.of(s, d));
+    EasyMock.replay(map, s, d, owner);
+    ConnectivityGraph graph = new ConnectivityGraph(map);
+    assertEquals(List.of(s, d), graph.findPath(s, d, owner));
+    EasyMock.verify(map, s, d, owner);
+  }
 }

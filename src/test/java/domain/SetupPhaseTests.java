@@ -25,6 +25,19 @@ public class SetupPhaseTests {
   }
 
   @Test
+  public void assignTerritories_delegatesToGame() {
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.expect(game.getPlayerCount()).andReturn(2);
+    game.assignTerritories();
+    EasyMock.replay(game);
+
+    SetupPhase setup = new SetupPhase(game);
+    setup.assignTerritories();
+
+    EasyMock.verify(game);
+  }
+
+  @Test
   public void constructor_sixPlayers_playerCountSetToSix() {
     Game game = EasyMock.createMock(Game.class);
     EasyMock.expect(game.getPlayerCount()).andReturn(6);

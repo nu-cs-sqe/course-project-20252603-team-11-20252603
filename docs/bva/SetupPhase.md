@@ -27,7 +27,7 @@ Precondition: SetupPhase constructed with a valid game.
 
 No input parameters. Delegates entirely to `game.assignTerritories()`.
 
-- **TC4: delegates to game.assignTerritories()** ( :x: )
+- **TC4: delegates to game.assignTerritories()** ( :white_check_mark: )
     - **State of the system**: SetupPhase constructed; game.assignTerritories() not yet called
     - **Expected output**: game.assignTerritories() called exactly once
 

@@ -19,6 +19,10 @@ public class SetupPhase {
     this.playerCount = game.getPlayerCount();
   }
 
+  public void assignTerritories() {
+    game.assignTerritories();
+  }
+
   public int getPlayerCount() {
     return playerCount;
   }

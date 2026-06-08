@@ -20,7 +20,7 @@
     - **State of the system**: ConnectivityGraph constructed; valid source provided
     - **Expected output**: IllegalArgumentException thrown
 
-- **TC5: source == destination (same territory object)** ( :x: )
+- **TC5: source == destination (same territory object)** ( :white_check_mark: )
     - **State of the system**: ConnectivityGraph constructed; player owns T1
     - **Expected output**: IllegalArgumentException thrown
 

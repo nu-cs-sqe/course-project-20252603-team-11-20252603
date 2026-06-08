@@ -108,7 +108,27 @@
 
 ### Method under test: `List<Territory> findPath(Territory s, Territory d)`
 
-> **Moved to `GameMap`:** `findPath` is now `GameMap.findPath(Territory s, Territory d, Player player)`. See `GameMap.md` TC26–TC33.
+Delegates to `ConnectivityGraph.findPath(s, d, currentPlayer)`.
+
+- **TC53: null source** ( :white_check_mark: )
+  - **State of the system**: Phase created
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC54: null destination** ( :x: )
+  - **State of the system**: Phase created; valid territory provided as source
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC55: source == destination (same territory object)** ( :x: )
+  - **State of the system**: Phase created
+  - **Expected output**: IllegalArgumentException thrown
+
+- **TC56: path found — delegates and returns path** ( :x: )
+  - **State of the system**: Phase created; map.findPath(s, d, player) returns [s, d]
+  - **Expected output**: [s, d]
+
+- **TC57: no path — delegates and returns empty list** ( :x: )
+  - **State of the system**: Phase created; map.findPath(s, d, player) returns empty list
+  - **Expected output**: empty list (not null)
 
 ### Method under test: `void validateMove(Territory s, Territory d, int n)`
 

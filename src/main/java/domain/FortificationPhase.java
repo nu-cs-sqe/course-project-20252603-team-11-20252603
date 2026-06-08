@@ -1,10 +1,12 @@
 package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public class FortificationPhase {
   private final Player player;
   private final GameMap map;
+  private final ConnectivityGraph connectivity;
   private boolean moved;
 
   @SuppressFBWarnings(
@@ -22,6 +24,7 @@ public class FortificationPhase {
     }
     this.player = player;
     this.map = map;
+    this.connectivity = new ConnectivityGraph(map);
   }
 
   public boolean isMoved() {
@@ -86,6 +89,13 @@ public class FortificationPhase {
     if (s == d) {
       throw new IllegalArgumentException("Source and destination cannot be the same territory");
     }
-    return !map.findPath(s, d, player).isEmpty();
+    return connectivity.isConnected(s, d, player);
+  }
+
+  public List<Territory> findPath(Territory s, Territory d) {
+    if (s == null) {
+      throw new IllegalArgumentException("Source territory cannot be null");
+    }
+    return connectivity.findPath(s, d, player);
   }
 }

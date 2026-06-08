@@ -603,4 +603,17 @@ public class FortificationPhaseTests {
     assertThrows(IllegalArgumentException.class, () -> phase.findPath(null, d));
     EasyMock.verify(player, map, d);
   }
+
+  @Test
+  public void findPath_nullDestination_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, null, player)).andThrow(
+        new IllegalArgumentException("Destination territory cannot be null"));
+    EasyMock.replay(player, map, s);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(s, null));
+    EasyMock.verify(player, map, s);
+  }
 }

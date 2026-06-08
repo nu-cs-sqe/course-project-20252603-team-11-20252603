@@ -114,7 +114,7 @@ Delegates to `ConnectivityGraph.findPath(s, d, currentPlayer)`.
   - **State of the system**: Phase created
   - **Expected output**: IllegalArgumentException thrown
 
-- **TC54: null destination** ( :x: )
+- **TC54: null destination** ( :white_check_mark: )
   - **State of the system**: Phase created; valid territory provided as source
   - **Expected output**: IllegalArgumentException thrown
 

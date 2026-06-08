@@ -9,7 +9,7 @@ selection. Extracted from `Game` to keep boot orchestration out of the core aggr
 
 **`game` parameter:**
 
-- **TC1: null game** ( :x: )
+- **TC1: null game** ( :white_check_mark: )
     - **State of the system**: No SetupPhase created yet
     - **Expected output**: IllegalArgumentException thrown
 - **TC2: valid game, 2 players (lower bound of player count)** ( :x: )

@@ -36,11 +36,34 @@ public class DeckManagerTests {
       EasyMock.expect(random.nextInt(i)).andReturn(i - 1);
     }
   }
-  
+
   private void expectRotationShuffle(Random random, int size) {
     for (int i = size; i > 1; i--) {
       EasyMock.expect(random.nextInt(i)).andReturn(0);
     }
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<RiskCard> stubUnusedCardList() {
+    List<RiskCard> cards = EasyMock.createMock(List.class);
+    EasyMock.replay(cards);
+    return cards;
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<Territory> stubEmptyTerritoryList() {
+    List<Territory> territories = EasyMock.createMock(List.class);
+    EasyMock.expect(territories.iterator()).andReturn(Collections.emptyIterator());
+    EasyMock.replay(territories);
+    return territories;
+  }
+
+  @SuppressWarnings("unchecked")
+  private List<RiskCard> stubEmptyCardList() {
+    List<RiskCard> cards = EasyMock.createMock(List.class);
+    EasyMock.expect(cards.toArray()).andReturn(new Object[0]);
+    EasyMock.replay(cards);
+    return cards;
   }
 
   @Test
@@ -50,8 +73,10 @@ public class DeckManagerTests {
 
   @Test
   public void seededConstructor_nullRandom_throwsIllegalArgumentException() {
+    List<RiskCard> initialDrawPile = stubUnusedCardList();
     assertThrows(IllegalArgumentException.class,
-        () -> new DeckManager(null, new ArrayList<>()));
+        () -> new DeckManager(null, initialDrawPile));
+    EasyMock.verify(initialDrawPile);
   }
 
   @Test
@@ -65,12 +90,13 @@ public class DeckManagerTests {
   @Test
   public void seededConstructor_emptyInitialDrawPile_bothPilesEmpty() {
     Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> initialDrawPile = stubEmptyCardList();
     EasyMock.replay(random);
-    DeckManager dm = new DeckManager(random, new ArrayList<>());
+    DeckManager dm = new DeckManager(random, initialDrawPile);
     assertEquals(0, dm.size());
     assertEquals(0, dm.getDrawPileSize());
     assertEquals(0, dm.getDiscardPileSize());
-    EasyMock.verify(random);
+    EasyMock.verify(random, initialDrawPile);
   }
 
   @Test
@@ -131,10 +157,11 @@ public class DeckManagerTests {
   @Test
   public void buildDeck_emptyTerritories_producesTwoWildcardsOnly() {
     Random random = EasyMock.createMock(Random.class);
+    List<Territory> territories = stubEmptyTerritoryList();
     EasyMock.replay(random);
 
     DeckManager dm = new DeckManager(random);
-    dm.buildDeck(new ArrayList<>());
+    dm.buildDeck(territories);
 
     assertEquals(2, dm.size());
     assertEquals(2, dm.getDrawPileSize());
@@ -143,7 +170,7 @@ public class DeckManagerTests {
       assertNull(c.getTerritory());
     }
 
-    EasyMock.verify(random);
+    EasyMock.verify(random, territories);
   }
 
   @Test
@@ -370,10 +397,11 @@ public class DeckManagerTests {
   @Test
   public void draw_drawPileSizeOne_returnsCardDrawBecomesEmpty() {
     Random random = EasyMock.createMock(Random.class);
+    List<Territory> territories = stubEmptyTerritoryList();
     EasyMock.replay(random);
 
     DeckManager dm = new DeckManager(random);
-    dm.buildDeck(new ArrayList<>()); // 2 wildcards
+    dm.buildDeck(territories); // 2 wildcards
     dm.draw(); // reduce to size 1
     assertEquals(1, dm.getDrawPileSize());
 
@@ -383,16 +411,17 @@ public class DeckManagerTests {
     assertEquals(0, dm.getDrawPileSize());
     assertEquals(0, dm.getDiscardPileSize());
 
-    EasyMock.verify(random);
+    EasyMock.verify(random, territories);
   }
 
   @Test
   public void draw_drawPileSizeTwo_returnsTopAndShrinksByOne() {
     Random random = EasyMock.createMock(Random.class);
+    List<Territory> territories = stubEmptyTerritoryList();
     EasyMock.replay(random);
 
     DeckManager dm = new DeckManager(random);
-    dm.buildDeck(new ArrayList<>()); // 2 wildcards
+    dm.buildDeck(territories); // 2 wildcards
     int before = dm.getDrawPileSize();
 
     RiskCard card = dm.draw();
@@ -400,7 +429,7 @@ public class DeckManagerTests {
     assertEquals(RiskCardType.WILDCARD, card.getType());
     assertEquals(before - 1, dm.getDrawPileSize());
 
-    EasyMock.verify(random);
+    EasyMock.verify(random, territories);
   }
 
   @Test
@@ -448,6 +477,7 @@ public class DeckManagerTests {
   public void returnCards_emptyList_isNoOp() {
     Random random = EasyMock.createMock(Random.class);
     List<Territory> ts = makeTerritoryMocks(3);
+    List<RiskCard> returned = stubEmptyCardList();
     EasyMock.replay(random);
     ts.forEach(EasyMock::replay);
 
@@ -455,12 +485,12 @@ public class DeckManagerTests {
     dm.buildDeck(ts);
     int drawBefore = dm.getDrawPileSize();
 
-    dm.returnCards(new ArrayList<>());
+    dm.returnCards(returned);
 
     assertEquals(drawBefore, dm.getDrawPileSize());
     assertEquals(0, dm.getDiscardPileSize());
 
-    EasyMock.verify(random);
+    EasyMock.verify(random, returned);
     ts.forEach(EasyMock::verify);
   }
 

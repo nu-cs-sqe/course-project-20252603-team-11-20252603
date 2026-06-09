@@ -15,7 +15,6 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 public class DeckManagerTests {
-  // Helpers
   private List<Territory> makeTerritoryMocks(int count) {
     List<Territory> ts = new ArrayList<>();
     for (int i = 0; i < count; i++) {
@@ -32,14 +31,12 @@ public class DeckManagerTests {
     return cs;
   }
 
-  // Identity-shuffle script: nextInt(i) returns i-1, swap(i-1, i-1) is a no-op
   private void expectIdentityShuffle(Random random, int size) {
     for (int i = size; i > 1; i--) {
       EasyMock.expect(random.nextInt(i)).andReturn(i - 1);
     }
   }
-
-  // Rotation-shuffle script: nextInt(i) returns 0 (forces a visible reorder)
+  
   private void expectRotationShuffle(Random random, int size) {
     for (int i = size; i > 1; i--) {
       EasyMock.expect(random.nextInt(i)).andReturn(0);

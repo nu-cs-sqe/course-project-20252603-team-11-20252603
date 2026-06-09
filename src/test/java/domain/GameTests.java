@@ -743,6 +743,7 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(2)).andReturn(0);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -761,6 +762,7 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(2)).andReturn(1);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -779,6 +781,7 @@ public class GameTests {
     List<Player> players = makePlayers(3);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(3)).andReturn(1);
+    EasyMock.expect(players.get(2).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -897,6 +900,7 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(2)).andReturn(0);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -915,6 +919,7 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(2)).andReturn(1);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -933,6 +938,7 @@ public class GameTests {
     List<Player> players = makePlayers(6);
     Random random = EasyMock.createMock(Random.class);
     EasyMock.expect(random.nextInt(6)).andReturn(5);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(false);
     replayAll(players, map);
     EasyMock.replay(random);
 
@@ -943,5 +949,161 @@ public class GameTests {
     assertEquals(0, game.getCurrentPlayerIndex());
     verifyAll(players, map);
     EasyMock.verify(random);
+  }
+
+  @Test
+  public void constructor_validPlayersAndMap_gameStateInitializesToSetup() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+
+    assertEquals(GameState.SETUP, game.getGameState());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void constructor_validPlayersAndMap_winnerIsAbsent() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+
+    assertTrue(game.getWinner().isEmpty());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void advanceToNextPlayer_nextPlayerNotEliminated_advancesToNextPlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(3);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(3)).andReturn(0);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(1, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void advanceToNextPlayer_nextPlayerEliminated_skipsToActivePlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(3);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(3)).andReturn(0);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(2).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(2, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void advanceToNextPlayer_twoConsecutiveEliminatedPlayers_skipsToFirstActivePlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(4);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(4)).andReturn(0);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(2).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(3).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(3, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void advanceToNextPlayer_wrapAroundPastEliminatedPlayer_landsOnActivePlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(3);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(3)).andReturn(2);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager);
+
+    Game game = new Game(players, map, deckManager, random);
+    game.chooseFirstPlayer();
+    game.advanceToNextPlayer();
+
+    assertEquals(1, game.getCurrentPlayerIndex());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager);
+  }
+
+  @Test
+  public void drawCard_delegatesToDeckManager_returnsDrawnCard() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.expect(deckManager.draw()).andReturn(card);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager, card);
+
+    Game game = new Game(players, map, deckManager, random);
+    RiskCard result = game.drawCard();
+
+    assertEquals(card, result);
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager, card);
+  }
+
+  @Test
+  public void drawCard_calledTwice_eachCallDelegatesToDeckManager() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    DeckManager deckManager = EasyMock.createMock(DeckManager.class);
+    Random random = EasyMock.createMock(Random.class);
+    RiskCard firstCard = EasyMock.createMock(RiskCard.class);
+    RiskCard secondCard = EasyMock.createMock(RiskCard.class);
+    EasyMock.expect(deckManager.draw()).andReturn(firstCard);
+    EasyMock.expect(deckManager.draw()).andReturn(secondCard);
+    replayAll(players, map);
+    EasyMock.replay(random, deckManager, firstCard, secondCard);
+
+    Game game = new Game(players, map, deckManager, random);
+
+    assertEquals(firstCard, game.drawCard());
+    assertEquals(secondCard, game.drawCard());
+    verifyAll(players, map);
+    EasyMock.verify(random, deckManager, firstCard, secondCard);
   }
 }

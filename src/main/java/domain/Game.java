@@ -4,6 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class Game {
@@ -15,6 +16,8 @@ public class Game {
   private final GameMap map;
   private final DeckManager deckManager;
   private final Random random;
+  private GameState gameState = GameState.SETUP;
+  private Optional<Player> winner = Optional.empty();
   private int currentPlayerIndex = -1;
 
   @SuppressFBWarnings(
@@ -35,8 +38,8 @@ public class Game {
     }
     this.players = players;
     this.map = map;
-    this.deckManager = deckManager;
     this.random = random;
+    this.deckManager = deckManager;
   }
 
   private static void validatePlayers(List<Player> players) {
@@ -84,7 +87,26 @@ public class Game {
     if (currentPlayerIndex < 0) {
       throw new IllegalStateException("Game not started; call chooseFirstPlayer() first.");
     }
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    int next = (currentPlayerIndex + 1) % players.size();
+    while (players.get(next).isEliminated()) {
+      next = (next + 1) % players.size();
+    }
+    currentPlayerIndex = next;
+  }
+
+  public Player getCurrentActivePlayer() {
+    if (currentPlayerIndex < 0) {
+      throw new IllegalStateException("Game not started; call chooseFirstPlayer() first.");
+    }
+    Player current = players.get(currentPlayerIndex);
+    if (!current.isEliminated()) {
+      return current;
+    }
+    int next = (currentPlayerIndex + 1) % players.size();
+    while (players.get(next).isEliminated()) {
+      next = (next + 1) % players.size();
+    }
+    return players.get(next);
   }
 
   public void startGame() {
@@ -127,7 +149,35 @@ public class Game {
     return currentPlayerIndex;
   }
 
+  public GameState getGameState() {
+    return gameState;
+  }
+
+  public Optional<Player> getWinner() {
+    return winner;
+  }
+
   public RiskCard drawCard() {
     return deckManager.draw();
+  }
+
+  public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
+  }
+
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Random is shared so the test harness can seed it for deterministic behavior."
+  )
+  public Random getRandom() {
+    return random;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public void setWinner(Player winner) {
+    this.winner = Optional.ofNullable(winner);
   }
 }

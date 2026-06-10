@@ -1,6 +1,6 @@
 # Game - BVA Analysis
 
-### Method under test: `Game(List<Player> players, GameMap map)`
+### Method under test: `Game(List<Player> players, GameMap map, DeckManager deckManager, Random random)`
 
 `players` is a collection with a constrained size in the interval [2, 6].
 
@@ -27,6 +27,18 @@
 - **TC6: valid map** ( :white_check_mark: )
     - **State of the system**: No game created yet (valid players list provided)
     - **Expected output**: Game constructed; map stored
+
+**`deckManager` parameter (reference, valid/null):**
+
+- **TC6a: null deckManager** ( :white_check_mark: )
+    - **State of the system**: No game created yet (valid players list and map provided)
+    - **Expected output**: IllegalArgumentException thrown
+
+**`random` parameter (reference, valid/null):**
+
+- **TC6b: null random** ( :white_check_mark: )
+    - **State of the system**: No game created yet (valid players list, map, and deckManager provided)
+    - **Expected output**: IllegalArgumentException thrown
 
 ---
 

@@ -592,4 +592,67 @@ public class FortificationPhaseTests {
     assertThrows(IllegalStateException.class, () -> phase.skipPhase());
     EasyMock.verify(player, map);
   }
+
+  @Test
+  public void findPath_nullSource_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, map, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(null, d));
+    EasyMock.verify(player, map, d);
+  }
+
+  @Test
+  public void findPath_nullDestination_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, null, player)).andThrow(
+        new IllegalArgumentException("Destination territory cannot be null"));
+    EasyMock.replay(player, map, s);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(s, null));
+    EasyMock.verify(player, map, s);
+  }
+
+  @Test
+  public void findPath_sourceEqualsDestination_throwsIllegalArgumentException() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory t = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(t, t, player)).andThrow(
+        new IllegalArgumentException("Source and destination cannot be the same territory"));
+    EasyMock.replay(player, map, t);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertThrows(IllegalArgumentException.class, () -> phase.findPath(t, t));
+    EasyMock.verify(player, map, t);
+  }
+
+  @Test
+  public void findPath_pathFound_returnsList() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, d, player)).andReturn(List.of(s, d));
+    EasyMock.replay(player, map, s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertEquals(List.of(s, d), phase.findPath(s, d));
+    EasyMock.verify(player, map, s, d);
+  }
+
+  @Test
+  public void findPath_noPath_returnsEmptyList() {
+    Player player = EasyMock.createMock(Player.class);
+    GameMap map = EasyMock.createMock(GameMap.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.expect(map.findPath(s, d, player)).andReturn(List.of());
+    EasyMock.replay(player, map, s, d);
+    FortificationPhase phase = new FortificationPhase(player, map);
+    assertTrue(phase.findPath(s, d).isEmpty());
+    EasyMock.verify(player, map, s, d);
+  }
 }

@@ -1205,4 +1205,21 @@ public class GameTests {
     verifyAll(players, map);
     EasyMock.verify(random);
   }
+
+  @Test
+  public void setWinner_nonNullWinner_retrievableViaGetWinner() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.setWinner(players.get(0));
+
+    assertTrue(game.getWinner().isPresent());
+    assertSame(players.get(0), game.getWinner().get());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
 }

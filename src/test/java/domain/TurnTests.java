@@ -640,4 +640,17 @@ public class TurnTests {
     assertNotNull(turn.createFortificationPhase(player, game));
     EasyMock.verify(player, game, random, map);
   }
+
+  @Test
+  public void getEliminatedDefender_defaultsToEmpty() {
+    Player player = EasyMock.createMock(Player.class);
+    Game game = EasyMock.createMock(Game.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(player, game, random);
+
+    Turn turn = new Turn(player, game, random);
+
+    assertTrue(turn.getEliminatedDefender().isEmpty());
+    EasyMock.verify(player, game, random);
+  }
 }

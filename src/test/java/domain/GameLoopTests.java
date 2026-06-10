@@ -1013,4 +1013,62 @@ public class GameLoopTests {
     assertEquals(5, runNextTurnCalls[0]);
     EasyMock.verify(game, player1, player2, player3);
   }
+
+  @Test
+  public void createTurn_returnsNewTurnWithInjectedDependencies() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(game, player, random);
+
+    final Turn[] turn = new Turn[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          {
+            turn[0] = createTurn(player, game, random);
+          }
+        };
+    assertNotNull(gameLoop);
+
+    assertNotNull(turn[0]);
+    assertSame(player, turn[0].getCurrentPlayer());
+    assertSame(game, turn[0].getGame());
+    EasyMock.verify(game, player, random);
+  }
+
+  @Test
+  public void createCardTradePhase_returnsNonNullPhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.replay(game, player);
+
+    final CardTradePhase[] phase = new CardTradePhase[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          {
+            phase[0] = createCardTradePhase(player, true);
+          }
+        };
+    assertNotNull(gameLoop);
+
+    assertNotNull(phase[0]);
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void checkWinCondition_onePlayerZeroTerritories_returnsFalse() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(player));
+    EasyMock.expect(player.isEliminated()).andReturn(false);
+    EasyMock.expect(player.getTerritoryCount()).andReturn(0);
+
+    EasyMock.replay(game, player);
+
+    GameLoop gameLoop = new GameLoop(game);
+    assertFalse(gameLoop.checkWinCondition());
+
+    EasyMock.verify(game, player);
+  }
 }

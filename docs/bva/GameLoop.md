@@ -129,6 +129,12 @@ The win boundary is at exactly **1** active player. The filter predicate is `!is
 
 ### Method under test: `protected Turn createTurn(Player currentPlayer, Game game, Random random)`
 
-- **TC28: returns a non-null Turn** ( :white_check_mark: )
+- **TC27: returns a non-null Turn** ( :white_check_mark: )
     - **State of the system**: GameLoop constructed with a valid game; player, game, and random mocks provided
     - **Expected output**: return value is not null
+
+### Method under test: `boolean checkWinCondition()` — territory count boundary
+
+- **TC28: sole remaining player has 0 territories (not counted active)** ( :white_check_mark: )
+    - **State of the system**: 1 player in list; not eliminated; getTerritoryCount() == 0
+    - **Expected output**: returns false; gameState stays unchanged; winner unset

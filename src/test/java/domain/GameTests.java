@@ -887,11 +887,14 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     replayAll(players, map);
 
-    Game game = new Game(players, map, mockDeck(), new Random());
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertThrows(IllegalStateException.class, game::advanceToNextPlayer);
     assertEquals(-1, game.getCurrentPlayerIndex());
     verifyAll(players, map);
+    EasyMock.verify(random);
   }
 
   @Test
@@ -1105,5 +1108,162 @@ public class GameTests {
     assertEquals(secondCard, game.drawCard());
     verifyAll(players, map);
     EasyMock.verify(random, deckManager, firstCard, secondCard);
+  }
+
+  @Test
+  public void getCurrentActivePlayer_gameNotStarted_throwsIllegalStateException() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+
+    assertThrows(IllegalStateException.class, game::getCurrentActivePlayer);
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void getCurrentActivePlayer_afterChooseFirstPlayer_returnsCurrentPlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(2)).andReturn(0);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.chooseFirstPlayer();
+
+    assertSame(players.get(0), game.getCurrentActivePlayer());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void getCurrentActivePlayer_skipsMultipleEliminatedPlayers_returnsFirstActive() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(4);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(4)).andReturn(0);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(2).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(3).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.chooseFirstPlayer();
+
+    assertSame(players.get(3), game.getCurrentActivePlayer());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void getCurrentActivePlayer_currentPlayerEliminated_returnsNextActivePlayer() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(3);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(3)).andReturn(0);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.chooseFirstPlayer();
+
+    assertSame(players.get(1), game.getCurrentActivePlayer());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void getPlayers_returnsUnmodifiableListOfAllPlayers() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    List<Player> result = game.getPlayers();
+
+    assertEquals(2, result.size());
+    assertTrue(result.contains(players.get(0)));
+    assertTrue(result.contains(players.get(1)));
+    assertThrows(UnsupportedOperationException.class, () -> result.add(players.get(0)));
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void getRandom_returnsInjectedRandom() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+
+    assertSame(random, game.getRandom());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void setGameState_updatesGameState() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.setGameState(GameState.IN_PROGRESS);
+
+    assertEquals(GameState.IN_PROGRESS, game.getGameState());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void setWinner_nonNullWinner_retrievableViaGetWinner() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.setWinner(players.get(0));
+
+    assertTrue(game.getWinner().isPresent());
+    assertSame(players.get(0), game.getWinner().get());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
+  public void setWinner_null_clearsWinner() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.setWinner(players.get(0));
+    game.setWinner(null);
+
+    assertTrue(game.getWinner().isEmpty());
+    verifyAll(players, map);
+    EasyMock.verify(random);
   }
 }

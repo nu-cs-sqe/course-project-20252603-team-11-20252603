@@ -467,4 +467,21 @@ public class GameMapTests {
     assertTrue(map.findPath(s, d, player).isEmpty());
     EasyMock.verify(player, enemy, s, mid, d);
   }
+
+  @Test
+  public void findPath_directNeighbors_pathStartsAtSourceAndEndsAtDestination() {
+    GameMap map = new GameMap();
+    Player player = EasyMock.createMock(Player.class);
+    Territory s = EasyMock.createMock(Territory.class);
+    Territory d = EasyMock.createMock(Territory.class);
+    EasyMock.replay(player, s, d);
+    map.addTerritory(s);
+    map.addTerritory(d);
+    map.addConnection(s, d);
+    List<Territory> path = map.findPath(s, d, player);
+    assertFalse(path.isEmpty());
+    assertSame(s, path.get(0));
+    assertSame(d, path.get(path.size() - 1));
+    EasyMock.verify(player, s, d);
+  }
 }

@@ -297,6 +297,19 @@ public class PlayerTests {
     assertEquals(0, player.getCardCount());
   }
 
+  @Test
+  public void getCardCount_afterAddingCards_returnsCount() {
+    Player player = new Player("Alice");
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card1, card2);
+
+    player.addCard(card1);
+    player.addCard(card2);
+
+    assertEquals(2, player.getCardCount());
+    EasyMock.verify(card1, card2);
+  }
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

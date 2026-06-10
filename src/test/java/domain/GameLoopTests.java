@@ -643,4 +643,34 @@ public class GameLoopTests {
     assertSame(game, turn.getGame());
     EasyMock.verify(game, player, random);
   }
+
+  @Test
+  public void createCardTradePhase_returnsNonNullPhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.replay(game, player);
+
+    ExposingGameLoop gameLoop = new ExposingGameLoop(game);
+    CardTradePhase phase = gameLoop.callCreateCardTradePhase(player, true);
+
+    assertNotNull(phase);
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void checkWinCondition_onePlayerZeroTerritories_returnsFalse() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(player));
+    EasyMock.expect(player.isEliminated()).andReturn(false);
+    EasyMock.expect(player.getTerritoryCount()).andReturn(0);
+
+    EasyMock.replay(game, player);
+
+    GameLoop gameLoop = new GameLoop(game);
+    assertFalse(gameLoop.checkWinCondition());
+
+    EasyMock.verify(game, player);
+  }
 }

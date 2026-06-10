@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +21,16 @@ import org.junit.jupiter.api.Test;
 // a real Game + DeckManager.
 public class F6Tests {
 
+  private static final int GAME_SEED = 1;
+  private static final int DICE_SEED = 7;
+  private static final int ATTACKER_ARMIES = 20;
+  private static final int SINGLE_ARMY = 1;
+  private static final int ATTACK_DICE = 1;
+  private static final int TROOPS_MOVED_IN = 3;
+  private static final int MIN_REMAINING_ARMIES = 1;
+  private static final int EXPECTED_CARDS_AWARDED = 1;
+  private static final int EXPECTED_SINGLE_ROUND_LOSS = 1;
+  private static final int NO_CONQUEST = 0;
   private static final int SAFETY_CAP = 1000;
 
   private GameMap map;
@@ -48,25 +56,25 @@ public class F6Tests {
 
     attacker.addTerritory(source);
     source.setOwner(attacker);
-    source.addTroops(20);
+    source.addTroops(ATTACKER_ARMIES);
 
     defender.addTerritory(target);
     target.setOwner(defender);
-    target.addTroops(1);
+    target.addTroops(SINGLE_ARMY);
 
     List<Player> players = new ArrayList<>();
     players.add(attacker);
     players.add(defender);
 
-    // a real deck-backed DeckManager
-    Deque<RiskCard> drawPile = new ArrayDeque<>();
-    drawPile.add(new RiskCard(RiskCardType.INFANTRY, target));
-    DeckManager deckManager = drawPile::pop;
+    // a real DeckManager seeded with one card to award on a successful conquest
+    Random gameRandom = new Random(GAME_SEED);
+    List<RiskCard> initialDrawPile = new ArrayList<>();
+    initialDrawPile.add(new RiskCard(RiskCardType.INFANTRY, target));
+    DeckManager deckManager = new DeckManager(gameRandom, initialDrawPile);
 
-    Random gameRandom = new Random(1);
-    game = new Game(players, map, new ArrayList<>(drawPile), gameRandom, deckManager);
+    game = new Game(players, map, deckManager, gameRandom);
 
-    diceRoller = new DiceRoller(new Random(7));
+    diceRoller = new DiceRoller(new Random(DICE_SEED));
     phase = new AttackPhase(attacker, diceRoller, game);
   }
 
@@ -74,46 +82,45 @@ public class F6Tests {
   public void attack_eligibleSourceAndAdjacentEnemy_canAttackAndDeclareSucceed() {
     assertTrue(phase.canAttack(source, target));
     // declareAttack validates ownership, dice bounds, troop count, and adjacency via GameMap
-    phase.declareAttack(source, target, 1);
+    phase.declareAttack(source, target, ATTACK_DICE);
   }
 
   @Test
   public void attack_resolveUntilConquest_transfersOwnershipAndAwardsCard() {
     int safety = 0;
-    while (phase.getConqueredCount() == 0) {
-      phase.resolveBattle(source, target, 1);
+    while (phase.getConqueredCount() == NO_CONQUEST) {
+      phase.resolveBattle(source, target, ATTACK_DICE);
       if (++safety > SAFETY_CAP) {
         fail("Attack never resolved to a conquest within the safety cap.");
       }
     }
 
-    int troopsMovedIn = 3;
-    phase.moveInTroops(source, target, troopsMovedIn);
+    phase.moveInTroops(source, target, TROOPS_MOVED_IN);
     phase.endPhase();
 
     // ownership transferred across the real Player/Territory objects
     assertEquals(attacker, target.getOwner());
     assertTrue(attacker.getTerritories().contains(target));
     assertFalse(defender.getTerritories().contains(target));
-    assertEquals(troopsMovedIn, target.getTroopCount());
+    assertEquals(TROOPS_MOVED_IN, target.getTroopCount());
     // source retained at least one army
-    assertTrue(source.getTroopCount() >= 1);
+    assertTrue(source.getTroopCount() >= MIN_REMAINING_ARMIES);
     // a card was awarded through Game + DeckManager because a territory was conquered
-    assertEquals(1, attacker.getCards().size());
+    assertEquals(EXPECTED_CARDS_AWARDED, attacker.getCards().size());
     assertTrue(phase.isEnded());
   }
 
   @Test
   public void attack_defenderSurvivesSingleRound_totalTroopsDropByExactlyOneAndNoConquest() {
     // two defenders means a single 1-die exchange cannot capture the territory
-    target.addTroops(1);
+    target.addTroops(SINGLE_ARMY);
     int before = source.getTroopCount() + target.getTroopCount();
 
-    phase.resolveBattle(source, target, 1);
+    phase.resolveBattle(source, target, ATTACK_DICE);
 
     int after = source.getTroopCount() + target.getTroopCount();
-    assertEquals(1, before - after);
-    assertEquals(0, phase.getConqueredCount());
+    assertEquals(EXPECTED_SINGLE_ROUND_LOSS, before - after);
+    assertEquals(NO_CONQUEST, phase.getConqueredCount());
   }
 
   @Test
@@ -121,10 +128,11 @@ public class F6Tests {
     Territory remote = new Territory("Remote");
     map.addTerritory(remote);
     remote.setOwner(defender);
-    remote.addTroops(1);
+    remote.addTroops(SINGLE_ARMY);
 
     // adjacency is enforced by the real GameMap, not a stub
-    assertThrows(IllegalArgumentException.class, () -> phase.declareAttack(source, remote, 1));
+    assertThrows(
+        IllegalArgumentException.class, () -> phase.declareAttack(source, remote, ATTACK_DICE));
   }
 
   @Test
@@ -134,7 +142,7 @@ public class F6Tests {
     map.addConnection(weak, target);
     attacker.addTerritory(weak);
     weak.setOwner(attacker);
-    weak.addTroops(1);
+    weak.addTroops(SINGLE_ARMY);
 
     assertFalse(phase.canAttack(weak, target));
   }

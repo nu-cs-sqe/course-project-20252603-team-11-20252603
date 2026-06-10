@@ -87,7 +87,7 @@ The win boundary is at exactly **1** active player.
 - **TC17: post-elimination card count == 5 (one below immediate-trade threshold)** ( :white_check_mark: )
     - **State of the system**: after card transfer, attacker holds exactly 5 cards
     - **Expected output**: no immediate CardTradePhase triggered after elimination
-- **TC18: post-elimination card count == 6 (lower boundary of immediate-trade threshold)** ( :x: )
+- **TC18: post-elimination card count == 6 (lower boundary of immediate-trade threshold)** ( :white_check_mark: )
     - **State of the system**: after card transfer, attacker holds exactly 6 cards
     - **Expected output**: CardTradePhase created and run immediately for the attacker
 - **TC19: post-elimination card count == 7 (above immediate-trade threshold)** ( :x: )

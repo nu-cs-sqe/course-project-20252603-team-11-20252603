@@ -1155,4 +1155,23 @@ public class GameTests {
     verifyAll(players, map);
     EasyMock.verify(random);
   }
+
+  @Test
+  public void getPlayers_returnsUnmodifiableListOfAllPlayers() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    List<Player> result = game.getPlayers();
+
+    assertEquals(2, result.size());
+    assertTrue(result.contains(players.get(0)));
+    assertTrue(result.contains(players.get(1)));
+    assertThrows(UnsupportedOperationException.class, () -> result.add(players.get(0)));
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
 }

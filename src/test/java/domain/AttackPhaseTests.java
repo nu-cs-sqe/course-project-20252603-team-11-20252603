@@ -609,4 +609,17 @@ public class AttackPhaseTests {
 
     EasyMock.verify(attacker, diceRoller, game, card, s, t);
   }
+
+  @Test
+  public void isEnded_beforeEndPhase_returnsFalse() {
+    Player attacker = EasyMock.createMock(Player.class);
+    DiceRoller diceRoller = EasyMock.createMock(DiceRoller.class);
+    Game game = EasyMock.createMock(Game.class);
+    EasyMock.replay(attacker, diceRoller, game);
+
+    AttackPhase phase = new AttackPhase(attacker, diceRoller, game);
+
+    assertFalse(phase.isEnded());
+    EasyMock.verify(attacker, diceRoller, game);
+  }
 }

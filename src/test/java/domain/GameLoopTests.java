@@ -15,20 +15,6 @@ import org.junit.jupiter.api.Test;
 
 public class GameLoopTests {
 
-  private static final class ExposingGameLoop extends GameLoop {
-    ExposingGameLoop(Game game) {
-      super(game);
-    }
-
-    Turn callCreateTurn(Player currentPlayer, Game game, Random random) {
-      return createTurn(currentPlayer, game, random);
-    }
-
-    CardTradePhase callCreateCardTradePhase(Player player, boolean mandatory) {
-      return createCardTradePhase(player, mandatory);
-    }
-  }
-
   private void recordTurnDelegation(Turn turn) {
     EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
     turn.startTurn();
@@ -635,12 +621,18 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
     EasyMock.replay(game, player, random);
 
-    ExposingGameLoop gameLoop = new ExposingGameLoop(game);
-    Turn turn = gameLoop.callCreateTurn(player, game, random);
+    final Turn[] turn = new Turn[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          {
+            turn[0] = createTurn(player, game, random);
+          }
+        };
+    assertNotNull(gameLoop);
 
-    assertNotNull(turn);
-    assertSame(player, turn.getCurrentPlayer());
-    assertSame(game, turn.getGame());
+    assertNotNull(turn[0]);
+    assertSame(player, turn[0].getCurrentPlayer());
+    assertSame(game, turn[0].getGame());
     EasyMock.verify(game, player, random);
   }
 
@@ -650,10 +642,16 @@ public class GameLoopTests {
     Player player = EasyMock.createMock(Player.class);
     EasyMock.replay(game, player);
 
-    ExposingGameLoop gameLoop = new ExposingGameLoop(game);
-    CardTradePhase phase = gameLoop.callCreateCardTradePhase(player, true);
+    final CardTradePhase[] phase = new CardTradePhase[1];
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          {
+            phase[0] = createCardTradePhase(player, true);
+          }
+        };
+    assertNotNull(gameLoop);
 
-    assertNotNull(phase);
+    assertNotNull(phase[0]);
     EasyMock.verify(game, player);
   }
 

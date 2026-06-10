@@ -310,6 +310,12 @@ public class PlayerTests {
     assertEquals(2, player.getCardCount());
     EasyMock.verify(card1, card2);
   }
+  @Test
+  public void setEliminated_true_isEliminatedReturnsTrue() {
+    Player player = new Player("Alice");
+    player.setEliminated(true);
+    assertTrue(player.isEliminated());
+  }
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

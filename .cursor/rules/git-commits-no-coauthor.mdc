@@ -1,0 +1,29 @@
+---
+description: Git commits must be attributed only to Jefferson Wu (no Cursor co-author)
+alwaysApply: true
+---
+
+# Git commits — single author only
+
+Cursor injects `Co-authored-by: Cursor <cursoragent@cursor.com>` when using `git commit`. **Never use `git commit`** for this project.
+
+Use `git commit-tree` instead so commits list only **Jefferson Wu** as author:
+
+```bash
+export GIT_AUTHOR_NAME="Jefferson Wu"
+export GIT_AUTHOR_EMAIL="jeffersonw888@gmail.com"
+export GIT_COMMITTER_NAME="Jefferson Wu"
+export GIT_COMMITTER_EMAIL="jeffersonw888@gmail.com"
+
+git add <files>
+TREE=$(git write-tree)
+PARENT=$(git rev-parse HEAD)
+NEW=$(git commit-tree "$TREE" -p "$PARENT" -m "commit message here")
+git update-ref HEAD "$NEW"
+```
+
+Verify before push: `git cat-file -p HEAD` must **not** contain `Co-authored-by`.
+
+# Unit test construction
+
+In `src/test/java/domain/*Tests.java`, only the **class under test** may be constructed with `new`. All collaborators (Territory, Player when testing another class, GameMap, DeckManager, Random, RiskCard, etc.) must be EasyMock mocks/stubs.

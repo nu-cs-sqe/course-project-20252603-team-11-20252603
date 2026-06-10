@@ -887,11 +887,14 @@ public class GameTests {
     List<Player> players = makePlayers(2);
     replayAll(players, map);
 
-    Game game = new Game(players, map, mockDeck(), new Random());
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(random);
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertThrows(IllegalStateException.class, game::advanceToNextPlayer);
     assertEquals(-1, game.getCurrentPlayerIndex());
     verifyAll(players, map);
+    EasyMock.verify(random);
   }
 
   @Test
@@ -1111,12 +1114,15 @@ public class GameTests {
   public void getCurrentActivePlayer_gameNotStarted_throwsIllegalStateException() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
     replayAll(players, map);
+    EasyMock.replay(random);
 
-    Game game = new Game(players, map, mockDeck(), new Random());
+    Game game = new Game(players, map, mockDeck(), random);
 
     assertThrows(IllegalStateException.class, game::getCurrentActivePlayer);
     verifyAll(players, map);
+    EasyMock.verify(random);
   }
 
   @Test

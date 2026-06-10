@@ -2,6 +2,7 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -324,19 +325,18 @@ public class PlayerTests {
   @Test
   public void inheritCardsFrom_validPlayer_transfersAllCards() {
     Player receiver = new Player("Alice");
-    Player eliminated = new Player("Bob");
+    Player eliminated = EasyMock.createMock(Player.class);
     RiskCard card1 = EasyMock.createMock(RiskCard.class);
     RiskCard card2 = EasyMock.createMock(RiskCard.class);
-    EasyMock.replay(card1, card2);
+    EasyMock.expect(eliminated.getCards()).andReturn(List.of(card1, card2));
+    EasyMock.replay(eliminated, card1, card2);
 
-    eliminated.addCard(card1);
-    eliminated.addCard(card2);
     receiver.inheritCardsFrom(eliminated);
 
     assertEquals(2, receiver.getCardCount());
     assertTrue(receiver.getCards().contains(card1));
     assertTrue(receiver.getCards().contains(card2));
-    EasyMock.verify(card1, card2);
+    EasyMock.verify(eliminated, card1, card2);
   }
   @Test
   public void placeTroops_nullTerritory_throwsIllegalArgumentException() {
@@ -346,39 +346,48 @@ public class PlayerTests {
   @Test
   public void placeTroops_territoryNotOwned_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
-    Territory territory = new Territory("T1");
+    Territory territory = EasyMock.createMock(Territory.class);
+    EasyMock.replay(territory);
     assertThrows(
         IllegalArgumentException.class, () -> player.placeTroops(territory, 1));
+    EasyMock.verify(territory);
   }
   @Test
   public void placeTroops_zeroAmount_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
-    Territory territory = new Territory("T1");
+    Territory territory = EasyMock.createMock(Territory.class);
+    EasyMock.replay(territory);
     player.addTerritory(territory);
     player.setAvailableTroops(5);
     assertThrows(
         IllegalArgumentException.class, () -> player.placeTroops(territory, 0));
+    EasyMock.verify(territory);
   }
   @Test
   public void placeTroops_amountExceedsAvailableTroops_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
-    Territory territory = new Territory("T1");
+    Territory territory = EasyMock.createMock(Territory.class);
+    EasyMock.replay(territory);
     player.addTerritory(territory);
     player.setAvailableTroops(2);
     assertThrows(
         IllegalArgumentException.class, () -> player.placeTroops(territory, 3));
+    EasyMock.verify(territory);
   }
   @Test
   public void placeTroops_validPlacement_updatesTroopsAndAvailableCount() {
     Player player = new Player("Alice");
-    Territory territory = new Territory("T1");
+    Territory territory = EasyMock.createMock(Territory.class);
     player.addTerritory(territory);
     player.setAvailableTroops(5);
+    territory.addTroops(3);
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(territory);
 
     player.placeTroops(territory, 3);
 
     assertEquals(2, player.getAvailableTroops());
-    assertEquals(3, territory.getTroopCount());
+    EasyMock.verify(territory);
   }
   // calculateReinforcements tests
   @ParameterizedTest

@@ -56,6 +56,16 @@ public class GameLoopTests {
   }
 
   @Test
+  public void createCardTradePhase_returnsConfiguredCardTradePhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.replay(game, player);
+    GameLoop gameLoop = new GameLoop(game);
+    assertNotNull(gameLoop.createCardTradePhase(player, true));
+    EasyMock.verify(game, player);
+  }
+
+  @Test
   public void checkWinCondition_twoActivePlayers_returnsFalse() {
     Game game = EasyMock.createMock(Game.class);
     Player player1 = EasyMock.createMock(Player.class);

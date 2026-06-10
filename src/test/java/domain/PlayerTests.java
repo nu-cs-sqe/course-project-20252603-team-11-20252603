@@ -343,6 +343,13 @@ public class PlayerTests {
     Player player = new Player("Alice");
     assertThrows(IllegalArgumentException.class, () -> player.placeTroops(null, 1));
   }
+  @Test
+  public void placeTroops_territoryNotOwned_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    Territory territory = new Territory("T1");
+    assertThrows(
+        IllegalArgumentException.class, () -> player.placeTroops(territory, 1));
+  }
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class ReinforcementPhaseTests {
   public void validatePlacement_territoryNotOwned_returnFalse() {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
-    List<Territory> territories = new ArrayList<>();
+    List<Territory> territories = List.of();
     int troopsToPlace = 3;
 
     EasyMock.expect(player.getTerritories()).andReturn(territories);
@@ -34,11 +33,10 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
+    List<Territory> territories = List.of(territory);
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
 
-    territories.add(territory);
     EasyMock.expect(player.getTerritories()).andReturn(territories);
     EasyMock.replay(player);
 
@@ -53,11 +51,10 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
+    List<Territory> territories = List.of(territory);
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
 
-    territories.add(territory);
     EasyMock.expect(player.getTerritories()).andReturn(territories);
     EasyMock.replay(player);
 
@@ -72,17 +69,15 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
 
-    territories.add(territory);
-    EasyMock.expect(player.getTerritories()).andReturn(territories);
     EasyMock.replay(player);
 
     int troops = 0;
 
     assertFalse(reinforcements.validatePlacement(troops, territory));
+    EasyMock.verify(player);
   }
 
   @Test
@@ -90,8 +85,7 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
-    territories.add(territory);
+    List<Territory> territories = List.of(territory);
 
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
@@ -114,8 +108,7 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
-    territories.add(territory);
+    List<Territory> territories = List.of(territory);
 
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
@@ -138,8 +131,7 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
-    territories.add(territory);
+    List<Territory> territories = List.of(territory);
 
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
@@ -163,7 +155,7 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory territory = EasyMock.createMock(Territory.class);
 
-    List<Territory> territories = new ArrayList<>();
+    List<Territory> territories = List.of();
 
     int troopsToPlace = 3;
     ReinforcementPhase reinforcements = new ReinforcementPhase(player, troopsToPlace);
@@ -205,8 +197,7 @@ public class ReinforcementPhaseTests {
     Player player = EasyMock.createMock(Player.class);
     Territory owned = EasyMock.createMock(Territory.class);
     Territory other = EasyMock.createMock(Territory.class);
-    List<Territory> territories = new ArrayList<>();
-    territories.add(owned);
+    List<Territory> territories = List.of(owned);
 
     EasyMock.expect(player.getTerritories()).andReturn(territories);
     EasyMock.replay(player, owned, other);

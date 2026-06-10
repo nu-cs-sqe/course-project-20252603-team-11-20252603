@@ -234,6 +234,9 @@ Precondition: `currentPlayerIndex` set by `chooseFirstPlayer()` (interval [0, pl
 - **TC41: current index points to eliminated player, next active** ( )
     - **State of the system**: 3 players; currentPlayerIndex == 0; player[0] eliminated; player[1] active
     - **Expected output**: returns player[1]
+- **TC41a: current eliminated, two consecutive eliminated, third active** ( )
+    - **State of the system**: 4 players; currentPlayerIndex == 0; players[0..2] eliminated; player[3] active
+    - **Expected output**: returns player[3]
 
 ### Method under test: `List<Player> getPlayers()`
 

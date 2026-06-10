@@ -1,5 +1,6 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 
 public class CardTradePhase {
@@ -11,6 +12,10 @@ public class CardTradePhase {
   private final boolean mandatory;
   private final CardTradeValidator validator;
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is the shared aggregate root; storing by reference is intentional."
+  )
   public CardTradePhase(Player player, TradeBonus tradeBonus, boolean mandatory,
       CardTradeValidator validator) {
     this.player = player;

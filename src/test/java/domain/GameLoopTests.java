@@ -28,7 +28,6 @@ public class GameLoopTests {
       Game game, Player currentPlayer, Player otherPlayer, Turn turn, Random random) {
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(currentPlayer.getCards()).andReturn(List.of());
     EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
     currentPlayer.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers())
@@ -160,7 +159,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player1);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(player1.getCards()).andReturn(List.of());
     EasyMock.expect(player1.calculateReinforcements()).andReturn(3);
     player1.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers()).andReturn(List.of(player1, player2)).anyTimes();
@@ -197,7 +195,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player3);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(player3.getCards()).andReturn(List.of());
     EasyMock.expect(player3.calculateReinforcements()).andReturn(3);
     player3.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers()).andReturn(List.of(player3, other)).anyTimes();
@@ -234,7 +231,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(player0.getCards()).andReturn(List.of());
     EasyMock.expect(player0.calculateReinforcements()).andReturn(7);
     player0.setAvailableTroops(7);
     EasyMock.expect(game.getPlayers())
@@ -301,7 +297,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random).times(2);
-    EasyMock.expect(player0.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(player0.calculateReinforcements()).andReturn(3).times(2);
     player0.setAvailableTroops(3);
     EasyMock.expectLastCall().times(2);
@@ -366,8 +361,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers())
@@ -412,8 +405,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers())
@@ -457,8 +448,6 @@ public class GameLoopTests {
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
     EasyMock.expect(game.getRandom()).andReturn(random);
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
-    EasyMock.expect(attacker.getCards()).andReturn(List.of());
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
     EasyMock.expect(game.getPlayers()).andReturn(List.of(attacker, defender)).anyTimes();

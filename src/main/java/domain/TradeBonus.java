@@ -1,5 +1,7 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class TradeBonus {
   private static final int MINIMUM_VALUE = 1;
   private static final int MINIMUM_STEP = 1;
@@ -7,6 +9,10 @@ public class TradeBonus {
   private int currentValue;
   private final int incrementStep;
 
+  @SuppressFBWarnings(
+      value = "CT_CONSTRUCTOR_THROW",
+      justification = "Guard clauses reject invalid arguments; no partial state is exposed."
+  )
   public TradeBonus(int initialValue, int incrementStep) {
     if (initialValue < MINIMUM_VALUE) {
       throw new IllegalArgumentException("initialValue must be at least 1.");

@@ -129,6 +129,6 @@ The win boundary is at exactly **1** active player. The filter predicate is `!is
 
 ### Method under test: `protected Turn createTurn(Player currentPlayer, Game game, Random random)`
 
-- **TC28: returns a non-null Turn** ( :x: )
+- **TC28: returns a non-null Turn** ( :white_check_mark: )
     - **State of the system**: GameLoop constructed with a valid game; player, game, and random mocks provided
     - **Expected output**: return value is not null

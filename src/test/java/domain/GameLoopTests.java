@@ -66,6 +66,17 @@ public class GameLoopTests {
   }
 
   @Test
+  public void createTurn_returnsNonNullTurn() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(game, player, random);
+    GameLoop gameLoop = new GameLoop(game);
+    assertNotNull(gameLoop.createTurn(player, game, random));
+    EasyMock.verify(game, player, random);
+  }
+
+  @Test
   public void checkWinCondition_twoActivePlayers_returnsFalse() {
     Game game = EasyMock.createMock(Game.class);
     Player player1 = EasyMock.createMock(Player.class);

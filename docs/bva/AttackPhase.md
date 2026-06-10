@@ -179,3 +179,14 @@ awardCardIfEarned; BVA tests verify the observable effects through that delegati
 - **TC27: endPhase with conqueredCount ≥ 1 → card drawn and given to attacker** ( :white_check_mark: )
   - **State of the system**: at least one conquest this turn; game.drawCard() mocked
   - **Expected output**: game.drawCard() called once; attacker.addCard(card) called
+
+---
+
+### Method under test: `boolean isEnded()`
+
+- **TC28: before endPhase() called** ( )
+  - **State of the system**: AttackPhase just constructed or battles resolved but endPhase not called
+  - **Expected output**: isEnded() == false
+- **TC29: after endPhase() called** ( )
+  - **State of the system**: endPhase() has been invoked
+  - **Expected output**: isEnded() == true

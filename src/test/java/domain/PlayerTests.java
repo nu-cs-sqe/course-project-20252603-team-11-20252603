@@ -311,17 +311,20 @@ public class PlayerTests {
     assertEquals(2, player.getCardCount());
     EasyMock.verify(card1, card2);
   }
+
   @Test
   public void setEliminated_true_isEliminatedReturnsTrue() {
     Player player = new Player("Alice");
     player.setEliminated(true);
     assertTrue(player.isEliminated());
   }
+
   @Test
   public void inheritCardsFrom_nullEliminated_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
     assertThrows(IllegalArgumentException.class, () -> player.inheritCardsFrom(null));
   }
+
   @Test
   public void inheritCardsFrom_validPlayer_transfersAllCards() {
     Player receiver = new Player("Alice");
@@ -338,11 +341,13 @@ public class PlayerTests {
     assertTrue(receiver.getCards().contains(card2));
     EasyMock.verify(eliminated, card1, card2);
   }
+
   @Test
   public void placeTroops_nullTerritory_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
     assertThrows(IllegalArgumentException.class, () -> player.placeTroops(null, 1));
   }
+
   @Test
   public void placeTroops_territoryNotOwned_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -352,6 +357,7 @@ public class PlayerTests {
         IllegalArgumentException.class, () -> player.placeTroops(territory, 1));
     EasyMock.verify(territory);
   }
+
   @Test
   public void placeTroops_zeroAmount_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -363,6 +369,7 @@ public class PlayerTests {
         IllegalArgumentException.class, () -> player.placeTroops(territory, 0));
     EasyMock.verify(territory);
   }
+
   @Test
   public void placeTroops_amountExceedsAvailableTroops_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
@@ -374,6 +381,7 @@ public class PlayerTests {
         IllegalArgumentException.class, () -> player.placeTroops(territory, 3));
     EasyMock.verify(territory);
   }
+
   @Test
   public void placeTroops_exactAvailableTroops_succeeds() {
     Player player = new Player("Alice");
@@ -405,6 +413,7 @@ public class PlayerTests {
     assertEquals(2, player.getAvailableTroops());
     EasyMock.verify(territory);
   }
+
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

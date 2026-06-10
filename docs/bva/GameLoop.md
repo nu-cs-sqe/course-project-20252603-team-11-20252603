@@ -51,13 +51,13 @@ The win boundary is at exactly **1** active player.
 
 **B. Pre-turn CardTradePhase — current player's card count (Count, trigger interval starts at 5)**
 
-- **TC9: 4 cards (one below trigger threshold)** ( :white_check_mark: )
+- **TC9: 4 cards (one below trigger threshold)** ( :x: )
     - **State of the system**: current player holds 4 cards
     - **Expected output**: CardTradePhase NOT created/run before reinforcement
-- **TC10: 5 cards (lower boundary of trigger threshold)** ( :white_check_mark: )
+- **TC10: 5 cards (lower boundary of trigger threshold)** ( :x: )
     - **State of the system**: current player holds 5 cards
     - **Expected output**: CardTradePhase created and run before reinforcement begins
-- **TC11: 6 cards (above lower boundary, still triggers)** ( :white_check_mark: )
+- **TC11: 6 cards (above lower boundary, still triggers)** ( :x: )
     - **State of the system**: current player holds 6 cards
     - **Expected output**: CardTradePhase created and run before reinforcement begins
 
@@ -84,13 +84,13 @@ The win boundary is at exactly **1** active player.
 - **TC16: defending player eliminated — cards transferred to attacker** ( :white_check_mark: )
     - **State of the system**: Turn completes; defender eliminated; defender had 3 cards; attacker had 2 cards
     - **Expected output**: all 3 defender cards added to attacker's hand (attacker now holds 5); defender marked eliminated
-- **TC17: post-elimination card count == 5 (one below immediate-trade threshold)** ( :white_check_mark: )
+- **TC17: post-elimination card count == 5 (one below immediate-trade threshold)** ( :x: )
     - **State of the system**: after card transfer, attacker holds exactly 5 cards
     - **Expected output**: no immediate CardTradePhase triggered after elimination
-- **TC18: post-elimination card count == 6 (lower boundary of immediate-trade threshold)** ( :white_check_mark: )
+- **TC18: post-elimination card count == 6 (lower boundary of immediate-trade threshold)** ( :x: )
     - **State of the system**: after card transfer, attacker holds exactly 6 cards
     - **Expected output**: CardTradePhase created and run immediately for the attacker
-- **TC19: post-elimination card count == 7 (above immediate-trade threshold)** ( :white_check_mark: )
+- **TC19: post-elimination card count == 7 (above immediate-trade threshold)** ( :x: )
     - **State of the system**: after card transfer, attacker holds 7 cards
     - **Expected output**: CardTradePhase created and run immediately for the attacker
 

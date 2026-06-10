@@ -28,4 +28,5 @@ Getter
 | Test Case 2 | Place 4 troops on your territory when have 3 left to place | False           | :white_check_mark:  |
 | Test Case 3 | Place 1 troops on your territory when have 3 left to place | True            | :white_check_mark:  |
 | Test Case 4 | Place 0 troops                                             | False           | :white_check_mark:  |
+| Test Case 5 | Player owns territories but target territory not in list     | False           |                     |
 

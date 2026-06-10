@@ -117,3 +117,9 @@ The win boundary is at exactly **1** active player.
 - **TC25: loop continues while multiple active players remain** ( :white_check_mark: )
     - **State of the system**: 3 active players; checkWinCondition() returns false for first 5 iterations, then true
     - **Expected output**: runNextTurn() called exactly 5 times before loop exits
+
+### Method under test: `protected CardTradePhase createCardTradePhase(Player player, boolean mandatory)`
+
+- **TC26: returns a non-null CardTradePhase** ( :x: )
+    - **State of the system**: GameLoop constructed with a valid game; player mock provided
+    - **Expected output**: return value is not null

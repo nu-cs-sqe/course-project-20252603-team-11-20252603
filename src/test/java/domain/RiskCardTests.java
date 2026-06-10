@@ -1,6 +1,7 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.easymock.EasyMock;
@@ -16,8 +17,15 @@ public class RiskCardTests {
   }
 
   @Test
-  public void constructor_nullTerritory_throwsIllegalArgumentException() {
+  public void constructor_nullTerritoryWithNonWildcardType_throwsIllegalArgumentException() {
     assertThrows(IllegalArgumentException.class, () -> new RiskCard(RiskCardType.INFANTRY, null));
+  }
+
+  @Test
+  public void constructor_nullTerritoryWithWildcardType_succeeds() {
+    RiskCard card = new RiskCard(RiskCardType.WILDCARD, null);
+    assertEquals(RiskCardType.WILDCARD, card.getType());
+    assertNull(card.getTerritory());
   }
 
   @Test

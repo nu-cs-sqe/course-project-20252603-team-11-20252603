@@ -14,9 +14,8 @@ public class Game {
   private static final int MAX_NUMBER_OF_PLAYERS = 6;
   private final List<Player> players;
   private final GameMap map;
-  private final List<RiskCard> deck;
-  private final Random random;
   private final DeckManager deckManager;
+  private final Random random;
   private GameState gameState = GameState.SETUP;
   private Optional<Player> winner = Optional.empty();
   private int currentPlayerIndex = -1;
@@ -28,17 +27,17 @@ public class Game {
           + "it would create orphan territories that drift from real game state. Class is "
           + "non-final because EasyMock subclasses it to mock in tests."
   )
-  public Game(
-      List<Player> players,
-      GameMap map,
-      List<RiskCard> deck,
-      Random random,
-      DeckManager deckManager) {
+  public Game(List<Player> players, GameMap map, DeckManager deckManager, Random random) {
     validatePlayers(players);
     validateMap(map);
-    this.players = new ArrayList<>(players);
+    if (deckManager == null) {
+      throw new IllegalArgumentException("DeckManager cannot be null.");
+    }
+    if (random == null) {
+      throw new IllegalArgumentException("Random cannot be null.");
+    }
+    this.players = players;
     this.map = map;
-    this.deck = deck;
     this.random = random;
     this.deckManager = deckManager;
   }
@@ -118,7 +117,7 @@ public class Game {
   }
 
   public void shuffleDeck() {
-    Collections.shuffle(deck, random);
+    deckManager.shuffle();
   }
 
   public void chooseFirstPlayer() {
@@ -139,11 +138,11 @@ public class Game {
   }
 
   public int getDeckSize() {
-    return deck.size();
+    return deckManager.getDrawPileSize();
   }
 
   public List<RiskCard> getDeck() {
-    return Collections.unmodifiableList(deck);
+    return deckManager.getDrawPile();
   }
 
   public int getCurrentPlayerIndex() {

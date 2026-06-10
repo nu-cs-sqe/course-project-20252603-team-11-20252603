@@ -291,6 +291,12 @@ public class PlayerTests {
     assertFalse(player.isEliminated());
   }
 
+  @Test
+  public void getCardCount_emptyHand_returnsZero() {
+    Player player = new Player("Alice");
+    assertEquals(0, player.getCardCount());
+  }
+
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

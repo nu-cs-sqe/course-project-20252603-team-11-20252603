@@ -375,6 +375,22 @@ public class PlayerTests {
     EasyMock.verify(territory);
   }
   @Test
+  public void placeTroops_exactAvailableTroops_succeeds() {
+    Player player = new Player("Alice");
+    Territory territory = EasyMock.createMock(Territory.class);
+    player.addTerritory(territory);
+    player.setAvailableTroops(5);
+    territory.addTroops(5);
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(territory);
+
+    player.placeTroops(territory, 5);
+
+    assertEquals(0, player.getAvailableTroops());
+    EasyMock.verify(territory);
+  }
+
+  @Test
   public void placeTroops_validPlacement_updatesTroopsAndAvailableCount() {
     Player player = new Player("Alice");
     Territory territory = EasyMock.createMock(Territory.class);

@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameLoop {
+  private static final int INITIAL_TRADE_BONUS = 4;
+  private static final int TRADE_BONUS_INCREMENT = 2;
+
   private final Game game;
+  private final TradeBonus tradeBonus;
 
   @SuppressFBWarnings(
       value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
@@ -17,6 +21,7 @@ public class GameLoop {
       throw new IllegalArgumentException("game cannot be null.");
     }
     this.game = game;
+    this.tradeBonus = new TradeBonus(INITIAL_TRADE_BONUS, TRADE_BONUS_INCREMENT);
   }
 
   public boolean checkWinCondition() {
@@ -35,7 +40,7 @@ public class GameLoop {
 
   public void runNextTurn() {
     Player currentPlayer = game.getCurrentActivePlayer();
-    CardTradePhase.runIfRequired(currentPlayer, CardTradePhase.PRE_TURN_THRESHOLD);
+    // TODO: drive pre-turn trading via UI when player has >= PRE_TURN_THRESHOLD cards
 
     int reinforcements = currentPlayer.calculateReinforcements();
     currentPlayer.setAvailableTroops(reinforcements);
@@ -51,11 +56,14 @@ public class GameLoop {
         .ifPresent(
             defender -> {
               currentPlayer.inheritCardsFrom(defender);
-              CardTradePhase.runIfRequired(
-                  currentPlayer, CardTradePhase.POST_ELIMINATION_THRESHOLD);
+              // TODO: drive post-elimination trading via UI when >= POST_ELIMINATION_THRESHOLD
             });
 
     checkWinCondition();
+  }
+
+  protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+    return new CardTradePhase(player, tradeBonus, mandatory, new CardTradeValidator());
   }
 
   public void start() {

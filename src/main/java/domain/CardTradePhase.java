@@ -1,29 +1,39 @@
 package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public class CardTradePhase {
   public static final int PRE_TURN_THRESHOLD = 5;
   public static final int POST_ELIMINATION_THRESHOLD = 6;
 
   private final Player player;
+  private final TradeBonus tradeBonus;
+  private final boolean mandatory;
+  private final CardTradeValidator validator;
 
   @SuppressFBWarnings(
-      value = {"EI_EXPOSE_REP2", "URF_UNREAD_FIELD"},
-      justification = "Player is stored for upcoming card-trade implementation; shared domain "
-          + "object stored by reference by design."
+      value = "EI_EXPOSE_REP2",
+      justification = "Player is the shared aggregate root; storing by reference is intentional."
   )
-  public CardTradePhase(Player player) {
+  public CardTradePhase(Player player, TradeBonus tradeBonus, boolean mandatory,
+      CardTradeValidator validator) {
     this.player = player;
+    this.tradeBonus = tradeBonus;
+    this.mandatory = mandatory;
+    this.validator = validator;
   }
 
-  public static void runIfRequired(Player player, int threshold) {
-    if (player.getCards().size() >= threshold) {
-      new CardTradePhase(player).execute();
-    }
+  public boolean isComplete() {
+    return !mandatory || !validator.mustTrade(player);
   }
 
-  public void execute() {
-    // TODO: implement in follow-up ticket
+  public boolean validateSet(List<RiskCard> cards) {
+    return validator.isValidSet(cards);
+  }
+
+  public void run() {
+    player.setAvailableTroops(player.getAvailableTroops() + tradeBonus.getValue());
+    tradeBonus.increment();
   }
 }

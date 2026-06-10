@@ -95,6 +95,21 @@ public class Game {
     currentPlayerIndex = next;
   }
 
+  public Player getCurrentActivePlayer() {
+    if (currentPlayerIndex < 0) {
+      throw new IllegalStateException("Game not started; call chooseFirstPlayer() first.");
+    }
+    Player current = players.get(currentPlayerIndex);
+    if (!current.isEliminated()) {
+      return current;
+    }
+    int next = (currentPlayerIndex + 1) % players.size();
+    while (players.get(next).isEliminated()) {
+      next = (next + 1) % players.size();
+    }
+    return players.get(next);
+  }
+
   public void startGame() {
     shuffleDeck();
     assignTerritories();
@@ -145,5 +160,25 @@ public class Game {
 
   public RiskCard drawCard() {
     return deckManager.draw();
+  }
+
+  public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
+  }
+
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Random is shared so the test harness can seed it for deterministic behavior."
+  )
+  public Random getRandom() {
+    return random;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public void setWinner(Player winner) {
+    this.winner = Optional.ofNullable(winner);
   }
 }

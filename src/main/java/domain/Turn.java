@@ -1,6 +1,7 @@
 package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Optional;
 import java.util.Random;
 
 public class Turn {
@@ -53,6 +54,10 @@ public class Turn {
     return currentPlayer;
   }
 
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP",
+      justification = "Returns the shared aggregate Game by design."
+  )
   public Game getGame() {
     return game;
   }
@@ -121,6 +126,10 @@ public class Turn {
       throw new IllegalStateException("Turn not yet at ENDED state.");
     }
     game.advanceToNextPlayer();
+  }
+
+  public Optional<Player> getEliminatedDefender() {
+    return Optional.empty();
   }
 
   ReinforcementPhase createReinforcementPhase(Player p, int troopsToPlace) {

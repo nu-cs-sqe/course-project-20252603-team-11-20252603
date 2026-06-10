@@ -8,11 +8,12 @@ public class CardTradePhase {
   private final boolean mandatory;
   private final CardTradeValidator validator;
 
-  public CardTradePhase(Player player, TradeBonus tradeBonus, boolean mandatory) {
+  public CardTradePhase(Player player, TradeBonus tradeBonus, boolean mandatory,
+      CardTradeValidator validator) {
     this.player = player;
     this.tradeBonus = tradeBonus;
     this.mandatory = mandatory;
-    this.validator = new CardTradeValidator();
+    this.validator = validator;
   }
 
   public boolean isComplete() {

@@ -3,6 +3,9 @@ package domain;
 import java.util.List;
 
 public class CardTradePhase {
+  public static final int PRE_TURN_THRESHOLD = 5;
+  public static final int POST_ELIMINATION_THRESHOLD = 6;
+
   private final Player player;
   private final TradeBonus tradeBonus;
   private final boolean mandatory;

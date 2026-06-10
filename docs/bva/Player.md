@@ -159,3 +159,6 @@
 - **TC46: valid placement** ( )
   - **State of the system**: player owns territory; availableTroops = 5; amount = 3
   - **Expected output**: territory troop count increases by 3; availableTroops == 2
+- **TC47: amount equals availableTroops (upper boundary)** ( )
+  - **State of the system**: player owns territory; availableTroops = 5; amount = 5
+  - **Expected output**: placement succeeds; availableTroops == 0

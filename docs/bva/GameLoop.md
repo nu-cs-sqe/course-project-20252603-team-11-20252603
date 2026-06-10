@@ -117,3 +117,21 @@ The win boundary is at exactly **1** active player.
 - **TC25: loop continues while multiple active players remain** ( :white_check_mark: )
     - **State of the system**: 3 active players; checkWinCondition() returns false for first 5 iterations, then true
     - **Expected output**: runNextTurn() called exactly 5 times before loop exits
+
+### Method under test: `protected Turn createTurn(Player, Game, Random)`
+
+- **TC26: base implementation returns non-null Turn** ( )
+    - **State of the system**: valid player, game, random
+    - **Expected output**: createTurn() returns a Turn bound to the same player, game, and random
+
+### Method under test: `protected CardTradePhase createCardTradePhase(Player, boolean)`
+
+- **TC27: factory returns non-null CardTradePhase** ( )
+    - **State of the system**: valid player; mandatory flag true
+    - **Expected output**: createCardTradePhase() returns a non-null CardTradePhase instance
+
+### Method under test: `boolean checkWinCondition()` — territory count boundary
+
+- **TC28: sole remaining player has 0 territories (not counted active)** ( )
+    - **State of the system**: 1 player in list; not eliminated; getTerritoryCount() == 0
+    - **Expected output**: returns false; gameState stays unchanged; winner unset

@@ -138,25 +138,27 @@
    PR ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/80))
 6. [in progress] Kris: Review extension to Game
    class ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/84))
-7. [in progress] Brock: Review TradeBonus and
+7. [done, waiting for re-review] Brock: Review TradeBonus and
    CardTradePhase ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/85))
 8. [in progress] Jefferson: Implement
    GameLoop ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/64))
-8. [not started] Brock: Update ReinforcementPhase: accept troopsToPlace externally, remove
+9. [not started] Brock: Update ReinforcementPhase: accept troopsToPlace externally, remove
    calculateTroops ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/72))
-9. [not started] Jefferson: Extend Game class: GameState enum, winner field, advanceToNextPlayer,
-   drawCard ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/70))
-10. [not started] Kris: Implement ConnectivityGraph and update
+10. [not started] Jefferson: Extend Game class: GameState enum, winner field, advanceToNextPlayer,
+    drawCard ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/70))
+11. [not started] Kris: Implement ConnectivityGraph and update
     FortificationPhase ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/69))
-11. [not started] Kris: Implement
+12. [not started] Kris: Implement
     GameSetup ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/68))
-12. [not started] Brock: Implement
+13. [done] Brock: Implement
     DeckManager ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/67))
-13. [not started] Kris/Jefferson: Fix SpotBugs
+14. [not started] Kris/Jefferson: Fix SpotBugs
     issues ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/86))
-14. [not started] Nandan/Brock: Implement integration
-    tests ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/78))
-15. [not started] All: Confirm project requirements and
+15. [done] Brock: Implement integration
+    test #1 ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/96))
+16. [not started] Nandan: Implement integration
+    test #2 ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/97))
+17. [not started] All: Confirm project requirements and
     functionality ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/87))
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)

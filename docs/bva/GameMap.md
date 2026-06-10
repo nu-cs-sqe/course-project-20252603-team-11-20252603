@@ -110,6 +110,10 @@ BFS over the map returning the shortest path from `s` to `d` through territories
   - **State of the system**: map has s−mid−d; mid is owned by a different player
   - **Expected output**: empty list
 
+- **TC33a: direct neighbors — returned path is non-empty and starts at source** ( )
+  - **State of the system**: map has direct connection s−d; both in map
+  - **Expected output**: path is not empty; path.get(0) == s; path.get(1) == d
+
 ### Method under test: `boolean areAdjacent(ITerritory a, ITerritory b)`
 
 `a` and `b` are Pointers. Both must be in the map. Adjacency is symmetric.

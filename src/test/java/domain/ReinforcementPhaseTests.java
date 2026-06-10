@@ -199,4 +199,20 @@ public class ReinforcementPhaseTests {
 
     assertTrue(reinforcements.isComplete());
   }
+
+  @Test
+  public void validatePlacement_territoryNotInPlayerList_returnFalse() {
+    Player player = EasyMock.createMock(Player.class);
+    Territory owned = EasyMock.createMock(Territory.class);
+    Territory other = EasyMock.createMock(Territory.class);
+    List<Territory> territories = new ArrayList<>();
+    territories.add(owned);
+
+    EasyMock.expect(player.getTerritories()).andReturn(territories);
+    EasyMock.replay(player, owned, other);
+
+    ReinforcementPhase reinforcements = new ReinforcementPhase(player, 3);
+    assertFalse(reinforcements.validatePlacement(1, other));
+    EasyMock.verify(player, owned, other);
+  }
 }

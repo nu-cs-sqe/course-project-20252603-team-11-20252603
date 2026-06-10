@@ -1189,4 +1189,20 @@ public class GameTests {
     verifyAll(players, map);
     EasyMock.verify(random);
   }
+
+  @Test
+  public void setGameState_updatesGameState() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    Random random = EasyMock.createMock(Random.class);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.setGameState(GameState.IN_PROGRESS);
+
+    assertEquals(GameState.IN_PROGRESS, game.getGameState());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
 }

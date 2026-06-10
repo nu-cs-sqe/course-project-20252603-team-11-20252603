@@ -1144,6 +1144,27 @@ public class GameTests {
   }
 
   @Test
+  public void getCurrentActivePlayer_skipsMultipleEliminatedPlayers_returnsFirstActive() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(4);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.expect(random.nextInt(4)).andReturn(0);
+    EasyMock.expect(players.get(0).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(1).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(2).isEliminated()).andReturn(true);
+    EasyMock.expect(players.get(3).isEliminated()).andReturn(false);
+    replayAll(players, map);
+    EasyMock.replay(random);
+
+    Game game = new Game(players, map, mockDeck(), random);
+    game.chooseFirstPlayer();
+
+    assertSame(players.get(3), game.getCurrentActivePlayer());
+    verifyAll(players, map);
+    EasyMock.verify(random);
+  }
+
+  @Test
   public void getCurrentActivePlayer_currentPlayerEliminated_returnsNextActivePlayer() {
     GameMap map = makeMap();
     List<Player> players = makePlayers(3);

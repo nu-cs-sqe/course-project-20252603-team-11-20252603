@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -27,6 +28,7 @@ public class GameLoopTests {
   private void recordStandardTurnSetup(
       Game game, Player currentPlayer, Player otherPlayer, Turn turn, Random random) {
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
     currentPlayer.setAvailableTroops(3);
@@ -51,6 +53,27 @@ public class GameLoopTests {
     EasyMock.replay(game);
     assertNotNull(new GameLoop(game));
     EasyMock.verify(game);
+  }
+
+  @Test
+  public void createCardTradePhase_returnsConfiguredCardTradePhase() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    EasyMock.replay(game, player);
+    GameLoop gameLoop = new GameLoop(game);
+    assertNotNull(gameLoop.createCardTradePhase(player, true));
+    EasyMock.verify(game, player);
+  }
+
+  @Test
+  public void createTurn_returnsNonNullTurn() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(game, player, random);
+    GameLoop gameLoop = new GameLoop(game);
+    assertNotNull(gameLoop.createTurn(player, game, random));
+    EasyMock.verify(game, player, random);
   }
 
   @Test
@@ -121,6 +144,29 @@ public class GameLoopTests {
   }
 
   @Test
+  public void checkWinCondition_nonEliminatedPlayerWithZeroTerritories_countedAsInactive() {
+    Game game = EasyMock.createMock(Game.class);
+    Player winner = EasyMock.createMock(Player.class);
+    Player noTerritoryPlayer = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(winner, noTerritoryPlayer));
+    EasyMock.expect(winner.isEliminated()).andReturn(false);
+    EasyMock.expect(noTerritoryPlayer.isEliminated()).andReturn(false);
+    EasyMock.expect(winner.getTerritoryCount()).andReturn(5);
+    EasyMock.expect(noTerritoryPlayer.getTerritoryCount()).andReturn(0);
+    game.setGameState(GameState.FINISHED);
+    EasyMock.expectLastCall().once();
+    game.setWinner(winner);
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(game, winner, noTerritoryPlayer);
+
+    GameLoop gameLoop = new GameLoop(game);
+    assertTrue(gameLoop.checkWinCondition());
+
+    EasyMock.verify(game, winner, noTerritoryPlayer);
+  }
+
+  @Test
   public void runNextTurn_currentPlayerActive_createsTurnForCurrentPlayer() {
     Game game = EasyMock.createMock(Game.class);
     Player player0 = EasyMock.createMock(Player.class);
@@ -158,6 +204,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player1);
+    EasyMock.expect(player1.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player1.calculateReinforcements()).andReturn(3);
     player1.setAvailableTroops(3);
@@ -194,6 +241,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player3);
+    EasyMock.expect(player3.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player3.calculateReinforcements()).andReturn(3);
     player3.setAvailableTroops(3);
@@ -230,6 +278,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0);
+    EasyMock.expect(player0.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player0.calculateReinforcements()).andReturn(7);
     player0.setAvailableTroops(7);
@@ -296,6 +345,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0).times(2);
+    EasyMock.expect(player0.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random).times(2);
     EasyMock.expect(player0.calculateReinforcements()).andReturn(3).times(2);
     player0.setAvailableTroops(3);
@@ -360,6 +410,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -404,6 +455,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -447,6 +499,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -479,6 +532,353 @@ public class GameLoopTests {
     gameLoop.runNextTurn();
 
     EasyMock.verify(game, attacker, defender, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasFourCards_preTurnCardTradeSkipped() {
+    Game game = EasyMock.createMock(Game.class);
+    Player currentPlayer = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> fourCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.PRE_TURN_THRESHOLD - 1; i++) {
+      fourCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(fourCards);
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
+    currentPlayer.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
+    EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, currentPlayer, otherPlayer, turn, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            factoryCalled[0] = true;
+            return null;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertFalse(factoryCalled[0]);
+    EasyMock.verify(game, currentPlayer, otherPlayer, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasFiveCards_preTurnCardTradeRuns() {
+    Game game = EasyMock.createMock(Game.class);
+    Player currentPlayer = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    CardTradePhase cardTrade = EasyMock.createMock(CardTradePhase.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> fiveCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.PRE_TURN_THRESHOLD; i++) {
+      fiveCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(fiveCards);
+    cardTrade.run();
+    EasyMock.expectLastCall().once();
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
+    currentPlayer.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
+    EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, currentPlayer, otherPlayer, turn, cardTrade, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            assertSame(currentPlayer, player);
+            assertTrue(mandatory);
+            factoryCalled[0] = true;
+            return cardTrade;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertTrue(factoryCalled[0]);
+    EasyMock.verify(game, currentPlayer, otherPlayer, turn, cardTrade, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasSixCards_preTurnCardTradeRuns() {
+    Game game = EasyMock.createMock(Game.class);
+    Player currentPlayer = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    CardTradePhase cardTrade = EasyMock.createMock(CardTradePhase.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> sixCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.PRE_TURN_THRESHOLD + 1; i++) {
+      sixCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(sixCards);
+    cardTrade.run();
+    EasyMock.expectLastCall().once();
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
+    currentPlayer.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
+    EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, currentPlayer, otherPlayer, turn, cardTrade, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            assertSame(currentPlayer, player);
+            assertTrue(mandatory);
+            factoryCalled[0] = true;
+            return cardTrade;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertTrue(factoryCalled[0]);
+    EasyMock.verify(game, currentPlayer, otherPlayer, turn, cardTrade, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasFiveCardsAfterElimination_postEliminationCardTradeSkipped() {
+    Game game = EasyMock.createMock(Game.class);
+    Player attacker = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Player defender = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> noCards = new ArrayList<>();
+    List<RiskCard> fiveCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.POST_ELIMINATION_THRESHOLD - 1; i++) {
+      fiveCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(noCards).andReturn(fiveCards);
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
+    attacker.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers())
+        .andReturn(List.of(attacker, otherPlayer, defender))
+        .anyTimes();
+    EasyMock.expect(attacker.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(attacker.getTerritoryCount()).andReturn(5).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(3).anyTimes();
+    EasyMock.expect(defender.isEliminated()).andReturn(true).anyTimes();
+    EasyMock.expect(defender.getTerritoryCount()).andReturn(0).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.of(defender));
+    attacker.inheritCardsFrom(defender);
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, attacker, otherPlayer, defender, turn, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            factoryCalled[0] = true;
+            return null;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertFalse(factoryCalled[0]);
+    EasyMock.verify(game, attacker, otherPlayer, defender, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasSixCardsAfterElimination_postEliminationCardTradeRuns() {
+    Game game = EasyMock.createMock(Game.class);
+    Player attacker = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Player defender = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    CardTradePhase cardTrade = EasyMock.createMock(CardTradePhase.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> noCards = new ArrayList<>();
+    List<RiskCard> sixCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.POST_ELIMINATION_THRESHOLD; i++) {
+      sixCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(noCards).andReturn(sixCards);
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
+    attacker.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers())
+        .andReturn(List.of(attacker, otherPlayer, defender))
+        .anyTimes();
+    EasyMock.expect(attacker.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(attacker.getTerritoryCount()).andReturn(5).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(3).anyTimes();
+    EasyMock.expect(defender.isEliminated()).andReturn(true).anyTimes();
+    EasyMock.expect(defender.getTerritoryCount()).andReturn(0).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.of(defender));
+    attacker.inheritCardsFrom(defender);
+    cardTrade.run();
+    EasyMock.expectLastCall().once();
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, attacker, otherPlayer, defender, turn, cardTrade, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            assertSame(attacker, player);
+            assertTrue(mandatory);
+            factoryCalled[0] = true;
+            return cardTrade;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertTrue(factoryCalled[0]);
+    EasyMock.verify(game, attacker, otherPlayer, defender, turn, cardTrade, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasSevenCardsAfterElimination_postEliminationCardTradeRuns() {
+    Game game = EasyMock.createMock(Game.class);
+    Player attacker = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Player defender = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    CardTradePhase cardTrade = EasyMock.createMock(CardTradePhase.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> noCards = new ArrayList<>();
+    List<RiskCard> sevenCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.POST_ELIMINATION_THRESHOLD + 1; i++) {
+      sevenCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(noCards).andReturn(sevenCards);
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
+    attacker.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers())
+        .andReturn(List.of(attacker, otherPlayer, defender))
+        .anyTimes();
+    EasyMock.expect(attacker.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(attacker.getTerritoryCount()).andReturn(5).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(3).anyTimes();
+    EasyMock.expect(defender.isEliminated()).andReturn(true).anyTimes();
+    EasyMock.expect(defender.getTerritoryCount()).andReturn(0).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.of(defender));
+    attacker.inheritCardsFrom(defender);
+    cardTrade.run();
+    EasyMock.expectLastCall().once();
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, attacker, otherPlayer, defender, turn, cardTrade, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            assertSame(attacker, player);
+            assertTrue(mandatory);
+            factoryCalled[0] = true;
+            return cardTrade;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertTrue(factoryCalled[0]);
+    EasyMock.verify(game, attacker, otherPlayer, defender, turn, cardTrade, random);
   }
 
   @Test

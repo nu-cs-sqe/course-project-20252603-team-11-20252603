@@ -23,7 +23,7 @@ Central coordinator for the multi-turn game cycle
 
 **`activePlayerCount` (Count variable — non-eliminated players with at least one territory):**
 
-The win boundary is at exactly **1** active player.
+The win boundary is at exactly **1** active player. The filter predicate is `!isEliminated() && getTerritoryCount() > 0`; both conditions must hold for a player to count as active.
 
 - **TC3: 2 active players (one above win threshold)** ( :white_check_mark: )
     - **State of the system**: 2 players not eliminated; gameState == IN_PROGRESS; winner unset
@@ -34,6 +34,9 @@ The win boundary is at exactly **1** active player.
 - **TC5: 3 active players (nominal in-progress state)** ( :white_check_mark: )
     - **State of the system**: 3 players not eliminated
     - **Expected output**: returns false; gameState stays IN_PROGRESS; winner remains unset
+- **TC27: non-eliminated player with 0 territories excluded from active count (lower boundary of `getTerritoryCount() > 0`)** ( :white_check_mark: )
+    - **State of the system**: 2 players, both not eliminated; one holds territories, one holds 0
+    - **Expected output**: returns true; the 0-territory player is not counted as active; winner set to the player with territories
 
 ### Method under test: `void runNextTurn()`
 
@@ -118,20 +121,20 @@ The win boundary is at exactly **1** active player.
     - **State of the system**: 3 active players; checkWinCondition() returns false for first 5 iterations, then true
     - **Expected output**: runNextTurn() called exactly 5 times before loop exits
 
-### Method under test: `protected Turn createTurn(Player, Game, Random)`
+### Method under test: `protected CardTradePhase createCardTradePhase(Player player, boolean mandatory)`
 
-- **TC26: base implementation returns non-null Turn** ( )
-    - **State of the system**: valid player, game, random
-    - **Expected output**: createTurn() returns a Turn bound to the same player, game, and random
+- **TC26: returns a non-null CardTradePhase** ( :white_check_mark: )
+    - **State of the system**: GameLoop constructed with a valid game; player mock provided
+    - **Expected output**: return value is not null
 
-### Method under test: `protected CardTradePhase createCardTradePhase(Player, boolean)`
+### Method under test: `protected Turn createTurn(Player currentPlayer, Game game, Random random)`
 
-- **TC27: factory returns non-null CardTradePhase** ( )
-    - **State of the system**: valid player; mandatory flag true
-    - **Expected output**: createCardTradePhase() returns a non-null CardTradePhase instance
+- **TC27: returns a non-null Turn** ( :white_check_mark: )
+    - **State of the system**: GameLoop constructed with a valid game; player, game, and random mocks provided
+    - **Expected output**: return value is not null
 
 ### Method under test: `boolean checkWinCondition()` — territory count boundary
 
-- **TC28: sole remaining player has 0 territories (not counted active)** ( )
+- **TC28: sole remaining player has 0 territories (not counted active)** ( :white_check_mark: )
     - **State of the system**: 1 player in list; not eliminated; getTerritoryCount() == 0
     - **Expected output**: returns false; gameState stays unchanged; winner unset

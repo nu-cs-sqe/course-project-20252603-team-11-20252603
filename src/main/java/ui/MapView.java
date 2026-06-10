@@ -1,10 +1,12 @@
 package ui;
 
-import domain.AtlaMapData;
 import domain.GameMap;
+import domain.Player;
 import domain.Territory;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.Group;
@@ -19,6 +21,10 @@ public final class MapView extends Pane {
   private static final double HEX_RADIUS = 32.0;
   private static final double EDGE_WIDTH = 1.0;
   private static final Color EDGE_COLOR = Color.DARKGRAY;
+  private static final Color[] PLAYER_PALETTE = {
+      Color.CORNFLOWERBLUE, Color.TOMATO, Color.MEDIUMSEAGREEN,
+      Color.MEDIUMPURPLE, Color.DARKORANGE, Color.HOTPINK
+  };
   private static final Color COLOR_MOON = Color.LIGHTGRAY;
   private static final Color COLOR_BA_SING_SE = Color.LIGHTGREEN;
   private static final Color COLOR_FIRE = Color.SALMON;
@@ -30,11 +36,46 @@ public final class MapView extends Pane {
   private static final Map<String, String> MSG_KEYS = buildMsgKeys();
   private static final Map<String, Color> COLORS = buildColors();
 
-  public MapView() {
+  private final GameController ctrl;
+  private final Map<Territory, TerritoryNode> nodeMap = new HashMap<>();
+
+  @SuppressFBWarnings(
+      value = "EI_EXPOSE_REP2",
+      justification = "GameController is the shared game coordinator intentionally stored by "
+          + "reference; MapView needs the live instance to dispatch clicks and read selection "
+          + "state.")
+  public MapView(GameController ctrl) {
+    this.ctrl = ctrl;
     setPrefSize(MAP_WIDTH, MAP_HEIGHT);
     setStyle(BACKGROUND_CSS);
-    GameMap gameMap = new AtlaMapData().buildMap();
+    GameMap gameMap = ctrl.getGameMap();
     getChildren().addAll(buildEdges(gameMap), buildNodes(gameMap));
+  }
+
+  public void refresh() {
+    Territory selected = ctrl.getSelectedTerritory();
+    Map<Player, Color> playerColors = buildPlayerColors(ctrl.getPlayers());
+    for (Map.Entry<Territory, TerritoryNode> entry : nodeMap.entrySet()) {
+      Territory t = entry.getKey();
+      TerritoryNode node = entry.getValue();
+      node.refresh();
+      node.refreshOwner(t.getOwner() != null ? playerColors.get(t.getOwner()) : null);
+      node.setSelected(t == selected);
+    }
+  }
+
+  private static Map<Player, Color> buildPlayerColors(List<Player> players) {
+    Map<Player, Color> colors = new HashMap<>();
+    for (int i = 0; i < players.size(); i++) {
+      colors.put(players.get(i), PLAYER_PALETTE[i % PLAYER_PALETTE.length]);
+    }
+    return colors;
+  }
+
+  public void refreshLocale() {
+    for (TerritoryNode node : nodeMap.values()) {
+      node.refreshLocale();
+    }
   }
 
   private static Group buildEdges(GameMap gameMap) {
@@ -56,7 +97,7 @@ public final class MapView extends Pane {
     return group;
   }
 
-  private static Group buildNodes(GameMap gameMap) {
+  private Group buildNodes(GameMap gameMap) {
     Group group = new Group();
     for (Territory territory : gameMap.getTerritories()) {
       String name = territory.getName();
@@ -65,6 +106,8 @@ public final class MapView extends Pane {
       Color color = COLORS.get(name);
       TerritoryNode node = new TerritoryNode(
           territory, color, pos[0], pos[1], HEX_RADIUS, key);
+      node.setOnTerritoryClicked(() -> ctrl.handleTerritoryClick(territory));
+      nodeMap.put(territory, node);
       group.getChildren().add(node);
     }
     return group;

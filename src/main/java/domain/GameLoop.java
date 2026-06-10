@@ -40,7 +40,9 @@ public class GameLoop {
 
   public void runNextTurn() {
     Player currentPlayer = game.getCurrentActivePlayer();
-    // TODO: drive pre-turn trading via UI when player has >= PRE_TURN_THRESHOLD cards
+    if (currentPlayer.getCards().size() >= CardTradePhase.PRE_TURN_THRESHOLD) {
+      createCardTradePhase(currentPlayer, true).run();
+    }
 
     int reinforcements = currentPlayer.calculateReinforcements();
     currentPlayer.setAvailableTroops(reinforcements);
@@ -56,7 +58,9 @@ public class GameLoop {
         .ifPresent(
             defender -> {
               currentPlayer.inheritCardsFrom(defender);
-              // TODO: drive post-elimination trading via UI when >= POST_ELIMINATION_THRESHOLD
+              if (currentPlayer.getCards().size() >= CardTradePhase.POST_ELIMINATION_THRESHOLD) {
+                createCardTradePhase(currentPlayer, true).run();
+              }
             });
 
     checkWinCondition();

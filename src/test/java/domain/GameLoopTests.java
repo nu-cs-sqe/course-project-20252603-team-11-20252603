@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -27,6 +28,7 @@ public class GameLoopTests {
   private void recordStandardTurnSetup(
       Game game, Player currentPlayer, Player otherPlayer, Turn turn, Random random) {
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
     currentPlayer.setAvailableTroops(3);
@@ -158,6 +160,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player1);
+    EasyMock.expect(player1.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player1.calculateReinforcements()).andReturn(3);
     player1.setAvailableTroops(3);
@@ -194,6 +197,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player3);
+    EasyMock.expect(player3.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player3.calculateReinforcements()).andReturn(3);
     player3.setAvailableTroops(3);
@@ -230,6 +234,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0);
+    EasyMock.expect(player0.getCards()).andReturn(List.of());
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(player0.calculateReinforcements()).andReturn(7);
     player0.setAvailableTroops(7);
@@ -296,6 +301,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(player0).times(2);
+    EasyMock.expect(player0.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random).times(2);
     EasyMock.expect(player0.calculateReinforcements()).andReturn(3).times(2);
     player0.setAvailableTroops(3);
@@ -360,6 +366,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -404,6 +411,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -447,6 +455,7 @@ public class GameLoopTests {
     Random random = EasyMock.createMock(Random.class);
 
     EasyMock.expect(game.getCurrentActivePlayer()).andReturn(attacker);
+    EasyMock.expect(attacker.getCards()).andReturn(List.of()).times(2);
     EasyMock.expect(game.getRandom()).andReturn(random);
     EasyMock.expect(attacker.calculateReinforcements()).andReturn(3);
     attacker.setAvailableTroops(3);
@@ -479,6 +488,57 @@ public class GameLoopTests {
     gameLoop.runNextTurn();
 
     EasyMock.verify(game, attacker, defender, turn, random);
+  }
+
+  @Test
+  public void runNextTurn_playerHasFourCards_preTurnCardTradeSkipped() {
+    Game game = EasyMock.createMock(Game.class);
+    Player currentPlayer = EasyMock.createMock(Player.class);
+    Player otherPlayer = EasyMock.createMock(Player.class);
+    Turn turn = EasyMock.createMock(Turn.class);
+    Random random = EasyMock.createMock(Random.class);
+    List<RiskCard> fourCards = new ArrayList<>();
+    for (int i = 0; i < CardTradePhase.PRE_TURN_THRESHOLD - 1; i++) {
+      fourCards.add(null);
+    }
+
+    EasyMock.expect(game.getCurrentActivePlayer()).andReturn(currentPlayer);
+    EasyMock.expect(currentPlayer.getCards()).andReturn(fourCards);
+    EasyMock.expect(game.getRandom()).andReturn(random);
+    EasyMock.expect(currentPlayer.calculateReinforcements()).andReturn(3);
+    currentPlayer.setAvailableTroops(3);
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(currentPlayer, otherPlayer)).anyTimes();
+    EasyMock.expect(currentPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(currentPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(otherPlayer.isEliminated()).andReturn(false).anyTimes();
+    EasyMock.expect(otherPlayer.getTerritoryCount()).andReturn(1).anyTimes();
+    EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
+    turn.startTurn();
+    turn.runReinforcementPhase();
+    turn.runAttackPhase();
+    turn.runFortificationPhase();
+    turn.endTurn();
+    EasyMock.replay(game, currentPlayer, otherPlayer, turn, random);
+
+    final boolean[] factoryCalled = {false};
+    GameLoop gameLoop =
+        new GameLoop(game) {
+          @Override
+          protected CardTradePhase createCardTradePhase(Player player, boolean mandatory) {
+            factoryCalled[0] = true;
+            return null;
+          }
+
+          @Override
+          protected Turn createTurn(Player p, Game g, Random r) {
+            return turn;
+          }
+        };
+
+    gameLoop.runNextTurn();
+
+    assertFalse(factoryCalled[0]);
+    EasyMock.verify(game, currentPlayer, otherPlayer, turn, random);
   }
 
   @Test

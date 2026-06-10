@@ -1106,4 +1106,16 @@ public class GameTests {
     verifyAll(players, map);
     EasyMock.verify(random, deckManager, firstCard, secondCard);
   }
+
+  @Test
+  public void getCurrentActivePlayer_gameNotStarted_throwsIllegalStateException() {
+    GameMap map = makeMap();
+    List<Player> players = makePlayers(2);
+    replayAll(players, map);
+
+    Game game = new Game(players, map, mockDeck(), new Random());
+
+    assertThrows(IllegalStateException.class, game::getCurrentActivePlayer);
+    verifyAll(players, map);
+  }
 }

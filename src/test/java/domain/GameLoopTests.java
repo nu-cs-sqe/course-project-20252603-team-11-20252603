@@ -15,6 +15,20 @@ import org.junit.jupiter.api.Test;
 
 public class GameLoopTests {
 
+  private static final class ExposingGameLoop extends GameLoop {
+    ExposingGameLoop(Game game) {
+      super(game);
+    }
+
+    Turn callCreateTurn(Player currentPlayer, Game game, Random random) {
+      return createTurn(currentPlayer, game, random);
+    }
+
+    CardTradePhase callCreateCardTradePhase(Player player, boolean mandatory) {
+      return createCardTradePhase(player, mandatory);
+    }
+  }
+
   private void recordTurnDelegation(Turn turn) {
     EasyMock.expect(turn.getEliminatedDefender()).andReturn(Optional.empty());
     turn.startTurn();
@@ -612,5 +626,21 @@ public class GameLoopTests {
 
     assertEquals(5, runNextTurnCalls[0]);
     EasyMock.verify(game, player1, player2, player3);
+  }
+
+  @Test
+  public void createTurn_returnsNewTurnWithInjectedDependencies() {
+    Game game = EasyMock.createMock(Game.class);
+    Player player = EasyMock.createMock(Player.class);
+    Random random = EasyMock.createMock(Random.class);
+    EasyMock.replay(game, player, random);
+
+    ExposingGameLoop gameLoop = new ExposingGameLoop(game);
+    Turn turn = gameLoop.callCreateTurn(player, game, random);
+
+    assertNotNull(turn);
+    assertSame(player, turn.getCurrentPlayer());
+    assertSame(game, turn.getGame());
+    EasyMock.verify(game, player, random);
   }
 }

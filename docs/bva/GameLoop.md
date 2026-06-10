@@ -34,7 +34,7 @@ The win boundary is at exactly **1** active player. The filter predicate is `!is
 - **TC5: 3 active players (nominal in-progress state)** ( :white_check_mark: )
     - **State of the system**: 3 players not eliminated
     - **Expected output**: returns false; gameState stays IN_PROGRESS; winner remains unset
-- **TC27: non-eliminated player with 0 territories excluded from active count (lower boundary of `getTerritoryCount() > 0`)** ( :x: )
+- **TC27: non-eliminated player with 0 territories excluded from active count (lower boundary of `getTerritoryCount() > 0`)** ( :white_check_mark: )
     - **State of the system**: 2 players, both not eliminated; one holds territories, one holds 0
     - **Expected output**: returns true; the 0-territory player is not counted as active; winner set to the player with territories
 

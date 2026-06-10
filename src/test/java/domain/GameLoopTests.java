@@ -133,6 +133,29 @@ public class GameLoopTests {
   }
 
   @Test
+  public void checkWinCondition_nonEliminatedPlayerWithZeroTerritories_countedAsInactive() {
+    Game game = EasyMock.createMock(Game.class);
+    Player winner = EasyMock.createMock(Player.class);
+    Player noTerritoryPlayer = EasyMock.createMock(Player.class);
+
+    EasyMock.expect(game.getPlayers()).andReturn(List.of(winner, noTerritoryPlayer));
+    EasyMock.expect(winner.isEliminated()).andReturn(false);
+    EasyMock.expect(noTerritoryPlayer.isEliminated()).andReturn(false);
+    EasyMock.expect(winner.getTerritoryCount()).andReturn(5);
+    EasyMock.expect(noTerritoryPlayer.getTerritoryCount()).andReturn(0);
+    game.setGameState(GameState.FINISHED);
+    EasyMock.expectLastCall().once();
+    game.setWinner(winner);
+    EasyMock.expectLastCall().once();
+    EasyMock.replay(game, winner, noTerritoryPlayer);
+
+    GameLoop gameLoop = new GameLoop(game);
+    assertTrue(gameLoop.checkWinCondition());
+
+    EasyMock.verify(game, winner, noTerritoryPlayer);
+  }
+
+  @Test
   public void runNextTurn_currentPlayerActive_createsTurnForCurrentPlayer() {
     Game game = EasyMock.createMock(Game.class);
     Player player0 = EasyMock.createMock(Player.class);

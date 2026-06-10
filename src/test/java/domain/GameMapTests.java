@@ -381,9 +381,7 @@ public class GameMapTests {
     map.addTerritory(d);
     map.addConnection(s, d);
     List<Territory> path = map.findPath(s, d, player);
-    assertEquals(2, path.size());
-    assertEquals(s, path.get(0));
-    assertEquals(d, path.get(1));
+    assertEquals(List.of(s, d), path);
     EasyMock.verify(player, s, d);
   }
 

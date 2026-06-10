@@ -338,6 +338,11 @@ public class PlayerTests {
     assertTrue(receiver.getCards().contains(card2));
     EasyMock.verify(card1, card2);
   }
+  @Test
+  public void placeTroops_nullTerritory_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    assertThrows(IllegalArgumentException.class, () -> player.placeTroops(null, 1));
+  }
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

@@ -218,3 +218,49 @@ interval [0, players.size() − 1]. `advanceToNextPlayer()` increments the index
 - **TC38: drawCard called twice → each call delegates independently to DeckManager** ( :white_check_mark: )
     - **State of the system**: DeckManager.draw() returns firstCard then secondCard
     - **Expected output**: first drawCard() returns firstCard; second returns secondCard; no caching
+
+---
+
+### Method under test: `Player getCurrentActivePlayer()`
+
+Precondition: `currentPlayerIndex` set by `chooseFirstPlayer()` (interval [0, players.size() − 1]). Skips eliminated players like `advanceToNextPlayer()`.
+
+- **TC39: game not started (currentPlayerIndex == -1)** ( )
+    - **State of the system**: Game just constructed; chooseFirstPlayer() not called
+    - **Expected output**: IllegalStateException thrown
+- **TC40: current index points to active player** ( )
+    - **State of the system**: 2 players; currentPlayerIndex == 0; player[0] not eliminated
+    - **Expected output**: returns player[0]
+- **TC41: current index points to eliminated player, next active** ( )
+    - **State of the system**: 3 players; currentPlayerIndex == 0; player[0] eliminated; player[1] active
+    - **Expected output**: returns player[1]
+- **TC41a: current eliminated, two consecutive eliminated, third active** ( )
+    - **State of the system**: 4 players; currentPlayerIndex == 0; players[0..2] eliminated; player[3] active
+    - **Expected output**: returns player[3]
+
+### Method under test: `List<Player> getPlayers()`
+
+- **TC42: returns all players as unmodifiable list** ( )
+    - **State of the system**: Game constructed with 2 players
+    - **Expected output**: list size == 2; contains both players; list is unmodifiable
+
+### Method under test: `Random getRandom()`
+
+- **TC43: returns injected Random instance** ( )
+    - **State of the system**: Game constructed with mocked Random
+    - **Expected output**: getRandom() == injected Random reference
+
+### Method under test: `void setGameState(GameState gameState)`
+
+- **TC44: update game state** ( )
+    - **State of the system**: Game in SETUP
+    - **Expected output**: after setGameState(IN_PROGRESS), getGameState() == IN_PROGRESS
+
+### Method under test: `void setWinner(Player winner)`
+
+- **TC45: set non-null winner** ( )
+    - **State of the system**: winner empty after construction
+    - **Expected output**: after setWinner(player), getWinner() contains that player
+- **TC46: set null winner clears winner** ( )
+    - **State of the system**: winner previously set
+    - **Expected output**: after setWinner(null), getWinner().isEmpty() == true

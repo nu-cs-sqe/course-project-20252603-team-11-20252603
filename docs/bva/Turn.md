@@ -123,3 +123,8 @@
 - **TC32: returns a non-null FortificationPhase** ( :white_check_mark: )
     - **State of the system**: Turn just constructed (no test override of the factory)
     - **Expected output**: returns a freshly constructed FortificationPhase instance
+
+### Method under test: `Optional<Player> getEliminatedDefender()`
+- **TC33: default before any elimination** ( )
+    - **State of the system**: Turn just constructed
+    - **Expected output**: getEliminatedDefender().isEmpty() == true

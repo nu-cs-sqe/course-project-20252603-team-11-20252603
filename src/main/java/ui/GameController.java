@@ -188,7 +188,10 @@ public final class GameController {
     currentTurn.endTurn();
     currentTurn.getEliminatedDefender().ifPresent(defender -> {
       currentTurn.getCurrentPlayer().inheritCardsFrom(defender);
-      // TODO: drive post-elimination trading via UI when >= POST_ELIMINATION_THRESHOLD
+      if (currentTurn.getCurrentPlayer().getCards().size()
+          >= CardTradePhase.POST_ELIMINATION_THRESHOLD) {
+        runMandatoryCardTradeLoop(currentTurn.getCurrentPlayer());
+      }
     });
     if (!checkAndHandleWinCondition()) {
       startNextTurn();

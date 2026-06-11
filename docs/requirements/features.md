@@ -23,16 +23,20 @@ covered.
 | F4  | Count turns / turn-based gameplay loop | `GameLoop`, `Turn`, `Game`, `Player` | — |
 | F5  | Receive & place reinforcements (territory + continent bonuses) | `ReinforcementPhase`, `Player`, `Territory`, `Game` | — |
 | F6  | Attack enemy territories with dice mechanics | `AttackPhase`, `DiceRoller`, `BattleResult`, `Territory`, `Player`, `GameMap`, `Game`, `DeckManager` | ✅ `F6Tests.java` |
-| F7  | Fortify: move armies between owned territories | `FortificationPhase`, `GameMap`, `Player`, `Territory`, `ConnectivityGraph` | _planned next_ |
+| F7  | Fortify: move armies between owned territories | `FortificationPhase`, `GameMap`, `Player`, `Territory`, `ConnectivityGraph` | ✅ `F7Tests.java` |
 | F8  | Earn a card for a successful attack (one per turn) | `AttackPhase`, `Game`, `DeckManager`, `RiskCard`, `Player` | partially via F6 |
 | F9  | Trade cards for reinforcements | `CardTradePhase`, `CardTradeValidator`, `Player`, `RiskCard` | — (impl in progress) |
 | F10 | Detect win (capture all territories / eliminate all players) | `GameLoop`, `Game`, `Player` | — |
 
 ## Status
 
+The A-level "integration testing on ≥ 2 main features" bar is met by **F6** and **F7**.
+
 - **F6 (Attack)** — covered by `src/test/java/domain/F6Tests.java`. Exercises the full attack
   thread end to end: adjacency validation through `GameMap`, dice resolution through the real
   `DiceRoller`/`BattleResult`, troop attrition and ownership transfer across `Territory`/`Player`,
   and the card award through `Game`/`DeckManager`.
-- **Second feature (planned):** F7 (Fortify) or F5 (Reinforcement) — both are fully implemented
-  and integrate cleanly. Completing one of these satisfies the A-level "≥ 2 main features" bar.
+- **F7 (Fortify)** — covered by `src/test/java/domain/F7Tests.java`. Exercises the fortification
+  thread with real collaborators: `FortificationPhase` drives a real `ConnectivityGraph` running a
+  real ownership-aware BFS over a real `GameMap`, moving troops across real `Territory`/`Player`
+  state and enforcing the once-per-turn rule. No mocks.

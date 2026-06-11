@@ -118,15 +118,15 @@
 **Planning and Progress Tracking**:
 
 1. [done] All: Close out feedback from old PRs
-    2. [done] Kris: Implement GUI and
+    1. [done] Kris: Implement GUI and
        internationalization ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/74))
-    3. [done] Jefferson: Extend Player
+    2. [done] Jefferson: Extend Player
        class ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/75))
-    4. [done] Kris: Implement FortificationPhase class and
+    3. [done] Kris: Implement FortificationPhase class and
        GameMap ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/45))
-    5. [done] Nandan: Create AttackPhase
+    4. [done] Nandan: Create AttackPhase
        class ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/59))
-    6. [done] Brock: Add Pitest plugin for mutation
+    5. [done] Brock: Add Pitest plugin for mutation
        testing ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/73))
 2. [done] All: Review instructor code review and add new
    tasks ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/77))
@@ -134,31 +134,31 @@
    package-private ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/77))
 4. [done] Nandan: Implement
    CardTradeValidator ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/82))
-5. [in progress] Kris: Review SpotBugs
+5. [done] Kris: Review SpotBugs
    PR ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/80))
-6. [in progress] Kris: Review extension to Game
+6. [done] Kris: Review extension to Game
    class ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/84))
 7. [done, waiting for re-review] Brock: Review TradeBonus and
    CardTradePhase ([GitHub PR](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/pull/85))
-8. [in progress] Jefferson: Implement
+8. [done] Jefferson: Implement
    GameLoop ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/64))
-9. [not started] Brock: Update ReinforcementPhase: accept troopsToPlace externally, remove
+9. [done] Brock: Update ReinforcementPhase: accept troopsToPlace externally, remove
    calculateTroops ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/72))
-10. [not started] Jefferson: Extend Game class: GameState enum, winner field, advanceToNextPlayer,
+10. [done] Jefferson: Extend Game class: GameState enum, winner field, advanceToNextPlayer,
     drawCard ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/70))
-11. [not started] Kris: Implement ConnectivityGraph and update
+11. [done] Kris: Implement ConnectivityGraph and update
     FortificationPhase ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/69))
-12. [not started] Kris: Implement
+12. [done] Kris: Implement
     GameSetup ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/68))
 13. [done] Brock: Implement
     DeckManager ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/67))
-14. [not started] Kris/Jefferson: Fix SpotBugs
+14. [done] Kris/Jefferson: Fix SpotBugs
     issues ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/86))
 15. [done] Brock: Implement integration
     test #1 ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/96))
-16. [not started] Nandan: Implement integration
+16. [done] Nandan: Implement integration
     test #2 ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/97))
-17. [not started] All: Confirm project requirements and
+17. [done] All: Confirm project requirements and
     functionality ([GitHub Task](https://github.com/nu-cs-sqe/course-project-20252603-team-11-20252603/issues/87))
 
 # Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
@@ -166,5 +166,5 @@
 **Planning and Progress Tracking**:
 
 1. [done] Person: Task (Links to PR)
-2. [not started] Person: Task (Links to PR)
+2. [done] Person: Task (Links to PR)
 3. [80% done] Person: Task (Links to PR)

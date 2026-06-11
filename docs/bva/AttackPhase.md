@@ -184,9 +184,9 @@ awardCardIfEarned; BVA tests verify the observable effects through that delegati
 
 ### Method under test: `boolean isEnded()`
 
-- **TC28: before endPhase() called** ( )
+- **TC28: before endPhase() called** ( :white_check_mark: )
   - **State of the system**: AttackPhase just constructed or battles resolved but endPhase not called
   - **Expected output**: isEnded() == false
-- **TC29: after endPhase() called** ( )
+- **TC29: after endPhase() called** ( :white_check_mark: )
   - **State of the system**: endPhase() has been invoked
   - **Expected output**: isEnded() == true

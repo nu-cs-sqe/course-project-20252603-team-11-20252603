@@ -123,42 +123,42 @@
   - **Expected output**: 35 (floor(42/3) = 14 + 21 continent bonus)
 
 ### Method under test: `int getCardCount()`
-- **TC37: empty hand** ( )
+- **TC37: empty hand** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: 0
-- **TC38: hand with cards** ( )
+- **TC38: hand with cards** ( :white_check_mark: )
   - **State of the system**: Player.cards has 2 cards
   - **Expected output**: 2
 
 ### Method under test: `void setEliminated(boolean eliminated)`
-- **TC39: set eliminated to true** ( )
+- **TC39: set eliminated to true** ( :white_check_mark: )
   - **State of the system**: Player just constructed (isEliminated defaults false)
   - **Expected output**: isEliminated() == true after setEliminated(true)
 
 ### Method under test: `void inheritCardsFrom(Player eliminated)`
-- **TC40: null eliminated player** ( )
+- **TC40: null eliminated player** ( :white_check_mark: )
   - **State of the system**: any
   - **Expected output**: IllegalArgumentException thrown
-- **TC41: valid eliminated player with cards** ( )
+- **TC41: valid eliminated player with cards** ( :white_check_mark: )
   - **State of the system**: eliminated player holds 2 cards; receiver has empty hand
   - **Expected output**: receiver.getCardCount() == 2; cards match eliminated player's hand
 
 ### Method under test: `void placeTroops(Territory territory, int amount)`
-- **TC42: null territory** ( )
+- **TC42: null territory** ( :white_check_mark: )
   - **State of the system**: Player created
   - **Expected output**: IllegalArgumentException thrown
-- **TC43: territory not owned by player** ( )
+- **TC43: territory not owned by player** ( :white_check_mark: )
   - **State of the system**: territory not in Player.territories
   - **Expected output**: IllegalArgumentException thrown
-- **TC44: amount = 0 (below lower bound)** ( )
+- **TC44: amount = 0 (below lower bound)** ( :white_check_mark: )
   - **State of the system**: player owns territory; availableTroops > 0
   - **Expected output**: IllegalArgumentException thrown
-- **TC45: amount > availableTroops** ( )
+- **TC45: amount > availableTroops** ( :white_check_mark: )
   - **State of the system**: player owns territory; availableTroops = 2; amount = 3
   - **Expected output**: IllegalArgumentException thrown
-- **TC46: valid placement** ( )
+- **TC46: valid placement** ( :white_check_mark: )
   - **State of the system**: player owns territory; availableTroops = 5; amount = 3
   - **Expected output**: territory troop count increases by 3; availableTroops == 2
-- **TC47: amount equals availableTroops (upper boundary)** ( )
+- **TC47: amount equals availableTroops (upper boundary)** ( :white_check_mark: )
   - **State of the system**: player owns territory; availableTroops = 5; amount = 5
   - **Expected output**: placement succeeds; availableTroops == 0

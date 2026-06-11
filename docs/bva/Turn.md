@@ -125,6 +125,6 @@
     - **Expected output**: returns a freshly constructed FortificationPhase instance
 
 ### Method under test: `Optional<Player> getEliminatedDefender()`
-- **TC33: default before any elimination** ( )
+- **TC33: default before any elimination** ( :white_check_mark: )
     - **State of the system**: Turn just constructed
     - **Expected output**: getEliminatedDefender().isEmpty() == true

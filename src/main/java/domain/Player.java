@@ -84,6 +84,7 @@ public class Player {
     if (card == null) {
       throw new IllegalArgumentException("Card cannot be null.");
     }
+    cards.remove(card);
   }
 
   public void inheritCardsFrom(Player eliminated) {

@@ -81,4 +81,10 @@ public class RiskCardTests {
     RiskCard card = new RiskCard(RiskCardType.INFANTRY, t);
     assertEquals("INFANTRY", card.toString());
   }
+
+  @Test
+  public void toString_wildcardCard_returnsTypeName() {
+    RiskCard card = new RiskCard(RiskCardType.WILDCARD, null);
+    assertEquals("WILDCARD", card.toString());
+  }
 }

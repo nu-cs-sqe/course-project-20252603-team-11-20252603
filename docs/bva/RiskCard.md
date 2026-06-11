@@ -40,6 +40,6 @@ Getter
 - **TC8: non-wildcard card** ( :white_check_mark: )
   - **State of the system**: RiskCard constructed with RiskCardType.INFANTRY
   - **Expected output**: toString() returns "INFANTRY"
-- **TC9: wildcard card** ( :x: )
+- **TC9: wildcard card** ( :white_check_mark: )
   - **State of the system**: RiskCard constructed with RiskCardType.WILDCARD and null territory
   - **Expected output**: toString() returns "WILDCARD"

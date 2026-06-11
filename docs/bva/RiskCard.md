@@ -35,3 +35,11 @@
 ### Method under test: `Territory getTerritory()`
 
 Getter
+
+### Method under test: `String toString()`
+- **TC8: non-wildcard card** ( :x: )
+  - **State of the system**: RiskCard constructed with RiskCardType.INFANTRY
+  - **Expected output**: toString() returns "INFANTRY"
+- **TC9: wildcard card** ( :x: )
+  - **State of the system**: RiskCard constructed with RiskCardType.WILDCARD and null territory
+  - **Expected output**: toString() returns "WILDCARD"

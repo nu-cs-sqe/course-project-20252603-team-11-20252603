@@ -25,7 +25,6 @@ public final class TerritoryNode extends Group {
   private static final Color OWNER_FILL = Color.WHITE;
 
   private final Territory territory;
-  private final Color baseColor;
   private final String msgKey;
   private final Polygon shape;
   private final Text troopLabel;
@@ -36,12 +35,12 @@ public final class TerritoryNode extends Group {
 
   @SuppressFBWarnings(
       value = "EI_EXPOSE_REP2",
-      justification = "Territory is the shared aggregate domain object; TerritoryNode needs the "
-          + "live reference to read troop count and owner for display refresh.")
+      justification =
+          "Territory is the shared aggregate domain object; TerritoryNode needs the "
+              + "live reference to read troop count and owner for display refresh.")
   public TerritoryNode(
       Territory territory, Color baseColor, double cx, double cy, double radius, String msgKey) {
     this.territory = territory;
-    this.baseColor = baseColor;
     this.msgKey = msgKey;
 
     this.shape = buildHexagon(cx, cy, radius);
@@ -57,10 +56,10 @@ public final class TerritoryNode extends Group {
     shape.setOnMouseExited(e -> shape.setFill(baseColor));
     shape.setOnMouseClicked(e -> clickHandler.run());
 
-    this.troopLabel = new Text(cx + LABEL_DX, cy + LABEL_DY,
-        String.valueOf(territory.getTroopCount()));
-    this.ownerMarker = buildOwnerMarker(
-        cx + radius * OWNER_OFFSET, cy - radius * OWNER_OFFSET, territory);
+    this.troopLabel =
+        new Text(cx + LABEL_DX, cy + LABEL_DY, String.valueOf(territory.getTroopCount()));
+    this.ownerMarker =
+        buildOwnerMarker(cx + radius * OWNER_OFFSET, cy - radius * OWNER_OFFSET, territory);
 
     getChildren().addAll(shape, troopLabel, ownerMarker);
   }

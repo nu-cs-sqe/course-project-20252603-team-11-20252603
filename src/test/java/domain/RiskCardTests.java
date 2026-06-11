@@ -73,4 +73,12 @@ public class RiskCardTests {
 
     assertEquals(RiskCardType.WILDCARD, card.getType());
   }
+
+  @Test
+  public void toString_infantryCard_returnsTypeName() {
+    Player p = EasyMock.createMock(Player.class);
+    Territory t = new Territory("Alaska", p, 1);
+    RiskCard card = new RiskCard(RiskCardType.INFANTRY, t);
+    assertEquals("INFANTRY", card.toString());
+  }
 }

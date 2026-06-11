@@ -37,7 +37,7 @@
 Getter
 
 ### Method under test: `String toString()`
-- **TC8: non-wildcard card** ( :x: )
+- **TC8: non-wildcard card** ( :white_check_mark: )
   - **State of the system**: RiskCard constructed with RiskCardType.INFANTRY
   - **Expected output**: toString() returns "INFANTRY"
 - **TC9: wildcard card** ( :x: )

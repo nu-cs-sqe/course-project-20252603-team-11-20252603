@@ -80,6 +80,12 @@ public class Player {
     cards.add(card);
   }
 
+  public void removeCard(RiskCard card) {
+    if (card == null) {
+      throw new IllegalArgumentException("Card cannot be null.");
+    }
+  }
+
   public void inheritCardsFrom(Player eliminated) {
     if (eliminated == null) {
       throw new IllegalArgumentException("Eliminated player cannot be null.");

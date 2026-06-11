@@ -414,6 +414,12 @@ public class PlayerTests {
     EasyMock.verify(territory);
   }
 
+  @Test
+  public void removeCard_nullCard_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    assertThrows(IllegalArgumentException.class, () -> player.removeCard(null));
+  }
+
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

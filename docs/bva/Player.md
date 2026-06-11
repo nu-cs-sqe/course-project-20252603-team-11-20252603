@@ -164,7 +164,7 @@
   - **Expected output**: placement succeeds; availableTroops == 0
 
 ### Method under test: `void removeCard(RiskCard card)`
-- **TC48: null card** ( )
+- **TC48: null card** ( :white_check_mark: )
   - **State of the system**: Player created
   - **Expected output**: IllegalArgumentException thrown
 - **TC49: card not present, hand is empty** ( )

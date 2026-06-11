@@ -176,7 +176,7 @@
 - **TC51: card is the only card in the hand** ( :white_check_mark: )
   - **State of the system**: Player.cards has exactly [C1]
   - **Expected output**: Player.cards.size() == 0
-- **TC52: card is one of several in the hand** ( )
+- **TC52: card is one of several in the hand** ( :white_check_mark: )
   - **State of the system**: Player.cards has [C1, C2]; remove C1
   - **Expected output**: Player.cards.size() == 1; C2 remains; C1 is gone
 - **TC53: hand contains two references to the same card object** ( )

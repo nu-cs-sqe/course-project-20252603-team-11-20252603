@@ -415,6 +415,21 @@ public class PlayerTests {
   }
 
   @Test
+  public void removeCard_oneOfManyCards_shrinksAndRemovesTarget() {
+    Player player = new Player("Alice");
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card1, card2);
+    player.addCard(card1);
+    player.addCard(card2);
+    player.removeCard(card1);
+    assertEquals(1, player.getCardCount());
+    assertFalse(player.getCards().contains(card1));
+    assertTrue(player.getCards().contains(card2));
+    EasyMock.verify(card1, card2);
+  }
+
+  @Test
   public void removeCard_onlyCardInHand_handBecomesEmpty() {
     Player player = new Player("Alice");
     RiskCard card = EasyMock.createMock(RiskCard.class);

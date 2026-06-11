@@ -91,7 +91,7 @@ public class GameMap {
         }
       }
     }
-    return new ArrayList<>();
+    return Collections.emptyList();
   }
 
   public boolean areAdjacent(Territory a, Territory b) {

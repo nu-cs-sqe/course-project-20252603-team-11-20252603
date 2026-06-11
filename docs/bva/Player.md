@@ -179,6 +179,6 @@
 - **TC52: card is one of several in the hand** ( :white_check_mark: )
   - **State of the system**: Player.cards has [C1, C2]; remove C1
   - **Expected output**: Player.cards.size() == 1; C2 remains; C1 is gone
-- **TC53: hand contains two references to the same card object** ( )
+- **TC53: hand contains two references to the same card object** ( :white_check_mark: )
   - **State of the system**: Player.cards has [C1, C1] (same reference added twice)
   - **Expected output**: Player.cards.size() == 1; one copy of C1 remains

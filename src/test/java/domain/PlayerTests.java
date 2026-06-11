@@ -415,6 +415,18 @@ public class PlayerTests {
   }
 
   @Test
+  public void removeCard_duplicateCardReference_firstOccurrenceRemoved() {
+    Player player = new Player("Alice");
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card);
+    player.addCard(card);
+    player.addCard(card);
+    player.removeCard(card);
+    assertEquals(1, player.getCardCount());
+    EasyMock.verify(card);
+  }
+
+  @Test
   public void removeCard_oneOfManyCards_shrinksAndRemovesTarget() {
     Player player = new Player("Alice");
     RiskCard card1 = EasyMock.createMock(RiskCard.class);

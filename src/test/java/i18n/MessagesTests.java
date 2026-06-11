@@ -13,8 +13,6 @@ public class MessagesTests {
 
   private static final Locale SPANISH = new Locale("es");
 
-  // Messages.bundle is static; reset to English after each test so the global
-  // locale never leaks into another test's expectations.
   @AfterEach
   public void resetLocale() {
     Messages.setLocale(Locale.ENGLISH);

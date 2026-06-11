@@ -414,6 +414,72 @@ public class PlayerTests {
     EasyMock.verify(territory);
   }
 
+  @Test
+  public void removeCard_duplicateCardReference_firstOccurrenceRemoved() {
+    Player player = new Player("Alice");
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card);
+    player.addCard(card);
+    player.addCard(card);
+    player.removeCard(card);
+    assertEquals(1, player.getCardCount());
+    EasyMock.verify(card);
+  }
+
+  @Test
+  public void removeCard_oneOfManyCards_shrinksAndRemovesTarget() {
+    Player player = new Player("Alice");
+    RiskCard card1 = EasyMock.createMock(RiskCard.class);
+    RiskCard card2 = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card1, card2);
+    player.addCard(card1);
+    player.addCard(card2);
+    player.removeCard(card1);
+    assertEquals(1, player.getCardCount());
+    assertFalse(player.getCards().contains(card1));
+    assertTrue(player.getCards().contains(card2));
+    EasyMock.verify(card1, card2);
+  }
+
+  @Test
+  public void removeCard_onlyCardInHand_handBecomesEmpty() {
+    Player player = new Player("Alice");
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card);
+    player.addCard(card);
+    player.removeCard(card);
+    assertEquals(0, player.getCardCount());
+    EasyMock.verify(card);
+  }
+
+  @Test
+  public void removeCard_cardAbsentNonEmptyHand_sizeUnchanged() {
+    Player player = new Player("Alice");
+    RiskCard present = EasyMock.createMock(RiskCard.class);
+    RiskCard absent = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(present, absent);
+    player.addCard(present);
+    player.removeCard(absent);
+    assertEquals(1, player.getCardCount());
+    EasyMock.verify(present, absent);
+  }
+
+  @Test
+  public void removeCard_emptyHand_noOpNoException() {
+    Player player = new Player("Alice");
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card);
+    assertDoesNotThrow(() -> player.removeCard(card));
+    assertEquals(0, player.getCardCount());
+    EasyMock.verify(card);
+  }
+
+  @Test
+  public void removeCard_nullCard_throwsIllegalArgumentException() {
+    Player player = new Player("Alice");
+    assertThrows(IllegalArgumentException.class, () -> player.removeCard(null));
+  }
+
   // calculateReinforcements tests
   @ParameterizedTest
   @CsvSource({"0,  3", "1,  3", "2,  3", "3,  3", "9,  3", "10, 3", "11, 3", "12, 4", "30, 10"})

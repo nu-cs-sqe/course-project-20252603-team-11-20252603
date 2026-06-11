@@ -4,6 +4,8 @@
 
 # Risk
 
+A digital implementation of the classic Risk board game set in the world of *Avatar: The Last Airbender*. The map replaces the standard world map with 42 territories across 5 factions: Moon Tribe, Ba Sing Se Kingdom, Fire Nation, Omashu Kingdom, and Ocean Tribe.
+
 ## Contributors
 
 - Jefferson Wu
@@ -11,12 +13,66 @@
 - Nandan Dhanesh
 - Brock Brown
 
+## Architecture
+
+The project is organized into three packages:
+
+| Package | Responsibility |
+|---|---|
+| `domain` | Core game logic — `Game`, `GameLoop`, `Player`, `Territory`, `GameMap`, `AtlaMapData`, and all phase classes (`SetupPhase`, `ReinforcementPhase`, `AttackPhase`, `FortificationPhase`, `CardTradePhase`). No dependency on `ui` or `i18n`. |
+| `i18n` | Internationalization facade (`Messages`) backed by Java `ResourceBundle`. Supports runtime locale switching (ships English and Spanish). |
+| `ui` | JavaFX front end — `Main`, `MapView`, `GameController`, `SidebarPanel`, `TerritoryNode`. Depends on `domain` and `i18n`; never imported by them. |
+
+## Test-Driven Development
+
+All `domain` classes were developed following strict **TDD**: BVA test cases were written and documented in `docs/bva/` before any production code for those classes. Unit tests use **JUnit 5** with **EasyMock** for collaborator isolation. Integration tests (`F6Tests`, `F7Tests`) wire real collaborators together with no mocks, covering the Attack and Fortify features end-to-end.
+
+**Note on internationalization (`i18n`):** The `Messages` class and its tests in `i18n/MessagesTests` were not developed under TDD. Internationalization was added through the UI layer, and we realized retrospectively that the course directions did not say to exclude i18n from testing. Tests were therefore added after the fact to achieve full non-GUI coverage. The BVA analysis for `Messages` is in `docs/bva/Messages.md`.
+
 ## Dependencies
 
-- JDK 11
-- JUnit 5.10
-- Gradle 8.10
+| Dependency | Version |
+|---|---|
+| JDK | 11 |
+| JavaFX | 17.0.6 |
+| JUnit 5 | 5.10.0 |
+| EasyMock | 5.4.0 |
+| Gradle | 8.10 |
+| Checkstyle | 10.21.4 |
+| JaCoCo | 0.8.12 |
+| PIT (mutation testing) | 1.15.0 |
+| SpotBugs | 4.8.6 |
+
+## Building and Running
+
+```bash
+# Run all tests
+./gradlew test
+
+# Launch the application
+./gradlew run
+
+# Generate JaCoCo coverage report  →  build/reports/jacoco/
+./gradlew jacocoTestReport
+
+# Run mutation testing  →  build/reports/pitest/
+./gradlew pitest
+
+# Run Checkstyle and SpotBugs static analysis
+./gradlew check
+```
+
+## Documentation
+
+| Document | Description |
+|---|---|
+| `docs/requirements/game-rules.md` | Human-readable game rules |
+| `docs/requirements/features.md` | Integration test index (F1–F10) |
+| `docs/design/README.md` | System design: use cases, class design, and architecture decisions |
+| `docs/bva/` | Boundary value analysis for every domain class |
+| `docs/weekly-reports/` | Weekly progress reports and instructor feedback |
 
 ## Acknowledgements
 
-REFERENCES, SOURCE OF HELP ETC
+- Game rules adapted from [Dice Breaker — How to Play Risk](https://www.dicebreaker.com/games/risk/how-to/how-to-play-risk-board-game)
+- Map and territory names themed around *Avatar: The Last Airbender*

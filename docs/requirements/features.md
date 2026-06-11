@@ -25,12 +25,12 @@ covered.
 | F6  | Attack enemy territories with dice mechanics | `AttackPhase`, `DiceRoller`, `BattleResult`, `Territory`, `Player`, `GameMap`, `Game`, `DeckManager` | ✅ `F6Tests.java` |
 | F7  | Fortify: move armies between owned territories | `FortificationPhase`, `GameMap`, `Player`, `Territory`, `ConnectivityGraph` | ✅ `F7Tests.java` |
 | F8  | Earn a card for a successful attack (one per turn) | `AttackPhase`, `Game`, `DeckManager`, `RiskCard`, `Player` | partially via F6 |
-| F9  | Trade cards for reinforcements | `CardTradePhase`, `CardTradeValidator`, `Player`, `RiskCard` | — (impl in progress) |
+| F9  | Trade cards for reinforcements | `CardTradePhase`, `CardTradeValidator`, `Player`, `RiskCard` | unit-tested (`CardTradePhaseTests`, `CardTradeValidatorTests`) |
 | F10 | Detect win (capture all territories / eliminate all players) | `GameLoop`, `Game`, `Player` | — |
 
 ## Status
 
-The A-level "integration testing on ≥ 2 main features" bar is met by **F6** and **F7**.
+All features F1–F10 are fully implemented. The A-level "integration testing on ≥ 2 main features" bar is met by **F6** and **F7**. All remaining features have dedicated unit test classes in `src/test/java/domain/`.
 
 - **F6 (Attack)** — covered by `src/test/java/domain/F6Tests.java`. Exercises the full attack
   thread end to end: adjacency validation through `GameMap`, dice resolution through the real

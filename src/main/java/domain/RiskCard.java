@@ -35,4 +35,9 @@ public class RiskCard {
   public Territory getTerritory() {
     return this.territory;
   }
+
+  @Override
+  public String toString() {
+    return riskCardType.name();
+  }
 }

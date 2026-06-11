@@ -1,13 +1,17 @@
 package ui;
 
 import domain.AttackPhase;
+import domain.CardTradePhase;
+import domain.CardTradeValidator;
 import domain.FortificationPhase;
 import domain.Game;
 import domain.GameMap;
 import domain.GameState;
 import domain.Player;
 import domain.ReinforcementPhase;
+import domain.RiskCard;
 import domain.Territory;
+import domain.TradeBonus;
 import domain.Turn;
 import domain.TurnPhase;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -22,7 +26,11 @@ import javafx.scene.control.TextInputDialog;
 
 public final class GameController {
 
+  private static final int INITIAL_TRADE_BONUS = 4;
+  private static final int TRADE_BONUS_INCREMENT = 2;
+
   private final Game game;
+  private final TradeBonus tradeBonus;
   private Turn currentTurn;
   private Territory selectedTerritory;
   private Runnable onStateChanged;
@@ -35,6 +43,7 @@ public final class GameController {
       throw new IllegalArgumentException("game cannot be null");
     }
     this.game = game;
+    this.tradeBonus = new TradeBonus(INITIAL_TRADE_BONUS, TRADE_BONUS_INCREMENT);
     autoPlaceStartingTroops();
     startNextTurn();
   }
@@ -166,7 +175,9 @@ public final class GameController {
 
   private void startNextTurn() {
     Player currentPlayer = game.getCurrentActivePlayer();
-    // TODO: drive pre-turn trading via UI when player has >= PRE_TURN_THRESHOLD cards
+    if (currentPlayer.getCards().size() >= CardTradePhase.PRE_TURN_THRESHOLD) {
+      runMandatoryCardTradeLoop(currentPlayer);
+    }
     currentTurn = new Turn(currentPlayer, game, game.getRandom());
     currentTurn.startTurn();
     selectedTerritory = null;
@@ -177,7 +188,10 @@ public final class GameController {
     currentTurn.endTurn();
     currentTurn.getEliminatedDefender().ifPresent(defender -> {
       currentTurn.getCurrentPlayer().inheritCardsFrom(defender);
-      // TODO: drive post-elimination trading via UI when >= POST_ELIMINATION_THRESHOLD
+      if (currentTurn.getCurrentPlayer().getCards().size()
+          >= CardTradePhase.POST_ELIMINATION_THRESHOLD) {
+        runMandatoryCardTradeLoop(currentTurn.getCurrentPlayer());
+      }
     });
     if (!checkAndHandleWinCondition()) {
       startNextTurn();
@@ -382,6 +396,52 @@ public final class GameController {
     } catch (NumberFormatException e) {
       return Optional.of(min);
     }
+  }
+
+  private void runMandatoryCardTradeLoop(Player player) {
+    CardTradePhase phase = new CardTradePhase(
+        player, tradeBonus, true, new CardTradeValidator());
+    while (!phase.isComplete()) {
+      List<RiskCard> picks = pickTradeCards(player);
+      if (!phase.validateSet(picks)) {
+        showTradeInvalidAlert();
+        continue;
+      }
+      for (RiskCard card : picks) {
+        player.removeCard(card);
+      }
+      phase.run();
+      phase = new CardTradePhase(player, tradeBonus, true, new CardTradeValidator());
+    }
+  }
+
+  private List<RiskCard> pickTradeCards(Player player) {
+    List<RiskCard> picks = new ArrayList<>();
+    List<RiskCard> remaining = new ArrayList<>(player.getCards());
+    for (int pick = 0; pick < 3; pick++) {
+      picks.add(showCardPickDialog(remaining));
+      remaining.remove(picks.get(pick));
+    }
+    return picks;
+  }
+
+  private RiskCard showCardPickDialog(List<RiskCard> choices) {
+    RiskCard result = null;
+    while (result == null) {
+      ChoiceDialog<RiskCard> dialog = new ChoiceDialog<>(choices.get(0), choices);
+      dialog.setTitle(Messages.get("ui.dialog.cardTrade.title"));
+      dialog.setHeaderText(Messages.get("ui.dialog.cardTrade.header"));
+      result = dialog.showAndWait().orElse(null);
+    }
+    return result;
+  }
+
+  private void showTradeInvalidAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle(Messages.get("ui.dialog.cardTrade.title"));
+    alert.setHeaderText(null);
+    alert.setContentText(Messages.get("ui.dialog.cardTrade.invalid"));
+    alert.showAndWait();
   }
 
   private void showError(String message) {

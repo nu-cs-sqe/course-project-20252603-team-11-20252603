@@ -162,3 +162,23 @@
 - **TC47: amount equals availableTroops (upper boundary)** ( :white_check_mark: )
   - **State of the system**: player owns territory; availableTroops = 5; amount = 5
   - **Expected output**: placement succeeds; availableTroops == 0
+
+### Method under test: `void removeCard(RiskCard card)`
+- **TC48: null card** ( :white_check_mark: )
+  - **State of the system**: Player created
+  - **Expected output**: IllegalArgumentException thrown
+- **TC49: card not present, hand is empty** ( :white_check_mark: )
+  - **State of the system**: Player.cards is empty
+  - **Expected output**: no-op; no exception; Player.cards.size() == 0
+- **TC50: card not present, hand is non-empty** ( :white_check_mark: )
+  - **State of the system**: Player.cards has 1 card; the card to remove is not in it
+  - **Expected output**: no-op; no exception; Player.cards.size() unchanged
+- **TC51: card is the only card in the hand** ( :white_check_mark: )
+  - **State of the system**: Player.cards has exactly [C1]
+  - **Expected output**: Player.cards.size() == 0
+- **TC52: card is one of several in the hand** ( :white_check_mark: )
+  - **State of the system**: Player.cards has [C1, C2]; remove C1
+  - **Expected output**: Player.cards.size() == 1; C2 remains; C1 is gone
+- **TC53: hand contains two references to the same card object** ( :white_check_mark: )
+  - **State of the system**: Player.cards has [C1, C1] (same reference added twice)
+  - **Expected output**: Player.cards.size() == 1; one copy of C1 remains

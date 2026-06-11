@@ -7,8 +7,8 @@ of the game is to conquer every territory on the board and eliminate all opponen
 
 ## The "Board"
 
-The board (GUI) will display a map of Northwestern University divded into ? territories and
-? continents. Each territory shows:
+The board (GUI) will display a map themed around *Avatar: The Last Airbender*, divided into
+42 territories and 5 factions (continents). Each territory shows:
 
 - The territory name
 - The number of armies currently stationed there
@@ -52,8 +52,8 @@ attack.
 
 ### 3. Fortify *(optional)*
 
-Click one of your territories, then click an adjacent territory you own to move armies between them.
-You may only fortify once per turn. When you're done, click End Turn.
+Click one of your territories, then click a territory you own that is connected through a chain
+of your own territories. You may only fortify once per turn. When you're done, click End Turn.
 
 ## Risk Cards
 

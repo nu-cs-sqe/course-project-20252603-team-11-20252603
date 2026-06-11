@@ -415,6 +415,16 @@ public class PlayerTests {
   }
 
   @Test
+  public void removeCard_emptyHand_noOpNoException() {
+    Player player = new Player("Alice");
+    RiskCard card = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(card);
+    assertDoesNotThrow(() -> player.removeCard(card));
+    assertEquals(0, player.getCardCount());
+    EasyMock.verify(card);
+  }
+
+  @Test
   public void removeCard_nullCard_throwsIllegalArgumentException() {
     Player player = new Player("Alice");
     assertThrows(IllegalArgumentException.class, () -> player.removeCard(null));

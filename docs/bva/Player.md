@@ -167,7 +167,7 @@
 - **TC48: null card** ( :white_check_mark: )
   - **State of the system**: Player created
   - **Expected output**: IllegalArgumentException thrown
-- **TC49: card not present, hand is empty** ( )
+- **TC49: card not present, hand is empty** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: no-op; no exception; Player.cards.size() == 0
 - **TC50: card not present, hand is non-empty** ( )

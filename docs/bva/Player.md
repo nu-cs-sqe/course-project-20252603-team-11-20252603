@@ -170,7 +170,7 @@
 - **TC49: card not present, hand is empty** ( :white_check_mark: )
   - **State of the system**: Player.cards is empty
   - **Expected output**: no-op; no exception; Player.cards.size() == 0
-- **TC50: card not present, hand is non-empty** ( )
+- **TC50: card not present, hand is non-empty** ( :white_check_mark: )
   - **State of the system**: Player.cards has 1 card; the card to remove is not in it
   - **Expected output**: no-op; no exception; Player.cards.size() unchanged
 - **TC51: card is the only card in the hand** ( )

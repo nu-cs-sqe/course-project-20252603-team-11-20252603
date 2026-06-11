@@ -415,6 +415,18 @@ public class PlayerTests {
   }
 
   @Test
+  public void removeCard_cardAbsentNonEmptyHand_sizeUnchanged() {
+    Player player = new Player("Alice");
+    RiskCard present = EasyMock.createMock(RiskCard.class);
+    RiskCard absent = EasyMock.createMock(RiskCard.class);
+    EasyMock.replay(present, absent);
+    player.addCard(present);
+    player.removeCard(absent);
+    assertEquals(1, player.getCardCount());
+    EasyMock.verify(present, absent);
+  }
+
+  @Test
   public void removeCard_emptyHand_noOpNoException() {
     Player player = new Player("Alice");
     RiskCard card = EasyMock.createMock(RiskCard.class);
